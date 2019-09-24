@@ -72,8 +72,9 @@ List<Widget> _listItems(List<dynamic> data, BuildContext context) {
       accountName: new Text("PABLO LOJA"),
       accountEmail: new Text("arevalopablo96@gmail.com"),
       decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/menu-img.jpg'), fit: BoxFit.cover)),
+         image: DecorationImage(
+              image: AssetImage('assets/menu-img.jpg'), fit: BoxFit.cover)
+              ),
 
       currentAccountPicture: new CircleAvatar(
         //Se puede cargar una imagen circular
