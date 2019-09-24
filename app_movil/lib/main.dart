@@ -113,7 +113,27 @@ class Login extends StatelessWidget {
       ],
     );
   }
-
+Widget _crearCedula(LoginBloc bloc) {
+    return StreamBuilder(
+      stream: bloc.cedulaStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          child: TextField(
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+                border: UnderlineInputBorder(),
+                icon: Icon(Icons.vpn_lock, color: Colors.cyan),
+                hintText: "Cédula de identidad",
+                labelText: "Cédula de identidad",
+                counterText: snapshot.data,
+                errorText: snapshot.error),
+            onChanged: bloc.changeCedula,
+          ),
+        );
+      },
+    );
+  }
   Widget _loginForm(BuildContext context) {
     final bloc = Provider.of(context);
     final size = MediaQuery.of(context).size;
@@ -149,7 +169,7 @@ class Login extends StatelessWidget {
                 SizedBox(
                   height: 60.0,
                 ),
-                _crearEmail(bloc),
+                _crearCedula(bloc),
                 SizedBox(
                   height: 30.0,
                 ),

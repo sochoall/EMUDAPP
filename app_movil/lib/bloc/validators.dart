@@ -13,7 +13,14 @@ class Validators {
       sink.addError("Email incorrecto.");
     }
   });
-
+final validarCedula = StreamTransformer<String, String>.fromHandlers(
+      handleData: (cedula, sink) {
+    if (cedula.length == 10) {
+      sink.add(cedula);
+    } else {
+      sink.addError("El número de cédula debe contener 10 caracteres.");
+    }
+  });
   final validarPassword = StreamTransformer<String, String>.fromHandlers(
       handleData: (password, sink) {
     if (password.length >= 6) {
