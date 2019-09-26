@@ -16,7 +16,7 @@ class Institucion extends Serializable
  
   Future<List> obtenerDatos() async {
     final conexion = Conexion();
-    const String sql = "select * from public.te_institucion where ins_estado=1";
+    const String sql = "select * from public.te_institucion where ins_estado=0";
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 
