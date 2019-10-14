@@ -1,10 +1,51 @@
+import 'dart:async';
+import 'dart:convert';
 import 'package:latlong/latlong.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter_map/flutter_map.dart';
-//import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
-class MyApp extends StatelessWidget
+Future<List<Post>> fetchPost() async
+{
+  var response = await http.get("http://10.10.12.51:8888/parada/1");
+
+  if(response.statusCode == 200)
+  {
+    final jsonresponse = json.decode(response.body).cast<Map<String, dynamic>>();
+    List<Post> listOfCoords = jsonresponse.map<Post>((json)
+    {
+      return Post.fromJson(json);
+    }).toList();
+
+    return listOfCoords;
+  }  
+  else
+    throw Exception('Failed to get items');
+}
+
+class Post
+{
+  String latitud;
+  String longitud;
+
+  Post(
+    {
+      this.latitud,
+      this.longitud,
+    }
+  );
+
+  factory Post.fromJson(Map<String, dynamic> json)
+  {
+    return Post(
+      latitud: json['latitud'],
+      longitud: json['longitud'],
+    );
+  }
+}
+
+class MapPage extends StatelessWidget 
 {
   @override
   Widget build(BuildContext context) 
@@ -14,64 +55,53 @@ class MyApp extends StatelessWidget
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new MapPage(title: 'Fultter Geolocation Map'),
+      home: new MyHomePage(title: 'Fultter Geolocation'),
     );
   }
 }
 
-class MapPage extends StatefulWidget 
+class MyHomePage extends StatefulWidget 
 {
-  MapPage({Key key, this.title}): super(key: key);
+  MyHomePage({this.title});
   final String title;
 
   @override
-  MapPageState createState() => new MapPageState();
+  _MyHomePageState createState() => new _MyHomePageState();
 }
 
-class MapPageState extends State<MapPage> 
+class _MyHomePageState extends State<MyHomePage> 
 {
-  Position userLocation, center;
+  Future<Post> post;
+  Position userLocation;
+  List<LatLng> points = [];
   Geolocator geolocator = Geolocator();
-  List<LatLng> tappedPoints = [];
-  
+
   @override
   Widget build(BuildContext context) 
   {
-    getCoords();
+    getUserCoords();
     return new Scaffold(
+      appBar: new AppBar(title: new Text('Leaflet Maps')),
       body: userLocation == null ? 
-      Center( 
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center, 
-          children: <Widget>[
-            CircularProgressIndicator()
-          ],
-        )
+      Center(
+        child: CircularProgressIndicator()
       )
       :
-      buildMap(),
-      /*floatingActionButton: SpeedDial(
-        animatedIcon: AnimatedIcons.menu_close,
-        overlayOpacity: 0.5,
-        children: [
-          SpeedDialChild(
-            child: Icon(Icons.navigation),
-            label: 'Ubicacion',
-            onTap: ()
+      Center(
+        child: FutureBuilder<List<Post>>(
+          future: fetchPost(),
+          builder: (context, snapshot)
+          {
+            if(snapshot.hasData)
             {
-              center = userLocation;
+              snapshot.data.map((post) => buildStopMarkers(post.latitud, post.longitud)).toList();
             }
-          ),
-          SpeedDialChild(
-            child: Icon(Icons.add),
-            label: 'Agregar Marcador',
-            onTap: () 
-            {
-              
-            }
-          )
-        ],
-      )*/
+            else if (snapshot.hasError)
+              return Text("No hay paradas cargadas");
+            return buildMap();
+          }
+        )
+      )
     );
   }
   
@@ -85,7 +115,7 @@ class MapPageState extends State<MapPage>
     return positionStream;
   }
 
-  getCoords()
+  getUserCoords()
   {
     _getCurrentPosition().listen((value)
     {
@@ -99,7 +129,7 @@ class MapPageState extends State<MapPage>
 
   buildMap()
   {
-    var markers = tappedPoints.map((latlng)
+    var stopMarkers = points.map((latlng)
     {
       return Marker(
         width: 45.0,
@@ -109,51 +139,22 @@ class MapPageState extends State<MapPage>
           child: IconButton(
             icon: Icon(Icons.location_on),
             color: Colors.red,
-            iconSize: 60.0,
+            iconSize: 45.0,
             onPressed: ()
-            {
-              showModalBottomSheet(
-                context: context,
-                builder: (builder)
-                {
-                  return Scaffold(
-                    body: Container(
-                      color: Colors.white,
-                    ),
-                    /*floatingActionButton: SpeedDial(
-                      animatedIcon: AnimatedIcons.menu_close,
-                      overlayOpacity: 0.0,
-                      children: [
-                        SpeedDialChild(
-                          child: Icon(Icons.delete),
-                          label: 'Eliminar'
-                        ),
-                        SpeedDialChild(
-                          child: Icon(Icons.edit),
-                          label: 'Modificar',
-                        ),
-                        SpeedDialChild(
-                          child: Icon(Icons.add_circle),
-                          label: 'Agregar'
-                        )
-                      ],
-                    ),*/
-                  );
-                }
-              );
+            {              
             },
           ),
-        )
+        ),
+        anchorPos: AnchorPos.align(AnchorAlign.top),
       );
     }).toList();
 
     return FlutterMap(
       options: MapOptions(
-        center: center == null ? LatLng(-2.901866, -79.006055) : LatLng(center.latitude, center.longitude),
+        center: LatLng(-2.901866, -79.006055),
         maxZoom: 19.0, 
         minZoom: 12,
         zoom: 13,
-        onLongPress: _buildUserCustomMark
       ),
       layers: [
         TileLayerOptions(
@@ -161,7 +162,7 @@ class MapPageState extends State<MapPage>
           subdomains: ['a', 'b', 'c']
         ),
         buildUserMarkLocation(),
-        MarkerLayerOptions(markers: markers)
+        MarkerLayerOptions(markers: stopMarkers)
       ],
     );
   }
@@ -178,34 +179,19 @@ class MapPageState extends State<MapPage>
             icon: Icon(Icons.navigation
             ),
             color: Colors.lightBlue,
-            iconSize: 35.0,
+            iconSize: 35.0,           
             onPressed: ()
             {
-              showModalBottomSheet(
-                context: context,
-                builder: (builder)
-                {
-                  return Container(
-                    color: Colors.white,
-                    child: new Center(
-                      child: Text('Esta es su ubicacion'),
-                    ),
-                  );
-                }
-              );
-            },
+            }, 
           ),
         )
       )
     ]);
   }
 
-  _buildUserCustomMark(LatLng latlng)
+  buildStopMarkers(String latitud, String longitud)
   {
-    setState(() 
-    {
-      tappedPoints.add(latlng);
-      print(latlng);  
-    });
+    LatLng latlng = new LatLng(double.parse(latitud), double.parse(longitud));
+    points.add(latlng);
   }
 }
