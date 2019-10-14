@@ -10,9 +10,9 @@ class TipoVehiculo extends Serializable
   String nombre;
   int    estado;
  
-  Future<List> obtenerDatos() async {
+Future<List> obtenerDatos(String campo, String bus, int est) async {
     final conexion = Conexion();
-    const String sql = "select * from public.te_tipo_vehiculo where tve_estado=0";
+    final String sql = "select * from public.te_tipo_vehiculo where $campo::text LIKE '%$bus%' and tve_estado=$est";
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 

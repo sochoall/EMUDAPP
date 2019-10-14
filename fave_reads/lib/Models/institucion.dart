@@ -14,9 +14,9 @@ class Institucion extends Serializable
   int estado;
   int tipoInstitucionId;
  
-  Future<List> obtenerDatos() async {
+   Future<List> obtenerDatos(String campo ,String bus, int est) async {
     final conexion = Conexion();
-    const String sql = "select * from public.te_institucion where ins_estado=0";
+    final String sql = "select * from public.te_institucion where $campo::text LIKE '%$bus%' and ins_estado=$est order by ins_id DESC";
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 
@@ -72,8 +72,8 @@ class Institucion extends Serializable
 
   Future<void> ingresar(Institucion dato) async{
     final conexion = Conexion();
-    final String sql = "INSERT INTO public.te_institucion(ins_id, ins_nombre, ins_ruc, ins_direccion, ins_telefono, ins_correo, ins_estado, tin_id)"
-   " VALUES (${dato.id},'${dato.nombre}', '${dato.ruc}','${dato.direccion}','${dato.telefono}','${dato.correo.replaceAll('@','*')}', ${dato.estado}, ${dato.tipoInstitucionId})";
+    final String sql = "INSERT INTO public.te_institucion(ins_nombre, ins_ruc, ins_direccion, ins_telefono, ins_correo, ins_estado, tin_id)"
+   " VALUES ('${dato.nombre}', '${dato.ruc}','${dato.direccion}','${dato.telefono}','${dato.correo.replaceAll('@','*')}', ${dato.estado}, ${dato.tipoInstitucionId})";
     print(sql);
     await conexion.operaciones(sql);
   }
@@ -81,7 +81,7 @@ class Institucion extends Serializable
    Future<void> modificar(int id,Institucion dato) async{
     final conexion = Conexion();
     final String sql = 
-    "UPDATE public.te_institucion SET ins_nombre='${dato.nombre}', ins_ruc='${dato.ruc}', ins_direccion='${dato.direccion}', ins_telefono='${dato.telefono}', ins_correo='${dato.correo.replaceAll('@','*')}', tin_id=${dato.tipoInstitucionId} "
+    "UPDATE public.te_institucion SET ins_nombre='${dato.nombre}', ins_ruc='${dato.ruc}', ins_direccion='${dato.direccion}', ins_telefono='${dato.telefono}', ins_correo='${dato.correo.replaceAll('@','*')}', ins_estado='${dato.estado}', tin_id=${dato.tipoInstitucionId} "
 	  "WHERE ins_id=$id";
     await conexion.operaciones(sql);
   }

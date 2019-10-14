@@ -7,10 +7,10 @@ class TipoVehiculoController extends ResourceController{
 
 
   @Operation.get()
-  Future<Response> obtenerLista() async
+  Future<Response> obtenerLista(@Bind.query('campo') String campo,@Bind.query('bus') String bus,@Bind.query('est') int est ) async
   {
-    final servicio = TipoVehiculo();
-    return Response.ok(await servicio.obtenerDatos());
+   final servicio = TipoVehiculo();
+    return Response.ok(await servicio.obtenerDatos(campo,bus,est));
   }
 
   @Operation.get('id')

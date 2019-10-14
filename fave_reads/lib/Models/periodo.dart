@@ -8,10 +8,12 @@ class Periodo extends Serializable
   int id;
   String nombre;
   int estado;
- 
-  Future<List> obtenerDatos() async {
+
+
+  Future<List> obtenerDatos(String campo, String bus, int est) async {
     final conexion = Conexion();
-    const String sql = "select * from public.te_periodo_lectivo where ple_estado=0";
+ 
+    final String sql = "select * from public.te_periodo_lectivo where $campo::text LIKE '%$bus%' and ple_estado=$est";
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 
@@ -58,8 +60,8 @@ class Periodo extends Serializable
 
   Future<void> ingresar(Periodo dato) async{
     final conexion = Conexion();
-    final String sql = "INSERT INTO public.te_periodo_lectivo(ple_id, ple_nombre, ple_estado)"
-    " VALUES (${dato.id},'${dato.nombre}',${dato.estado});";
+    final String sql = "INSERT INTO public.te_periodo_lectivo(ple_nombre, ple_estado)"
+    " VALUES ('${dato.nombre}',${dato.estado});";
     print(sql);
     await conexion.operaciones(sql);
   }
@@ -67,7 +69,7 @@ class Periodo extends Serializable
    Future<void> modificar(int id,Periodo dato) async{
     final conexion = Conexion();
     final String sql = 
-    "UPDATE public.te_periodo_lectivo SET ple_nombre='${dato.nombre}'"
+    "UPDATE public.te_periodo_lectivo SET ple_nombre='${dato.nombre}', ple_estado='${dato.estado}'"
 	  "WHERE ple_id=$id";
     await conexion.operaciones(sql);
   }

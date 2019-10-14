@@ -45,9 +45,9 @@ class Rol extends Serializable
     if(query != null && query.isNotEmpty)
     { 
         final reg = Rol();
-      reg.id=int.parse(query[0][0].toString());
+        reg.id=int.parse(query[0][0].toString());
         reg.nombre=query[0][1].toString();
-        reg.estado=int.parse(query[0][3].toString());
+        reg.estado=int.parse(query[0][2].toString());
         return reg;
     }
     else

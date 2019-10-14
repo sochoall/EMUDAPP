@@ -13,9 +13,9 @@ class Vehiculo extends Serializable
   int    tveId;
   int    funId;
  
-  Future<List> obtenerDatos() async {
+  Future<List> obtenerDatos(String campo, String bus, int est) async {
     final conexion = Conexion();
-    const String sql = "select * from public.te_vehiculo where veh_estado=0";
+    final String sql = "select * from public.te_vehiculo where $campo::text LIKE '%$bus%' and veh_estado=$est";
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 
@@ -67,8 +67,8 @@ class Vehiculo extends Serializable
 
   Future<void> ingresar(Vehiculo dato) async{
     final conexion = Conexion();
-    final String sql = "INSERT INTO public.te_vehiculo(veh_id, veh_placa, veh_capacidad, veh_estado, tveId, funId)"
-   " VALUES (${dato.id},'${dato.placa}',${dato.capacidad},${dato.estado},${dato.tveId}, ${dato.funId})";
+    final String sql = "INSERT INTO public.te_vehiculo(veh_placa, veh_capacidad, veh_estado, tveId, funId)"
+   " VALUES ('${dato.placa}',${dato.capacidad},${dato.estado},${dato.tveId}, ${dato.funId})";
     print(sql);
     await conexion.operaciones(sql);
   }
@@ -76,7 +76,7 @@ class Vehiculo extends Serializable
    Future<void> modificar(int id,Vehiculo dato) async{
     final conexion = Conexion();
     final String sql = 
-    "UPDATE public.te_vehiculo SET veh_placa='${dato.placa}',veh_capacidad='${dato.capacidad}', funId='${dato.funId}' "
+    "UPDATE public.te_vehiculo SET veh_placa='${dato.placa}',veh_capacidad='${dato.capacidad}', veh_estado='${dato.estado}', funId='${dato.funId}' "
 	  "WHERE veh_id=$id";
     await conexion.operaciones(sql);
   }
