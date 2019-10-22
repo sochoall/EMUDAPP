@@ -1,0 +1,1 @@
+{"isEntrypoint":true,"deps":["latlong|lib/latlong.dart","flutter|lib/material.dart","geolocator|lib/geolocator.dart","flutter_map|lib/flutter_map.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":[],"hasMain":false}

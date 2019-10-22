@@ -4,7 +4,7 @@
             "outputFile": "D:\\Users\\Usuario\\Pictures\\app_movil\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sl\\values-sl.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Usuario\\.gradle\\caches\\transforms-2\\files-2.1\\5ed5caeed76b3458fc630dcf9e5618b6\\jetified-play-services-basement-16.0.1\\res\\values-sl\\values.xml",
+                    "source": "C:\\Users\\Usuario\\.gradle\\caches\\transforms-2\\files-2.1\\1db223767965ad844eab3c397984c603\\jetified-play-services-basement-16.0.1\\res\\values-sl\\values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -38,7 +38,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Usuario\\.gradle\\caches\\transforms-2\\files-2.1\\6c8f1ef688a0fb66ec388fb8d4336295\\jetified-play-services-base-16.0.1\\res\\values-sl\\values.xml",
+                    "source": "C:\\Users\\Usuario\\.gradle\\caches\\transforms-2\\files-2.1\\3d3412743a0f0d930aceb16a863f67f9\\jetified-play-services-base-16.0.1\\res\\values-sl\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",

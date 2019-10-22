@@ -1,0 +1,1 @@
+{"isEntrypoint":false,"deps":["sqflite|lib/sqflite.dart","sqflite|lib/src/exception_impl.dart","sqflite|lib/src/factory.dart","sqflite|lib/src/factory_mixin.dart","sqflite|lib/src/open_options.dart","sqflite|lib/src/sqflite_impl.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":["async","io"],"hasMain":false}

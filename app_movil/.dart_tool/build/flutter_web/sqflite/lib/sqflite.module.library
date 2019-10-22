@@ -1,0 +1,1 @@
+{"isEntrypoint":true,"deps":["sqflite|lib/src/compat.dart","sqflite|lib/src/constant.dart","sqflite|lib/src/factory_impl.dart","sqflite|lib/src/sqflite_impl.dart","sqflite|lib/src/utils.dart","sqflite|lib/utils/utils.dart","sqflite|lib/sqlite_api.dart","sqflite|lib/sql.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":["async"],"hasMain":false}

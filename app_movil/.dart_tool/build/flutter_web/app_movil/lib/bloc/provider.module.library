@@ -1,0 +1,1 @@
+{"isEntrypoint":true,"deps":["flutter|lib/material.dart","app_movil|lib/bloc/login_bloc.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":[],"hasMain":false}

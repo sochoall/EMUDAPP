@@ -1,0 +1,1 @@
+{"isEntrypoint":true,"deps":["http|lib/http.dart","flutter|lib/services.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":["convert"],"hasMain":false}

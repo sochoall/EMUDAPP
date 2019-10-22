@@ -1,0 +1,1 @@
+{"isEntrypoint":true,"deps":["cached_network_image|lib/src/cached_image_widget.dart","cached_network_image|lib/src/cached_network_image_provider.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":[],"hasMain":false}

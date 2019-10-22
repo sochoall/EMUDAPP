@@ -1,0 +1,1 @@
+{"isEntrypoint":true,"deps":["location_permissions|lib/src/location_permissions.dart","location_permissions|lib/src/permission_enums.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":[],"hasMain":false}

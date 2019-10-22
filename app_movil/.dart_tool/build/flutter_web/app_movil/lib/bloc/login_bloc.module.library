@@ -1,0 +1,1 @@
+{"isEntrypoint":true,"deps":["rxdart|lib/rxdart.dart","app_movil|lib/bloc/validators.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":["async"],"hasMain":false}

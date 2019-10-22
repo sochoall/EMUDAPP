@@ -1,0 +1,1 @@
+{"isEntrypoint":false,"deps":["sqflite|lib/src/constant.dart","sqflite|lib/src/exception.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":["collection","async"],"hasMain":false}

@@ -1,0 +1,1 @@
+{"isEntrypoint":true,"deps":["app_movil|lib/widgets/lista_rutas.dart","flutter|lib/material.dart","app_movil|lib/tabs/mapa.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":[],"hasMain":false}

@@ -1,0 +1,1 @@
+{"isEntrypoint":true,"deps":["flutter_map|lib/flutter_map.dart","flutter_map|lib/src/core/bounds.dart","flutter_map|lib/src/core/center_zoom.dart","flutter_map|lib/src/map/map.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":[],"hasMain":false}

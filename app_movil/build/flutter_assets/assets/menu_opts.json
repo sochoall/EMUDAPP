@@ -1,0 +1,47 @@
+{
+    "nombreApp" : "Componentes",
+    "rutas" : [
+        {
+            "id"   : "1",
+            "ruta" : "alerta",
+            "icon" : "settings_applications",
+            "texto": "Mantenimiento",
+            "padre": "0"
+        },
+        {
+            "id"   : "2",
+            "ruta" : "alerta",
+            "icon" : "person_add",
+            "texto": "Mantenimiento Estudiante",
+            "padre": "1"
+        },
+        {
+            "id"   : "3",
+            "ruta" : "alerta",
+            "icon" : "personal_video",
+            "texto": "Mantenimiento Padre de Familia",
+            "padre": "1"
+        },
+        {
+            "id"   : "4",
+            "ruta" : "alerta",
+            "icon" : "school",
+            "texto": "Mantenimiento Unidad Educativa",
+            "padre": "1"
+        },
+        {
+            "id"   : "5",
+            "ruta" : "alerta",
+            "icon" : "map",
+            "texto": "Rutas",
+            "padre": "0"
+        },
+        {
+            "id"   : "6",
+            "ruta" : "avatar",
+            "icon" : "zoom_out_map",
+            "texto": "Ingresar Ruta",
+            "padre": "5"
+        }
+    ]
+}

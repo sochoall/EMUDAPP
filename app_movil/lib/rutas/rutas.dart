@@ -1,14 +1,17 @@
+import 'package:app_movil/transportista/alerta.dart';
+import 'package:app_movil/transportista/pantalla_paradas.dart';
 import 'package:flutter/material.dart';
-import 'package:app_movil/paginas/alerta.dart';
-import 'package:app_movil/paginas/avatar.dart';
-import 'package:app_movil/pantalla1.dart';
 
-Map<String, WidgetBuilder> getApplicationRoutes() {
+
+
+Map<String, WidgetBuilder> getApplicationRoutes(String nombreRuta,String idRecorrido,String nombre,String idUsuario) {
   return <String, WidgetBuilder>{
-    '/': (BuildContext context) => HomeScreen("EMOV"),
-    'alerta': (BuildContext context) => AlertPage(),
-    'avatar': (BuildContext context) => AvatarPage(),
+    //'/': (BuildContext context) => PantallaRuta(),
+    'paradas': (BuildContext context) => HomeScreen(nombreRuta,idRecorrido,nombre,idUsuario),
+    //'alerta': (BuildContext context) => AlertPage(),
+
     //'card': (BuildContext context) => CardPage(),
     //'animatedContainer': (BuildContext context) => AnimatedContainerPage(),
   };
+  
 }

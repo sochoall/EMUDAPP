@@ -6,15 +6,18 @@ INJECTED from D:\Users\Usuario\Pictures\app_movil\android\app\src\main\AndroidMa
 INJECTED from D:\Users\Usuario\Pictures\app_movil\android\app\src\main\AndroidManifest.xml:1:1-33:12
 MERGED from D:\Users\Usuario\Pictures\app_movil\android\app\src\main\AndroidManifest.xml:1:1-33:12
 MERGED from [:location_permissions] D:\Users\Usuario\Pictures\app_movil\build\location_permissions\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:shared_preferences] D:\Users\Usuario\Pictures\app_movil\build\shared_preferences\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:image_picker] D:\Users\Usuario\Pictures\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-22:12
 MERGED from [:sqflite] D:\Users\Usuario\Pictures\app_movil\build\sqflite\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:connectivity] D:\Users\Usuario\Pictures\app_movil\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-10:12
 MERGED from [:geolocator] D:\Users\Usuario\Pictures\app_movil\build\geolocator\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:path_provider] D:\Users\Usuario\Pictures\app_movil\build\path_provider\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:google_api_availability] D:\Users\Usuario\Pictures\app_movil\build\google_api_availability\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
-MERGED from [com.google.android.gms:play-services-location:16.0.0] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\779d9b7646ffafdebfb76d9ef07fd70f\jetified-play-services-location-16.0.0\AndroidManifest.xml:2:1-9:12
-MERGED from [com.google.android.gms:play-services-base:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\6c8f1ef688a0fb66ec388fb8d4336295\jetified-play-services-base-16.0.1\AndroidManifest.xml:17:1-29:12
+MERGED from [com.google.android.gms:play-services-location:16.0.0] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\08a0db03aeac589635c8d6dd8ac29f45\jetified-play-services-location-16.0.0\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-base:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\3d3412743a0f0d930aceb16a863f67f9\jetified-play-services-base-16.0.1\AndroidManifest.xml:17:1-29:12
 MERGED from [com.google.android.gms:play-services-places-placereport:16.0.0] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\5c697fec7e55e9bb60005789c206ab6c\play-services-places-placereport-16.0.0\AndroidManifest.xml:17:1-24:12
-MERGED from [com.google.android.gms:play-services-tasks:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\57070ff9f6caac1371dffab19e976d3c\jetified-play-services-tasks-16.0.1\AndroidManifest.xml:2:1-9:12
-MERGED from [com.google.android.gms:play-services-basement:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\5ed5caeed76b3458fc630dcf9e5618b6\jetified-play-services-basement-16.0.1\AndroidManifest.xml:17:1-28:12
+MERGED from [com.google.android.gms:play-services-tasks:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\bde042ff0b8a4e661212f9d6bc108e91\jetified-play-services-tasks-16.0.1\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-basement:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\1db223767965ad844eab3c397984c603\jetified-play-services-basement-16.0.1\AndroidManifest.xml:17:1-28:12
 MERGED from [androidx.legacy:legacy-support-v4:1.0.0] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\09be4c98f955b63e9a8cadeb6d33d870\legacy-support-v4-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.fragment:fragment:1.0.0] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\b8b68c04ee72209a3beca37e17f7088d\fragment-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\f046f38cf99e9cbe4891b184ce64db19\legacy-support-core-ui-1.0.0\AndroidManifest.xml:17:1-22:12
@@ -60,16 +63,18 @@ INJECTED from D:\Users\Usuario\Pictures\app_movil\android\app\src\debug\AndroidM
 		ADDED from D:\Users\Usuario\Pictures\app_movil\android\app\src\main\AndroidManifest.xml:1:11-69
 application
 ADDED from D:\Users\Usuario\Pictures\app_movil\android\app\src\main\AndroidManifest.xml:9:5-32:19
-MERGED from [com.google.android.gms:play-services-location:16.0.0] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\779d9b7646ffafdebfb76d9ef07fd70f\jetified-play-services-location-16.0.0\AndroidManifest.xml:7:5-20
-MERGED from [com.google.android.gms:play-services-location:16.0.0] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\779d9b7646ffafdebfb76d9ef07fd70f\jetified-play-services-location-16.0.0\AndroidManifest.xml:7:5-20
-MERGED from [com.google.android.gms:play-services-base:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\6c8f1ef688a0fb66ec388fb8d4336295\jetified-play-services-base-16.0.1\AndroidManifest.xml:22:5-27:19
-MERGED from [com.google.android.gms:play-services-base:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\6c8f1ef688a0fb66ec388fb8d4336295\jetified-play-services-base-16.0.1\AndroidManifest.xml:22:5-27:19
+MERGED from [:image_picker] D:\Users\Usuario\Pictures\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:10:5-20:19
+MERGED from [:image_picker] D:\Users\Usuario\Pictures\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:10:5-20:19
+MERGED from [com.google.android.gms:play-services-location:16.0.0] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\08a0db03aeac589635c8d6dd8ac29f45\jetified-play-services-location-16.0.0\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-location:16.0.0] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\08a0db03aeac589635c8d6dd8ac29f45\jetified-play-services-location-16.0.0\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-base:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\3d3412743a0f0d930aceb16a863f67f9\jetified-play-services-base-16.0.1\AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-base:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\3d3412743a0f0d930aceb16a863f67f9\jetified-play-services-base-16.0.1\AndroidManifest.xml:22:5-27:19
 MERGED from [com.google.android.gms:play-services-places-placereport:16.0.0] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\5c697fec7e55e9bb60005789c206ab6c\play-services-places-placereport-16.0.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.gms:play-services-places-placereport:16.0.0] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\5c697fec7e55e9bb60005789c206ab6c\play-services-places-placereport-16.0.0\AndroidManifest.xml:22:5-20
-MERGED from [com.google.android.gms:play-services-tasks:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\57070ff9f6caac1371dffab19e976d3c\jetified-play-services-tasks-16.0.1\AndroidManifest.xml:7:5-20
-MERGED from [com.google.android.gms:play-services-tasks:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\57070ff9f6caac1371dffab19e976d3c\jetified-play-services-tasks-16.0.1\AndroidManifest.xml:7:5-20
-MERGED from [com.google.android.gms:play-services-basement:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\5ed5caeed76b3458fc630dcf9e5618b6\jetified-play-services-basement-16.0.1\AndroidManifest.xml:22:5-26:19
-MERGED from [com.google.android.gms:play-services-basement:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\5ed5caeed76b3458fc630dcf9e5618b6\jetified-play-services-basement-16.0.1\AndroidManifest.xml:22:5-26:19
+MERGED from [com.google.android.gms:play-services-tasks:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\bde042ff0b8a4e661212f9d6bc108e91\jetified-play-services-tasks-16.0.1\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-tasks:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\bde042ff0b8a4e661212f9d6bc108e91\jetified-play-services-tasks-16.0.1\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-basement:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\1db223767965ad844eab3c397984c603\jetified-play-services-basement-16.0.1\AndroidManifest.xml:22:5-26:19
+MERGED from [com.google.android.gms:play-services-basement:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\1db223767965ad844eab3c397984c603\jetified-play-services-basement-16.0.1\AndroidManifest.xml:22:5-26:19
 MERGED from [androidx.core:core:1.0.2] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\fecc98e05c7ccd4a0eedf7cff343a233\core-1.0.2\AndroidManifest.xml:22:5-89
 MERGED from [androidx.core:core:1.0.2] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\fecc98e05c7ccd4a0eedf7cff343a233\core-1.0.2\AndroidManifest.xml:22:5-89
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\52d4fecae8c1eb4103beef9198e64f51\versionedparcelable-1.0.0\AndroidManifest.xml:22:5-23:19
@@ -118,24 +123,30 @@ INJECTED from D:\Users\Usuario\Pictures\app_movil\android\app\src\main\AndroidMa
 INJECTED from D:\Users\Usuario\Pictures\app_movil\android\app\src\main\AndroidManifest.xml
 MERGED from [:location_permissions] D:\Users\Usuario\Pictures\app_movil\build\location_permissions\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:location_permissions] D:\Users\Usuario\Pictures\app_movil\build\location_permissions\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences] D:\Users\Usuario\Pictures\app_movil\build\shared_preferences\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences] D:\Users\Usuario\Pictures\app_movil\build\shared_preferences\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:image_picker] D:\Users\Usuario\Pictures\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:image_picker] D:\Users\Usuario\Pictures\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:sqflite] D:\Users\Usuario\Pictures\app_movil\build\sqflite\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:sqflite] D:\Users\Usuario\Pictures\app_movil\build\sqflite\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:connectivity] D:\Users\Usuario\Pictures\app_movil\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:connectivity] D:\Users\Usuario\Pictures\app_movil\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:geolocator] D:\Users\Usuario\Pictures\app_movil\build\geolocator\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:geolocator] D:\Users\Usuario\Pictures\app_movil\build\geolocator\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:path_provider] D:\Users\Usuario\Pictures\app_movil\build\path_provider\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:path_provider] D:\Users\Usuario\Pictures\app_movil\build\path_provider\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:google_api_availability] D:\Users\Usuario\Pictures\app_movil\build\google_api_availability\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:google_api_availability] D:\Users\Usuario\Pictures\app_movil\build\google_api_availability\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
-MERGED from [com.google.android.gms:play-services-location:16.0.0] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\779d9b7646ffafdebfb76d9ef07fd70f\jetified-play-services-location-16.0.0\AndroidManifest.xml:5:5-44
-MERGED from [com.google.android.gms:play-services-location:16.0.0] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\779d9b7646ffafdebfb76d9ef07fd70f\jetified-play-services-location-16.0.0\AndroidManifest.xml:5:5-44
-MERGED from [com.google.android.gms:play-services-base:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\6c8f1ef688a0fb66ec388fb8d4336295\jetified-play-services-base-16.0.1\AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-base:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\6c8f1ef688a0fb66ec388fb8d4336295\jetified-play-services-base-16.0.1\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-location:16.0.0] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\08a0db03aeac589635c8d6dd8ac29f45\jetified-play-services-location-16.0.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-location:16.0.0] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\08a0db03aeac589635c8d6dd8ac29f45\jetified-play-services-location-16.0.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-base:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\3d3412743a0f0d930aceb16a863f67f9\jetified-play-services-base-16.0.1\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\3d3412743a0f0d930aceb16a863f67f9\jetified-play-services-base-16.0.1\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-places-placereport:16.0.0] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\5c697fec7e55e9bb60005789c206ab6c\play-services-places-placereport-16.0.0\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-places-placereport:16.0.0] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\5c697fec7e55e9bb60005789c206ab6c\play-services-places-placereport-16.0.0\AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-tasks:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\57070ff9f6caac1371dffab19e976d3c\jetified-play-services-tasks-16.0.1\AndroidManifest.xml:5:5-44
-MERGED from [com.google.android.gms:play-services-tasks:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\57070ff9f6caac1371dffab19e976d3c\jetified-play-services-tasks-16.0.1\AndroidManifest.xml:5:5-44
-MERGED from [com.google.android.gms:play-services-basement:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\5ed5caeed76b3458fc630dcf9e5618b6\jetified-play-services-basement-16.0.1\AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-basement:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\5ed5caeed76b3458fc630dcf9e5618b6\jetified-play-services-basement-16.0.1\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-tasks:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\bde042ff0b8a4e661212f9d6bc108e91\jetified-play-services-tasks-16.0.1\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-tasks:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\bde042ff0b8a4e661212f9d6bc108e91\jetified-play-services-tasks-16.0.1\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-basement:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\1db223767965ad844eab3c397984c603\jetified-play-services-basement-16.0.1\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-basement:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\1db223767965ad844eab3c397984c603\jetified-play-services-basement-16.0.1\AndroidManifest.xml:20:5-44
 MERGED from [androidx.legacy:legacy-support-v4:1.0.0] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\09be4c98f955b63e9a8cadeb6d33d870\legacy-support-v4-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.legacy:legacy-support-v4:1.0.0] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\09be4c98f955b63e9a8cadeb6d33d870\legacy-support-v4-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.fragment:fragment:1.0.0] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\b8b68c04ee72209a3beca37e17f7088d\fragment-1.0.0\AndroidManifest.xml:20:5-44
@@ -200,21 +211,53 @@ uses-permission#android.permission.INTERNET
 ADDED from D:\Users\Usuario\Pictures\app_movil\android\app\src\debug\AndroidManifest.xml:6:5-66
 	android:name
 		ADDED from D:\Users\Usuario\Pictures\app_movil\android\app\src\debug\AndroidManifest.xml:6:22-64
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from [:image_picker] D:\Users\Usuario\Pictures\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-80
+	android:name
+		ADDED from [:image_picker] D:\Users\Usuario\Pictures\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-77
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from [:image_picker] D:\Users\Usuario\Pictures\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:8:5-81
+	android:name
+		ADDED from [:image_picker] D:\Users\Usuario\Pictures\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:8:22-78
+provider#io.flutter.plugins.imagepicker.ImagePickerFileProvider
+ADDED from [:image_picker] D:\Users\Usuario\Pictures\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:11:9-19:20
+	android:grantUriPermissions
+		ADDED from [:image_picker] D:\Users\Usuario\Pictures\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:15:13-47
+	android:authorities
+		ADDED from [:image_picker] D:\Users\Usuario\Pictures\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-74
+	android:exported
+		ADDED from [:image_picker] D:\Users\Usuario\Pictures\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-37
+	android:name
+		ADDED from [:image_picker] D:\Users\Usuario\Pictures\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:12:13-82
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from [:image_picker] D:\Users\Usuario\Pictures\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:16:13-18:75
+	android:resource
+		ADDED from [:image_picker] D:\Users\Usuario\Pictures\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:18:17-72
+	android:name
+		ADDED from [:image_picker] D:\Users\Usuario\Pictures\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:17:17-67
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [:connectivity] D:\Users\Usuario\Pictures\app_movil\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-79
+	android:name
+		ADDED from [:connectivity] D:\Users\Usuario\Pictures\app_movil\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-76
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from [:connectivity] D:\Users\Usuario\Pictures\app_movil\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:8:5-76
+	android:name
+		ADDED from [:connectivity] D:\Users\Usuario\Pictures\app_movil\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:8:22-73
 uses-permission#android.permission.ACCESS_FINE_LOCATION
 ADDED from [:geolocator] D:\Users\Usuario\Pictures\app_movil\build\geolocator\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-79
 	android:name
 		ADDED from [:geolocator] D:\Users\Usuario\Pictures\app_movil\build\geolocator\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-76
 activity#com.google.android.gms.common.api.GoogleApiActivity
-ADDED from [com.google.android.gms:play-services-base:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\6c8f1ef688a0fb66ec388fb8d4336295\jetified-play-services-base-16.0.1\AndroidManifest.xml:23:9-26:75
+ADDED from [com.google.android.gms:play-services-base:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\3d3412743a0f0d930aceb16a863f67f9\jetified-play-services-base-16.0.1\AndroidManifest.xml:23:9-26:75
 	android:exported
-		ADDED from [com.google.android.gms:play-services-base:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\6c8f1ef688a0fb66ec388fb8d4336295\jetified-play-services-base-16.0.1\AndroidManifest.xml:25:13-37
+		ADDED from [com.google.android.gms:play-services-base:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\3d3412743a0f0d930aceb16a863f67f9\jetified-play-services-base-16.0.1\AndroidManifest.xml:25:13-37
 	android:theme
-		ADDED from [com.google.android.gms:play-services-base:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\6c8f1ef688a0fb66ec388fb8d4336295\jetified-play-services-base-16.0.1\AndroidManifest.xml:26:13-72
+		ADDED from [com.google.android.gms:play-services-base:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\3d3412743a0f0d930aceb16a863f67f9\jetified-play-services-base-16.0.1\AndroidManifest.xml:26:13-72
 	android:name
-		ADDED from [com.google.android.gms:play-services-base:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\6c8f1ef688a0fb66ec388fb8d4336295\jetified-play-services-base-16.0.1\AndroidManifest.xml:24:13-79
+		ADDED from [com.google.android.gms:play-services-base:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\3d3412743a0f0d930aceb16a863f67f9\jetified-play-services-base-16.0.1\AndroidManifest.xml:24:13-79
 meta-data#com.google.android.gms.version
-ADDED from [com.google.android.gms:play-services-basement:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\5ed5caeed76b3458fc630dcf9e5618b6\jetified-play-services-basement-16.0.1\AndroidManifest.xml:23:9-25:69
+ADDED from [com.google.android.gms:play-services-basement:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\1db223767965ad844eab3c397984c603\jetified-play-services-basement-16.0.1\AndroidManifest.xml:23:9-25:69
 	android:value
-		ADDED from [com.google.android.gms:play-services-basement:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\5ed5caeed76b3458fc630dcf9e5618b6\jetified-play-services-basement-16.0.1\AndroidManifest.xml:25:13-66
+		ADDED from [com.google.android.gms:play-services-basement:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\1db223767965ad844eab3c397984c603\jetified-play-services-basement-16.0.1\AndroidManifest.xml:25:13-66
 	android:name
-		ADDED from [com.google.android.gms:play-services-basement:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\5ed5caeed76b3458fc630dcf9e5618b6\jetified-play-services-basement-16.0.1\AndroidManifest.xml:24:13-58
+		ADDED from [com.google.android.gms:play-services-basement:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\1db223767965ad844eab3c397984c603\jetified-play-services-basement-16.0.1\AndroidManifest.xml:24:13-58

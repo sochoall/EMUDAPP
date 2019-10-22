@@ -1,0 +1,1 @@
+{"isEntrypoint":true,"deps":["flutter|lib/material.dart","app_movil|lib/utils/icono_string.dart","app_movil|lib/widgets/menu_provider.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":[],"hasMain":false}

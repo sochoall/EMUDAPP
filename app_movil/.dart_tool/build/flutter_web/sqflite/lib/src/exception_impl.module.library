@@ -1,0 +1,1 @@
+{"isEntrypoint":false,"deps":["flutter|lib/services.dart","sqflite|lib/src/constant.dart","sqflite|lib/src/exception.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":[],"hasMain":false}

@@ -1,0 +1,1 @@
+{"isEntrypoint":true,"deps":["flutter_cache_manager|lib/src/cache_manager.dart","flutter_cache_manager|lib/src/file_fetcher.dart","flutter_cache_manager|lib/src/file_info.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":[],"hasMain":false}
