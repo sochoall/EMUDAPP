@@ -3,7 +3,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:app_movil/bloc/validators.dart';
 
 class LoginBloc with Validators {
-  final _emailController = BehaviorSubject<String>();
+ final _emailController = BehaviorSubject<String>();
   final _passwordController = BehaviorSubject<String>();
   final _cedulaController = BehaviorSubject<String>();
   

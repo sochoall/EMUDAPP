@@ -1,0 +1,1 @@
+{"isEntrypoint":true,"deps":["flutter|lib/foundation.dart","flutter|lib/widgets.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":["async","io","math","typed_data","ui"],"hasMain":false}

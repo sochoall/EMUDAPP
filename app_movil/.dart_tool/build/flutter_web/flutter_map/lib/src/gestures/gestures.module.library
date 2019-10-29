@@ -1,0 +1,1 @@
+{"isEntrypoint":false,"deps":["flutter|lib/material.dart","flutter_map|lib/flutter_map.dart","flutter_map|lib/src/gestures/latlng_tween.dart","flutter_map|lib/src/map/map.dart","latlong|lib/latlong.dart","positioned_tap_detector|lib/positioned_tap_detector.dart","vector_math|lib/vector_math_64.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":["math"],"hasMain":false}

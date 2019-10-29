@@ -1,0 +1,1 @@
+{"isEntrypoint":false,"deps":["flutter|lib/services.dart","location_permissions|lib/src/permission_enums.dart","meta|lib/meta.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":["async","io"],"hasMain":false}

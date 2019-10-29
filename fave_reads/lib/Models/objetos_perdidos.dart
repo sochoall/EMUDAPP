@@ -96,15 +96,15 @@ class ObjetosPerdidos extends Serializable {
 
   Future<void> ingresar(ObjetosPerdidos dato) async {
     final conexion = Conexion();
-    String sql="";
+    String sql = "";
     if (dato.fechaDevolucion.isEmpty) {
       sql =
           "INSERT INTO public.te_objetos_perdidos(ope_id, ope_fecha_hora, ope_descripcion, rec_id, eob_id,est_id)"
-          " VALUES (${dato.id},'${dato.fechaHora}', '${dato.descripcion}',0,1,0)";
+          " VALUES (${dato.id},'${dato.fechaHora}', '${dato.descripcion}',0,${dato.eobId},0)";
     } else {
       sql =
           "INSERT INTO public.te_objetos_perdidos(ope_id, ope_fecha_hora, ope_descripcion, ope_fecha_devolucion, rec_id, eob_id,est_id)"
-          " VALUES (${dato.id},'${dato.fechaHora}', '${dato.descripcion}','${dato.fechaDevolucion}',0,1,0)";
+          " VALUES (${dato.id},'${dato.fechaHora}', '${dato.descripcion}','${dato.fechaDevolucion}',0,${dato.eobId},0)";
     }
 
     print(sql);
@@ -113,9 +113,17 @@ class ObjetosPerdidos extends Serializable {
 
   Future<void> modificar(int id, ObjetosPerdidos dato) async {
     final conexion = Conexion();
-    final String sql =
-        "UPDATE public.te_objetos_perdidos SET ope_fecha_hora='${dato.fechaHora}', ope_descripcion='${dato.descripcion}', ope_fecha_devolucion='${dato.fechaDevolucion}'"
-        " WHERE ope_id=$id";
+    String sql = "";
+    if (dato.fechaDevolucion.isEmpty) {
+      sql =
+          "UPDATE public.te_objetos_perdidos SET ope_fecha_hora='${dato.fechaHora}', ope_descripcion='${dato.descripcion}', eob_id=${dato.eobId}"
+          " WHERE ope_id=$id";
+    } else {
+      sql =
+          "UPDATE public.te_objetos_perdidos SET ope_fecha_hora='${dato.fechaHora}', ope_descripcion='${dato.descripcion}', ope_fecha_devolucion='${dato.fechaDevolucion}', eob_id=${dato.eobId}"
+          " WHERE ope_id=$id";
+    }
+
     await conexion.operaciones(sql);
   }
 
@@ -144,7 +152,7 @@ class ObjetosPerdidos extends Serializable {
     descripcion = object['descripcion'].toString();
     fechaDevolucion = object['fechaDevolucion'].toString();
     recId = 0; //int.parse(object['recId'].toString());
-    eobId = 0; //int.parse(object['eobId'].toString());
+    eobId = int.parse(object['eobId'].toString());
     estId = 0; //int.parse(object['estId'].toString());
   }
 }

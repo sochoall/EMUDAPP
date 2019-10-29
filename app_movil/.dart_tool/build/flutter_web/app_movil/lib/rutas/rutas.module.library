@@ -1,0 +1,1 @@
+{"isEntrypoint":true,"deps":["flutter|lib/material.dart","app_movil|lib/paginas/alerta.dart","app_movil|lib/paginas/avatar.dart","app_movil|lib/pantalla1.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":[],"hasMain":false}

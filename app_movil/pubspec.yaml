@@ -19,11 +19,18 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_map:
+  flutter_map: 'any'
   geolocator: '^5.1.3'
   http: '^0.12.0+2'
   rxdart: '^0.22.0'
-
+  image_picker:
+  mime_type: 
+  shared_preferences:
+  grouped_buttons: ^1.0.3
+  flutter_calendar: ^0.0.1
+  intl: ^0.15.8
+  date_format: ^1.0.6
+  connectivity: '^0.4.2'
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
@@ -48,8 +55,12 @@ flutter:
   assets:
     - assets/menu-img.jpg
     - assets/emov.png
+    - assets/padre.jpg
+    - assets/ruta.jpg
+    - assets/transporte.png
     - assets/cabecera_img.jpg
     - assets/menu_opts.json
+    - assets/error.png
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,0 +1,1 @@
+{"isEntrypoint":false,"deps":["flutter_cache_manager|lib/src/cache_object.dart","flutter_cache_manager|lib/src/file_info.dart","path|lib/path.dart","sqflite|lib/sqflite.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":["async","io"],"hasMain":false}

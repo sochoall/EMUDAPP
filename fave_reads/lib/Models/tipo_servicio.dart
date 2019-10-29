@@ -10,9 +10,9 @@ class TipoServicio extends Serializable
   String nombre;
   int    estado;
  
-  Future<List> obtenerDatos() async {
+ Future<List> obtenerDatos(String campo, String bus, int est) async {
     final conexion = Conexion();
-    const String sql = "select * from public.te_tipo_servicio where tse_estado=0";
+    final String sql = "select * from public.te_tipo_servicio where $campo::text LIKE '%$bus%' and tse_estado=$est";
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 
@@ -58,8 +58,8 @@ class TipoServicio extends Serializable
 
   Future<void> ingresar(TipoServicio dato) async{
     final conexion = Conexion();
-    final String sql = "INSERT INTO public.te_tipo_servicio(tse_id, tse_nombre,tse_estado)"
-   " VALUES (${dato.id},'${dato.nombre}',${dato.estado}";
+    final String sql = "INSERT INTO public.te_tipo_servicio(tse_nombre,tse_estado)"
+                        "VALUES('${dato.nombre}',${dato.estado})";
     print(sql);
     await conexion.operaciones(sql);
   }
@@ -67,7 +67,7 @@ class TipoServicio extends Serializable
    Future<void> modificar(int id,TipoServicio dato) async{
     final conexion = Conexion();
     final String sql = 
-    "UPDATE public.te_tipo_servicio SET tse_nombre='${dato.nombre}' "
+    "UPDATE public.te_tipo_servicio SET tse_nombre='${dato.nombre}', tse_estado='${dato.estado}' "
 	  "WHERE tse_id=$id";
     await conexion.operaciones(sql);
   }

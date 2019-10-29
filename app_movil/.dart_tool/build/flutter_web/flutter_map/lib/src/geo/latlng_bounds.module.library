@@ -1,0 +1,1 @@
+{"isEntrypoint":false,"deps":["latlong|lib/latlong.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":["math"],"hasMain":false}

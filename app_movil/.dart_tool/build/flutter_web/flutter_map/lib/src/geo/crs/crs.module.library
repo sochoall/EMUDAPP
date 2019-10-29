@@ -1,0 +1,1 @@
+{"isEntrypoint":false,"deps":["tuple|lib/tuple.dart","latlong|lib/latlong.dart","flutter_map|lib/src/core/bounds.dart","flutter_map|lib/src/core/point.dart"],"parts":[],"conditionalDeps":[],"sdkDeps":["math"],"hasMain":false}

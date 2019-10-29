@@ -1,9 +1,17 @@
+import 'dart:convert';
+import 'package:connectivity/connectivity.dart';
+import 'package:app_movil/representante/pantalla_inicial_rep.dart';
+import 'package:app_movil/transportista/alerta.dart';
+import 'package:app_movil/transportista/pantalla_inicial.dart';
 import 'package:flutter/material.dart';
 import 'package:app_movil/bloc/login_bloc.dart';
 import 'package:app_movil/bloc/provider.dart';
-import 'package:app_movil/pantalla1.dart';
+import 'package:http/http.dart' as http;
 
-void main() => runApp(MyApp());
+
+void main() => runApp(MyApp()); //Inicio del Programa
+String rol;
+String id_usuario;
 
 class MyApp extends StatelessWidget {
   @override
@@ -11,11 +19,12 @@ class MyApp extends StatelessWidget {
     return Provider(
         child: MaterialApp(
       initialRoute: 'login',
-      //home: Login(),
       debugShowCheckedModeBanner: false,
       routes: {
-        'login': (BuildContext context) => Login(),
-        'home': (BuildContext context) => Pag1("EMOV"),
+        'login': (BuildContext context) => Login(), //Rutas establecidas
+        'home': (BuildContext context) =>  PagInicial(id_usuario,""),
+        'home2': (BuildContext context) => PagEleccion(id_usuario),
+        'homeRep': (BuildContext context) => PagInicialRep(id_usuario,rol),
       },
       theme: ThemeData(primaryColor: Colors.lightBlue),
     ));
@@ -24,7 +33,21 @@ class MyApp extends StatelessWidget {
 
 class Login extends StatelessWidget {
   @override
+
+   Future<bool> check() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile) {
+      return true;
+    } else if (connectivityResult == ConnectivityResult.wifi) {
+      return true;
+    }
+    return false;
+  }
+
+   
+
   Widget build(BuildContext context) {
+    
     return Scaffold(
         body: Stack(
       children: <Widget>[_crearFondo(context), _loginForm(context)],
@@ -33,7 +56,6 @@ class Login extends StatelessWidget {
 
   Widget _crearFondo(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
     final fondoMorado = Container(
       height: size.height * 0.4,
       width: double.infinity,
@@ -51,7 +73,6 @@ class Login extends StatelessWidget {
           borderRadius: BorderRadius.circular(100.0),
           color: Color.fromRGBO(255, 255, 255, 0.05)),
     );
-
     return Stack(
       children: <Widget>[
         fondoMorado,
@@ -113,27 +134,7 @@ class Login extends StatelessWidget {
       ],
     );
   }
-Widget _crearCedula(LoginBloc bloc) {
-    return StreamBuilder(
-      stream: bloc.cedulaStream,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        return Container(
-          padding: EdgeInsets.symmetric(horizontal: 20.0),
-          child: TextField(
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-                border: UnderlineInputBorder(),
-                icon: Icon(Icons.vpn_lock, color: Colors.cyan),
-                hintText: "Cédula de identidad",
-                labelText: "Cédula de identidad",
-                counterText: snapshot.data,
-                errorText: snapshot.error),
-            onChanged: bloc.changeCedula,
-          ),
-        );
-      },
-    );
-  }
+
   Widget _loginForm(BuildContext context) {
     final bloc = Provider.of(context);
     final size = MediaQuery.of(context).size;
@@ -190,21 +191,23 @@ Widget _crearCedula(LoginBloc bloc) {
     );
   }
 
-  Widget _crearEmail(LoginBloc bloc) {
+  Widget _crearCedula(LoginBloc bloc) {
+    //Campos para el ingreso de la cédula
     return StreamBuilder(
-      stream: bloc.emailStream,
+      stream: bloc.cedulaStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return Container(
           padding: EdgeInsets.symmetric(horizontal: 20.0),
           child: TextField(
-            keyboardType: TextInputType.emailAddress,
+            keyboardType: TextInputType.number,
             decoration: InputDecoration(
-                icon: Icon(Icons.alternate_email, color: Colors.lightBlue),
-                hintText: "ejemplo@correo.com",
-                labelText: "CorreoElectronico",
+                border: UnderlineInputBorder(),
+                icon: Icon(Icons.vpn_lock, color: Colors.cyan),
+                hintText: "Cédula de identidad",
+                labelText: "Cédula de identidad",
                 counterText: snapshot.data,
                 errorText: snapshot.error),
-            onChanged: bloc.changedEmail,
+            onChanged: bloc.changeCedula,
           ),
         );
       },
@@ -212,6 +215,7 @@ Widget _crearCedula(LoginBloc bloc) {
   }
 
   Widget _crearPassword(LoginBloc bloc) {
+    //Campo para creacion de la contraseña
     return StreamBuilder(
       stream: bloc.passwordStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -254,14 +258,66 @@ Widget _crearCedula(LoginBloc bloc) {
         );
       },
     );
+    
   }
 
   _login(LoginBloc bloc, BuildContext context) {
-    print('=========================');
-    print('Email: ${bloc.email}');
-    print('Contraseña:${bloc.password}');
-    print('=========================');
+   
+      
+   
+    Future<String> consultar() async {
+      final response = await http.get("http://192.168.137.1:8888/login/${bloc.cedula}*${bloc.password}");
+      return Future.value(response.body);
+    }
+    Future<List> consultarRoles(id) async {
+      final response = await http.get("http://192.168.137.1:8888/rol?op=$id");
+      return json.decode(response.body);
+    }
+    
+    checkValue() async {
+      String val = await consultar();
+      val=val.replaceAll('"', "");
+      print(val);
+      id_usuario=val;
+      String representante;
+      String transportista;
+      
+      if (id_usuario.compareTo("0")==0) {
+         //mostrarAlert(context);
+         showToast(context);
+      } else {
+        List<dynamic> listaRoles = await consultarRoles(id_usuario);
+        if (listaRoles.length==1) {
+          print("vale");
+          print('=========================');
+          listaRoles.forEach((opt)
+          {
+           if ( opt['nombre'].toString().compareTo("PADRE DE FAMILIA")==0) {
+             Navigator.pushReplacementNamed(context, 'homeRep');
+           } 
+           else if(opt['nombre'].toString().compareTo("TRANSPORTISTA")==0){
+             Navigator.pushReplacementNamed(context, 'home');
+           }
+           else{
+             usuarioInvalido(context);
+           }
+           
+          });
+          //Navigator.pushReplacementNamed(context, 'homeRep');
+        } else {
+          print("Dos Usuarios");
+          print('=========================');
+          
+            Navigator.pushReplacementNamed(context, 'home2');
 
-    Navigator.pushReplacementNamed(context, 'home');
+          //Navigator.pushReplacementNamed(context, 'homeRep');
+          
+        }
+      }
+    }
+
+    checkValue();
+    //print(val == 1 ? "yes" : "no");
   }
+ 
 }
