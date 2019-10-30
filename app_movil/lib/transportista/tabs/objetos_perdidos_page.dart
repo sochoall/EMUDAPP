@@ -9,29 +9,24 @@ import 'package:http/http.dart';
 import 'dart:async';
 import 'dart:convert';
 
-
-
-
-
 class ObjetosP extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Material App',
-        debugShowCheckedModeBanner: false,
-        initialRoute: 'newPage',
-        routes: {
-         // 'registro_estudiantes': (BuildContext context) => listado(),
-          'objetos_perdidos': (BuildContext context) => objetosPerdidosPage(),
-          'add_objeto_perdido': (BuildContext context) =>
-              addObjetosPerdidosPage(),
-              'edit_objeto_perdido': (BuildContext context) =>
-              editObjetosPerdidosPage(),
-        },
-        theme: ThemeData(
-          primaryColor: Colors.cyan,
-        ),
-    
+      title: 'Material App',
+      debugShowCheckedModeBanner: false,
+      initialRoute: 'objetos_perdidos',
+      routes: {
+        // 'registro_estudiantes': (BuildContext context) => listado(),
+        'objetos_perdidos': (BuildContext context) => objetosPerdidosPage(),
+        'add_objeto_perdido': (BuildContext context) =>
+            addObjetosPerdidosPage(),
+        'edit_objeto_perdido': (BuildContext context) =>
+            editObjetosPerdidosPage(),
+      },
+      theme: ThemeData(
+        primaryColor: Colors.cyan,
+      ),
     );
   }
 }
@@ -165,31 +160,30 @@ class _objetosPerdidosPageState extends State<objetosPerdidosPage> {
         child: Column(
           children: <Widget>[
             ListTile(
-              title: Text(
-                "${objeto.descripcion}",
-                style: TextStyle(
-                  fontSize: 20.0,
+                title: Text(
+                  "${objeto.descripcion}",
+                  style: TextStyle(
+                    fontSize: 20.0,
+                  ),
                 ),
-              ),
-              subtitle: Text(
-                "Encontrado:  " +
-                    fechaEncontrado[0] +
-                    "\n" +
-                    "Estado:          " +
-                    _getNombreEstadObjeto(objeto.eobId) +
-                    "\n" +
-                    "Devuelto:       " +
-                    (fechaDevuelto[0].compareTo("") == 0
-                        ? ""
-                        : fechaDevuelto[0]),
-                style: TextStyle(
-                  //fontWeight: FontWeight.bold,
-                  fontSize: 15.0,
+                subtitle: Text(
+                  "Encontrado:  " +
+                      fechaEncontrado[0] +
+                      "\n" +
+                      "Estado:          " +
+                      _getNombreEstadObjeto(objeto.eobId) +
+                      "\n" +
+                      "Devuelto:       " +
+                      (fechaDevuelto[0].compareTo("") == 0
+                          ? ""
+                          : fechaDevuelto[0]),
+                  style: TextStyle(
+                    //fontWeight: FontWeight.bold,
+                    fontSize: 15.0,
+                  ),
                 ),
-              ),
-              onTap: () => Navigator.pushNamed(context, 'edit_objeto_perdido',
-                  arguments: objeto),
-            ),
+                onTap: () => Navigator.pushReplacementNamed(
+                    context, 'edit_objeto_perdido')),
             //SizedBox(height: 1.0,)
           ],
         ),
