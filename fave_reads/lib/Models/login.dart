@@ -9,7 +9,7 @@ class Login extends Serializable
   String pss;
  
 
-  Future<String>busquedaUsuario(Login dato) async
+  Future<int>busquedaUsuario(Login dato) async
   {
     final conexion = Conexion();
         
@@ -19,26 +19,26 @@ class Login extends Serializable
     final int cont=await conexion.busqueda(sql);
     final int cont2=await conexion.busqueda(sql2);
 
-    print(sql2);
-    print(cont2);
     if(cont > 0)
     {
       if(cont2 > 0)
       {
-        return "existe";
+        final String sql ="SELECT usu_id FROM public.te_usuario WHERE usu_correo='${dato.usuario}' and usu_password='${dato.pss}'";
+        final int d=await conexion.busqueda(sql).then((value){return value;});
+        return d;
+        
       }
       else
       {
-        return "contraseña incorrecta";
+        return 0;
       }
     }
     else
     {
-      return "no existe usuario";
+      return 0;
     }
   }
 
-  
    
 
   @override

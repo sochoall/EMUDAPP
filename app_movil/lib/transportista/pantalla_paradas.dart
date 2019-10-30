@@ -1,6 +1,7 @@
 import 'package:app_movil/transportista/tabs/alumnos.dart';
 import 'package:app_movil/transportista/tabs/objetos_perdidos_page.dart';
-import 'package:app_movil/transportista/tabs/operdidos.dart';
+import 'package:app_movil/transportista/tabs/registro_estudiantes_page.dart';
+
 import 'package:app_movil/transportista/tabs/rutas.dart';
 import 'package:app_movil/transportista/widgets/menu_lateral.dart';
 import 'package:flutter/material.dart';
@@ -52,9 +53,9 @@ class HomeScreenState extends State<HomeScreen> {
       case 0:
         return Rutas(this.idRecorrido);
       case 1:
-        return Alumno();
+        return listado();
       case 2:
-        return objetosPerdidosPage();
+        return ObjetosP();
         break;
       default:
         return Rutas(this.idRecorrido);

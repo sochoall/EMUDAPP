@@ -10,10 +10,10 @@ class TipoInstitucionController extends ResourceController{
 
 
   @Operation.get()
-  Future<Response> obtenerLista(@Bind.query('campo') String campo,@Bind.query('bus') String bus,@Bind.query('est') int est ) async
+  Future<Response> obtenerLista() async
   {
     final servicio = TipoInstitucion();
-    return Response.ok(await servicio.obtenerDatos(campo,bus,est));
+    return Response.ok(await servicio.obtenerDatos());
   }
 
   @Operation.get('id')

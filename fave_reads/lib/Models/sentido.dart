@@ -11,7 +11,7 @@ class Sentido extends Serializable
  
   Future<List> obtenerDatos() async {
     final conexion = Conexion();
-    const String sql = "select * from public.te_sentido_lectivo where sen_estado=0";
+    const String sql = "select * from public.te_sentido where sen_estado=1";
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 
@@ -38,7 +38,7 @@ class Sentido extends Serializable
 
   Future<Sentido> obtenerDatoId(int id) async {
     final conexion = Conexion();
-    final String sql = "select * from public.te_sentido_lectivo where sen_id=$id";
+    final String sql = "select * from public.te_sentido where sen_id=$id";
 
     final List<dynamic> query = await conexion.obtenerTabla(sql);
     if(query != null && query.isNotEmpty)
@@ -58,8 +58,8 @@ class Sentido extends Serializable
 
   Future<void> ingresar(Sentido dato) async{
     final conexion = Conexion();
-    final String sql = "INSERT INTO public.te_sentido_lectivo(sen_id, sen_nombre, sen_estado)"
-    " VALUES (${dato.id},'${dato.nombre}',${dato.estado});";
+    final String sql = "INSERT INTO public.te_sentido( sen_nombre, sen_estado)"
+    " VALUES ('${dato.nombre}',${dato.estado});";
     print(sql);
     await conexion.operaciones(sql);
   }
@@ -67,14 +67,14 @@ class Sentido extends Serializable
    Future<void> modificar(int id,Sentido dato) async{
     final conexion = Conexion();
     final String sql = 
-    "UPDATE public.te_sentido_lectivo SET sen_nombre='${dato.nombre}'"
+    "UPDATE public.te_sentido SET sen_nombre='${dato.nombre}',sen_estado='${dato.estado}'"
 	  "WHERE sen_id=$id";
     await conexion.operaciones(sql);
   }
 
    Future<void> eliminar(int id) async{
     final conexion = Conexion();
-    final String sql = "UPDATE public.te_sentido_lectivo SET sen_estado=1 WHERE sen_id=$id";
+    final String sql = "UPDATE public.te_sentido SET sen_estado=1 WHERE sen_id=$id";
     await conexion.operaciones(sql);
   }
 

@@ -1,15 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:app_movil/transportista/tabs/rutas.dart';
 import 'package:latlong/latlong.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:app_movil/transportista/tabs/rutas.dart';
 
-Future<List<Post>> fetchPost(id) async
+Future<List<Post>> fetchPost() async
 {
-  var response = await http.get("http://192.168.137.1:8888/parada/$id");
+  var response = await http.get("http://192.168.137.1:8888/parada/1");
 
   if(response.statusCode == 200)
   {
@@ -46,43 +46,29 @@ class Post
   }
 }
 
-//void main() => runApp(new MyApp());
-
 class MyApp extends StatelessWidget 
 {
-  String idRecorrido;
-  MyApp(this.idRecorrido);
+  final String aux; 
+  MyApp(this.aux);
+  
   @override
   Widget build(BuildContext context) 
   {
     return new MaterialApp(
+      home: new MyHomePage(),
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: new MyHomePage(idRecorrido),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget 
 {
-   String idRecorrido;
-
-  MyHomePage(this.idRecorrido);
-
-
-
   @override
-  _MyHomePageState createState() => new _MyHomePageState(idRecorrido);
+  MyHomePageState createState() => new MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> 
+class MyHomePageState extends State<MyHomePage> 
 {
-  String idRecorrido;
-
-  _MyHomePageState(this.idRecorrido);
-
   bool flag=false;
   Future<Post> post;
   Position userLocation;
@@ -94,7 +80,6 @@ class _MyHomePageState extends State<MyHomePage>
   {
     getUserCoords();
     return new Scaffold(
-     
       body: userLocation == null ? 
       Center(
         child: CircularProgressIndicator()
@@ -102,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage>
       :
       Center(
         child: FutureBuilder<List<Post>>(
-          future: fetchPost(idRecorrido),
+          future: fetchPost(),
           builder: (context, snapshot)
           {
             if(snapshot.hasData)
@@ -129,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage>
     return positionStream;
   }
 
-  getUserCoords()
+  Position getUserCoords()
   {
     _getCurrentPosition().listen((value)
     {
@@ -141,43 +126,41 @@ class _MyHomePageState extends State<MyHomePage>
     return userLocation;
   }
 
-  getUserProximity()
+  void getUserProximity()
   {
     double posX, posY, negX, negY;
     
-    posX=points.first.latitude+0.000020;
-    posY=points.first.longitude+0.000020;
-    negX=points.first.latitude-0.000020;
-    negY=points.first.longitude-0.000020;
+    if(points.isNotEmpty)
+    {
+      posX=points.first.latitude+0.000020;
+      posY=points.first.longitude+0.000020;
+      negX=points.first.latitude-0.000020;
+      negY=points.first.longitude-0.000020;
 
-    if(userLocation.latitude>posX && userLocation.longitude>posY)
-    {
-      removeStopMarkers(points.first);
-     //removeLastItem();
-      
-    }
-       
-    else if(userLocation.latitude>negX && userLocation.longitude>posY)
-    {
+      if(userLocation.latitude>posX && userLocation.longitude>posY)
+      {
         removeStopMarkers(points.first);
-        //removeLastItem();
+        RutasEstado.names.removeAt(0);
+      }
+      else if(userLocation.latitude>negX && userLocation.longitude>posY)
+      {
+        removeStopMarkers(points.first);
+        RutasEstado.names.removeAt(0);
+      }
+      else if(userLocation.latitude>negX && userLocation.longitude>negY)
+      {
+        removeStopMarkers(points.first);
+        RutasEstado.names.removeAt(0);
+      }
+      else if(userLocation.latitude>posX && userLocation.longitude>negY)
+      {
+        removeStopMarkers(points.first);
+        RutasEstado.names.removeAt(0);        
+      }
     }
-      
-    else if(userLocation.latitude>negX && userLocation.longitude>negY)
-    {
-      removeStopMarkers(points.first);
-      //removeLastItem();
-    }
-      
-    else if(userLocation.latitude>posX && userLocation.longitude>negY)
-    {
-      removeStopMarkers(points.first);
-     // removeLastItem();
-    }
-      
   }
 
-  buildMap()
+  FlutterMap buildMap()
   {
     var stopMarkers = points.map((latlng)
     {
@@ -190,9 +173,10 @@ class _MyHomePageState extends State<MyHomePage>
             icon: Icon(Icons.location_on),
             color: Colors.red,
             iconSize: 45.0,
-            onPressed: ()
+            onPressed:()
             {
               removeStopMarkers(latlng);
+              //RutasEstado.removeName();
             },
           ),
         ),
@@ -218,7 +202,7 @@ class _MyHomePageState extends State<MyHomePage>
     );
   }
 
-  buildUserMarkLocation()
+  MarkerLayerOptions buildUserMarkLocation()
   {
     return new MarkerLayerOptions(markers: [
       new Marker(
@@ -227,26 +211,26 @@ class _MyHomePageState extends State<MyHomePage>
         point: LatLng(userLocation.latitude, userLocation.longitude),
         builder: (context) => new Container(
           child: IconButton(
-            icon: Icon(Icons.navigation
-            ),
+            icon: Icon(Icons.navigation),
             color: Colors.lightBlue,
-            iconSize: 35.0,           
+            iconSize: 35.0,
             onPressed: ()
             {
-            }, 
+              
+            },
           ),
         )
       )
     ]);
   }
 
-  buildStopMarkers(String latitud, String longitud)
+  void buildStopMarkers(String latitud, String longitud)
   {
     LatLng latlng = new LatLng(double.parse(latitud), double.parse(longitud));
     points.add(latlng);
   }
 
-  removeStopMarkers(LatLng latlng)
+  void removeStopMarkers(LatLng latlng)
   {
     points.removeWhere((item) => (item.latitude == latlng.latitude) & (item.longitude == latlng.longitude));
   }

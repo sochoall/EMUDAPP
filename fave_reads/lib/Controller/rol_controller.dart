@@ -6,18 +6,26 @@ class RolController extends ResourceController{
 
 
 
-  @Operation.get()
-  Future<Response> obtenerLista() async
-  {
-    final servicio = Rol();
-    return Response.ok(await servicio.obtenerDatos());
-  }
-
   @Operation.get('id')
   Future<Response> obtenerListaId(@Bind.path('id') int id) async
   {
     final servicio = Rol();
     return Response.ok(await servicio.obtenerDatoId(id));
+  }
+
+  @Operation.get()
+  Future<Response> obtenerRolesId(@Bind.query('op') String op) async
+  {
+    final servicio = Rol();
+    if(op.compareTo("0") != 0)
+    {
+      print("imprimienrod roles por id");
+      return Response.ok(await servicio.obtenerRolesId(op));
+    }
+    else{
+      return Response.ok(await servicio.obtenerDatos());
+    }
+    
   }
 
   @Operation.post()

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -41,15 +42,14 @@ class Post
 
 class Rutas extends StatelessWidget 
 {
-  final String idRecorrido;
-  Rutas(this.idRecorrido);
-
   @override
+   final String idRecorrido;
+  Rutas(this.idRecorrido);
+  
   Widget build(BuildContext context) 
   {
-    return MaterialApp(
-      //title: 'ListView Example',
-      home: RutaParada(idRecorrido),
+    return new MaterialApp(
+      home: new RutaParada(),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -57,26 +57,28 @@ class Rutas extends StatelessWidget
 
 class RutaParada extends StatefulWidget 
 {
-  //Creacion de varibales que se vayan a usar
-  final String idRecorrido;
-  RutaParada(this.idRecorrido);
-
   @override
-  RutasEstado createState() => new RutasEstado(idRecorrido);
+  RutasEstado createState() => new RutasEstado();
 }
 
 class RutasEstado extends State<RutaParada> 
 {
+  Timer timer;
   bool flag = false;
   Future<Post> post;
-  List<String> names= [];
-  final String idRecorrido;
-  RutasEstado(this.idRecorrido);
+  static List<String> names = [];
+
+  @override
+  void initState() 
+  {
+    super.initState();
+    new Timer.periodic(Duration(seconds: 1), (Timer t) => setState((){}));
+  }
   
   @override
   Widget build(BuildContext context) 
   {
-    return Scaffold(
+    return new Scaffold(
       body: names == null ?
       Center(
         child: CircularProgressIndicator(),
@@ -89,7 +91,7 @@ class RutasEstado extends State<RutaParada>
           {
             if(snapshot.hasData)
             {
-              flag == false ? snapshot.data.map((post) => getNames(post.nombre)).toList() : print(flag);
+              flag == false && names == null ? snapshot.data.map((post) => buildListNames(post.nombre)).toList() : print(flag);
               flag = true;
             }
             else if (snapshot.hasError)
@@ -101,24 +103,20 @@ class RutasEstado extends State<RutaParada>
     );
   }
 
-  buildScrollView()
+  CustomScrollView buildScrollView()
   {
-    return CustomScrollView(
+    print(names);
+    return new CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
           expandedHeight: MediaQuery.of(context).size.height - MediaQuery.of(context).size.height /2,
           floating: false,
           pinned: true,
           flexibleSpace: FlexibleSpaceBar(
-            background: MyApp(idRecorrido),
+            background: MyApp(""),
             title: Row(
               children: <Widget>[
-                Text(
-                  "PARADAS  ",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold, color: Colors.black
-                  ),
-                ),
+                Text("PARADAS  ",style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
                 Icon(Icons.arrow_downward),
                 Icon(Icons.arrow_upward)
               ],
@@ -128,37 +126,39 @@ class RutasEstado extends State<RutaParada>
         SliverFillRemaining(
           child: CustomScrollView(
             slivers: <Widget>[
-               SliverFixedExtentList(
-          itemExtent: 50.0,
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext context, int index) 
-            {
-              return Container(
-                alignment: Alignment.center,
-                child: Text(names[index])
-              );
-            },
-            childCount: names.length
-          ),
-        )
+              SliverFixedExtentList(
+                itemExtent: 50.0,
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) 
+                  {
+                    return Container(
+                      alignment: Alignment.center,
+                      child: ListView(
+                        padding: const EdgeInsets.all(8),
+                        children: <Widget>[
+                          Container(
+                            height: 50,
+                            color: Colors.amber[600],
+                            child: Center(
+                              child: Text(names[index]),
+                            ),
+                          )
+                        ],
+                      )
+                    );
+                  },
+                  childCount: names.length
+                ),
+              )
             ],
           ),
-          )
-       
+        )
       ],
     );
   }
 
-  printNames()
+  void buildListNames(String name)
   {
-    String stopNames;
-    names.forEach((f) => stopNames = f);
-    return stopNames;
-  }
-
-  getNames(String name)
-  {
-    print(name);
     names.add(name);
   }
 }

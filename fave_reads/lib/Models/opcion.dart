@@ -11,7 +11,7 @@ class Opcion extends Serializable {
   Future<List> obtenerDatos() async {
     final conexion = Conexion();
     const String sql = "select * from public.te_opcion";
-    final List datos = [];
+    final List datos =[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 
     if (query != null && query.isNotEmpty) {

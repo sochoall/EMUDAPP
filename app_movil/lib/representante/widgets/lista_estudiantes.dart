@@ -59,13 +59,12 @@ List<Widget> datosListTile(List<dynamic> datos, BuildContext context) {
         //MaterialPageRoute(builder: (BuildContext contexto) => PantallaParadas(opt['nombre'])));
         //},
         trailing: Icon(Icons.keyboard_arrow_right, color: Colors.blue),
-        //children: <Widget>[
-         // Container(
-           // child: ListaRecorridoParada(opt['id'].toString(),id_usuario),
-         // )
-        //],
+        children: <Widget>[
+          Container(
+          //child: ListaRecorridoEstudiante(opt['id'].toString()),
+          )
+        ],
       );
-
       opciones..add(widgetTemp);
     },
   );

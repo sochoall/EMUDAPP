@@ -17,10 +17,10 @@ class Ruta extends Serializable
  
   Future<List> obtenerDatos() async {
     final conexion = Conexion();
-    const String sql = "select * from public.te_ruta where rut_estado=0";
+    const String sql = "select * from public.te_ruta where rut_estado=1";
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
-
+print(query);
     if(query != null && query.isNotEmpty)
     {
       for(int i=0; i<query.length;i++)
@@ -34,7 +34,6 @@ class Ruta extends Serializable
         reg.cupoMaximo=int.parse(query[i][4].toString());
         reg.color=query[i][5].toString();       
         reg.insId=int.parse(query[i][6].toString());
-  
         datos.add(reg.asMap()); 
       }
       return datos;
@@ -106,7 +105,7 @@ class Ruta extends Serializable
   void readFromMap(Map<String, dynamic> object) {
     id= int.parse(object['id'].toString());
     nombre= object['nombre'].toString();
-    descripcion= object['desccripcion'].toString();
+    descripcion= object['descripcion'].toString();
     estado=int.parse( object['estado'].toString());
     cupoMaximo=int.parse( object['cupoMaximo'].toString());
     color= object['color'].toString();

@@ -1,9 +1,16 @@
+import 'package:fave_reads/Controller/check_estudiante_controller.dart';
+import 'package:fave_reads/Controller/estudiante_app_controller.dart';
+import 'package:fave_reads/Controller/estudiante_controller.dart';
+import 'package:fave_reads/Controller/funcionario_app_controller.dart';
 import 'package:fave_reads/Controller/login_controller.dart';
 import 'package:fave_reads/Controller/monitoreo_controller.dart';
 import 'package:fave_reads/Controller/opcion_controller.dart';
 import 'package:fave_reads/Controller/parada_controller.dart';
 import 'package:fave_reads/Controller/periodo_controller.dart';
 import 'package:fave_reads/Controller/recorrido_controller.dart';
+import 'package:fave_reads/Controller/recorridosentido_controller.dart';
+import 'package:fave_reads/Controller/representante_app_controller.dart';
+import 'package:fave_reads/Controller/ruta_app_controller.dart';
 import 'package:fave_reads/Controller/sentido_controller.dart';
 import 'package:fave_reads/Controller/tipo_institucion_controller.dart';
 import 'package:fave_reads/Controller/tipo_monitoreo_controller.dart';
@@ -53,6 +60,7 @@ class FaveReadsChannel extends ApplicationChannel {
     // See: https://aqueduct.io/docs/http/request_controller/
 
     ..route('/funcionario/[:id]').link(() => FuncionarioController())
+    ..route('/funcionarioApp/[:id]').link(() => FuncionarioAppController())
 
     ..route('/institucion/[:id]').link(() => InstitucionController())
 
@@ -65,12 +73,15 @@ class FaveReadsChannel extends ApplicationChannel {
     ..route('/rol/[:id]').link(() => RolController())
     
     ..route('/representante/[:id]').link(() => RepresentanteController())
-
+    ..route('/representanteApp/[:id]').link(() => RepresentanteAppController())
+     ..route('/check_estudiante/[:id]').link(() => CheckEstudianteController())
       ..route('/login/[:datos]').link(() => LoginController())
-
+ ..route('/estudianteApp/[:id]').link(() => EstudianteAppController())
+ ..route('/estudiante/[:id]').link(() => EstudianteController())
     ..route('/vehiculo/[:id]').link(() => VehiculoController())
     ..route('/tipoServicio/[:id]').link(() => TipoServicioController())
-    ..route('/rutas/[:id]').link(() => RutaController())
+    ..route('/ruta/[:id]').link(() => RutaController())
+    ..route('/rutaApp/[:id]').link(() => RutaAppController())
     ..route('/objetosPerdidos/[:id]').link(() => ObjetosPerdidosController())
     ..route('/estadoObjetos/[:id]').link(() => EstadoObjetosController())
     ..route('/periodo/[:id]').link(() => PeriodoController())
@@ -78,6 +89,7 @@ class FaveReadsChannel extends ApplicationChannel {
     ..route('/recorrido/[:id]').link(() => RecorridoController())
     ..route('/monitoreo/[:id]').link(() => MonitoreoController())
     ..route('/sentido/[:id]').link(() => SentidoController())
+    ..route('/recorridosentido/[:idrec]').link(() => RecorridoSentidoController())
     ..route('/tipoVehiculo/[:id]').link(() => TipoVehiculoController())
     ..route('/tipoParada/[:id]').link(() => TipoParadaController())
     ..route('/tipoMonitoreo/[:id]').link(() => TipoMonitoreoController());

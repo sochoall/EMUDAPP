@@ -15,7 +15,7 @@ class Recorrido extends Serializable
  
   Future<List> obtenerDatos() async {
     final conexion = Conexion();
-    const String sql = "select * from public.te_recorrido where rec_estado=0";
+    const String sql = "select * from public.te_recorrido where rec_estado=1";
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 
@@ -108,3 +108,4 @@ class Recorrido extends Serializable
   }
 
 }
+

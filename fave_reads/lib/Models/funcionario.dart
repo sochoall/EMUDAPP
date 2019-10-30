@@ -17,7 +17,7 @@ class Funcionario extends Serializable
   Future<List> obtenerDatos() async 
   {
     final conexion = Conexion();
-    const String sql = "select * from public.te_funcionario where fun_estado=0";
+    const String sql = "select * from public.te_funcionario where fun_estado=1";
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 
@@ -87,7 +87,7 @@ class Funcionario extends Serializable
    {
     final conexion = Conexion();
     final String sql = 
-    "UPDATE public.te_funcionario SET fun_cedula='${dato.cedula}', fun_nombre='${dato.nombre}', fun_apellido='${dato.apellido}', fun_direccion='${dato.direccion}', fun_telefono='${dato.telefono}', fun_celular='${dato.celular}', fun_correo='${dato.correo}', ins_id=${dato.institutoId}"
+    "UPDATE public.te_funcionario SET fun_cedula='${dato.cedula}', fun_apellido='${dato.apellido}', fun_direccion='${dato.direccion}', fun_telefono='${dato.telefono}', fun_celular='${dato.celular}', fun_correo='${dato.correo}',fun_estado='${dato.estado}', ins_id=${dato.institutoId}"
 	  "WHERE fun_id=$id";
     await conexion.operaciones(sql);
   }

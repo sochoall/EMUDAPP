@@ -5,7 +5,6 @@ import 'package:fave_reads/Models/usuario.dart';
 class UsuarioController extends ResourceController{
 
 
-
   @Operation.get()
   Future<Response> obtenerLista() async
   {
