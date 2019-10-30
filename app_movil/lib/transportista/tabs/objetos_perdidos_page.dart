@@ -1,9 +1,9 @@
+import 'package:app_movil/transportista/models/estado_objeto_model.dart';
 import 'package:app_movil/transportista/models/objetos_perdidos_model.dart';
 import 'package:app_movil/transportista/tabs/add_objeto_perdido_page.dart';
 import 'package:app_movil/transportista/tabs/edit_objeto_perdido_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_calendar/flutter_calendar.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'dart:async';
@@ -35,6 +35,7 @@ class ObjetosP extends StatelessWidget {
     );
   }
 }
+
 class objetosPerdidosPage extends StatefulWidget {
   @override
   _objetosPerdidosPageState createState() => _objetosPerdidosPageState();
@@ -43,19 +44,52 @@ class objetosPerdidosPage extends StatefulWidget {
 class _objetosPerdidosPageState extends State<objetosPerdidosPage> {
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  List<estadoObjeto> estadoDeObjetos = List<estadoObjeto>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      
+      appBar: AppBar(
+        title: Text(
+          "Objetos perdidos",
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
       body: _crearListado(context),
       floatingActionButton: _crearBoton(context),
     );
   }
 
+  Future<void> _getEstadoObjeto() async {
+    final response = await http.get("http://192.168.1.5:8888/estadoObjetos");
+
+    var jsonData = json.decode(response.body);
+
+    for (var object in jsonData) {
+      estadoObjeto estadoObjetos = estadoObjeto();
+
+      estadoObjetos.id = int.parse(object['id'].toString());
+      estadoObjetos.nombre = object['nombre'].toString();
+
+      print(object['nombre'].toString() + "---------------------------");
+      estadoDeObjetos.add(estadoObjetos);
+    }
+
+    //print("ESTUDIANTES:---------->" + estudiantes.length.toString());
+  }
+
+  @override
+  void initState() {
+    _getEstadoObjeto().then((result) {
+      setState(() {});
+    });
+
+    super.initState();
+  }
+
   Future<List<objetosPerdidoss>> _getObjetosPerdidos() async {
-    final response = await http.get("http://192.168.137.1:8888/objetosPerdidos");
+    final response = await http.get("http://192.168.1.5:8888/objetosPerdidos");
     var jsonData = json.decode(response.body);
     //final List<objetosPerdidoss> objetos = List();
     List<objetosPerdidoss> objetos = List<objetosPerdidoss>();
@@ -70,12 +104,21 @@ class _objetosPerdidosPageState extends State<objetosPerdidosPage> {
       }
       object.recId = int.parse(ob['recId'].toString());
       object.eobId = int.parse(ob['eobId'].toString());
-      print(ob['descripcion'].toString());
+      // print(ob['descripcion'].toString());
       objetos.add(object);
     }
 
     //print("ESTUDIANTES:---------->" + objects.length.toString());
     return objetos;
+  }
+
+  String _getNombreEstadObjeto(int idEstado) {
+    for (estadoObjeto item in estadoDeObjetos) {
+      if (idEstado == item.id) {
+        return item.nombre;
+      }
+    }
+    return "No encontrado";
   }
 
   Widget _crearListado(BuildContext context) {
@@ -85,7 +128,7 @@ class _objetosPerdidosPageState extends State<objetosPerdidosPage> {
           AsyncSnapshot<List<objetosPerdidoss>> snapshot) {
         if (snapshot.hasData) {
           final objetos = snapshot.data;
-          print(objetos);
+          //print(objetos);
           return ListView.builder(
             itemCount: objetos.length,
             itemBuilder: (context, i) => _crearItem(context, objetos[i]),
@@ -111,84 +154,44 @@ class _objetosPerdidosPageState extends State<objetosPerdidosPage> {
     var fechaEncontrado = objeto.fechaHora.split(" ");
 
     if (objeto.fechaDevolucion.toString().compareTo("") == 0) {
-      print("-------------ES NULO------------");
+      //print("-------------ES NULO------------");
     }
     var fechaDevuelto = objeto.fechaDevolucion.split(" ");
 
-    return Dismissible(
-      key: UniqueKey(),
-      background: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          margin: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 0.0),
-          color: Colors.red,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
-              Text(
-                "Devuelto",
-                textAlign: TextAlign.justify,
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: Card(
+        margin: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 0.0),
+        child: Column(
+          children: <Widget>[
+            ListTile(
+              title: Text(
+                "${objeto.descripcion}",
                 style: TextStyle(
                   fontSize: 20.0,
-                  color: Colors.white,
                 ),
               ),
-              /*Icon(
-                    Icons.delete,
-                    color: Colors.white,
-                    size: 35.0,
-                  )*/
-            ],
-          ),
-        ),
-      ),
-      direction: DismissDirection.endToStart,
-      onDismissed: (direction) async {
-        try {
-          var url = "http://192.168.137.1:8888/objetosPerdidos/${objeto.id}";
-          Map<String, String> headers = {"Content-type": "application/json"};
-          Response response = await http.delete(url, headers: headers);
-          int statusCode = response.statusCode;
-          String body = response.body;
-          print(body);
-          mostrarSnackbar("Objeto ha sido devuelto.");
-        } catch (e) {
-          mostrarSnackbar(e.toString());
-        }
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(5.0),
-        child: Card(
-          margin: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 0.0),
-          child: Column(
-            children: <Widget>[
-              ListTile(
-                title: Text(
-                  "${objeto.descripcion}",
-                  style: TextStyle(
-                    fontSize: 20.0,
-                  ),
+              subtitle: Text(
+                "Encontrado:  " +
+                    fechaEncontrado[0] +
+                    "\n" +
+                    "Estado:          " +
+                    _getNombreEstadObjeto(objeto.eobId) +
+                    "\n" +
+                    "Devuelto:       " +
+                    (fechaDevuelto[0].compareTo("") == 0
+                        ? ""
+                        : fechaDevuelto[0]),
+                style: TextStyle(
+                  //fontWeight: FontWeight.bold,
+                  fontSize: 15.0,
                 ),
-                subtitle: Text(
-                  "Encontrado:  " +
-                      fechaEncontrado[0] +
-                      "\n" +
-                      "Devuelto:       " +
-                      (fechaDevuelto[0].compareTo("") == 0
-                          ? "Disponible"
-                          : fechaDevuelto[0]),
-                  style: TextStyle(
-                    //fontWeight: FontWeight.bold,
-                    fontSize: 15.0,
-                  ),
-                ),
-                onTap: () => Navigator. pushNamed(context, 'edit_objeto_perdido',
-                    arguments: objeto),
               ),
-              //SizedBox(height: 1.0,)
-            ],
-          ),
+              onTap: () => Navigator.pushNamed(context, 'edit_objeto_perdido',
+                  arguments: objeto),
+            ),
+            //SizedBox(height: 1.0,)
+          ],
         ),
       ),
     );

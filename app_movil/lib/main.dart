@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:app_movil/transportista/tabs/objetos_perdidos_page.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:app_movil/representante/pantalla_inicial_rep.dart';
 import 'package:app_movil/transportista/alerta.dart';
@@ -18,13 +19,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Provider(
         child: MaterialApp(
-      initialRoute: 'login',
+      initialRoute: 'objetosPerdidos',
       debugShowCheckedModeBanner: false,
       routes: {
         'login': (BuildContext context) => Login(), //Rutas establecidas
         'home': (BuildContext context) =>  PagInicial(id_usuario,""),
         'home2': (BuildContext context) => PagEleccion(id_usuario),
         'homeRep': (BuildContext context) => PagInicialRep(id_usuario,rol),
+        'objetosPerdidos': (BuildContext context) => objetosPerdidosPage(),
       },
       theme: ThemeData(primaryColor: Colors.lightBlue),
     ));
