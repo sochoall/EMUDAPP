@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 #Fri Nov 08 14:37:56 COT 2019
 base.0=D\:\\EMOV\\GITHUB\\EMUDAPP\\app_movil\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
+=======
+#Tue Nov 05 15:34:47 COT 2019
+base.0=C\:\\Users\\YOGUI\\Desktop\\GIT\\EMUDAPP\\app_movil\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
+path.1=classes.dex
+renamed.1=classes2.dex
+>>>>>>> 3548771422cf00af2d986da3ef18b1b9ce849f04
 path.0=classes.dex
 renamed.0=classes.dex
+base.1=C\:\\Users\\Sergi\\OneDrive\\Documentos\\Flutter\\EMUDAPP\\app_movil\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex

@@ -91,7 +91,7 @@ class RutasEstado extends State<RutaParada>
           {
             if(snapshot.hasData)
             {
-              flag == false && names == null ? snapshot.data.map((post) => buildListNames(post.nombre)).toList() : print(flag);
+              flag == false && names.isEmpty ? snapshot.data.map((post) => buildListNames(post.nombre)).toList() : flag;
               flag = true;
             }
             else if (snapshot.hasError)
@@ -105,7 +105,6 @@ class RutasEstado extends State<RutaParada>
 
   CustomScrollView buildScrollView()
   {
-    print(names);
     return new CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
@@ -131,23 +130,32 @@ class RutasEstado extends State<RutaParada>
                 delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) 
                   {
-                    return Container(
-                      alignment: Alignment.center,
-                      child: ListView(
-                        padding: const EdgeInsets.all(8),
-                        children: <Widget>[
-                          Container(
-                            height: 50,
-                            color: Colors.amber[600],
-                            child: Center(
-                              child: Text(names[index]),
-                            ),
-                          )
-                        ],
-                      )
+                    return index/names.length == 0
+                    ?
+                    Container(
+                      color: Colors.grey.withOpacity(.5),
+                      height: 50,
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text("#"),
+                            Text("Parada"),
+                            Text("ETA")
+                          ],
+                        )
+                      ),
+                      padding: EdgeInsets.all(10.0),
+                    )
+                    :
+                    Container(
+                      height: 50,
+                      child: Center(
+                        child: Text(names[index-1]),
+                      ),
                     );
                   },
-                  childCount: names.length
+                  childCount: names.length+1
                 ),
               )
             ],
