@@ -1,11 +1,9 @@
 import 'package:fave_reads/Controller/check_estudiante_controller.dart';
-<<<<<<< HEAD
+
 import 'package:fave_reads/Controller/estudiante_app_controller.dart';
 import 'package:fave_reads/Controller/estudiante_controller.dart';
 import 'package:fave_reads/Controller/funcionario_app_controller.dart';
-=======
 import 'package:fave_reads/Controller/estudiante_controller.dart';
->>>>>>> 1038910dc9f0c5e4dae92d2493941b240bc6b5db
 import 'package:fave_reads/Controller/login_controller.dart';
 import 'package:fave_reads/Controller/monitoreo_controller.dart';
 import 'package:fave_reads/Controller/opcion_controller.dart';
@@ -59,74 +57,40 @@ class FaveReadsChannel extends ApplicationChannel {
   Controller get entryPoint {
     final router = Router()
 
-<<<<<<< HEAD
-    // Prefer to use `link` instead of `linkFunction`.
-    // See: https://aqueduct.io/docs/http/request_controller/
-
-    ..route('/funcionario/[:id]').link(() => FuncionarioController())
-    ..route('/funcionarioApp/[:id]').link(() => FuncionarioAppController())
-
-    ..route('/institucion/[:id]').link(() => InstitucionController())
-
-    ..route('/tipoInstitucion/[:id]').link(() => TipoInstitucionController())
-
-    ..route('/usuario/[:id]').link(() => UsuarioController())
-
-    ..route('/opcion/[:id]').link(() => OpcionController())
-
-    ..route('/rol/[:id]').link(() => RolController())
-    
-    ..route('/representante/[:id]').link(() => RepresentanteController())
-    ..route('/representanteApp/[:id]').link(() => RepresentanteAppController())
-     ..route('/check_estudiante/[:id]').link(() => CheckEstudianteController())
-      ..route('/login/[:datos]').link(() => LoginController())
- ..route('/estudianteApp/[:id]').link(() => EstudianteAppController())
- ..route('/estudiante/[:id]').link(() => EstudianteController())
-    ..route('/vehiculo/[:id]').link(() => VehiculoController())
-    ..route('/tipoServicio/[:id]').link(() => TipoServicioController())
-    ..route('/ruta/[:id]').link(() => RutaController())
-    ..route('/rutaApp/[:id]').link(() => RutaAppController())
-    ..route('/objetosPerdidos/[:id]').link(() => ObjetosPerdidosController())
-    ..route('/estadoObjetos/[:id]').link(() => EstadoObjetosController())
-    ..route('/periodo/[:id]').link(() => PeriodoController())
-    ..route('/parada/[:id]').link(() => ParadaController())
-    ..route('/recorrido/[:id]').link(() => RecorridoController())
-    ..route('/monitoreo/[:id]').link(() => MonitoreoController())
-    ..route('/sentido/[:id]').link(() => SentidoController())
-    ..route('/recorridosentido/[:idrec]').link(() => RecorridoSentidoController())
-    ..route('/tipoVehiculo/[:id]').link(() => TipoVehiculoController())
-    ..route('/tipoParada/[:id]').link(() => TipoParadaController())
-    ..route('/tipoMonitoreo/[:id]').link(() => TipoMonitoreoController());
-
-
-=======
       // Prefer to use `link` instead of `linkFunction`.
       // See: https://aqueduct.io/docs/http/request_controller/
 
       ..route('/funcionario/[:id]').link(() => FuncionarioController())
+      ..route('/funcionarioApp/[:id]').link(() => FuncionarioAppController())
       ..route('/institucion/[:id]').link(() => InstitucionController())
       ..route('/tipoInstitucion/[:id]').link(() => TipoInstitucionController())
       ..route('/usuario/[:id]').link(() => UsuarioController())
       ..route('/opcion/[:id]').link(() => OpcionController())
       ..route('/rol/[:id]').link(() => RolController())
       ..route('/representante/[:id]').link(() => RepresentanteController())
+      ..route('/representanteApp/[:id]')
+          .link(() => RepresentanteAppController())
       ..route('/login/[:datos]').link(() => LoginController())
+      ..route('/estudianteApp/[:id]').link(() => EstudianteAppController())
+      ..route('/estudiante/[:id]').link(() => EstudianteController())
       ..route('/vehiculo/[:id]').link(() => VehiculoController())
       ..route('/tipoServicio/[:id]').link(() => TipoServicioController())
-      ..route('/rutas/[:id]').link(() => RutaController())
-      ..route('/objetosPerdidos/[:id]').link(() => ObjetosPerdidosController())
+      ..route('/ruta/[:id]').link(() => RutaController())
+      ..route('/rutaApp/[:id]').link(() => RutaAppController())
+      ..route('/objetosPerdidos/[:fechas]').link(() => ObjetosPerdidosController())
       ..route('/estadoObjetos/[:id]').link(() => EstadoObjetosController())
       ..route('/periodo/[:id]').link(() => PeriodoController())
       ..route('/parada/[:id]').link(() => ParadaController())
       ..route('/recorrido/[:id]').link(() => RecorridoController())
       ..route('/monitoreo/[:id]').link(() => MonitoreoController())
       ..route('/sentido/[:id]').link(() => SentidoController())
+      ..route('/recorridosentido/[:idrec]')
+          .link(() => RecorridoSentidoController())
       ..route('/tipoVehiculo/[:id]').link(() => TipoVehiculoController())
       ..route('/tipoParada/[:id]').link(() => TipoParadaController())
       ..route('/tipoMonitoreo/[:id]').link(() => TipoMonitoreoController())
-      ..route('/estudiante/[:id]').link(() => EstudianteController())
-      ..route('/check_estudiante/[:id]').link(() => CheckEstudianteController());
->>>>>>> 1038910dc9f0c5e4dae92d2493941b240bc6b5db
+      ..route('/check_estudiante/[:id]')
+          .link(() => CheckEstudianteController());
 
     return router;
   }

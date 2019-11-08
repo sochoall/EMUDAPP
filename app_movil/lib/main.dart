@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         'home': (BuildContext context) =>  PagInicial(id_usuario,""),
         'home2': (BuildContext context) => PagEleccion(id_usuario),
         'homeRep': (BuildContext context) => PagInicialRep(id_usuario,rol),
-        'objetosPerdidos': (BuildContext context) => objetosPerdidosPage(),
+         'objetosPerdidos': (BuildContext context) => ObjetosP(),
       },
       theme: ThemeData(primaryColor: Colors.lightBlue),
     ));

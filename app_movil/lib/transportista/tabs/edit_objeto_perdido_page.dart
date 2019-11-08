@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:app_movil/transportista/models/objetos_perdidos_model.dart';
 import 'package:app_movil/transportista/widgets/estado_objeto_model.dart';
-import 'package:app_movil/transportista/widgets/objetos_perdidos_model.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as prefix0;
@@ -33,7 +33,7 @@ class _editObjetosPerdidosPageState extends State<editObjetosPerdidosPage> {
   final TextEditingController _controller2 = new TextEditingController();
 
   Future<void> _getEstadoObjeto() async {
-    final response = await http.get("http://192.168.137.1:8888/estadoObjetos");
+    final response = await http.get("http://192.169.4.10:8888/estadoObjetos");
     var jsonData = json.decode(response.body);
     for (var object in jsonData) {
       estadoObjeto estadoObjetos = estadoObjeto();
@@ -371,6 +371,7 @@ class _editObjetosPerdidosPageState extends State<editObjetosPerdidosPage> {
       if ((_controller2.text.isEmpty && (objeto.eobId == 1)) ||
           (_controller2.text.isNotEmpty &&
               (objeto.eobId == 2 || objeto.eobId == 3))) {
+                
         var url = "http://192.168.137.1:8888/objetosPerdidos/${objeto.id}";
         Map<String, String> headers = {"Content-type": "application/json"};
         String json =

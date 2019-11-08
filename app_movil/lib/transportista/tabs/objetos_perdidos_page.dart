@@ -1,7 +1,7 @@
+import 'package:app_movil/transportista/models/objetos_perdidos_model.dart';
 import 'package:app_movil/transportista/tabs/add_objeto_perdido_page.dart';
 import 'package:app_movil/transportista/tabs/edit_objeto_perdido_page.dart';
 import 'package:app_movil/transportista/widgets/estado_objeto_model.dart';
-import 'package:app_movil/transportista/widgets/objetos_perdidos_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar/flutter_calendar.dart';
@@ -10,28 +10,35 @@ import 'package:http/http.dart';
 import 'dart:async';
 import 'dart:convert';
 
+import 'consulta_objetos_perdidos_page.dart';
+import 'objetos_perdidos_seleccionar_fecha_page.dart';
+
 class ObjetosP extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Material App',
-        debugShowCheckedModeBanner: false,
-        initialRoute: 'objetos_perdidos',
-        routes: {
-         // 'registro_estudiantes': (BuildContext context) => listado(),
-          'objetos_perdidos': (BuildContext context) => objetosPerdidosPage(),
-          'add_objeto_perdido': (BuildContext context) =>
-              addObjetosPerdidosPage(),
-              'edit_objeto_perdido': (BuildContext context) =>
-              editObjetosPerdidosPage(),
-        },
-        theme: ThemeData(
-          primaryColor: Colors.cyan,
-        ),
-    
+      title: 'Material App',
+      debugShowCheckedModeBanner: false,
+      initialRoute: 'objetos_perdidos',
+      routes: {
+        // 'registro_estudiantes': (BuildContext context) => listado(),
+        'objetos_perdidos': (BuildContext context) => objetosPerdidosPage(),
+        'add_objeto_perdido': (BuildContext context) =>
+            addObjetosPerdidosPage(),
+        'edit_objeto_perdido': (BuildContext context) =>
+            editObjetosPerdidosPage(),
+        'seleccionar_fecha_objeto_perdido': (BuildContext context) =>
+            objetosPerdidosSeleccionarFechaPage(),
+        'consulta_objetos_perdidos': (BuildContext context) =>
+            consultaObjetosPerdidosPage(),
+      },
+      theme: ThemeData(
+        primaryColor: Colors.cyan,
+      ),
     );
   }
 }
+
 class objetosPerdidosPage extends StatefulWidget {
   @override
   _objetosPerdidosPageState createState() => _objetosPerdidosPageState();
@@ -52,7 +59,7 @@ class _objetosPerdidosPageState extends State<objetosPerdidosPage> {
   }
 
   Future<void> _getEstadoObjeto() async {
-    final response = await http.get("http://192.168.137.1:8888/estadoObjetos");
+    final response = await http.get("http://192.169.4.10:8888/estadoObjetos");
 
     var jsonData = json.decode(response.body);
 
@@ -79,7 +86,7 @@ class _objetosPerdidosPageState extends State<objetosPerdidosPage> {
   }
 
   Future<List<objetosPerdidoss>> _getObjetosPerdidos() async {
-    final response = await http.get("http://192.168.137.1:8888/objetosPerdidos");
+    final response = await http.get("http://192.169.4.10:8888/objetosPerdidos");
     var jsonData = json.decode(response.body);
     //final List<objetosPerdidoss> objetos = List();
     List<objetosPerdidoss> objetos = List<objetosPerdidoss>();
@@ -136,7 +143,8 @@ class _objetosPerdidosPageState extends State<objetosPerdidosPage> {
     return FloatingActionButton(
       child: Icon(Icons.add),
       backgroundColor: Colors.cyan,
-      onPressed: () => Navigator.pushNamed(context, 'add_objeto_perdido'),
+      onPressed: () =>
+          Navigator.pushNamed(context, 'seleccionar_fecha_objeto_perdido'),
     );
   }
 

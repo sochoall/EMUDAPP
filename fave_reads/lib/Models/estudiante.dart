@@ -15,11 +15,7 @@ class Estudiante extends Serializable {
 
   Future<List> obtenerDatos() async {
     final conexion = Conexion();
-<<<<<<< HEAD
-    const String sql = "select * from public.te_estudiante";
-=======
     const String sql = "select * from public.te_estudiante where est_estado=0";
->>>>>>> 1038910dc9f0c5e4dae92d2493941b240bc6b5db
     final List datos = [];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 

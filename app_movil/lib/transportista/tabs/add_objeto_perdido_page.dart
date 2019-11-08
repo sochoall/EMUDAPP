@@ -34,7 +34,7 @@ class _addObjetosPerdidosPageState extends State<addObjetosPerdidosPage> {
   final TextEditingController _controller2 = new TextEditingController();
 
   Future<void> _getEstadoObjeto() async {
-    final response = await http.get("http://192.168.137.1:8888/estadoObjetos");
+    final response = await http.get("http://192.169.4.10:8888/estadoObjetos");
 
     var jsonData = json.decode(response.body);
 
@@ -340,7 +340,7 @@ class _addObjetosPerdidosPageState extends State<addObjetosPerdidosPage> {
           (_controller2.text.isNotEmpty &&
               (objeto.eobId == 2 || objeto.eobId == 3))) {
         try {
-          var url = "http://192.168.137.1:8888/objetosPerdidos";
+          var url = "http://192.169.4.10:8888/objetosPerdidos";
 
           Map<String, String> headers = {"Content-type": "application/json"};
           String json =
