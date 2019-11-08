@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Provider(
         child: MaterialApp(
-      initialRoute: 'objetosPerdidos',
+      initialRoute: 'login',
       debugShowCheckedModeBanner: false,
       routes: {
         'login': (BuildContext context) => Login(), //Rutas establecidas
