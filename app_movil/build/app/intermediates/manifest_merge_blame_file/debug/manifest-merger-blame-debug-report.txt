@@ -12,23 +12,43 @@
 12         to allow setting breakpoints, to provide hot reload, etc.
 13    -->
 14    <uses-permission android:name="android.permission.INTERNET" />
-14-->C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\android\app\src\debug\AndroidManifest.xml:6:5-66
-14-->C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\android\app\src\debug\AndroidManifest.xml:6:22-64
+<<<<<<< HEAD
+14-->D:\EMOV\GITHUB\EMUDAPP\app_movil\android\app\src\debug\AndroidManifest.xml:6:5-66
+14-->D:\EMOV\GITHUB\EMUDAPP\app_movil\android\app\src\debug\AndroidManifest.xml:6:22-64
 15    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-15-->[:image_picker] C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-80
-15-->[:image_picker] C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-77
+15-->[:image_picker] D:\EMOV\GITHUB\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-80
+15-->[:image_picker] D:\EMOV\GITHUB\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-77
 16    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-16-->[:image_picker] C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:8:5-81
-16-->[:image_picker] C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:8:22-78
+16-->[:image_picker] D:\EMOV\GITHUB\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:8:5-81
+16-->[:image_picker] D:\EMOV\GITHUB\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:8:22-78
+17    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+17-->[:connectivity] D:\EMOV\GITHUB\EMUDAPP\app_movil\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-79
+17-->[:connectivity] D:\EMOV\GITHUB\EMUDAPP\app_movil\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-76
+18    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+18-->[:connectivity] D:\EMOV\GITHUB\EMUDAPP\app_movil\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:8:5-76
+18-->[:connectivity] D:\EMOV\GITHUB\EMUDAPP\app_movil\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:8:22-73
+19    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+19-->[:geolocator] D:\EMOV\GITHUB\EMUDAPP\app_movil\build\geolocator\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-79
+19-->[:geolocator] D:\EMOV\GITHUB\EMUDAPP\app_movil\build\geolocator\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-76
+=======
+14-->C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\android\app\src\debug\AndroidManifest.xml:6:5-66
+14-->C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\android\app\src\debug\AndroidManifest.xml:6:22-64
+15    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+15-->[:image_picker] C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-80
+15-->[:image_picker] C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-77
+16    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+16-->[:image_picker] C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:8:5-81
+16-->[:image_picker] C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:8:22-78
 17    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-17-->[:geolocator] C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\build\geolocator\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-79
-17-->[:geolocator] C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\build\geolocator\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-76
+17-->[:geolocator] C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\build\geolocator\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-79
+17-->[:geolocator] C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\build\geolocator\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-76
 18    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-18-->[:connectivity] C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-79
-18-->[:connectivity] C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-76
+18-->[:connectivity] C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-79
+18-->[:connectivity] C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-76
 19    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-19-->[:connectivity] C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:8:5-76
-19-->[:connectivity] C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:8:22-73
+19-->[:connectivity] C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:8:5-76
+19-->[:connectivity] C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:8:22-73
+>>>>>>> 3548771422cf00af2d986da3ef18b1b9ce849f04
 20    <!--
 21 io.flutter.app.FlutterApplication is an android.app.Application that
 22         calls FlutterMain.startInitialization(this); in its onCreate method.
@@ -37,30 +57,57 @@
 25         FlutterApplication and put your custom class here.
 26    -->
 27    <application
-27-->C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:9:5-32:19
+<<<<<<< HEAD
+27-->D:\EMOV\GITHUB\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:9:5-32:19
 28        android:name="io.flutter.app.FlutterApplication"
-28-->C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:10:9-57
+28-->D:\EMOV\GITHUB\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:10:9-57
 29        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-29-->[androidx.core:core:1.0.2] C:\Users\YOGUI\.gradle\caches\transforms-2\files-2.1\fecc98e05c7ccd4a0eedf7cff343a233\core-1.0.2\AndroidManifest.xml:22:18-86
+29-->[androidx.core:core:1.0.2] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\fecc98e05c7ccd4a0eedf7cff343a233\core-1.0.2\AndroidManifest.xml:22:18-86
 30        android:debuggable="true"
 31        android:icon="@mipmap/ic_launcher"
-31-->C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:12:9-43
+31-->D:\EMOV\GITHUB\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:12:9-43
 32        android:label="app_movil" >
-32-->C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:11:9-34
+32-->D:\EMOV\GITHUB\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:11:9-34
 33        <activity
-33-->C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:13:9-31:20
+33-->D:\EMOV\GITHUB\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:13:9-31:20
 34            android:name="com.example.app_movil.MainActivity"
-34-->C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:14:13-41
+34-->D:\EMOV\GITHUB\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:14:13-41
 35            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-35-->C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:17:13-144
+35-->D:\EMOV\GITHUB\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:17:13-144
 36            android:hardwareAccelerated="true"
-36-->C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:18:13-47
+36-->D:\EMOV\GITHUB\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:18:13-47
 37            android:launchMode="singleTop"
-37-->C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:15:13-43
+37-->D:\EMOV\GITHUB\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:15:13-43
 38            android:theme="@style/LaunchTheme"
-38-->C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:16:13-47
+38-->D:\EMOV\GITHUB\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:16:13-47
 39            android:windowSoftInputMode="adjustResize" >
-39-->C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:19:13-55
+39-->D:\EMOV\GITHUB\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:19:13-55
+=======
+27-->C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:9:5-32:19
+28        android:name="io.flutter.app.FlutterApplication"
+28-->C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:10:9-57
+29        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+29-->[androidx.core:core:1.0.2] C:\Users\Sergi\.gradle\caches\transforms-2\files-2.1\fecc98e05c7ccd4a0eedf7cff343a233\core-1.0.2\AndroidManifest.xml:22:18-86
+30        android:debuggable="true"
+31        android:icon="@mipmap/ic_launcher"
+31-->C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:12:9-43
+32        android:label="app_movil" >
+32-->C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:11:9-34
+33        <activity
+33-->C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:13:9-31:20
+34            android:name="com.example.app_movil.MainActivity"
+34-->C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:14:13-41
+35            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+35-->C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:17:13-144
+36            android:hardwareAccelerated="true"
+36-->C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:18:13-47
+37            android:launchMode="singleTop"
+37-->C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:15:13-43
+38            android:theme="@style/LaunchTheme"
+38-->C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:16:13-47
+39            android:windowSoftInputMode="adjustResize" >
+39-->C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:19:13-55
+>>>>>>> 3548771422cf00af2d986da3ef18b1b9ce849f04
 40
 41            <!--
 42                 This keeps the window background of the activity showing
@@ -69,57 +116,110 @@
 45                 defined in @style/LaunchTheme).
 46            -->
 47            <meta-data
-47-->C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:24:13-26:40
+<<<<<<< HEAD
+47-->D:\EMOV\GITHUB\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:24:13-26:40
 48                android:name="io.flutter.app.android.SplashScreenUntilFirstFrame"
-48-->C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:25:17-82
+48-->D:\EMOV\GITHUB\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:25:17-82
 49                android:value="true" />
-49-->C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:26:17-37
+49-->D:\EMOV\GITHUB\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:26:17-37
 50
 51            <intent-filter>
-51-->C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:27:13-30:29
+51-->D:\EMOV\GITHUB\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:27:13-30:29
 52                <action android:name="android.intent.action.MAIN" />
-52-->C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:28:17-68
-52-->C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:28:25-66
+52-->D:\EMOV\GITHUB\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:28:17-68
+52-->D:\EMOV\GITHUB\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:28:25-66
 53
 54                <category android:name="android.intent.category.LAUNCHER" />
-54-->C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:29:17-76
-54-->C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:29:27-74
+54-->D:\EMOV\GITHUB\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:29:17-76
+54-->D:\EMOV\GITHUB\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:29:27-74
+=======
+47-->C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:24:13-26:40
+48                android:name="io.flutter.app.android.SplashScreenUntilFirstFrame"
+48-->C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:25:17-82
+49                android:value="true" />
+49-->C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:26:17-37
+50
+51            <intent-filter>
+51-->C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:27:13-30:29
+52                <action android:name="android.intent.action.MAIN" />
+52-->C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:28:17-68
+52-->C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:28:25-66
+53
+54                <category android:name="android.intent.category.LAUNCHER" />
+54-->C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:29:17-76
+54-->C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\android\app\src\main\AndroidManifest.xml:29:27-74
+>>>>>>> 3548771422cf00af2d986da3ef18b1b9ce849f04
 55            </intent-filter>
 56        </activity>
 57
 58        <provider
-58-->[:image_picker] C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:11:9-19:20
+<<<<<<< HEAD
+58-->[:image_picker] D:\EMOV\GITHUB\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:11:9-19:20
 59            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
-59-->[:image_picker] C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:12:13-82
+59-->[:image_picker] D:\EMOV\GITHUB\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:12:13-82
 60            android:authorities="com.example.app_movil.flutter.image_provider"
-60-->[:image_picker] C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-74
+60-->[:image_picker] D:\EMOV\GITHUB\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-74
 61            android:exported="false"
-61-->[:image_picker] C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-37
+61-->[:image_picker] D:\EMOV\GITHUB\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-37
 62            android:grantUriPermissions="true" >
-62-->[:image_picker] C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:15:13-47
+62-->[:image_picker] D:\EMOV\GITHUB\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:15:13-47
 63            <meta-data
-63-->[:image_picker] C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:16:13-18:75
+63-->[:image_picker] D:\EMOV\GITHUB\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:16:13-18:75
 64                android:name="android.support.FILE_PROVIDER_PATHS"
-64-->[:image_picker] C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:17:17-67
+64-->[:image_picker] D:\EMOV\GITHUB\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:17:17-67
 65                android:resource="@xml/flutter_image_picker_file_paths" />
-65-->[:image_picker] C:\Users\YOGUI\Desktop\GIT\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:18:17-72
+65-->[:image_picker] D:\EMOV\GITHUB\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:18:17-72
 66        </provider>
 67
 68        <activity
-68-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\YOGUI\.gradle\caches\transforms-2\files-2.1\4d0f8f7e1f12364a3ada4df053aa2525\jetified-play-services-base-16.0.1\AndroidManifest.xml:23:9-26:75
+68-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\3d3412743a0f0d930aceb16a863f67f9\jetified-play-services-base-16.0.1\AndroidManifest.xml:23:9-26:75
 69            android:name="com.google.android.gms.common.api.GoogleApiActivity"
-69-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\YOGUI\.gradle\caches\transforms-2\files-2.1\4d0f8f7e1f12364a3ada4df053aa2525\jetified-play-services-base-16.0.1\AndroidManifest.xml:24:13-79
+69-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\3d3412743a0f0d930aceb16a863f67f9\jetified-play-services-base-16.0.1\AndroidManifest.xml:24:13-79
 70            android:exported="false"
-70-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\YOGUI\.gradle\caches\transforms-2\files-2.1\4d0f8f7e1f12364a3ada4df053aa2525\jetified-play-services-base-16.0.1\AndroidManifest.xml:25:13-37
+70-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\3d3412743a0f0d930aceb16a863f67f9\jetified-play-services-base-16.0.1\AndroidManifest.xml:25:13-37
 71            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-71-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\YOGUI\.gradle\caches\transforms-2\files-2.1\4d0f8f7e1f12364a3ada4df053aa2525\jetified-play-services-base-16.0.1\AndroidManifest.xml:26:13-72
+71-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\3d3412743a0f0d930aceb16a863f67f9\jetified-play-services-base-16.0.1\AndroidManifest.xml:26:13-72
 72
 73        <meta-data
-73-->[com.google.android.gms:play-services-basement:16.0.1] C:\Users\YOGUI\.gradle\caches\transforms-2\files-2.1\b0cd04808c9b20d19506a0d729eb5662\jetified-play-services-basement-16.0.1\AndroidManifest.xml:23:9-25:69
+73-->[com.google.android.gms:play-services-basement:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\1db223767965ad844eab3c397984c603\jetified-play-services-basement-16.0.1\AndroidManifest.xml:23:9-25:69
 74            android:name="com.google.android.gms.version"
-74-->[com.google.android.gms:play-services-basement:16.0.1] C:\Users\YOGUI\.gradle\caches\transforms-2\files-2.1\b0cd04808c9b20d19506a0d729eb5662\jetified-play-services-basement-16.0.1\AndroidManifest.xml:24:13-58
+74-->[com.google.android.gms:play-services-basement:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\1db223767965ad844eab3c397984c603\jetified-play-services-basement-16.0.1\AndroidManifest.xml:24:13-58
 75            android:value="@integer/google_play_services_version" />
-75-->[com.google.android.gms:play-services-basement:16.0.1] C:\Users\YOGUI\.gradle\caches\transforms-2\files-2.1\b0cd04808c9b20d19506a0d729eb5662\jetified-play-services-basement-16.0.1\AndroidManifest.xml:25:13-66
+75-->[com.google.android.gms:play-services-basement:16.0.1] C:\Users\Usuario\.gradle\caches\transforms-2\files-2.1\1db223767965ad844eab3c397984c603\jetified-play-services-basement-16.0.1\AndroidManifest.xml:25:13-66
+=======
+58-->[:image_picker] C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:11:9-19:20
+59            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
+59-->[:image_picker] C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:12:13-82
+60            android:authorities="com.example.app_movil.flutter.image_provider"
+60-->[:image_picker] C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-74
+61            android:exported="false"
+61-->[:image_picker] C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-37
+62            android:grantUriPermissions="true" >
+62-->[:image_picker] C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:15:13-47
+63            <meta-data
+63-->[:image_picker] C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:16:13-18:75
+64                android:name="android.support.FILE_PROVIDER_PATHS"
+64-->[:image_picker] C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:17:17-67
+65                android:resource="@xml/flutter_image_picker_file_paths" />
+65-->[:image_picker] C:\Users\Sergi\OneDrive\Documentos\Flutter\EMUDAPP\app_movil\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:18:17-72
+66        </provider>
+67
+68        <activity
+68-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\Sergi\.gradle\caches\transforms-2\files-2.1\6086bdbcce26d9920c83a540c34fb390\jetified-play-services-base-16.0.1\AndroidManifest.xml:23:9-26:75
+69            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+69-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\Sergi\.gradle\caches\transforms-2\files-2.1\6086bdbcce26d9920c83a540c34fb390\jetified-play-services-base-16.0.1\AndroidManifest.xml:24:13-79
+70            android:exported="false"
+70-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\Sergi\.gradle\caches\transforms-2\files-2.1\6086bdbcce26d9920c83a540c34fb390\jetified-play-services-base-16.0.1\AndroidManifest.xml:25:13-37
+71            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+71-->[com.google.android.gms:play-services-base:16.0.1] C:\Users\Sergi\.gradle\caches\transforms-2\files-2.1\6086bdbcce26d9920c83a540c34fb390\jetified-play-services-base-16.0.1\AndroidManifest.xml:26:13-72
+72
+73        <meta-data
+73-->[com.google.android.gms:play-services-basement:16.0.1] C:\Users\Sergi\.gradle\caches\transforms-2\files-2.1\a9c4812853877ef192e75fcc8245a83c\jetified-play-services-basement-16.0.1\AndroidManifest.xml:23:9-25:69
+74            android:name="com.google.android.gms.version"
+74-->[com.google.android.gms:play-services-basement:16.0.1] C:\Users\Sergi\.gradle\caches\transforms-2\files-2.1\a9c4812853877ef192e75fcc8245a83c\jetified-play-services-basement-16.0.1\AndroidManifest.xml:24:13-58
+75            android:value="@integer/google_play_services_version" />
+75-->[com.google.android.gms:play-services-basement:16.0.1] C:\Users\Sergi\.gradle\caches\transforms-2\files-2.1\a9c4812853877ef192e75fcc8245a83c\jetified-play-services-basement-16.0.1\AndroidManifest.xml:25:13-66
+>>>>>>> 3548771422cf00af2d986da3ef18b1b9ce849f04
 76    </application>
 77
 78</manifest>

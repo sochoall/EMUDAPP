@@ -1,5 +1,7 @@
+import 'package:app_movil/representante/widgets/lista_recorrido_estudiante.dart';
 import 'package:flutter/material.dart';
 
+import '../../main.dart';
 import '../../provider.dart';
 
 class ListaEstudiantes extends StatelessWidget {
@@ -61,7 +63,7 @@ List<Widget> datosListTile(List<dynamic> datos, BuildContext context) {
         trailing: Icon(Icons.keyboard_arrow_right, color: Colors.blue),
         children: <Widget>[
           Container(
-          //child: ListaRecorridoEstudiante(opt['id'].toString()),
+          child: ListaRecorridoEstudiante(opt['id'].toString(),id_usuario),
           )
         ],
       );

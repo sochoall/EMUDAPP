@@ -87,8 +87,6 @@ class _MenuProviderRep {                           //Provider que obtiene los da
   _MenuProvider() {
     //cargarData();
   }
-
-
   Future<List<dynamic>> cargarData5(aux) async {
     
     int aux1 = int.parse(aux);
@@ -99,3 +97,17 @@ class _MenuProviderRep {                           //Provider que obtiene los da
   }
 }
 final menuProviderRep = new _MenuProviderRep();
+
+class _ListaRecorridoSentidoEstudianteProvider {         //Provider que obtiene los recorridos que posee una ruta (Ejemplo: 1 ruta tiene 2 recorrido ida y vuelta)
+  final String aux; 
+  _ListaRecorridoSentidoEstudianteProvider(this.aux);
+  List<dynamic> opciones = [];
+
+  Future<List<dynamic>> cargarData6(aux) async {
+ 
+    final response = await http.get("http://$ip:8888/recorridosentidoestudiante/$aux");
+    print(json.decode(response.body));
+    return json.decode(response.body);
+  }
+}
+final listaRecorridoSentidoEstudiante = new _ListaRecorridoSentidoEstudianteProvider("");
