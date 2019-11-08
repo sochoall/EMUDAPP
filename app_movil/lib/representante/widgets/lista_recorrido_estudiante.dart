@@ -1,6 +1,5 @@
 import 'package:app_movil/main.dart';
 import 'package:app_movil/representante/pantalla_estudiante.dart';
-import 'package:app_movil/transportista/pantalla_paradas.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
