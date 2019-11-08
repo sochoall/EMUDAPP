@@ -1,4 +1,4 @@
-#Fri Nov 08 11:39:21 COT 2019
+#Fri Nov 08 14:37:56 COT 2019
 base.0=D\:\\EMOV\\GITHUB\\EMUDAPP\\app_movil\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex
