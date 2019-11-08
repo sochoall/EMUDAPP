@@ -7,13 +7,13 @@ import 'package:app_movil/rutas/rutas.dart';
 
 
 
-class PantallaParadas extends StatelessWidget {
+class PantallaParadasEstudiante extends StatelessWidget {
   final String nombreRuta; //Creacion de varibales que se vayan a usar
   final String idRecorrido;
   final String nombre;
   final String idUsuario;
 
-  PantallaParadas(this.nombreRuta,this.idRecorrido,this.nombre,this.idUsuario); 
+  PantallaParadasEstudiante(this.nombreRuta,this.idRecorrido,this.nombre,this.idUsuario); 
 
 
   @override
@@ -49,12 +49,12 @@ class HomeScreenState extends State<HomeScreen> {
   Widget callPage(int index) {
     switch (index) {
       case 0:
-        return objetosPerdidosPage();
+        return Rutas(this.idRecorrido);
       case 1:
-        return objetosPerdidosPage();
+        return ObjetosP();
         break;
       default:
-        return objetosPerdidosPage();
+        return ObjetosP();
     }
   }
 
