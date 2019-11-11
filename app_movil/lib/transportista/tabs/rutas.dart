@@ -151,7 +151,7 @@ class RutasEstado extends State<RutaParada>
                     Container(
                       height: 50,
                       child: Center(
-                        child: Text(names[index-1]),
+                        child: names.isEmpty ? CircularProgressIndicator() : Text(names[index-1]),
                       ),
                     );
                   },

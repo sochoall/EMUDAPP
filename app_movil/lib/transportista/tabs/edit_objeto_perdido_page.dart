@@ -33,7 +33,7 @@ class _editObjetosPerdidosPageState extends State<editObjetosPerdidosPage> {
   final TextEditingController _controller2 = new TextEditingController();
 
   Future<void> _getEstadoObjeto() async {
-    final response = await http.get("http://192.169.4.10:8888/estadoObjetos");
+    final response = await http.get("http://192.168.137.1:8888/estadoObjetos");
     var jsonData = json.decode(response.body);
     for (var object in jsonData) {
       estadoObjeto estadoObjetos = estadoObjeto();

@@ -18,7 +18,7 @@ class _listadoState extends State<listado> {
   List<Estudiante> estudiantes = List<Estudiante>();
 
   Future<void> _getEstudiantes() async {
-    final response = await http.get("http://192.169.4.10:8888/estudiante");
+    final response = await http.get("http://192.168.137.1:8888/estudiante");
     print(response);
     var jsonData = json.decode(response.body);
 
@@ -44,7 +44,7 @@ class _listadoState extends State<listado> {
   }
 
   _makePostRequest() async {
-    var url = "http://192.169.4.10:8888/check_estudiante";
+    var url = "http://192.168.137.1:8888/check_estudiante";
 
     Map<String, String> headers = {"Content-type": "application/json"};
     String json = "";
@@ -103,7 +103,7 @@ class _listadoState extends State<listado> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           try {
-            var url = "http://192.169.4.10s:8888/check_estudiante";
+            var url = "http://192.168.137.1:8888/check_estudiante";
 
             Map<String, String> headers = {"Content-type": "application/json"};
             String json = "";

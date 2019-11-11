@@ -59,7 +59,7 @@ class _objetosPerdidosPageState extends State<objetosPerdidosPage> {
   }
 
   Future<void> _getEstadoObjeto() async {
-    final response = await http.get("http://192.169.4.10:8888/estadoObjetos");
+    final response = await http.get("http://192.168.137.1:8888/estadoObjetos");
 
     var jsonData = json.decode(response.body);
 
@@ -86,7 +86,7 @@ class _objetosPerdidosPageState extends State<objetosPerdidosPage> {
   }
 
   Future<List<objetosPerdidoss>> _getObjetosPerdidos() async {
-    final response = await http.get("http://192.169.4.10:8888/objetosPerdidos");
+    final response = await http.get("http://192.168.137.1:8888/objetosPerdidos");
     var jsonData = json.decode(response.body);
     //final List<objetosPerdidoss> objetos = List();
     List<objetosPerdidoss> objetos = List<objetosPerdidoss>();

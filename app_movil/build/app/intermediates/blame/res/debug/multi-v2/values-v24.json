@@ -1,17 +1,10 @@
 {
     "logs": [
         {
-<<<<<<< HEAD
             "outputFile": "D:\\EMOV\\GITHUB\\EMUDAPP\\app_movil\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v24\\values-v24.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Usuario\\.gradle\\caches\\transforms-2\\files-2.1\\6d35bbbe327ef689c582d1173367f0ed\\media-1.0.0\\res\\values-v24\\values-v24.xml",
-=======
-            "outputFile": "C:\\Users\\Sergi\\OneDrive\\Documentos\\Flutter\\EMUDAPP\\app_movil\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v24\\values-v24.xml",
-            "map": [
-                {
-                    "source": "C:\\Users\\Sergi\\.gradle\\caches\\transforms-2\\files-2.1\\6d35bbbe327ef689c582d1173367f0ed\\media-1.0.0\\res\\values-v24\\values-v24.xml",
->>>>>>> 3548771422cf00af2d986da3ef18b1b9ce849f04
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
