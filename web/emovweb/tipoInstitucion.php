@@ -117,7 +117,7 @@
                 estado="";
             }
         if(textBuscar==""){
-            
+            // 
         }
         let url=`http://localhost:8888/tipoInstitucion?campo=${campo}&bus=${textBuscar}&est=${estado}`;
 
