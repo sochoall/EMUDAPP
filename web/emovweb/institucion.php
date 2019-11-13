@@ -1,31 +1,12 @@
-<?php include 'header.php'; ?>
-
- <?php
-    session_start();
-    if (isset($_SESSION['id']) && isset($_SESSION['rol'])) {
-        $id = $_SESSION['id'];
-        $rol = $_SESSION['rol'];
-        $menu=$_SESSION['menu'];
-        echo " <script>
-                    
-                    window.onload = function() 
-                    {
-                      
-                        document.getElementById('rol').innerHTML ='ROL: $rol';
-                        document.getElementById('btncerrar').style.display = 'block';
-                    };
-                   
-                       
-                </script>
-        ";
-    } else {
-        header('Location: ./');
-    }   
-
+<?php 
+	include 'header.php'; 
+	// include 'codigophp/sesion.php';
 ?>
+
+
 <div class="container-fluid grey">
 		<?php 
-		echo $menu 
+		// echo $menu 
 		?>
 </div>
  

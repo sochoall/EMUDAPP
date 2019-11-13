@@ -1,28 +1,8 @@
-<?php include 'header.php'; ?>
-
- <?php
-    session_start();
-    if (isset($_SESSION['id']) && isset($_SESSION['rol'])) {
-        $id = $_SESSION['id'];
-        $rol = $_SESSION['rol'];
-        $menu=$_SESSION['menu'];
-        echo " <script>
-                    
-                    window.onload = function() 
-                    {
-                      
-                        document.getElementById('rol').innerHTML ='ROL: $rol';
-                        document.getElementById('btncerrar').style.display = 'block';
-                    };
-                   
-                       
-                </script>
-        ";
-    } else {
-        header('Location: ./');
-    }   
-
+<?php include 'header.php'; 
+	//   include 'codigophp/sesion.php';
 ?>
+
+
 
 <div class="container text-align-left mt-2 text-uppercase">
 	<div class="row">
@@ -80,9 +60,7 @@
 								<input type="button" value="Cancelar" class="btn cyan" onclick="location.href = 'institucion.php';"/><br/>
 							</div>
 						</form>
-						<div class="row justify-content-center">
-							<span class=" text-danger">* campos obligatorios</span>
-						</div>
+						
 				</div>
 			</div>
       	</div>

@@ -1,28 +1,7 @@
-<?php include 'header.php'; ?>
-
-<?php
-   session_start();
-   if (isset($_SESSION['id']) && isset($_SESSION['rol'])) {
-       $id = $_SESSION['id'];
-       $rol = $_SESSION['rol'];
-       $menu=$_SESSION['menu'];
-       echo " <script>
-                   
-                   window.onload = function() 
-                   {
-                     
-                       document.getElementById('rol').innerHTML ='ROL: $rol';
-                       document.getElementById('btncerrar').style.display = 'block';
-                   };
-                  
-                      
-               </script>
-       ";
-   } else {
-       header('Location: ./');
-   }   
-
+<?php include 'header.php'; 
+  //   include 'codigophp/sesion.php';
 ?>
+
 
 <div class="container text-center mt-2 text-uppercase">
    <div class="row">
@@ -53,10 +32,7 @@
                           <input value="Guardar" class="btn cyan" onclick="IngMod(this)" type="submit" value="" id="metodo" name="metodo"/>	
                           <input type="button" value="Cancelar" class="btn cyan" onclick="location.href = 'periodoLectivo.php';"/>
                         </div>                            
-                    </form>
-                    <div class="row justify-content-center">
-                      <span class=" text-danger">* campos obligatorios</span>
-                    </div>
+                    </form>                   
                </div>
            </div>
          </div>

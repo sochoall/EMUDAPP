@@ -1,32 +1,8 @@
-<?php include 'header.php'; ?>
-
-<?php
-   session_start();
-   if (isset($_SESSION['id']) && isset($_SESSION['rol'])) {
-       $id = $_SESSION['id'];
-       $rol = $_SESSION['rol'];
-       $menu=$_SESSION['menu'];
-       echo " <script>
-                   
-                   window.onload = function() 
-                   {
-                     
-                       document.getElementById('rol').innerHTML ='ROL: $rol';
-                       document.getElementById('btncerrar').style.display = 'block';
-                   };
-                  
-                      
-               </script>
-       ";
-   } else {
-       header('Location: ./');
-   }   
-
-?>
-
-	<?php
-		 include 'vehiculo_modal_select_funcionario.php';  
-	?>	
+<?php 
+	include 'header.php'; 
+//   include 'codigophp/sesion.php';	
+    include 'vehiculo_modal_select_funcionario.php';  
+?>	
 	<div class="container text-align-left mt-2 text-uppercase">
    	<div class="row">
        <div class="col-md-7 offset-md-2">
