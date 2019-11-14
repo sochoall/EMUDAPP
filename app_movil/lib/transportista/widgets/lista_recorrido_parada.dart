@@ -1,6 +1,7 @@
 import 'package:app_movil/main.dart';
 import 'package:app_movil/transportista/pantalla_paradas.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../provider.dart';
 
@@ -32,9 +33,23 @@ List<Widget> _listItems(List<dynamic> data, BuildContext context) {
   if (data == null) {
     return [];
   }
+  DateTime now = DateTime.now();
+  String fecha = DateFormat('kk:mm').format(now);
+
+
+  int hora = int.parse(fecha.substring(0, 2));
+  int min = int.parse(fecha.substring(3, 5));
+
 
   data.forEach(
     (opt) {
+      int horaRecorridoI =
+          int.parse(opt['rec_hora_inicio'].substring(0, 2)) - 1;
+      int minRecorridoI = int.parse(opt['rec_hora_inicio'].substring(3, 5));
+      int horaRecorridoF = int.parse(opt['rec_hora_inicio'].substring(0, 2)) + 2;
+      int minRecorridoF = int.parse(opt['rec_hora_inicio'].substring(3, 5));
+
+      if ((horaRecorridoI == hora && min >= minRecorridoI)||(horaRecorridoF == hora && min < minRecorridoF)||(horaRecorridoF > hora && horaRecorridoI < hora)) {
       final widgetTemp = ListTile(
         title: Text(opt['nombresen']),
         subtitle: Text(opt['idrec'].toString()),
@@ -47,6 +62,7 @@ List<Widget> _listItems(List<dynamic> data, BuildContext context) {
         },
       );
       opciones..add(widgetTemp);
+    };
     },
   );
   return opciones;

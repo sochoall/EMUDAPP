@@ -1,29 +1,38 @@
  <?php
-    session_start();
-    if (isset($_SESSION['id']) && isset($_SESSION['rol'])) {
-        $id = $_SESSION['id'];
-        $rol = $_SESSION['rol'];
-		$menu=$_SESSION['menu'];
-        echo " <script type='text/javascript'>
-					window.onload=function() {
+	session_start();
+	if (isset($_SESSION['id']) && isset($_SESSION['rol'])) {
+		if($_SESSION['rol'] == "EMOV")
+		{
+			$id = $_SESSION['id'];
+			$rol = $_SESSION['rol'];
+			$menu=$_SESSION['menu'];
+			echo " <script type='text/javascript'>
+						window.onload=function() {
 
-						document.getElementById('rol').innerHTML ='ROL - $rol';
-						document.getElementById('btncerrar').style.display = 'block';
+							document.getElementById('rol').innerHTML ='ROL - $rol';
+							document.getElementById('btncerrar').style.display = 'block';
 
-						let elementos=document.getElementsByClassName('boton');
-						for(let i=0;i<elementos.length;i++)
-						{
-							elementos[i].addEventListener('click',obtenerValores);
-						} 
-						document.getElementById('tituloModal').innerHTML = 'ROL';
-					}
-			 </script>
-	 ";
-    } else {
-        header('Location: ./');
-    }   
+							let elementos=document.getElementsByClassName('boton');
+							for(let i=0;i<elementos.length;i++)
+							{
+								elementos[i].addEventListener('click',obtenerValores);
+							} 
+							document.getElementById('tituloModal').innerHTML = 'ROL';
+						}
+					</script>
+			";
+		}
+		else{
+			header('Location: ./');
+		}
+		
+	} else {
+		header('Location: ./');
+	} 
+      
 
 ?>
+
 
 <?php include 'header.php'; include 'codigophp/funcionesphp.php'; include 'modal.php';?>
     <script>
