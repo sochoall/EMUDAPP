@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:app_movil/transportista/tabs/mapa.dart';
 
-Future<List<Post>> fetchPostP() async
+Future<List<Post>> fetchPostP(idR) async
 {
-  var response = await http.get("http://192.168.137.1:8888/parada/1");
+  var response = await http.get("http://192.168.137.1:8888/parada/$idR");
 
   if(response.statusCode == 200)
   {
@@ -49,7 +49,7 @@ class Rutas extends StatelessWidget
   Widget build(BuildContext context) 
   {
     return new MaterialApp(
-      home: new RutaParada(),
+      home: new RutaParada(idRecorrido),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -58,14 +58,19 @@ class Rutas extends StatelessWidget
 class RutaParada extends StatefulWidget 
 {
   @override
-  RutasEstado createState() => new RutasEstado();
+  final String idRecorrido;
+
+  RutaParada(this.idRecorrido);
+  RutasEstado createState() => new RutasEstado(idRecorrido);
 }
 
 class RutasEstado extends State<RutaParada> 
 {
+  final String idRecorrido;
   Timer timer;
   bool flag = false;
   Future<Post> post;
+  RutasEstado(this.idRecorrido);
   static List<String> names = [];
 
   @override
@@ -86,7 +91,7 @@ class RutasEstado extends State<RutaParada>
       :
       Center(
         child: FutureBuilder<List<Post>>(
-          future: fetchPostP(),
+          future: fetchPostP(idRecorrido),
           builder: (context, snapshot)
           {
             if(snapshot.hasData)
