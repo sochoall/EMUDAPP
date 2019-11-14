@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:app_movil/transportista/tabs/rutas.dart';
 import 'package:http/http.dart' as http;
 
 
@@ -38,19 +39,19 @@ class _ListaProvider {                        //Provider que obtiene las rutas d
 }
 final listaProvider = new _ListaProvider("");
 
-class _ListaParadasProvider {               //Provider que obtiene las paradas del aqueduct segun el id del recorrido
-  final String aux; 
-  _ListaParadasProvider(this.aux);
-  List<dynamic> opciones = [];
+//class _ListaParadasProvider {               //Provider que obtiene las paradas del aqueduct segun el id del recorrido
+  //final String aux; 
+  //_ListaParadasProvider(this.aux);
+  //List<dynamic> opciones = [];
 
-  Future<List<dynamic>> cargarData2(aux) async {
+  //Future<List<dynamic>> cargarData2(aux) async {
     
-    final response = await http.get("http://$ip:8888/parada/$aux");
-    print(json.decode(response.body));
-    return json.decode(response.body);
-  }
-}
-final listaParadasProvider = new _ListaParadasProvider("");
+    //final response = await http.get("http://$ip:8888/parada/$aux");
+    //print(json.decode(response.body));
+    //return json.decode(response.body);
+  //}
+//}
+//final listaParadasProvider = new _ListaParadasProvider("");
 
 class _ListaRecorridoSentidoProvider {         //Provider que obtiene los recorridos que posee una ruta (Ejemplo: 1 ruta tiene 2 recorrido ida y vuelta)
   final String aux; 
@@ -81,6 +82,7 @@ class _ListaEstudianteProvider {         //Provider que obtiene los recorridos q
 }
 final listaEstudiante = new _ListaEstudianteProvider("");
 
+//-----------------------------------------------------------------------------------------------------------------
 
 class _MenuProviderRep {                           //Provider que obtiene los datos Del jSon con opciones para el menu
   List<dynamic> opciones = [];
@@ -98,6 +100,8 @@ class _MenuProviderRep {                           //Provider que obtiene los da
 }
 final menuProviderRep = new _MenuProviderRep();
 
+//-----------------------------------------------------------------------------------------------------------------
+
 class _ListaRecorridoSentidoEstudianteProvider {         //Provider que obtiene los recorridos que posee una ruta (Ejemplo: 1 ruta tiene 2 recorrido ida y vuelta)
   final String aux; 
   _ListaRecorridoSentidoEstudianteProvider(this.aux);
@@ -111,3 +115,31 @@ class _ListaRecorridoSentidoEstudianteProvider {         //Provider que obtiene 
   }
 }
 final listaRecorridoSentidoEstudiante = new _ListaRecorridoSentidoEstudianteProvider("");
+
+//-----------------------------------------------------------------------------------------------------------------
+class _ListaParadasProvider {  
+  final String aux; 
+  _ListaParadasProvider(this.aux);
+
+
+Future<List<Post>> cargarData7(idR) async
+{
+  var response = await http.get("http://$ip:8888/parada/$idR");
+
+  if(response.statusCode == 200)
+  {
+    final jsonresponse = json.decode(response.body).cast<Map<String, dynamic>>();
+    List<Post> listOfRoutes = jsonresponse.map<Post>((json)
+    {
+      return Post.fromJson(json);
+    }).toList();
+
+    return listOfRoutes;
+  }  
+  else
+    throw Exception('Failed to get items');
+}
+
+}
+final listaParadasProvider = new _ListaParadasProvider("");
+

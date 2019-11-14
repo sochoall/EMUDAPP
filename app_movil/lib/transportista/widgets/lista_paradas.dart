@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 
 import '../../provider.dart';
 
-class ListaParadas extends StatelessWidget {                              //Creacion de Lista de rutas
+class ListaParadas12 extends StatelessWidget {                              //Creacion de Lista de rutas
 final String nombreRuta; //Creacion de varibales que se vayan a usar
   final String idRecorrido;
 
 
-  ListaParadas(this.nombreRuta,this.idRecorrido); 
+  ListaParadas12(this.nombreRuta,this.idRecorrido); 
 
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: listaParadasProvider.cargarData2(idRecorrido),
+      //future: listaParadasProvider.cargarData2(idRecorrido),
       //Enlazada al cargardata
       initialData: [],
         //Informcion por defecto

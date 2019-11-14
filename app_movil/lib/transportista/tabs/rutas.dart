@@ -1,31 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import '../../provider.dart';
 import 'package:http/http.dart' as http;
-import 'package:app_movil/transportista/tabs/mapa.dart';
+import 'package:app_movil/transportista/tabs/mapa.dart'; 
 
-Future<List<Post>> fetchPostP(idR) async
-{
-  var response = await http.get("http://192.168.137.1:8888/parada/$idR");
-
-  if(response.statusCode == 200)
-  {
-    final jsonresponse = json.decode(response.body).cast<Map<String, dynamic>>();
-    List<Post> listOfRoutes = jsonresponse.map<Post>((json)
-    {
-      return Post.fromJson(json);
-    }).toList();
-
-    return listOfRoutes;
-  }  
-  else
-    throw Exception('Failed to get items');
-}
-
-class Post
-{
+class Post {
   String nombre;
-
   Post(
     {
       this.nombre,
@@ -39,7 +20,6 @@ class Post
     );
   }
 }
-
 class Rutas extends StatelessWidget 
 {
   @override
@@ -91,7 +71,7 @@ class RutasEstado extends State<RutaParada>
       :
       Center(
         child: FutureBuilder<List<Post>>(
-          future: fetchPostP(idRecorrido),
+          future: listaParadasProvider.cargarData7(idRecorrido),
           builder: (context, snapshot)
           {
             if(snapshot.hasData)
@@ -117,7 +97,7 @@ class RutasEstado extends State<RutaParada>
           floating: false,
           pinned: true,
           flexibleSpace: FlexibleSpaceBar(
-            background: MyApp(""),
+            background: MyApp(idRecorrido),
             title: Row(
               children: <Widget>[
                 Text("PARADAS  ",style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
