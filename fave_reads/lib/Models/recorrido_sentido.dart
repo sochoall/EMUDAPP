@@ -5,7 +5,8 @@ import 'package:fave_reads/fave_reads.dart';
 
 class RecorridoSentido extends Serializable
 {
-  
+  String rec_hora_inicio;
+  String rec_hora_fin;
   int idrec;
   int idsen;
   String nombresen;
@@ -16,7 +17,7 @@ class RecorridoSentido extends Serializable
   Future<List> obtenerDatoId(int idrec) async {
     final conexion = Conexion();
 
-    final String sql = "select r.rec_id,s.sen_id,s.sen_nombre,r.rec_estado,r.rut_id,ru.rut_nombre from public.te_sentido s,public.te_recorrido r,public.te_ruta ru where r.sen_Id=s.sen_id and r.rec_estado=1 and r.rut_id=$idrec and ru.rut_id=r.rut_id";
+    final String sql = "select r.rec_id,s.sen_id,s.sen_nombre,r.rec_estado,r.rut_id,ru.rut_nombre,to_char(r.rec_hora_inicio, 'HH24:MI'),to_char(r.rec_hora_fin, 'HH24:MI') from public.te_sentido s,public.te_recorrido r,public.te_ruta ru where r.sen_Id=s.sen_id and r.rec_estado=1 and r.rut_id=$idrec and ru.rut_id=r.rut_id";
 
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
@@ -33,6 +34,8 @@ class RecorridoSentido extends Serializable
         reg.estadorec=int.parse(query[i][3].toString());
         reg.idruta=int.parse(query[i][4].toString());
         reg.nombreruta=query[i][5].toString(); 
+        reg.rec_hora_inicio=query[i][6].toString(); ;
+        reg.rec_hora_fin=query[i][7].toString(); ;
         datos.add(reg.asMap()); 
       }
       return datos;
@@ -53,6 +56,8 @@ class RecorridoSentido extends Serializable
     'estadorec': estadorec,
     'idruta':idruta,
     'nombreruta': nombreruta,
+    'rec_hora_inicio':rec_hora_inicio,
+    'rec_hora_fin':rec_hora_fin
   };
 
   @override
@@ -63,6 +68,8 @@ class RecorridoSentido extends Serializable
     estadorec= int.parse(object['estadorec'].toString());
     idruta= int.parse(object['idruta'].toString());
     nombreruta= object['nombreruta'].toString();
+    rec_hora_inicio= object['rec_hora_inicio'].toString();
+    rec_hora_fin= object['rec_hora_fin'].toString();
   }
 
 }
