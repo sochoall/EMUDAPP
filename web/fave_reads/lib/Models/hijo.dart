@@ -3,7 +3,7 @@ import 'package:fave_reads/fave_reads.dart';
 
 import 'opcion.dart';
 
-
+/*
 class Hijo extends Serializable {
   String id;
   String idpadre;
@@ -61,4 +61,4 @@ class Hijo extends Serializable {
     estado = object['estado'].toString();
     url= object['url'].toString();
   }
-}
+}*/

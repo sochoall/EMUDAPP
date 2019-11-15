@@ -19,7 +19,6 @@ class Estudiante extends Serializable
   Future<List> obtenerDatos(String camp, String valor ,String est) async {
     final conexion = Conexion();
     String estado="";
-    String campo="";
 
     if(est == "2")
     {
@@ -29,12 +28,8 @@ class Estudiante extends Serializable
       estado=est;
     }
 
-    if(camp =="1")
-    {
-      
-    }
 
-    final String sql = "select * from public.te_estudiante  where $campo::text LIKE '%$valor%' and est_estado=$estado order by est_id ASC";
+    final String sql = "select * from public.te_estudiante  where $camp::text LIKE '%$valor%' and est_estado=$estado order by est_id ASC";
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 

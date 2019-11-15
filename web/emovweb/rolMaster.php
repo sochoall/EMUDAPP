@@ -188,6 +188,7 @@
 							<tr>
 							<th scope='col'>ID</th>
 							<th scope='col'>OPCION</th>
+							<th scope='col'>ID SUBOPCION</th>
 							<th scope='col'>SUBOPCION</th>
 							<th></th>
 							</tr>

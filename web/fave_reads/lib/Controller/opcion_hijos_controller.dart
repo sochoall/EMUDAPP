@@ -6,7 +6,7 @@ import 'package:fave_reads/Models/opcion.dart';
 
 class OpcionHijoController extends ResourceController{
 
-  @Operation.get()
+  /*@Operation.get()
   Future<Response> obtenerHijos(@Bind.query('id') String id) async
   {
     final servicio = Hijo();
@@ -27,5 +27,5 @@ class OpcionHijoController extends ResourceController{
     final servicio = Hijo();
     await servicio.agregarPadre(id, body);
     return Response.ok('se ha modificado');
-  }
+  }*/
 }
