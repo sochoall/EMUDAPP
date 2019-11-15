@@ -34,7 +34,11 @@
 ?>
 
 
-<?php include 'header.php'; include 'codigophp/funcionesphp.php'; include 'modal.php';?>
+<?php 	include 'header.php'; 
+		include 'codigophp/funcionesphp.php'; 
+		include 'modal.php';
+?>
+
     <script>
    let datosHijos=0;
  
@@ -75,36 +79,9 @@
 							result += `<tr> 
 									<td> ${datos[i].id}</td>
 									<td> ${datos[i].nombre}</td>
+									<td> ${datos[i].idhijo}</td>
+									<td> ${datos[i].nombrehijo}</td>
 								`;
-							
-							
-							result+=`<td>`;
-							result2+=`<option value=' ${datos[i].id}'> ${datos[i].nombre} </option>`;
-
-							if(datos[i].hijo != null)
-							{
-								datosHijos=JSON.parse(datos[i].hijo);
-								for(j=0;j<datosHijos.length;j++)
-								{
-									if(j==4 || j==8)
-									{
-										result+="<br>";
-									}
-									if(j != (datosHijos.length -1))
-									{
-										result+=datosHijos[j].nombre+", ";
-									}
-									else{
-										result+=datosHijos[j].nombre;
-									}
-									
-									
-								}
-								result+=`</td>`;
-							}
-							else{
-								result+=`No tienes subopciones.</td>`;
-							}
 							result+=`<td><a href='#' class='text-dark fas fa-trash-alt actionmodal2' >  Eliminar</a></td></tr>`;
 						}
 
@@ -165,6 +142,7 @@
 	
 </div>
 
+<a href='#' class=' btn text-dark fas fa-edit actionmodal2'>Editar</a>
 
 <div class="container mt-3 p-0">
 	<ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -281,7 +259,8 @@
 
 
 	var idMod=0;
-	$('#listaRoles').on('click', '.actionmodal', function(e) {
+	$('#listaRoles').on('click', '.activarModal', function(e) {
+		alert("hola");
 		$('#centralModalSm').modal('show');
 		// CAPTURA LOS DATOS DE LAS POSICIONES DE LA TABLA DE BUSQUEDA.
 		var cod = $(this).parents('tr').find('td')[2].innerHTML;
@@ -291,9 +270,9 @@
 		document.getElementById('nombreModal').value = nom;
 
 		if(nom == "ACTIVO")
-			$('[id="estadoModal"]').val('0');
+			$('[id="estadoModal"]').val('1');
 		else
-			$('[id="estadoModal"]').val('1');;
+			$('[id="estadoModal"]').val('0');;
 		
 			document.getElementById('botonModal').value = 'MODIFICAR';	
 		//
