@@ -1,5 +1,5 @@
 import 'package:fave_reads/Models/conexion.dart';
-import 'package:fave_reads/Models/hijo.dart';
+import 'package:fave_reads/Models/opcion_rol.dart';
 import 'package:fave_reads/fave_reads.dart';
 
 class Opcion extends Serializable {
@@ -8,24 +8,20 @@ class Opcion extends Serializable {
   String nombre;
   int estado;
   String url;
-  String hijo;
 
   Future<List> obtenerPadres(int id) async {
     final conexion = Conexion();
-    final String sql = "select o.opc_id, o.opc_padre_id, o.opc_nombre, o.opc_estado, o.opc_url from te_opcion_rol r, te_opcion o where r.opc_id=o.opc_id and r.rol_id=$id ";
+    final String sql = "select o.opc_id, o.opc_padre_id, o.opc_nombre, o.opc_estado, o.opc_url from te_opcion_rol r, te_opcion o where r.opc_id=o.opc_id and r.rol_id=$id order by 1";
     final List datos = [];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
     if (query != null && query.isNotEmpty) {
       for (int i = 0; i < query.length; i++) {
         final reg = Opcion();
-        
-        final reg2 = Hijo();
         reg.id = int.parse(query[i][0].toString());
         reg.idpadre = query[i][1].toString();
         reg.nombre = query[i][2].toString();
         reg.estado = int.parse(query[i][3].toString());
         reg.url=query[i][4].toString();
-        reg.hijo= await reg2.obtenerhijos(query[i][0].toString());
         datos.add(reg.asMap());
       }
       
@@ -34,7 +30,16 @@ class Opcion extends Serializable {
     return datos;
   }
 
-   Future<List> obtenerOpcionesHijo(String sql) async {
+  Future<List> obtenerPadresHijos(String id) async {
+    final String sql = "select p.id,p.nom,m.opc_id,m.opc_nombre from (select o.opc_id as id,o.opc_nombre as  nom from te_opcion_rol r, te_opcion o where r.opc_id=o.opc_id and r.rol_id=$id and opc_padre_id is null and o.opc_estado = 1) as p,te_opcion m"  
+                      " where m.opc_padre_id=p.id order by 1";
+
+   
+    final reg = OpcionRol();
+    
+    return reg.obtenerHijos(sql);
+  }
+   /*Future<List> obtenerOpcionesHijo(String sql) async {
     final conexion = Conexion();
     final List datos = [];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
@@ -52,11 +57,11 @@ class Opcion extends Serializable {
     } 
 
     return datos;
-  }
+  }*/
  
   @override
   Map<String, dynamic> asMap() =>
-      {'nombre': nombre, 'id': id, 'idpadre': idpadre, 'estado': estado,'url':url,'hijo':hijo};
+      {'nombre': nombre, 'id': id, 'idpadre': idpadre, 'estado': estado,'url':url};
 
   @override
   void readFromMap(Map<String, dynamic> object) {
@@ -65,6 +70,5 @@ class Opcion extends Serializable {
     nombre = object['nombre'].toString();
     estado = int.parse(object['estado'].toString());
     url = object['url'].toString();
-    hijo =  object['hijo'].toString();
   }
 }
