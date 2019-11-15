@@ -53,7 +53,7 @@
 		{
 			var result=``;
 			var result2=``;
-			let url= `http://localhost:8888/opcion/`+id;
+			let url= `http://localhost:8888/opcion?id=`+id;
 
 			const api = new XMLHttpRequest();
 			api.open('GET',url,true);
@@ -182,13 +182,13 @@
 				</div>
 
 			
-				<div class='table-responsive-md'>
+				<div class='table-responsive-md my-custom-scrollbar'>
 					<table id='dt-select' class='table-sm table table-hover text-center  cellspacing='0' width='100%'>
 						<thead class='cyan white-text'>
 							<tr>
 							<th scope='col'>ID</th>
-							<th scope='col'>NOMBRE</th>
-							<th scope='col'>SUBOPCIONES</th>
+							<th scope='col'>OPCION</th>
+							<th scope='col'>SUBOPCION</th>
 							<th></th>
 							</tr>
 						</thead>
