@@ -7,10 +7,10 @@ class TipoParadaController extends ResourceController{
 
 
   @Operation.get()
-  Future<Response> obtenerLista() async
+  Future<Response> obtenerLista(@Bind.query('campo') String campo,@Bind.query('bus') String bus,@Bind.query('est') String est ) async
   {
     final servicio = TipoParada();
-    return Response.ok(await servicio.obtenerDatos());
+    return Response.ok(await servicio.obtenerDatos(campo,bus,est));
   }
 
   @Operation.get('id')

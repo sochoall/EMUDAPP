@@ -14,13 +14,25 @@ class Ruta extends Serializable
   String color;
   int    insId;
 
+  Future<int> obtenerNumeroElementos() async {
+    final conexion = Conexion();
+    const String sql = "select count(*) from public.te_ruta";
+    int datos= -1;
+    final List<dynamic> query = await conexion.obtenerTabla(sql);
+
+    if(query != null && query.isNotEmpty)
+    {
+      datos=int.parse(query[0][0].toString());
+    }
+     return datos;
+  }
  
   Future<List> obtenerDatos() async {
     final conexion = Conexion();
     const String sql = "select * from public.te_ruta where rut_estado=1";
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
-print(query);
+
     if(query != null && query.isNotEmpty)
     {
       for(int i=0; i<query.length;i++)
@@ -34,14 +46,12 @@ print(query);
         reg.cupoMaximo=int.parse(query[i][4].toString());
         reg.color=query[i][5].toString();       
         reg.insId=int.parse(query[i][6].toString());
+  
         datos.add(reg.asMap()); 
       }
-      return datos;
+     
     }
-    else
-    {
-      return null;
-    }
+     return datos;
     
   }
 
@@ -53,13 +63,14 @@ print(query);
     if(query != null && query.isNotEmpty)
     { 
         final reg = Ruta();
-      reg.id=int.parse(query[0][0].toString());
+        reg.id=int.parse(query[0][0].toString());
         reg.nombre=query[0][1].toString();
         reg.descripcion=query[0][2].toString();
         reg.estado=int.parse(query[0][3].toString());
         reg.cupoMaximo=int.parse(query[0][4].toString());
         reg.color=query[0][5].toString();       
-        reg.insId=int.parse(query[0][6].toString());  return reg;
+        reg.insId=int.parse(query[0][6].toString()); 
+         return reg;
     }
     else
     {
@@ -70,8 +81,8 @@ print(query);
 
   Future<void> ingresar(Ruta dato) async{
     final conexion = Conexion();
-    final String sql = "INSERT INTO public.te_ruta(rut_id, rut_nombre, rut_descripcion, rut_estado, rut_cupo_maximo, rut_color, ins_id,)"
-   " VALUES (${dato.id},'${dato.nombre}', '${dato.descripcion}',${dato.estado},${dato.cupoMaximo},'${dato.color}')";
+    final String sql = "INSERT INTO public.te_ruta(rut_id, rut_nombre, rut_descripcion, rut_estado, rut_cupo_maximo, rut_color, ins_id)"
+   " VALUES (${dato.id},'${dato.nombre}', '${dato.descripcion}',${dato.estado},${dato.cupoMaximo},'${dato.color}',${dato.insId})";
     print(sql);
     await conexion.operaciones(sql);
   }
@@ -105,7 +116,7 @@ print(query);
   void readFromMap(Map<String, dynamic> object) {
     id= int.parse(object['id'].toString());
     nombre= object['nombre'].toString();
-    descripcion= object['descripcion'].toString();
+    descripcion= object['desccripcion'].toString();
     estado=int.parse( object['estado'].toString());
     cupoMaximo=int.parse( object['cupoMaximo'].toString());
     color= object['color'].toString();
