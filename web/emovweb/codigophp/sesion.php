@@ -5,7 +5,7 @@
             if($_SESSION['rol']  == $rolPermitido ){
                 
                 $id = $_SESSION['id'];
-                $rol = $_SESSION['rol'];
+                $rol = $_SESSION['rol'];               
                 $menu=$_SESSION['menu'];                
                 echo " <script>                    
                         window.onload = function()
