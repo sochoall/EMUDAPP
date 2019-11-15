@@ -1,14 +1,16 @@
 <?php include 'header.php'; 
    include 'codigophp/sesion.php';
-   $menu=Sesiones("EMOV");
+// $menu=Sesiones("EMOV");
+   $menu=Sesiones("EMPRESA DE TRANSPORTE"); 
+   $idFun="2";
+   $idInsti="2";
 ?>
 
 <div class="container-fluid grey">
-		<?php 
-		 echo $menu; 	
-		?>
+	<?php 
+		echo $menu; 	
+	?>
 </div>
-
 
 <div class="container">
     <div class="row mt-3 ">
@@ -68,76 +70,62 @@
 </div>
 
 <div class="cyan circulo">
-        <a href="vehiculoEditar.php?metodo=Agregar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
+	<a href="vehiculoEditar.php?metodo=Agregar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
 </div>	
 
-<script type="text/javascript">		
-	
-		const boton=document.querySelector('#buscar');		
-		const lista=document.querySelector('#lista');		
-	
-		function Buscar(){	
-			event.preventDefault();
+<script type="text/javascript">			
+	const boton=document.querySelector('#buscar');		
+	const lista=document.querySelector('#lista');		
 
-			var campo = document.getElementById('campo').value;			
-			var textBuscar=document.getElementById('textBuscar').value;
-			textBuscar=textBuscar.toUpperCase();			
-			var estado=document.getElementById("estBusqueda").value;
-						
-			campo="veh_placa";									
-			if(estado==2){
-                estado="";
-            }
-			if(textBuscar==""){
-				// textBuscar="*****";
-			}
-			let url=`${raizServidor}/vehiculo?campo=${campo}&bus=${textBuscar}&est=${estado}`;
+	function Buscar(){	
+		event.preventDefault();
+		var campo = document.getElementById('campo').value;			
+		var textBuscar=document.getElementById('textBuscar').value;
+		textBuscar=textBuscar.toUpperCase();			
+		var estado=document.getElementById("estBusqueda").value;
+					
+		campo="veh_placa";									
+		if(estado==2){
+			estado="";
+		}
+		if(textBuscar==""){
+			// textBuscar="*****";
+		}
+		let url=`${raizServidor}/vehiculo?campo=${campo}&bus=${textBuscar}&est=${estado}`;
 
-			lista.innerHTML=`
-			<div class="text-center">
-			<div class="spinner-border text-info" role="status">
-				<span class="sr-only">Loading...</span>
-			</div>
-			</div>				
-				`;	
-			fetch(url)
-		 	.then((res) => {return res.json(); })
-			.then(produ => {
-				let result="";					
-				est="";
-				for(let prod of produ){						
-					result +=
-					`<tr> 
-						<td> ${prod.id}</td>
-						<td> ${prod.placa}</td>
-						<td class="text-center"> ${prod.capacidad}</td>	
-					`
-					if(prod.estado===0){
-						est="INACTIVO";
-					}else{
-						est="ACTIVO";
-					}
-					result +=
-					`<td> ${est}</td>
-						<td>
-							<?php echo "<a href="?>vehiculoEditar.php?metodo=Modificar&id=${prod.id}
-							<?php echo "class='fas fa-edit'>Editar</a>" ?>
-						</td>
-					</tr>`;						
-										
+		lista.innerHTML=`<div class="text-center"><div class="spinner-border text-info" role="status"><span class="sr-only">Loading...</span></div></div>`;	
+		fetch(url)
+		.then((res) => {return res.json(); })
+		.then(produ => {
+			let result="";					
+			est="";
+			for(let prod of produ){						
+				result +=
+				`<tr> 
+					<td> ${prod.id}</td>
+					<td> ${prod.placa}</td>
+					<td class="text-center"> ${prod.capacidad}</td>	
+				`
+				if(prod.estado===0){
+					est="INACTIVO";
+				}else{
+					est="ACTIVO";
 				}
-				result += `</table> `;
-				lista.innerHTML=result;							
-					return produ;				
-				})		
-				.catch(error => { lista.innerHTML =`<div>No se encuentras coincidencias</div>`;	 console.log("error",error); return error; })					
-		}		
-			
+				result +=
+				`<td> ${est}</td>
+					<td>
+						<?php echo "<a href="?>vehiculoEditar.php?metodo=Modificar&id=${prod.id}
+						<?php echo "class='fas fa-edit'>Editar</a>" ?>
+					</td>
+				</tr>`;										
+			}
+			result += `</table> `;
+			lista.innerHTML=result;							
+				return produ;				
+			})		
+			.catch(error => { lista.innerHTML =`<div>No se encuentras coincidencias</div>`;	 console.log("error",error); return error; })					
+		}				
 		boton.addEventListener('click',Buscar);
 	</script>	
-
-
-
-
 
  <?php include 'footer.php'; ?>

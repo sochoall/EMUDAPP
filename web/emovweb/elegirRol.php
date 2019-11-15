@@ -17,27 +17,25 @@
 
     $result='';
     for($i=0;$i<count($roles);$i++)
-        {
-            
-            
-            $result.='<div class="btn-group-lg mt-2 text-center" >
-            <a href="menu?id='.$roles[$i]["id"].'&rol='.$roles[$i]["nombre"].'" class="cyan btn "  
-            style="  -webkit-border-radius: 75px;
-                      -moz-border-radius: 75px;
-                      border-radius: 75px;
-                      color:#fff;
-                      padding-top: 40px;
-                      width:150px; height:150px;
-                      ">';
-            if($roles[$i]["id"] == 1)
-                $result .='<i class="fas fa-user-cog fa-3x"></i></a>';
-            else if($roles[$i]["id"] == 2)
-                $result .='<i class="fas fa-bus fa-3x"></i></a>';
-            else
-                $result .='<i class="fas fa-user-friends fa-3x"></i></a>';
-            
-            $result .= '<div class=" rounded-circle text-dark text-uppercase font-weight-bold mb-3">'.$roles[$i]["nombre"].'</div>';
-        }
+    {           
+        $result.='<div class="btn-group-lg mt-2 text-center" >
+        <a href="menu?id='.$roles[$i]["id"].'&rol='.$roles[$i]["nombre"].'" class="cyan btn "  
+        style="  -webkit-border-radius: 75px;
+                    -moz-border-radius: 75px;
+                    border-radius: 75px;
+                    color:#fff;
+                    padding-top: 40px;
+                    width:150px; height:150px;
+                    ">';
+        if($roles[$i]["id"] == 1)
+            $result .='<i class="fas fa-user-cog fa-3x"></i></a>';
+        else if($roles[$i]["id"] == 2)
+            $result .='<i class="fas fa-bus fa-3x"></i></a>';
+        else
+            $result .='<i class="fas fa-user-friends fa-3x"></i></a>';
+        
+        $result .= '<div class=" rounded-circle text-dark text-uppercase font-weight-bold mb-3">'.$roles[$i]["nombre"].'</div>';
+    }
     
     echo $result;
 
