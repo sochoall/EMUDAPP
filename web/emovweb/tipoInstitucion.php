@@ -1,9 +1,10 @@
 <?php include 'header.php'; 
-//   include 'codigophp/sesion.php';
+    include 'codigophp/sesion.php';
+    $menu=Sesiones("EMOV");
 ?>
 <div class="container-fluid grey">
 		<?php 
-        // echo $menu 
+        echo $menu 
         ?>
 </div>
 
@@ -64,18 +65,9 @@
     </div>
 </div>
 
-     <div class="position-fixed btn-group-lg" style="bottom:20px; right:80px; width:120px; height:80px;">
-			<a href="tipoInstitucionEditar.php?metodo=Ingresar" class="cyan btn "  
-			style="  -webkit-border-radius: 50px;
-  					-moz-border-radius: 50px;
-					  border-radius: 50px;
-					  color:#fff;
-					  padding-top: 20px;
-					  width:70px; height:70px;
-					  ">
-			
-			<i class="fa fa-plus" ></i></a>
-		</div>
+<div class="cyan circulo">
+        <a href="tipoInstitucionEditar.php?metodo=Agregar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
+</div>	
 
 <script type="text/javascript">		
 	
@@ -96,7 +88,7 @@
         if(textBuscar==""){
             // 
         }
-        let url=`http://localhost:8888/tipoInstitucion?campo=${campo}&bus=${textBuscar}&est=${estado}`;
+        let url=`${raizServidor}/tipoInstitucion?campo=${campo}&bus=${textBuscar}&est=${estado}`;
 
         lista.innerHTML=`
         <div class="text-center">

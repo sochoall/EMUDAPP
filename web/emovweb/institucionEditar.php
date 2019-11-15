@@ -1,29 +1,29 @@
 <?php include 'header.php'; 
-	//   include 'codigophp/sesion.php';
+	include 'codigophp/sesion.php';
+	$menu=Sesiones("EMOV");
 ?>
-
-
-
-<div class="container text-align-left mt-2 text-uppercase">
+<div class="container text-align-left mt-2 ">
 	<div class="row">
-    	<div class="col-md-7 offset-md-2">
+    	<div class="col-md-6 offset-md-2">
 			<div class="card">
 				<h3 class="card-header cyan white-text text-uppercase font-weight-bold text-center" id="titulo">Institución</h3>
       			<div class="card-body">
 						<!--AQUI VA EL FORMULARIO DE INGRESO Y EDICION -->
 					<form>	
-							<div class="row">
-								<label class="col-md-3 col-form-label">Nombre: <span class="text-danger">*</span></label>
-								<div class="col-md-9">
-									<input type='text' id="nombre" class="form-control text-uppercase form-control-sm"  maxlength="50"/>
-								</div>
-							</div>
 							<div class=" row">
 								<label class="col-md-3 col-form-label">RUC: <span class="text-danger">* </span></label>
 								<div class="col-md-5">
 									<input type='text' id= "ruc" class="form-control form-control-sm"  maxlength="13"/>
 								</div>
 							</div>
+
+							<div class="row">
+								<label class="col-md-3 col-form-label">Nombre: <span class="text-danger">*</span></label>
+								<div class="col-md-9">
+									<input type='text' id="nombre" class="form-control text-uppercase form-control-sm"  maxlength="50"/>
+								</div>
+							</div>
+							
 							<div class="row">
 								<label class="col-md-3 col-form-label">Dirección: <span class="text-danger">* </span></label>
 								<div class="col-md-9">
@@ -71,15 +71,18 @@
 
 	let parametro = new URLSearchParams(location.search);
 	var metodo = parametro.get('metodo');	
+	document.getElementById('metodo').value =metodo;
 	var id;
-	document.getElementById('metodo').value =metodo;	
+	var divContenedor=document.querySelector('#lista');
+	var urlCombo=`${raizServidor}/tipoInstitucion?campo=tin_nombre&bus=&est`;		
 	if(metodo=='Agregar'){			
-		cargarCombo();		
+		cargarCombo(urlCombo,"tipoIns",divContenedor,"");	
+		document.getElementById("estado").disabled=true;	
 	}if(metodo=='Modificar'){
 		id= parametro.get('id');	
 		(async () => {
 			try{
-				let response = await fetch(`http://localhost:8888/institucion/${id}`)
+				let response = await fetch(`${raizServidor}/institucion/${id}`)
 			    let data = await response.json();			  		  	
 				document.getElementById('nombre').value = (data['nombre']);
 				document.getElementById('ruc').value = (data['ruc']);
@@ -87,47 +90,26 @@
 				document.getElementById('telefono').value = (data['telefono']);
 				document.getElementById('correo').value = (data['correo']); 		  
 				let Tins= (data['tipoInstitucionId']); 	
-				cargarCombo(Tins);			
+				cargarCombo(urlCombo,"tipoIns",divContenedor,Tins);			
 			}catch(e){
 				toastr.error('Error al Cargar algunos datos'); 	
 			}
 		})();			
-	}
-
-	async function cargarCombo(Tins){
-		const lista=document.querySelector('#lista');
-		lista.innerHTML=`<div class='text-center'><div class='spinner-border text-info' role='status'><span class='sr-only'>Loading...</span></div></div>`;
-		try {
-			var url=`http://localhost:8888/tipoInstitucion?campo=tin_nombre&bus=&est=1`;			
-			let response = await fetch(url)
-			let data = await response.json();					
-			var result = `<select id='tipoIns' class='browser-default custom-select'>`;						
-			for(let pro of data){	
-				if(pro.id==Tins)						
-					result +='<OPTION selected VALUE=' + pro.id + '>' + pro.nombre + '</OPTION>';	
-				else
-					result +='<OPTION VALUE=' + pro.id + '>' + pro.nombre + '</OPTION>';		
-			}	
-			result += '</SELECT>';				
-			lista.innerHTML = result;	
-		}catch(e){
-				lista.innerHTML =`<div>No se encuentras</div>`; 	
-			}
-	}
+	}	
 
 	function IngMod(v) {
 		event.preventDefault();			
 
-		if(valSololetras(nombre.value)==false){
-			toastr["error"]("Ingrese solo letras", "Caracteres incorrectos!")
-				nombre.style.borderColor="red";
+		if(validarRUC(ruc.value)==false){
+			toastr["error"]("RUC incorrecto!")
+			ruc.style.borderColor="red";
 		}else{
-			nombre.style.borderColor='green';
-			if(validarRUC(ruc.value)==false){
-				toastr["error"]("RUC incorrecto!")
-				ruc.style.borderColor="red";
-			}else{ 
-				ruc.style.borderColor='green';
+			ruc.style.borderColor='green';
+			if(valSololetras(nombre.value)==false){
+				toastr["error"]("Ingrese solo letras", "Caracteres incorrectos!")
+				nombre.style.borderColor="red";
+			}else{
+				nombre.style.borderColor='green';				
 				if(valTelefono(telefono.value)==false){				
 				toastr["error"]("Ingrese solo números", "Teléfono incorrecto!")
 				telefono.style.borderColor="red";
@@ -138,16 +120,20 @@
 						correo.style.borderColor="red";
 					}else{
 						correo.style.borderColor="green";
-						var parametros={'id':0,'nombre':nombre.value.toUpperCase(),'ruc':ruc.value,'direccion':direccion.value.toUpperCase(),'telefono':telefono.value,'correo':correo.value,'estado':estado.value,'tipoInstitucionId':tipoIns.value};		
-						var url="http://localhost:8888/institucion";
-
-						// console.log(parametros);
-						if(v.value=="Agregar"){	
-							Ingresar(parametros,url);
-						}	
-						if(v.value=="Modificar"){
-							let redirigir="institucion.php";
-							Modificar(parametros,`${url}/${id}`,redirigir);
+						if(tipoIns.value==-1){
+							tipoIns.style.borderColor="red";
+							toastr["error"]("Seleccione una institución")	
+						}else{
+							tipoIns.style.borderColor="green";
+							var parametros={'id':0,'nombre':nombre.value.toUpperCase(),'ruc':ruc.value,'direccion':direccion.value.toUpperCase(),'telefono':telefono.value,'correo':correo.value,'estado':estado.value,'tipoInstitucionId':tipoIns.value};		
+							var url=`${raizServidor}/institucion`;
+							if(v.value=="Agregar"){	
+								Ingresar(parametros,url);
+							}	
+							if(v.value=="Modificar"){
+								let redirigir="institucion.php";
+								Modificar(parametros,`${url}/${id}`,redirigir);
+							}
 						}
 					}	
 				}			

@@ -1,32 +1,11 @@
 <?php include 'header.php'; 
-// include 'codigophp/funcionesphp.php';
+   include 'codigophp/sesion.php';
+   $menu=Sesiones("EMOV");
 ?>
 
- <?php
-    session_start();
-    if (isset($_SESSION['id']) && isset($_SESSION['rol'])) {
-        $id = $_SESSION['id'];
-        $rol = $_SESSION['rol'];
-		$menu=$_SESSION['menu'];
-        echo " <script type='text/javascript'>
-					window.onload=function() {
-
-						document.getElementById('rol').innerHTML ='ROL - $rol';
-						document.getElementById('btncerrar').style.display = 'block';
-					}
-			 </script>
-	 ";
-    } else {
-        header('Location: ./');
-    }   
-
-?>
-
-
- 
 <div class="container-fluid grey">
 		<?php 
-		echo $menu 
+		 echo $menu; 	
 		?>
 </div>
 
@@ -35,20 +14,20 @@
     <div class="row mt-3 ">
         <div class="h3 text-left font-weight-bold">VEHÍCULO</div>
     </div>
-	<div class="form-group row mt-3">
+	<div class="form-group row mt-3 align-middle">
 		<div class="col-md-3">
-			<label class="align-self-center">Campo:</label>
+			<label>Campo:</label>
 			<select id="campo" name="campo" class="browser-default custom-select" onchange="veroferta(this.value)">
 				<option value="0" selected >PLACA</option>	
 			</select>
 		</div>
 
 		<div class="col-md-3">
-			<label for="txtuser">Buscar:</label>
-			<input type="text" id="textBuscar" name="textBuscar" class="form-control">     
-		</div>
+            <label>Buscar:</label>
+            <input type="text" id="textBuscar" name="textBuscar" class="form-control text-uppercase">     
+        </div>	
 
-		<div class="col-sm-2 align-self-center">
+		<div class="col-sm-2">
             <label>Estado:</label>
             <SELECT id="estBusqueda"  class="browser-default custom-select"> 
                 <OPTION VALUE="2" selected >TODOS</OPTION>
@@ -57,7 +36,7 @@
             </SELECT> 
         </div>
 
-		<div class="col-md-4 mt-3" id="buscar">
+		<div class="col-sm-2 align-middle" id="buscar">
 				<a href="" class="btn grey"><i class="fas fa fa-search "></i></a>
 		</div>
 	</div>
@@ -88,20 +67,9 @@
     </div>
 </div>
 
-<div class="position-fixed btn-group-lg" style="bottom:20px; right:80px; width:120px; height:80px;">
-			<a href="vehiculoEditar.php?metodo=Ingresar" class="cyan btn "  
-			style="  -webkit-border-radius: 50px;
-  					-moz-border-radius: 50px;
-					  border-radius: 50px;
-					  color:#fff;
-					  padding-top: 20px;
-					  width:70px; height:70px;
-					  ">
-			
-			<i class="fa fa-plus" ></i></a>
+<div class="cyan circulo">
+        <a href="vehiculoEditar.php?metodo=Agregar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
 </div>	
-
-
 
 <script type="text/javascript">		
 	
@@ -123,7 +91,7 @@
 			if(textBuscar==""){
 				// textBuscar="*****";
 			}
-			let url=`http://localhost:8888/vehiculo?campo=${campo}&bus=${textBuscar}&est=${estado}`;
+			let url=`${raizServidor}/vehiculo?campo=${campo}&bus=${textBuscar}&est=${estado}`;
 
 			lista.innerHTML=`
 			<div class="text-center">

@@ -1,12 +1,13 @@
 <?php 
 	include 'header.php'; 
-	// include 'codigophp/sesion.php';
+	include 'codigophp/sesion.php';
+	$menu=Sesiones("EMOV");
 ?>
 
 
 <div class="container-fluid grey">
 		<?php 
-		// echo $menu 
+		 echo $menu 
 		?>
 </div>
  
@@ -17,7 +18,7 @@
 
     <div class="form-group row mt-3">
         <div class="col-md-3">
-            <label class="align-self-center">Campo:</label>
+            <label>Campo:</label>
             <select id="campo" class="browser-default custom-select">
                 <option value="1" selected>NOMBRE</option>
                 <option value="2">RUC</option>
@@ -25,7 +26,7 @@
         </div>
 
         <div class="col-md-3">
-            <label for="txtuser">Buscar:</label>
+            <label>Buscar:</label>
             <input type="text" id="textBuscar" name="textBuscar" class="form-control text-uppercase">     
         </div>
 
@@ -38,7 +39,7 @@
 			</SELECT> 
 		</div>
 
-        <div class="col-md-4 mt-3" id="buscar">
+        <div class="col-md-2 mt-3" id="buscar">
                 <a href="" class="btn grey"><i class="fas fa fa-search "></i></a>
         </div>
     </div>
@@ -66,19 +67,10 @@
         </div>
     </div>
 </div>         
-      <div class="position-fixed btn-group-lg" style="bottom:20px; right:80px; width:120px; height:80px;">
-			<a href="institucionEditar.php?metodo=Agregar" class="cyan btn "  
-			style="  -webkit-border-radius: 50px;
-  					-moz-border-radius: 50px;
-					  border-radius: 50px;
-					  color:#fff;
-					  padding-top: 20px;
-					  width:70px; height:70px;
-					  ">
-			
-			<i class="fa fa-plus" ></i></a>
-		</div>	
-    </div>
+    <div class="cyan circulo">
+			<a href="institucionEditar.php?metodo=Agregar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
+	</div>	
+   
 
     <script type="text/javascript">	
 
@@ -105,15 +97,9 @@
 				// textBuscar="*****";
 			}
 			
-			let url=`http://localhost:8888/institucion?campo=${campo}&bus=${textBuscar}&est=${estado}`;
+			let url=`${raizServidor}/institucion?campo=${campo}&bus=${textBuscar}&est=${estado}`;
 
-			lista.innerHTML=`
-			<div class="text-center">
-			<div class="spinner-border text-info" role="status">
-				<span class="sr-only">Loading...</span>
-			</div>
-			</div>				
-				`;	
+			lista.innerHTML=`<div class="text-center"><div class="spinner-border text-info" role="status"><span class="sr-only">Loading...</span></div></div>`;	
 			fetch(url)
 		 	.then((res) => {return res.json(); })
 			.then(produ => {

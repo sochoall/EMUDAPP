@@ -1,11 +1,12 @@
 <?php 
 	include 'header.php'; 
-//   include 'codigophp/sesion.php';	
+	include 'codigophp/sesion.php';
+	$menu=Sesiones("EMOV");	
     include 'vehiculo_modal_select_funcionario.php';  
 ?>	
-	<div class="container text-align-left mt-2 text-uppercase">
+	<div class="container text-align-left mt-2 ">
    	<div class="row">
-       <div class="col-md-7 offset-md-2">
+       <div class="col-md-6 offset-md-2">
            <div class="card">
                  <h3 class="card-header cyan white-text text-uppercase font-weight-bold text-center" id="titulo">Vehículo</h3>
                  <div class="card-body">	
@@ -13,7 +14,7 @@
 		<form>	
 			<div class="row">
 				<label class="col-md-3 col-form-label">Placa: <span class="text-danger">* </span></label>
-				<div class="col-md-9">
+				<div class="col-md-3">
 					<input type='text' id= "placa" class="form-control text-uppercase form-control-sm"  maxlength="7"/>
 				</div>
 			</div>
@@ -25,16 +26,16 @@
 			</div>		
 			<div class="row">
 				<label class="col-md-3 col-form-label">Estado: <span class="text-danger">* </span></label>
-				<div class="col-md-9">
-					<SELECT id="estado"  class="browser-default custom-select"> 
-						<OPTION VALUE="1" selected >Activo</OPTION>
-						<OPTION VALUE="0">Inactivo</OPTION>
+				<div class="col-md-6">
+					<SELECT id="estado" class="browser-default custom-select"> 
+						<OPTION VALUE="1" selected >ACTIVO</OPTION>
+						<OPTION VALUE="0">INACTIVO</OPTION>
 					</SELECT> 
 				</div>
 			</div>	
 			<div class="row align-self-center">
-				<label class="col-md-3 col-form-label">Tipo de Vehículo <span class="text-danger">* </span></label>
-				<div  id="vehiculo" class="col-md-9 align-self-center "></div>
+				<label class="col-md-3 col-form-label">Tipo de Vehículo: <span class="text-danger">* </span></label>
+				<div  id="vehiculo" class="col-md-6 align-self-center "></div>
 			</div><br/>						
 
 				<h5><strong>Datos del Conductor </strong></h5>
@@ -61,9 +62,6 @@
 				</div>
 		</form>
 
-		<div class="row justify-content-center">
-			<span class=" text-danger">* campos obligatorios</span>
-		</div>
 	
 	</div>
 	</div></div></div></div>
@@ -73,52 +71,34 @@
 	// CAPTURA DE PARAMETRO DE LA URL tooooodo CON JAVASCRIPT 
 	let parametro = new URLSearchParams(location.search);
 	var metodo = parametro.get('metodo');
-	var id,tveh;	
+	var id,tveh;
+	var urlCombo=`${raizServidor}/tipoVehiculo?campo=tve_nombre&bus=&est`;	
+	var divContenedor=document.querySelector('#vehiculo');
 	document.getElementById('metodo').value =metodo;
-	if(metodo=='Ingresar'){			
-		cargarCombo();		
+	if(metodo=='Agregar'){			
+		cargarCombo(urlCombo,"tipoVehiculo",divContenedor,"");	
+		document.getElementById("estado").disabled=true;
 	}if(metodo=='Modificar'){		
 		id= parametro.get('id');
 		(async () => {
 			try{
-				let response = await fetch(`http://localhost:8888/vehiculo/${id}`);
+				let response = await fetch(`${raizServidor}/vehiculo/${id}`);
 				let data = await response.json();					
 				document.getElementById('placa').value = (data.placa);
 				document.getElementById('capacidad').value = (data.capacidad);				   
 				tveh= (data.tve_id); 	 	
 				document.getElementById('idfun').value = (data.fun_id);				
 				BusFuncionario(data.fun_id);
-				cargarCombo();
+				cargarCombo(urlCombo,"tipoVehiculo",divContenedor,tveh);		
 			}catch(e){
 				toastr.error('Error al Cargar algunos datos'); 	
 			}
 		})();
-
 	}
 	
-	async function cargarCombo(){
-		var list=document.querySelector('#vehiculo');				
-		list.innerHTML=`<div class='text-center'><div class='spinner-border text-info' role='status'><span class='sr-only'>Loading...</span></div></div> `;
-		try {
-			var url=`http://localhost:8888/tipoVehiculo?campo=tve_nombre&bus=&est=1`;
-			let resTipoVeh = await fetch(url)
-			let jsonTipoVeh = await resTipoVeh.json();					
-			var result = `<select id='tipoVehiculo' class='browser-default custom-select'>`;						
-			for(let pro of jsonTipoVeh){					
-				result +='<OPTION VALUE=' + pro.id + '>' + pro.nombre + '</OPTION>';		
-			}				
-			result += '</SELECT>';				
-			list.innerHTML = result;
-			$("#tipoVehiculo").val(tveh);										
-		}catch(e){
-			toastr.error('Error al Cargar algunos datos'); 	
-		}
-		
-	}
-
 	async function BusFuncionario(funid){	
 		try{	
-			let response = await fetch(`http://localhost:8888/funcionario/${funid}`)
+			let response = await fetch(`${raizServidor}/funcionario/${funid}`)
 			let data = await response.json();					  	
 			var nomApe=`${data.nombre} ${data.apellido}`;
 			document.getElementById('chofer').value = nomApe;	
@@ -143,8 +123,8 @@
 	});
 
 	function IngMod(v) {
-		event.preventDefault();					
-
+		event.preventDefault();				
+		
 		if(valPlaca(placa.value)==false){
 			toastr["error"]("Ingrese solo letras y números", "Caracteres incorrectos!");
 				placa.style.borderColor="red";
@@ -154,26 +134,32 @@
 				toastr["error"]("Ingrese solo números", "Capacidad incorrecta!");
 				capacidad.style.borderColor="red";				
 			}else{				 
-				capacidad.style.borderColor='green';				
-				if((idfun.value=="")||(chofer.value=="") ){
-					toastr["error"]("Seleccione un Conductor", "Dato Incorrecto!");
-					idfun.style.borderColor="red";
-					chofer.style.borderColor="red";
+				capacidad.style.borderColor='green';	
+				if(tipoVehiculo.value==-1){
+					toastr["error"]("Ingrese un tipo de Vehiculo");
+					tipoVehiculo.style.borderColor="red";		
 				}else{
-					idfun.style.borderColor='green';
-					chofer.style.borderColor="green";	
-					var parametros={'id':0,'placa':placa.value.toUpperCase(),'capacidad':capacidad.value,'estado':estado.value,'tve_id':tipoVehiculo.value,'fun_id':idfun.value};	
-					var urlVe="http://localhost:8888/vehiculo";					
-					if(v.value=="Ingresar")	
-						Ingresar(parametros,urlVe);
-					if(v.value=="Modificar"){
-						let redirigir="vehiculo.php";
-						Modificar(parametros,`${urlVe}/${id}`,redirigir);
+					tipoVehiculo.style.borderColor="green";
+					if((idfun.value=="")||(chofer.value=="") ){
+						toastr["error"]("Seleccione un Conductor", "Dato Incorrecto!");
+						idfun.style.borderColor="red";
+						chofer.style.borderColor="red";
+					}else{
+						idfun.style.borderColor='green';
+						chofer.style.borderColor="green";	
+						var parametros={'id':0,'placa':placa.value.toUpperCase(),'capacidad':capacidad.value,'estado':estado.value,'tve_id':tipoVehiculo.value,'fun_id':idfun.value};	
+						var urlVe=`${raizServidor}/vehiculo`;					
+						if(v.value=="Agregar")	
+							Ingresar(parametros,urlVe);
+						if(v.value=="Modificar"){
+							let redirigir="vehiculo.php";
+							Modificar(parametros,`${urlVe}/${id}`,redirigir);
+						}
 					}
 				}
-		 }
-	}		
-}
+		 	}
+		}		
+	}
 		
 	</script>
   

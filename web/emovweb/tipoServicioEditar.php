@@ -1,5 +1,7 @@
 <?php include 'header.php'; 
-//   include 'codigophp/sesion.php';
+    include 'codigophp/sesion.php';
+    $menu=Sesiones("EMOV");
+
 ?>
 
 <div class="container text-center mt-2 text-uppercase">
@@ -22,8 +24,8 @@
                             <label class="col-md-3 col-form-label">Estado: <span class="text-danger">* </span></label>
                             <div class="col-md-9">
                                 <SELECT id="estado"  class="browser-default custom-select"> 
-                                    <OPTION VALUE="1" selected >Activo</OPTION>
-                                    <OPTION VALUE="0">Inactivo</OPTION>
+                                    <OPTION VALUE="1" selected >ACTIVO</OPTION>
+                                    <OPTION VALUE="0">INAACTIVO</OPTION>
                                 </SELECT> 
                             </div>
                         </div>
@@ -43,10 +45,12 @@
     let parametro = new URLSearchParams(location.search);
 	var metodo = parametro.get('metodo');
 	var id;	
-	document.getElementById('metodo').value =metodo;
+    document.getElementById('metodo').value =metodo;
+    if(metodo=='Agregar')
+	    document.getElementById("estado").disabled=true;    
     if(metodo=='Modificar'){		
 		id= parametro.get('id');
-        fetch(`http://localhost:8888/tipoServicio/${id}`)
+        fetch(`${raizServidor}/tipoServicio/${id}`)
 			  .then(response => response.json())
 			  .then(data => {		  	
 				  document.getElementById('nombre').value = (data.nombre);				  
@@ -64,8 +68,8 @@
 		}else{
 			nombre.style.borderColor='green';
 			var parametros={'id':0,'nombre':nombre.value.toUpperCase(),'estado':estado.value};		
-			var url="http://localhost:8888/tipoServicio";
-			if(v.value=="Ingresar"){
+			var url=`${raizServidor}/tipoServicio`;
+			if(v.value=="Agregar"){
 				Ingresar(parametros,url);
 			}	
 			if(v.value=="Modificar"){			

@@ -1,12 +1,13 @@
 <?php 
     include 'header.php';
-//   include 'codigophp/sesion.php';
+    include 'codigophp/sesion.php';
+	$menu=Sesiones("EMOV");
  ?>
 
 
 <div class="container-fluid grey">
         <?php 
-        // echo $menu 
+        echo $menu 
         ?>
 </div>
 
@@ -28,7 +29,7 @@
             <input type="text" id="textBuscar" name="textBuscar" class="form-control text-uppercase">     
         </div>
 
-       <div class="col-sm-2 align-self-center">
+       <div class="col-md-2 align-self-center">
             <label>Estado:</label>
             <SELECT id="estBusqueda"  class="browser-default custom-select"> 
                 <OPTION VALUE="2" selected >TODOS</OPTION>
@@ -66,21 +67,11 @@
             </div>                
         </div>
     </div>
-</div>
-         
+</div>         
 
- <div class="position-fixed btn-group-lg" style="bottom:20px; right:80px; width:120px; height:80px;">
-		<a href="periodoLectivoEditar.php?metodo=Ingresar" class="cyan btn "  
-		style="  -webkit-border-radius: 50px;
-					-moz-border-radius: 50px;
-				  border-radius: 50px;
-				  color:#fff;
-				  padding-top: 20px;
-				  width:70px; height:70px;
-				  ">
-		
-		<i class="fa fa-plus" ></i></a>
-	</div>
+<div class="cyan circulo">
+        <a href="periodoLectivoEditar.php?metodo=Agregar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
+</div>	
 
 <script type="text/javascript">     
     
@@ -101,7 +92,7 @@
             if(textBuscar==""){
                 // textBuscar="*****";
             }
-            let url=`http://localhost:8888/periodo?campo=${campo}&bus=${textBuscar}&est=${estado}`;
+            let url=`${raizServidor}/periodo?campo=${campo}&bus=${textBuscar}&est=${estado}`;
 
             lista.innerHTML=`
             <div class="text-center">

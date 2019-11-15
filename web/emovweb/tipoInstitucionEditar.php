@@ -1,5 +1,6 @@
 <?php include 'header.php'; 
-//   include 'codigophp/sesion.php';
+	include 'codigophp/sesion.php';
+	$menu=Sesiones("EMOV");
 ?>
 
 <div class="container text-left mt-2 text-uppercase">
@@ -45,9 +46,12 @@
 	var metodo = parametro.get('metodo');
 	var id;	
 	document.getElementById('metodo').value =metodo;
+	if(metodo=='Agregar')
+	document.getElementById("estado").disabled=true;
+
 	if(metodo=='Modificar'){		
 		id= parametro.get('id');
-		fetch(`http://localhost:8888/tipoInstitucion/${id}`)
+		fetch(`${raizServidor}/tipoInstitucion/${id}`)
 			  .then(response => response.json())
 			  .then(data => {		  	
 				  document.getElementById('nombre').value = (data.nombre);				  
@@ -65,8 +69,8 @@
 		}else{
 			nombre.style.borderColor='green';
 			var parametros={'id':0,'nombre':nombre.value.toUpperCase(),'estado':estado.value};		
-			var url="http://localhost:8888/tipoInstitucion";
-			if(v.value=="Ingresar"){
+			var url=`${raizServidor}/tipoInstitucion`;
+			if(v.value=="Agregar"){
 				Ingresar(parametros,url);
 			}	
 			if(v.value=="Modificar"){

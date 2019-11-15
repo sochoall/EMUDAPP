@@ -1,5 +1,6 @@
 <?php include 'header.php'; 
-  //   include 'codigophp/sesion.php';
+  include 'codigophp/sesion.php';
+	$menu=Sesiones("EMOV");
 ?>
 
 
@@ -44,13 +45,13 @@
   var metodo = parametro.get('metodo');
   var id;  
   document.getElementById('metodo').value =metodo;
-  if(metodo=='Ingresar'){     
-    cargarCombo();    
-  }if(metodo=='Modificar'){   
+  if(metodo=='Agregar')
+	    document.getElementById("estado").disabled=true;
+  if(metodo=='Modificar'){   
     id= parametro.get('id');
       (async () => {
       try{
-        let response = await fetch(`http://localhost:8888/periodo/${id}`);
+        let response = await fetch(`${raizServidor}/periodo/${id}`);
         let data = await response.json();         
         document.getElementById('nombre').value = (data.nombre);  
         var est = data.estado;           
@@ -71,16 +72,37 @@
 		}else{
 			nombre.style.borderColor='green';
 			var parametros={'id':0,'nombre':nombre.value.toUpperCase(),'estado':estado.value};		
-			var url="http://localhost:8888/periodo";
-			if(v.value=="Ingresar"){
+			var url=`${raizServidor}/periodo`;
+			if(v.value=="Agregar"){
 				Ingresar(parametros,url);
 			}	
 			if(v.value=="Modificar"){				
-				let redirigir="periodoLectivo.php";
+        let redirigir="periodoLectivo.php";
+        modEstado(url);
 				Modificar(parametros,`${url}/${id}`,redirigir);
 			}
 		}	
-	}			
+  }
+  
+  async function modEstado(url){      
+      try{
+        let response = await fetch(`http://localhost:8888/periodo?campo=ple_nombre&bus=&est`);
+        let data = await response.json();
+        for(let pro of data){ 
+           if(pro.estado==1){                
+               let parametros={'id':0,'nombre':pro.nombre,'estado':0};                      
+               let response = await fetch(`${url}/${pro.id}`, {
+                  method: 'PUT',
+                  body:JSON.stringify(parametros),
+                  headers:{'Content-Type': 'application/json'}        
+              }) 
+           }
+        }                  
+             
+      }catch(e){
+          toastr.error('Error al procesar algunos datos');  
+      }  
+  }
 	</script>
 
 <?php include 'footer.php'; ?>
