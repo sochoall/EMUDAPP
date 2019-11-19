@@ -1,7 +1,7 @@
 <?php include 'header.php'; 
    include 'codigophp/sesion.php';
-// $menu=Sesiones("EMOV");
-   $menu=Sesiones("EMPRESA DE TRANSPORTE"); 
+ $menu=Sesiones("EMOV");
+//    $menu=Sesiones("EMPRESA DE TRANSPORTE"); 
 //    $idFun="2";
 //    $idIns="2";
 ?>
@@ -108,14 +108,7 @@
 						<td> ${prod.id}</td>
 						<td> ${prod.placa}</td>
 						<td class="text-center"> ${prod.capacidad}</td>	
-					`
-					if(prod.estado===0){
-						est="INACTIVO";
-					}else{
-						est="ACTIVO";
-					}
-					result +=
-					`<td> ${est}</td>
+						<td> ${prod.estado==1?"ACTIVO":"INACTIVO"} </td>
 						<td>
 							<?php echo "<a href="?>vehiculoEditar.php?metodo=Modificar&id=${prod.id}
 							<?php echo "class='fas fa-edit'>Editar</a>" ?>

@@ -112,18 +112,8 @@
 						<td> ${prod.ruc}</td>
 						<td> ${prod.nombre}</td>
 						<td> ${prod.direccion}</td>	
-						<td> ${prod.telefono}</td>	
-						
-					`
-					if(prod.estado===0){
-						// est="<span class='badge badge-info'>INACTIVO</span>";
-						est="INACTIVO";
-					}else{
-						// est="<span class='badge badge-success'>ACTIVO</span>";
-						est="ACTIVO";
-					}					
-					result +=
-					`	<td>${est}</td>
+						<td> ${prod.telefono}</td>							
+						<td> ${prod.estado==1?"ACTIVO":"INACTIVO"} </td>
 						<td>
 							<?php echo "<a href="?>institucionEditar.php?metodo=Modificar&id=${prod.id}
 							<?php echo "class='fas fa-edit'>Editar</a>" ?>

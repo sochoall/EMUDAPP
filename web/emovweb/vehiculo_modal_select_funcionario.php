@@ -124,18 +124,9 @@
 							<td> ${prod.nombre}</td>
 							<td> ${prod.apellido}</td>
 							<td> ${prod.cedula}</td>	
-						`
-						if(prod.estado===0){
-							est="inactivo";
-						}else{
-							est="activo";
-						}
-						// data-dismiss='modal'  EVENTO PARA QUE SE CIERRE EL MODAL 
-							result +=
-							`<td> ${est}</td>													
-							<td><a class='bot fas fa-check-circle' data-dismiss='modal'>Seleccionar</a>
-							</td> 
-							</tr>`;											
+							<td> ${prod.estado==1?"ACTIVO":"INACTIVO"} </td>																		
+							<td><a class='bot fas fa-check-circle' data-dismiss='modal'>Seleccionar</a></td> 
+						</tr>`;											
 					}
 					result += `</tabla> `;
 					lista.innerHTML=result;			
