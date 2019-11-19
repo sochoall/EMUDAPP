@@ -10,9 +10,15 @@ class Vehiculo extends Serializable {
   String tve_id;
   String fun_id;
 
-    Future<List> obtenerDatos(String campo, String bus, String est) async {
+  
+
+  Future<List> obtenerDatos(String campo, String bus, String est, String intitucionId) async {
     final conexion = Conexion();
-    final String sql = "select * from public.te_vehiculo where $campo::text LIKE '%$bus%' and veh_estado::text LIKE '%$est%' order by veh_id DESC";
+    String sql; 
+    if(intitucionId != "")
+      sql = "select v.veh_id, v.veh_placa, v.veh_capacidad, v.veh_estado, v.tve_id, f.fun_id from public.te_vehiculo v, public.te_funcionario f where f.ins_id=$intitucionId and f.fun_id = v.fun_id and v.$campo::text LIKE '%$bus%' and veh_estado::text LIKE '%$est%' order by veh_id DESC";
+    else
+      sql = "select * from public.te_vehiculo where $campo::text LIKE '%$bus%' and veh_estado::text LIKE '%$est%' order by veh_id DESC";
     final List datos = [];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 
@@ -27,12 +33,15 @@ class Vehiculo extends Serializable {
         reg.fun_id = query[i][5].toString();
 
         datos.add(reg.asMap());
-      }
-      return datos;
-    } else {
-      return null;
-    }
+      }      
+    } 
+    return datos;
   }
+
+
+
+
+
 
   Future<Vehiculo> obtenerDatoId(int id) async {
     final conexion = Conexion();
@@ -51,6 +60,8 @@ class Vehiculo extends Serializable {
       return null;
     }
   }
+
+
 
   Future<void> ingresar(Vehiculo dato) async {
     final conexion = Conexion();
