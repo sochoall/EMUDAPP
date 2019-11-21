@@ -105,45 +105,35 @@
 			if(textBuscar==""){
 				// textBuscar="*****";
 			}
-			let url=`${raizServidor}/funcionario?campo=${campo}&bus=${textBuscar}&est=${estado}`;
 
-			lista.innerHTML=`
-			<div class="text-center">
-			<div class="spinner-border text-info" role="status">
-				<span class="sr-only">Loading...</span>
-			</div>
-			</div>				
-				`;	
-			fetch(url)
-		 	.then((res) => {return res.json(); })
-			.then(produ => {
-				let result = "";				
-				est="";
-				for(let prod of produ){						
-					result +=
-					`<tr> 
-						<td> ${prod.id}</td>
-                        <td> ${prod.nombre}</td>
-                        <td> ${prod.apellido}</td>
-						<td> ${prod.cedula}</td>	
-					`
-					if(prod.estado===0){
-						est="inactivo";
-					}else{
-						est="activo";
+
+			(async () => {
+				try{
+					var idIns="";
+					let url=`${raizServidor}/funcionario?campo=${campo}&bus=${textBuscar}&est=${estado}&idIns=${idIns}`;
+					lista.innerHTML=`<div class="text-center"><div class="spinner-border text-info" role="status"><span class="sr-only">Loading...</span></div></div>`;	
+							
+					let response = await fetch(url);
+					let data = await response.json();
+					let result="";					
+					est="";
+					for(let prod of data){										
+						result +=
+						`<tr> 
+							<td> ${prod.id}</td>
+							<td> ${prod.nombre}</td>
+							<td> ${prod.apellido}</td>
+							<td> ${prod.cedula}</td>	
+							<td> ${prod.estado==1?"ACTIVO":"INACTIVO"} </td>																		
+							<td><a class='bot fas fa-check-circle' data-dismiss='modal'>Seleccionar</a></td> 
+						</tr>`;											
 					}
-			// data-dismiss='modal'  EVENTO PARA QUE SE CIERRE EL MODAL 
-					result +=
-					`<td> ${est}</td>													
-					<td><a class='bot fas fa-check-circle' data-dismiss='modal'>Seleccionar</a>
-					</td> 
-					</tr>`;											
+					result += `</tabla> `;
+					lista.innerHTML=result;			
+				}catch(e){
+					toastr.error('Error al Cargar algunos datos'+ e); 	
 				}
-				result += `</tabla> `;
-				lista.innerHTML=result;
-				return produ;				
-			})		
-				.catch(error => { lista.innerHTML =`<div>No se encuentras coincidencias</div>`;	 console.log("error",error); return error; })					
+			})();	
 		}		
 			
 		boton.addEventListener('click',Buscar);

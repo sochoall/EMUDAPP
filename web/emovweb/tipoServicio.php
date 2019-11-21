@@ -107,18 +107,11 @@
 					`<tr> 
 						<td> ${prod.id}</td>
 						<td> ${prod.nombre}</td>
-					`;
-					if(prod.estado===0){
-						est="inactivo";
-					}else{
-						est="activo";
-					}
-					result +=
-					`<td> ${est}</td>
-					<td>
-						<?php echo "<a href="?>tipoServicioEditar.php?metodo=Modificar&id=${prod.id}
-						<?php echo "class='fas fa-edit'>Editar</a>" ?>
-					</td>
+						<td> ${prod.estado==1?"ACTIVO":"INACTIVO"} </td>
+						<td>
+							<?php echo "<a href="?>tipoServicioEditar.php?metodo=Modificar&id=${prod.id}
+							<?php echo "class='fas fa-edit'>Editar</a>" ?>
+						</td>
 					</tr>`;								
 				}
 				result += `</table> `;

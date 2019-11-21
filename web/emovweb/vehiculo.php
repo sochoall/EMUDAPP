@@ -1,9 +1,9 @@
 <?php include 'header.php'; 
    include 'codigophp/sesion.php';
-// $menu=Sesiones("EMOV");
-   $menu=Sesiones("EMPRESA DE TRANSPORTE"); 
-   $idFun="2";
-   $idInsti="2";
+ $menu=Sesiones("EMOV");
+//    $menu=Sesiones("EMPRESA DE TRANSPORTE"); 
+//    $idFun="2";
+//    $idIns="2";
 ?>
 
 <div class="container-fluid grey">
@@ -90,41 +90,39 @@
 		}
 		if(textBuscar==""){
 			// textBuscar="*****";
-		}
-		let url=`${raizServidor}/vehiculo?campo=${campo}&bus=${textBuscar}&est=${estado}`;
-
+		}		
 		lista.innerHTML=`<div class="text-center"><div class="spinner-border text-info" role="status"><span class="sr-only">Loading...</span></div></div>`;	
-		fetch(url)
-		.then((res) => {return res.json(); })
-		.then(produ => {
-			let result="";					
-			est="";
-			for(let prod of produ){						
-				result +=
-				`<tr> 
-					<td> ${prod.id}</td>
-					<td> ${prod.placa}</td>
-					<td class="text-center"> ${prod.capacidad}</td>	
-				`
-				if(prod.estado===0){
-					est="INACTIVO";
-				}else{
-					est="ACTIVO";
+				
+		(async () => {
+			try{
+				var idIns="1";
+				var url=`${raizServidor}/vehiculo?campo=${campo}&bus=${textBuscar}&est=${estado}&idIns=${idIns}`;
+				
+				let response = await fetch(url);
+				let data = await response.json();
+				let result="";					
+				est="";
+				for(let prod of data){						
+					result +=
+					`<tr> 
+						<td> ${prod.id}</td>
+						<td> ${prod.placa}</td>
+						<td class="text-center"> ${prod.capacidad}</td>	
+						<td> ${prod.estado==1?"ACTIVO":"INACTIVO"} </td>
+						<td>
+							<?php echo "<a href="?>vehiculoEditar.php?metodo=Modificar&id=${prod.id}
+							<?php echo "class='fas fa-edit'>Editar</a>" ?>
+						</td>
+					</tr>`;										
 				}
-				result +=
-				`<td> ${est}</td>
-					<td>
-						<?php echo "<a href="?>vehiculoEditar.php?metodo=Modificar&id=${prod.id}
-						<?php echo "class='fas fa-edit'>Editar</a>" ?>
-					</td>
-				</tr>`;										
+				result += `</table> `;
+				lista.innerHTML=result;	
+			}catch(e){
+				toastr.error('Error al Cargar algunos datos'+ e); 	
 			}
-			result += `</table> `;
-			lista.innerHTML=result;							
-				return produ;				
-			})		
-			.catch(error => { lista.innerHTML =`<div>No se encuentras coincidencias</div>`;	 console.log("error",error); return error; })					
-		}				
+		})();
+
+}				
 		boton.addEventListener('click',Buscar);
 	</script>	
 
