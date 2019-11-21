@@ -11,13 +11,7 @@
 
 							document.getElementById('rol').innerHTML ='ROL - $rol';
 							document.getElementById('btncerrar').style.display = 'block';
-
-							let elementos=document.getElementsByClassName('boton');
-							for(let i=0;i<elementos.length;i++)
-							{
-								elementos[i].addEventListener('click',obtenerValores);
-							} 
-							document.getElementById('tituloModal').innerHTML = 'ROL';
+							CargarRoles();
 						}
 					</script>
 			";
@@ -52,17 +46,15 @@
         document.getElementById('opciones').innerHTML=valores;
 
         cargarOpciones(elementosTD[0].innerHTML);
-
-        function cargarOpciones(id)
+        function cargarOpciones(id) 
 		{
 			var result=``;
 			var result2=``;
-			let url= `http://localhost:8888/opcion?id=`+id;
+			let url= `http://localhost:8888/opcion?id=`+id+`&opcion=1`;
 
 			const api = new XMLHttpRequest();
 			api.open('GET',url,true);
 			api.send();
-			
 			api.onreadystatechange = function()
 			{
 				
@@ -73,7 +65,7 @@
 					{
 						
 						result=``;
-						result2=``;
+						result2=`<option value='0'>Elegir</option>`;
 						for(i=0;i<datos.length;i++)
 						{
 							result += `<tr> 
@@ -92,10 +84,36 @@
 						result=`<td></td>
 						<td>No se encontraron resultados.</td>
 						<td></td>`;
-						document.getElementById("combomodal1").innerHTML='';
 					}
 				
 					document.getElementById("opciones").innerHTML=result;
+				}
+				
+			}
+
+
+			let url2= `http://localhost:8888/opcion?id=`+id+`&opcion=2`;
+			alert(url2);
+
+			const api2 = new XMLHttpRequest();
+			api2.open('GET',url2,true);
+			api2.send();
+			api2.onreadystatechange = function()
+			{
+				if(this.status == 200 && this.readyState == 4 )
+				{
+					result2=`<option value='0'>Elegir</option>`;
+					let datos= JSON.parse(this.responseText);
+					if(datos.length > 0)
+					{
+						
+						for(i=0;i<datos.length;i++)
+						{
+							result2 +=`<option value="${datos[i].id}">${datos[i].nombre}</option>`;	
+						}
+						
+					}
+					document.getElementById("combomodal1").innerHTML=result2;
 				}
 				
 			}
@@ -126,15 +144,13 @@
 			<thead class='cyan white-text'>
 				<tr>
 				<th scope='col'>ID</th>
-				<th scope='col'>DESCRIPCIÓN</th>
+				<th scope='col'>NOMBRE</th>
 				<th scope='col'>ESTADO</th>
 				<th></th>
 				</tr>
 			</thead>
-			<tbody class='dt-select'>
-				<?php 
-					echo cargarRol() 
-				?>
+			<tbody class='dt-select' id="listaroles">
+				
 			</tbody>
 		</table>
 	</div>
@@ -142,7 +158,6 @@
 	
 </div>
 
-<a href='#' class=' btn text-dark fas fa-edit actionmodal2'>Editar</a>
 
 <div class="container mt-3 p-0">
 	<ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -239,18 +254,20 @@
 		if(this.status == 200 && this.readyState == 4 )
 		{
 			let datos=JSON.parse(this.responseText);
+			let result=``;
 			if(datos.length > 0)
 			{
 				
-				let result=``;
+				
 				for(i=0;i<datos.length;i++)
 				{
 					result+=`<option value=' ${datos[i].id}'> ${datos[i].nombre} </option>`;
 				}
 
-				document.getElementById("combomodal2").innerHTML=result;
+				
 				
 			}
+			document.getElementById("combomodal2").innerHTML=result;
 		}
 		
 	}
@@ -259,17 +276,15 @@
 
 
 	var idMod=0;
-	$('#listaRoles').on('click', '.activarModal', function(e) {
-		alert("hola");
+	$('#listaroles').on('click', '.activarModal', function(e) {
 		$('#centralModalSm').modal('show');
 		// CAPTURA LOS DATOS DE LAS POSICIONES DE LA TABLA DE BUSQUEDA.
 		var cod = $(this).parents('tr').find('td')[2].innerHTML;
 		var nom = $(this).parents('tr').find('td')[1].innerHTML;
 		idMod =$(this).parents('tr').find('td')[0].innerHTML;
-
 		document.getElementById('nombreModal').value = nom;
 
-		if(nom == "ACTIVO")
+		if(cod == "ACTIVO")
 			$('[id="estadoModal"]').val('1');
 		else
 			$('[id="estadoModal"]').val('0');;
@@ -322,11 +337,14 @@
 				Ingresar(parametros,"http://localhost:8888/rol");
 			}	
 			else{
+				let redirigir="rolMaster.php";
 				var id= idMod;					
 				var url='http://localhost:8888/rol/'+id;
-				Modificar(parametros,url);
+				Modificar(parametros,url,redirigir);
 			}
-		}	
+		}
+
+		CargarRoles();
 	}
 
 	function AsignarOpcion(v)
@@ -337,7 +355,7 @@
 		event.preventDefault();			
 
 		if(padre.value == 0){
-				toastr.error('Nombre con caracteres incorrecto');
+				toastr.error('Debe eligir una opcion');
 				padre.style.borderColor="red";
 		}
 		else
@@ -371,6 +389,53 @@
 
 	</script>
 
+<script type="text/javascript">	
+
+	const lista=document.querySelector('#listaroles');		
+	function CargarRoles(){	
+			
+		let url=`http://localhost:8888/rol?op=0`;
+
+		lista.innerHTML=`<div class="text-center"><div class="spinner-border text-info" role="status"><span class="sr-only">Loading...</span></div></div>`;	
+		fetch(url)
+		.then((res) => {return res.json(); })
+		.then(produ => {
+			let result="";					
+			est="";
+			for(let prod of produ){						
+				result +=
+				`<tr> 
+					<td class='boton'> ${prod.id}</td>
+					<td class='boton'> ${prod.nombre}</td>
+					
+				`
+				if(prod.estado===0){
+					// est="<span class='badge badge-info'>INACTIVO</span>";
+					est="INACTIVO";
+				}else{
+					// est="<span class='badge badge-success'>ACTIVO</span>";
+					est="ACTIVO";
+				}					
+				result +=
+				`	<td class='boton'>${est}</td>
+					<td><a href='#' class='text-dark fas fa-edit activarModal'>Editar</a></td>
+				</tr>`;									
+									
+			}
+			lista.innerHTML=result;
+			let elementos=document.getElementsByClassName('boton');
+			for(let i=0;i<elementos.length;i++)
+			{
+				elementos[i].addEventListener('click',obtenerValores);
+			} 
+			document.getElementById('tituloModal').innerHTML = 'ROL';	
+
+				return produ;				
+			})		
+			.catch(error => { lista.innerHTML =`<div>No se encuentran coincidencias</div>`;	 console.log("error",error); return error; })		
+	}
+	
+</script>
 
 
  <?php include 'footer.php'; ?>

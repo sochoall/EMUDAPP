@@ -1,6 +1,8 @@
 import 'package:fave_reads/Models/conexion.dart';
 import 'package:fave_reads/fave_reads.dart';
 
+import 'opcion.dart';
+
 class OpcionRol extends Serializable {
   String id;
   String nombre;
@@ -28,7 +30,7 @@ class OpcionRol extends Serializable {
     return datos;
   }
 
-   /*Future<List> obtenerOpcionesHijo(String sql) async {
+   Future<List> obtenerOpcionesHijo(String sql) async {
     final conexion = Conexion();
     final List datos = [];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
@@ -46,7 +48,7 @@ class OpcionRol extends Serializable {
     } 
 
     return datos;
-  }*/
+  }
  
   @override
   Map<String, dynamic> asMap() =>
