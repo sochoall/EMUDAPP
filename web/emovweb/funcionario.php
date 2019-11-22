@@ -4,8 +4,6 @@
 //    $menu=Sesiones("EMPRESA DE TRANSPORTE"); 
 ?>
 
-
-
 <div class="container-fluid grey">
 		<?php 
 		echo $menu 
@@ -152,17 +150,17 @@
 				}
 				lista.innerHTML=result;	
 				let elementos=document.getElementsByClassName('boton');
-						for(let i=0;i<elementos.length;i++)
-						{
-				
-							// cada vez que se haga clic sobre cualquier de los elementos,
-							// ejecutamos la funciÃ³n obtenerValores()
-							elementos[i].addEventListener('click',obtenerValores);
-						}
-						
-						$(".dt-select tr ").click(function(){
-							$(this).addClass('filaSeleccionada').siblings().removeClass('filaSeleccionada');   
-						});
+					for(let i=0;i<elementos.length;i++)
+					{
+			
+						// cada vez que se haga clic sobre cualquier de los elementos,
+						// ejecutamos la funciÃ³n obtenerValores()
+						elementos[i].addEventListener('click',obtenerValores);
+					}
+					
+					$(".dt-select tr ").click(function(){
+						$(this).addClass('filaSeleccionada').siblings().removeClass('filaSeleccionada');   
+					});
 					return produ;				
 				})		
 				.catch(error => { lista.innerHTML =`<div>No se encuentras coincidencias</div>`;	 console.log("error",error); return error; })					
@@ -197,8 +195,7 @@
 				{
 					let datos= JSON.parse(this.responseText);
 					if(datos.length > 0)
-					{
-						
+					{						
 						result=``;
 						for(i=0;i<datos.length;i++)
 						{
