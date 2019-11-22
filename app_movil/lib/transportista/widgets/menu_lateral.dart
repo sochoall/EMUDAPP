@@ -69,6 +69,13 @@ List<Widget> _listItems(List<dynamic> data, BuildContext context) {
   );
   opciones
     ..add(ListTile(
+      title: Text("OBJETOS PERDIDOS"),
+      leading: Icon(Icons.exit_to_app),
+      onTap: () {},
+    ));
+
+    opciones
+    ..add(ListTile(
       title: Text("SALIR"),
       leading: Icon(Icons.exit_to_app),
       onTap: () {},
