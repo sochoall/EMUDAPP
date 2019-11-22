@@ -69,10 +69,10 @@ class MyHomePage extends StatefulWidget
 
 class MyHomePageState extends State<MyHomePage> 
 {
-  bool flag=false;
   Future<Post> post;
   Position userLocation;
   List<LatLng> points = [];
+  bool flag=false, statusFlag=false;
   Geolocator geolocator = Geolocator();
 
   @override
@@ -128,35 +128,35 @@ class MyHomePageState extends State<MyHomePage>
 
   void getUserProximity()
   {
-    double posX, posY, negX, negY;
+    double xPos, yPos, xNeg, yNeg, rad = 0.000100;
     
     if(points.isNotEmpty)
     {
-      posX=points.first.latitude+0.000020;
-      posY=points.first.longitude+0.000020;
-      negX=points.first.latitude-0.000020;
-      negY=points.first.longitude-0.000020;
+      xPos=points.first.latitude+rad;
+      yPos=points.first.longitude+rad;
+      xNeg=points.first.latitude-rad;
+      yNeg=points.first.longitude-rad;
 
-      if(userLocation.latitude>posX && userLocation.longitude>posY)
-      {
-        removeStopMarkers(points.first);
-        RutasEstado.names.removeAt(0);
-      }
-      else if(userLocation.latitude>negX && userLocation.longitude>posY)
-      {
-        removeStopMarkers(points.first);
-        RutasEstado.names.removeAt(0);
-      }
-      else if(userLocation.latitude>negX && userLocation.longitude>negY)
-      {
-        removeStopMarkers(points.first);
-        RutasEstado.names.removeAt(0);
-      }
-      else if(userLocation.latitude>posX && userLocation.longitude>negY)
-      {
-        removeStopMarkers(points.first);
-        RutasEstado.names.removeAt(0);        
-      }
+      if((userLocation.latitude<xPos && userLocation.longitude<yPos) && (userLocation.latitude>points.first.latitude && userLocation.longitude>points.first.longitude))
+        statusFlag=true;
+      else if((userLocation.latitude>xNeg && userLocation.longitude<yPos) && (userLocation.latitude<points.first.latitude && userLocation.longitude>points.first.longitude))
+        statusFlag=true;
+      else if((userLocation.latitude>xNeg && userLocation.longitude>yNeg) && (userLocation.latitude<points.first.latitude && userLocation.longitude<points.first.longitude))
+        statusFlag=true;
+      else if((userLocation.latitude<xPos && userLocation.longitude>yNeg) && (userLocation.latitude>points.first.latitude && userLocation.longitude<points.first.longitude)) 
+        statusFlag=true;
+      else
+        getFlagStatus();
+    }
+  }
+
+  void getFlagStatus()
+  {
+    if(statusFlag)
+    {
+      removeStopMarkers(points.first);
+      RutasEstado.names.removeAt(0);
+      statusFlag=false;
     }
   }
 
@@ -175,8 +175,7 @@ class MyHomePageState extends State<MyHomePage>
             iconSize: 45.0,
             onPressed:()
             {
-              removeStopMarkers(latlng);
-              //RutasEstado.removeName();
+
             },
           ),
         ),
@@ -211,7 +210,7 @@ class MyHomePageState extends State<MyHomePage>
         point: LatLng(userLocation.latitude, userLocation.longitude),
         builder: (context) => new Container(
           child: IconButton(
-            icon: Icon(Icons.navigation),
+            icon: Icon(Icons.my_location),
             color: Colors.lightBlue,
             iconSize: 35.0,
             onPressed: ()
@@ -219,7 +218,8 @@ class MyHomePageState extends State<MyHomePage>
               
             },
           ),
-        )
+        ),
+        anchorPos: AnchorPos.align(AnchorAlign.center),
       )
     ]);
   }

@@ -133,15 +133,14 @@ class RutasEstado extends State<RutaParada>
                     return index/names.length == 0
                     ?
                     Container(
-                      color: Colors.grey.withOpacity(.5),
+                      color: Colors.lightBlue,
                       height: 50,
                       child: Center(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Text("#"),
-                            Text("Parada"),
-                            Text("ETA")
+                            Text("Parada", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
+                            Text("Tiempo Estimado", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black))
                           ],
                         )
                       ),
@@ -150,9 +149,19 @@ class RutasEstado extends State<RutaParada>
                     :
                     Container(
                       height: 50,
+                      color: index-1 == 0 ? Colors.grey.withOpacity(0.2) : null,
                       child: Center(
-                        child: names.isEmpty ? CircularProgressIndicator() : Text(names[index-1]),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: names.isEmpty ? <Widget>[CircularProgressIndicator()] : <Widget>[
+                            Text(names[index-1]),
+                          ],
+                        ),
                       ),
+                      padding: EdgeInsets.all(10.0),
+                      /*child: Center(
+                        child: names.isEmpty ? CircularProgressIndicator() : Text(names[index-1]),
+                      ),*/
                     );
                   },
                   childCount: names.length+1
