@@ -13,10 +13,11 @@
 </div>
 
 
-<div class="container ">
-<div class="row mt-3">
-	<div class="h3 text-left font-weight-bold">FUNCIONARIO</div>
-</div>
+<div class="container pt-3">
+	<div class="row">
+		<div class="h3 text-left font-weight-bold">FUNCIONARIO</div>
+	</div>
+	
 
 	<div class="form-group row mt-3 align-middle">
 		<div class="col-md-3">
