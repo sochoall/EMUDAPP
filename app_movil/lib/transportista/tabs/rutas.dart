@@ -1,15 +1,17 @@
 import 'dart:async';
-import 'dart:convert';
-import 'package:flutter/material.dart';
 import '../../provider.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
 import 'package:app_movil/transportista/tabs/mapa.dart'; 
 
-class Post {
+class Post 
+{
   String nombre;
+  String tEstimado;
+
   Post(
     {
       this.nombre,
+      this.tEstimado
     }
   );
 
@@ -17,9 +19,11 @@ class Post {
   {
     return Post(
       nombre: json['nombre'],
+      tEstimado: json['tiempoPromedio']
     );
   }
 }
+
 class Rutas extends StatelessWidget 
 {
   @override
@@ -51,7 +55,7 @@ class RutasEstado extends State<RutaParada>
   bool flag = false;
   Future<Post> post;
   RutasEstado(this.idRecorrido);
-  static List<String> names = [];
+  static List<String> names = [], time = [];
 
   @override
   void initState() 
@@ -76,7 +80,7 @@ class RutasEstado extends State<RutaParada>
           {
             if(snapshot.hasData)
             {
-              flag == false && names.isEmpty ? snapshot.data.map((post) => buildListNames(post.nombre)).toList() : flag;
+              flag == false && names.isEmpty ? snapshot.data.map((post) => buildLists(post.nombre, post.tEstimado)).toList() : flag;
               flag = true;
             }
             else if (snapshot.hasError)
@@ -140,13 +144,11 @@ class RutasEstado extends State<RutaParada>
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: names.isEmpty ? <Widget>[CircularProgressIndicator()] : <Widget>[
                             Text(names[index-1]),
+                            Text(time[index-1]),
                           ],
                         ),
                       ),
                       padding: EdgeInsets.all(10.0),
-                      /*child: Center(
-                        child: names.isEmpty ? CircularProgressIndicator() : Text(names[index-1]),
-                      ),*/
                     );
                   },
                   childCount: names.length+1
@@ -159,8 +161,9 @@ class RutasEstado extends State<RutaParada>
     );
   }
 
-  void buildListNames(String name)
+  void buildLists(String name, String tiempo)
   {
     names.add(name);
+    time.add(tiempo);
   }
 }

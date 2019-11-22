@@ -16,10 +16,8 @@
                       
                         document.getElementById('rol').innerHTML ='ROL: $rol';
 						document.getElementById('btncerrar').style.display = 'block';
-						cargarComboSentido();
                     };
                    
-                       
                 </script>
         ";
     } else {
@@ -27,9 +25,7 @@
     }   
 
 ?>
-<?php
-		include 'modalFuncionario.php';
-?>	
+
 
 <div class="container-fluid grey pr-0 pl-0">
 		<?php 
@@ -41,7 +37,7 @@
 <div class="container-fluid my-5">
 	<div class="row ml-2">
 		<div class="col-md-4 m-0  card">
-			
+      <input type="button" value="Obtener" class="btn cyan " onclick="cargarUbicaciones();"  />
 			
 		</div>
 
@@ -53,7 +49,25 @@
 </div>
 
 
+<script>
+    var result="";
+     function cargarUbicaciones()
+        {
+            var result="";
+            fetch("http://localhost:8888/monitoreo")
+            .then((res) => {return res.json(); })
+            .then(produ => {
+                
+                for(let prod of produ){						
+                    result += ` ${prod.latitud} , ${prod.longuitud};`;								
+                                        
+                }	
+                    return produ;				
+                })		
+                .catch(error => { console.log("error",error); return error; });
 
+        }
+</script>
 
 
 

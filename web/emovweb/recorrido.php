@@ -27,9 +27,7 @@
     }   
 
 ?>
-<?php
-		include 'modalFuncionario.php';
-?>	
+
 
 <div class="container-fluid grey pr-0 pl-0">
 		<?php 

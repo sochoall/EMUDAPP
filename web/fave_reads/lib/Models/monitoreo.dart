@@ -19,7 +19,7 @@ class Monitoreo extends Serializable
  
   Future<List> obtenerDatos() async {
     final conexion = Conexion();
-    const String sql = "select * from public.te_monitoreo where mon_estado=0";
+    const String sql = "select * from public.te_monitoreo";
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 

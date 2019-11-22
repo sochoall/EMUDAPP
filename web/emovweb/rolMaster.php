@@ -245,8 +245,8 @@
   <div class="modal-dialog modal-md" role="document">
 
     <div class="modal-content">
-        <div class="modal-header text-center m-0 p-0 red">
-            <h4 class="modal-title w-100 text-white" id="title">Eliminar</h4>
+        <div class="modal-header text-center m-0 p-0 rgba-red-strong">
+            <h4 class="modal-title w-100 text-white text-center" id="title">Eliminar</h4>
             </button>
         </div>
         <div class="modal-body" id="cuerpoModal">

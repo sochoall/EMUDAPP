@@ -87,13 +87,6 @@ class HomeScreenState extends State<HomeScreen> {
                         color: Colors.black,
                         wordSpacing: 5.0)),
                 backgroundColor: Colors.black),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.assignment, color: Colors.black),
-                title: Text("O.Perdidos",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        wordSpacing: 5.0))),
           ],
         ),
         appBar: AppBar(
