@@ -20,7 +20,7 @@
 		<div class="col-md-3">
 			<label>Campo:</label>
 			<select id="campo" name="campo" class="browser-default custom-select" onchange="veroferta(this.value)">
-				<option value="0" selected >PLACA</option>	
+				<option value="veh_placa" selected >PLACA</option>	
 			</select>
 		</div>
 
@@ -32,13 +32,13 @@
 		<div class="col-sm-2">
             <label>Estado:</label>
             <SELECT id="estBusqueda"  class="browser-default custom-select"> 
-                <OPTION VALUE="2" selected >TODOS</OPTION>
+                <OPTION VALUE="" selected >TODOS</OPTION>
                 <OPTION VALUE="1">ACTIVO</OPTION>
                 <OPTION VALUE="0">INACTIVO</OPTION>             
             </SELECT> 
         </div>
 
-		<div class="col-sm-2 align-middle" id="buscar">
+		<div class="col-sm-2 align-self-center" id="buscar">
 				<a href="" class="btn grey"><i class="fas fa fa-search "></i></a>
 		</div>
 	</div>
@@ -82,15 +82,7 @@
 		var campo = document.getElementById('campo').value;			
 		var textBuscar=document.getElementById('textBuscar').value;
 		textBuscar=textBuscar.toUpperCase();			
-		var estado=document.getElementById("estBusqueda").value;
-					
-		campo="veh_placa";									
-		if(estado==2){
-			estado="";
-		}
-		if(textBuscar==""){
-			// textBuscar="*****";
-		}		
+		var estado=document.getElementById("estBusqueda").value;	
 		lista.innerHTML=`<div class="text-center"><div class="spinner-border text-info" role="status"><span class="sr-only">Loading...</span></div></div>`;	
 				
 		(async () => {

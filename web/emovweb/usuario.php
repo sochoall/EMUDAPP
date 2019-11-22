@@ -134,7 +134,7 @@ function obtenerValores(e) {
                 <table id='dt-select' class='table-sm table table-hover text-center' cellspacing='0' width='100%' style="height:100px">
                     <thead class='cyan white-text'>
                     <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">ID</th>
                     <th scope="col">NRO. IDENTIFICACIÓN</th>
                     <th scope="col">FUNCIONARIO</th>
                     <th scope="col">REPRESENTANTE</th>
@@ -212,13 +212,7 @@ function obtenerValores(e) {
 			var textBuscar=document.getElementById('textBuscar').value;
 			textBuscar=textBuscar.toUpperCase();			
 			var estado=document.getElementById("comboactivo").value;
-						
-            
-            if(textBuscar=="")
-            {
-				textBuscar="*";
-            }
-            
+			
 			let url=`http://localhost:8888/usuario?campo=${campo}&valor=${textBuscar}&estado=${estado}`;
 			fetch(url)
 		 	.then((res) => {return res.json(); })
@@ -252,7 +246,7 @@ function obtenerValores(e) {
                             est='<i class="fas fa-check"></i>';
                         }
                         
-                        if(prod.estado===1){
+                        if(prod.estado==1){
                             estado="ACTIVO";
                         }else{
                             estado="INACTIVO";
@@ -266,16 +260,12 @@ function obtenerValores(e) {
                         <td><a href='usuarioEditar?id=${prod.id} ' class='fas fa-edit'>Editar</a></td></tr> `;
                               
                     }
-
                     lista.innerHTML=result;	
-
                     let elementos=document.getElementsByClassName('boton');
                     for(let i=0;i<elementos.length;i++)
                     {
                         elementos[i].addEventListener('click',obtenerValores);
-                    }
-
-                    
+                    }                   
                 }
 				else{
 					lista.innerHTML =`<div>No se encuentras coincidencias.</div>`				
