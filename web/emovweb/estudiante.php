@@ -24,8 +24,10 @@
 
 ?>
 
-<div class="container-fluid grey">
-		<?php echo $menu ?>
+<div class="container-fluid grey pr-0 pl-0">
+		<?php 
+		echo $menu 
+		?>
 </div>
 
 
@@ -84,6 +86,10 @@
         </div>
     </div>
 </div>
+
+<div class="cyan circulo">
+        <a href="vehiculoEditar.php?metodo=Agregar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
+</div>	
 
 <script type="text/javascript">
 

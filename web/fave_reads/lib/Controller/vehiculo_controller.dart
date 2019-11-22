@@ -4,10 +4,10 @@ import 'package:fave_reads/Models/vehiculo.dart';
 
 class VehiculoController extends ResourceController {
   @Operation.get()
-  Future<Response> obtenerLista(@Bind.query('campo') String campo,@Bind.query('bus') String bus,@Bind.query('est') String est ) async
+  Future<Response> obtenerLista(@Bind.query('campo') String campo,@Bind.query('bus') String bus,@Bind.query('est') String est,@Bind.query('idIns') String idIns) async
   {
     final servicio = Vehiculo();
-    return Response.ok(await servicio.obtenerDatos(campo,bus,est));
+    return Response.ok(await servicio.obtenerDatos(campo,bus,est,idIns));
   }
 
   @Operation.get('id')

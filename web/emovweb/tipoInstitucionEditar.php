@@ -1,27 +1,6 @@
-<?php include 'header.php'; ?>
-
-<?php
-   session_start();
-   if (isset($_SESSION['id']) && isset($_SESSION['rol'])) {
-       $id = $_SESSION['id'];
-       $rol = $_SESSION['rol'];
-       $menu=$_SESSION['menu'];
-       echo " <script>
-                   
-                   window.onload = function() 
-                   {
-                     
-                       document.getElementById('rol').innerHTML ='ROL: $rol';
-                       document.getElementById('btncerrar').style.display = 'block';
-                   };
-                  
-                      
-               </script>
-       ";
-   } else {
-       header('Location: ./');
-   }   
-
+<?php include 'header.php'; 
+	include 'codigophp/sesion.php';
+	$menu=Sesiones("EMOV");
 ?>
 
 <div class="container text-left mt-2 text-uppercase">
@@ -53,40 +32,32 @@
                             <input value="Guardar" class="btn cyan" onclick="IngMod(this)" type="submit" value="" id="metodo" name="metodo"/>		
                             <input type="button" value="Cancelar" class="btn cyan" onclick="location.href = 'tipoInstitucion.php';"/>
                         </div>                            
-                    </form>    
-                    <div class="row justify-content-center">
-                      <span class=" text-danger">* campos obligatorios</span>
-                    </div>               
+                    </form>                            
                </div>
            </div>
          </div>
    </div>
 </div>
-	
-<?php
-	$id=0;
-	if (isset($_GET['metodo'])) {
-		$metodo = $_GET['metodo'];
-		if($metodo=='Ingresar'){			
-			 echo "<script language='javascript'> 
-				document.getElementById('metodo').value ='$metodo';				
-			 </script>";
-		}else{			
-			$id = $_GET['id'];			
-			echo "<script language='javascript'> 
-			document.getElementById('metodo').value ='$metodo';			
-			fetch('http://localhost:8888/tipoInstitucion/$id')
-			  .then(response => response.json())
-			  .then(data => {		  	
-				  document.getElementById('nombre').value = (data['nombre']);				  
-			  	})
-			  .catch(error => toastr.error('Error al Cargar'))
-			</script>";
-		}			
-	}
-?>
+
 
 	<script type="text/javascript">
+
+	let parametro = new URLSearchParams(location.search);
+	var metodo = parametro.get('metodo');
+	var id;	
+	document.getElementById('metodo').value =metodo;
+	if(metodo=='Agregar')
+	document.getElementById("estado").disabled=true;
+
+	if(metodo=='Modificar'){		
+		id= parametro.get('id');
+		fetch(`${raizServidor}/tipoInstitucion/${id}`)
+			  .then(response => response.json())
+			  .then(data => {		  	
+				  document.getElementById('nombre').value = (data.nombre);				  
+			  	})
+			  .catch(error => toastr.error('Error al Cargar'))
+	}
 
 	function IngMod(v) {	
 		var nombre = document.getElementById('nombre');		
@@ -98,13 +69,11 @@
 		}else{
 			nombre.style.borderColor='green';
 			var parametros={'id':0,'nombre':nombre.value.toUpperCase(),'estado':estado.value};		
-			var url="http://localhost:8888/tipoInstitucion";
-			if(v.value=="Ingresar"){
+			var url=`${raizServidor}/tipoInstitucion`;
+			if(v.value=="Agregar"){
 				Ingresar(parametros,url);
 			}	
 			if(v.value=="Modificar"){
-				let parametro = new URLSearchParams(location.search);
-				let id= parametro.get('id');
 				let redirigir="tipoInstitucion.php";
 				Modificar(parametros,`${url}/${id}`,redirigir);
 			}

@@ -51,5 +51,6 @@ class RolController extends ResourceController{
     await servicio.eliminar(id);
     return Response.ok('se ha eliminado');
   }
+ 
   
 }

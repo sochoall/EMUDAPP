@@ -1,34 +1,42 @@
  <?php
-    session_start();
-    if (isset($_SESSION['id']) && isset($_SESSION['rol'])) {
-        $id = $_SESSION['id'];
-        $rol = $_SESSION['rol'];
-		$menu=$_SESSION['menu'];
-        echo " <script type='text/javascript'>
-					window.onload=function() {
+	session_start();
+	if (isset($_SESSION['id']) && isset($_SESSION['rol'])) {
+		if($_SESSION['rol'] == "EMOV")
+		{
+			$id = $_SESSION['id'];
+			$rol = $_SESSION['rol'];
+			$menu=$_SESSION['menu'];
+			echo " <script type='text/javascript'>
+						window.onload=function() {
 
-						document.getElementById('rol').innerHTML ='ROL - $rol';
-						document.getElementById('btncerrar').style.display = 'block';
-
-						let elementos=document.getElementsByClassName('boton');
-						for(let i=0;i<elementos.length;i++)
-						{
-							elementos[i].addEventListener('click',obtenerValores);
-						} 
-						document.getElementById('tituloModal').innerHTML = 'ROL';
-					}
-			 </script>
-	 ";
-    } else {
-        header('Location: ./');
-    }   
+							document.getElementById('rol').innerHTML ='ROL - $rol';
+							document.getElementById('btncerrar').style.display = 'block';
+							CargarRoles();
+						}
+					</script>
+			";
+		}
+		else{
+			header('Location: ./');
+		}
+		
+	} else {
+		header('Location: ./');
+	} 
+      
 
 ?>
 
-<?php include 'header.php'; include 'codigophp/funcionesphp.php'; include 'modal.php';?>
+
+<?php 	include 'header.php'; 
+		include 'codigophp/funcionesphp.php'; 
+		include 'modal.php';
+?>
+
     <script>
    let datosHijos=0;
- 
+	
+   var idRol=0;
 	function obtenerValores(e) {
 		var elementosTD=e.srcElement.parentElement.getElementsByTagName("td");
 		 let valores=`<td></td>
@@ -37,19 +45,17 @@
 					</div></td>
 					<td></td>`;
         document.getElementById('opciones').innerHTML=valores;
-
-        cargarOpciones(elementosTD[0].innerHTML);
-
-        function cargarOpciones(id)
+		idRol=elementosTD[0].innerHTML;
+        cargarOpciones(idRol);
+        function cargarOpciones(id) 
 		{
 			var result=``;
 			var result2=``;
-			let url= `http://localhost:8888/opcion/`+id;
+			let url= `http://localhost:8888/opcion?id=`+id+`&opcion=1`;
 
 			const api = new XMLHttpRequest();
 			api.open('GET',url,true);
 			api.send();
-			
 			api.onreadystatechange = function()
 			{
 				
@@ -60,42 +66,15 @@
 					{
 						
 						result=``;
-						result2=``;
+						result2=`<option value='0'>Elegir</option>`;
 						for(i=0;i<datos.length;i++)
 						{
 							result += `<tr> 
 									<td> ${datos[i].id}</td>
 									<td> ${datos[i].nombre}</td>
+									<td> ${datos[i].idhijo}</td>
+									<td> ${datos[i].nombrehijo}</td>
 								`;
-							
-							
-							result+=`<td>`;
-							result2+=`<option value=' ${datos[i].id}'> ${datos[i].nombre} </option>`;
-
-							if(datos[i].hijo != null)
-							{
-								datosHijos=JSON.parse(datos[i].hijo);
-								for(j=0;j<datosHijos.length;j++)
-								{
-									if(j==4 || j==8)
-									{
-										result+="<br>";
-									}
-									if(j != (datosHijos.length -1))
-									{
-										result+=datosHijos[j].nombre+", ";
-									}
-									else{
-										result+=datosHijos[j].nombre;
-									}
-									
-									
-								}
-								result+=`</td>`;
-							}
-							else{
-								result+=`No tienes subopciones.</td>`;
-							}
 							result+=`<td><a href='#' class='text-dark fas fa-trash-alt actionmodal2' >  Eliminar</a></td></tr>`;
 						}
 
@@ -106,10 +85,36 @@
 						result=`<td></td>
 						<td>No se encontraron resultados.</td>
 						<td></td>`;
-						document.getElementById("combomodal1").innerHTML='';
 					}
 				
 					document.getElementById("opciones").innerHTML=result;
+				}
+				
+			}
+
+
+			let url2= `http://localhost:8888/opcion?id=`+id+`&opcion=2`;
+			// alert(url2); ==================================================================AQUI SE IMPRIME LA URL PARA CARGAR OOPCIONES
+
+			const api2 = new XMLHttpRequest();
+			api2.open('GET',url2,true);
+			api2.send();
+			api2.onreadystatechange = function()
+			{
+				if(this.status == 200 && this.readyState == 4 )
+				{
+					result2=`<option value='0'>Elegir</option>`;
+					let datos= JSON.parse(this.responseText);
+					if(datos.length > 0)
+					{
+						
+						for(i=0;i<datos.length;i++)
+						{
+							result2 +=`<option value="${datos[i].id}">${datos[i].nombre}</option>`;	
+						}
+						
+					}
+					document.getElementById("combomodal1").innerHTML=result2;
 				}
 				
 			}
@@ -140,15 +145,13 @@
 			<thead class='cyan white-text'>
 				<tr>
 				<th scope='col'>ID</th>
-				<th scope='col'>DESCRIPCIÓN</th>
+				<th scope='col'>NOMBRE</th>
 				<th scope='col'>ESTADO</th>
 				<th></th>
 				</tr>
 			</thead>
-			<tbody class='dt-select'>
-				<?php 
-					echo cargarRol() 
-				?>
+			<tbody class="dt-select" id="listaroles">
+				
 			</tbody>
 		</table>
 	</div>
@@ -173,13 +176,14 @@
 				</div>
 
 			
-				<div class='table-responsive-md'>
+				<div class='table-responsive-md my-custom-scrollbar'>
 					<table id='dt-select' class='table-sm table table-hover text-center  cellspacing='0' width='100%'>
 						<thead class='cyan white-text'>
 							<tr>
 							<th scope='col'>ID</th>
-							<th scope='col'>NOMBRE</th>
-							<th scope='col'>SUBOPCIONES</th>
+							<th scope='col'>OPCION</th>
+							<th scope='col'>ID SUBOPCION</th>
+							<th scope='col'>SUBOPCION</th>
 							<th></th>
 							</tr>
 						</thead>
@@ -251,18 +255,20 @@
 		if(this.status == 200 && this.readyState == 4 )
 		{
 			let datos=JSON.parse(this.responseText);
+			let result=``;
 			if(datos.length > 0)
 			{
 				
-				let result=``;
+				
 				for(i=0;i<datos.length;i++)
 				{
 					result+=`<option value=' ${datos[i].id}'> ${datos[i].nombre} </option>`;
 				}
 
-				document.getElementById("combomodal2").innerHTML=result;
+				
 				
 			}
+			document.getElementById("combomodal2").innerHTML=result;
 		}
 		
 	}
@@ -271,26 +277,25 @@
 
 
 	var idMod=0;
-	$('#listaRoles').on('click', '.actionmodal', function(e) {
+	$('#listaroles').on('click', '.activarModal', function(e) {
 		$('#centralModalSm').modal('show');
 		// CAPTURA LOS DATOS DE LAS POSICIONES DE LA TABLA DE BUSQUEDA.
 		var cod = $(this).parents('tr').find('td')[2].innerHTML;
 		var nom = $(this).parents('tr').find('td')[1].innerHTML;
 		idMod =$(this).parents('tr').find('td')[0].innerHTML;
-
 		document.getElementById('nombreModal').value = nom;
 
-		if(nom == "ACTIVO")
-			$('[id="estadoModal"]').val('0');
+
+		if(cod == "ACTIVO")
+			$('[id="estadoModal"]').val('1');
 		else
-			$('[id="estadoModal"]').val('1');;
+			$('[id="estadoModal"]').val('0');;
 		
 			document.getElementById('botonModal').value = 'MODIFICAR';	
 		//
 	});
 
 	$('#opciones').on('click', '.actionmodal2', function(e) {
-		
 		toastr.warning("<br /><button type='button' value='yes'>Yes</button><button type='button'  value='no' >No</button>",'Está seguro de eliminar?',
 		{
 			allowHtml: true,
@@ -333,55 +338,86 @@
 				Ingresar(parametros,"http://localhost:8888/rol");
 			}	
 			else{
+				let redirigir="rolMaster.php";
 				var id= idMod;					
 				var url='http://localhost:8888/rol/'+id;
-				Modificar(parametros,url);
+				Modificar(parametros,url,redirigir);
 			}
-		}	
+		}
+
+		CargarRoles();
 	}
 
 	function AsignarOpcion(v)
 	{
-		var padre = document.getElementById('combomodal1');
+		var padre = idRol;
 		var hijo = document.getElementById('combomodal2');
 		
 		event.preventDefault();			
 
 		if(padre.value == 0){
-				toastr.error('Nombre con caracteres incorrecto');
+				toastr.error('Debe eligir una opción');
 				padre.style.borderColor="red";
 		}
 		else
 		{
+			var parametros={"id": padre, "nombre": "", "idhijo":hijo.value, "nombrehijo": ""};	
+
+			var url='http://localhost:8888/opcionRol';
+			Ingresar(parametros,url);
 			
-			var parametros={"nombre": "Mantenimientos", "id": 1,"idpadre":padre.value,"estado": 0, "url": "null", "hijo": ""};		
-		
-			if(v.value=="Agregar"){		
-				alert('hola');		
-				var url='http://localhost:8888/hijo/'+hijo.value;
-				fetch(url, {
-					method: 'PUT',
-					body:JSON.stringify(parametros),
-					headers:{
-						'Content-Type': 'application/json'
-					}				
-				}).then(res => res.json())
-				.catch(error => {
-					toastr.error('Error al Guardar');
-				})
-				.then(respuesta => {
-					toastr.success('Guardado correctamente');	
-					$('#modalOpciones').modal('hide');		
-				});
-			}	
-			else{
-				//Aqui va la opcion de eliminado
-			}
 		}	
 	}
 
 	</script>
 
+<script type="text/javascript">	
+
+	const lista=document.querySelector('#listaroles');		
+	function CargarRoles(){	
+			
+		let url=`http://localhost:8888/rol?op=0`;
+
+		lista.innerHTML=`<div class="text-center"><div class="spinner-border text-info" role="status"><span class="sr-only">Loading...</span></div></div>`;	
+		fetch(url)
+		.then((res) => {return res.json(); })
+		.then(produ => {
+			let result="";					
+			est="";
+			for(let prod of produ){						
+				result +=
+				`<tr> 
+					<td class='boton'> ${prod.id}</td>
+					<td class='boton'> ${prod.nombre}</td>
+					
+				`
+				if(prod.estado===0){
+					// est="<span class='badge badge-info'>INACTIVO</span>";
+					est="INACTIVO";
+				}else{
+					// est="<span class='badge badge-success'>ACTIVO</span>";
+					est="ACTIVO";
+				}					
+				result +=
+				`	<td class='boton'>${est}</td>
+					<td><a href='#' class='text-dark fas fa-edit activarModal'>Editar</a></td>
+				</tr>`;									
+									
+			}
+			lista.innerHTML=result;
+			let elementos=document.getElementsByClassName('boton');
+			for(let i=0;i<elementos.length;i++)
+			{
+				elementos[i].addEventListener('click',obtenerValores);
+			} 
+			document.getElementById('tituloModal').innerHTML = 'ROL';	
+
+				return produ;				
+			})		
+			.catch(error => { lista.innerHTML =`<div>No se encuentran coincidencias</div>`;	 console.log("error",error); return error; })		
+	}
+	
+</script>
 
 
  <?php include 'footer.php'; ?>

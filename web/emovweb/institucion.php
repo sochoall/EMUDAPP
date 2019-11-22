@@ -1,29 +1,11 @@
-<?php include 'header.php'; ?>
-
- <?php
-    session_start();
-    if (isset($_SESSION['id']) && isset($_SESSION['rol'])) {
-        $id = $_SESSION['id'];
-        $rol = $_SESSION['rol'];
-        $menu=$_SESSION['menu'];
-        echo " <script>
-                    
-                    window.onload = function() 
-                    {
-                      
-                        document.getElementById('rol').innerHTML ='ROL: $rol';
-                        document.getElementById('btncerrar').style.display = 'block';
-                    };
-                   
-                       
-                </script>
-        ";
-    } else {
-        header('Location: ./');
-    }   
-
+<?php 
+	include 'header.php'; 
+	include 'codigophp/sesion.php';
+	$menu=Sesiones("EMOV");
 ?>
-<div class="container-fluid grey">
+
+
+<div class="container-fluid grey pr-0 pl-0">
 		<?php 
 		echo $menu 
 		?>
@@ -36,28 +18,28 @@
 
     <div class="form-group row mt-3">
         <div class="col-md-3">
-            <label class="align-self-center">Campo:</label>
+            <label>Campo:</label>
             <select id="campo" class="browser-default custom-select">
-                <option value="1" selected>NOMBRE</option>
-                <option value="2">RUC</option>
+                <option value="ins_nombre" selected>NOMBRE</option>
+                <option value="ins_ruc">RUC</option>
             </select>
         </div>
 
         <div class="col-md-3">
-            <label for="txtuser">Buscar:</label>
+            <label>Buscar:</label>
             <input type="text" id="textBuscar" name="textBuscar" class="form-control text-uppercase">     
         </div>
 
         <div class="col-sm-2 align-self-center">
         	<label>Estado:</label>
 			<SELECT id="estBusqueda"  class="browser-default custom-select"> 
-				<OPTION VALUE="2" selected >TODOS</OPTION>
+				<OPTION VALUE="" selected >TODOS</OPTION>
 				<OPTION VALUE="1">ACTIVO</OPTION>
 				<OPTION VALUE="0">INACTIVO</OPTION>					
 			</SELECT> 
 		</div>
 
-        <div class="col-md-4 mt-3" id="buscar">
+        <div class="col-md-2 mt-3" id="buscar">
                 <a href="" class="btn grey"><i class="fas fa fa-search "></i></a>
         </div>
     </div>
@@ -85,19 +67,10 @@
         </div>
     </div>
 </div>         
-      <div class="position-fixed btn-group-lg" style="bottom:20px; right:80px; width:120px; height:80px;">
-			<a href="institucionEditar.php?metodo=Agregar" class="cyan btn "  
-			style="  -webkit-border-radius: 50px;
-  					-moz-border-radius: 50px;
-					  border-radius: 50px;
-					  color:#fff;
-					  padding-top: 20px;
-					  width:70px; height:70px;
-					  ">
-			
-			<i class="fa fa-plus" ></i></a>
-		</div>	
-    </div>
+    <div class="cyan circulo">
+			<a href="institucionEditar.php?metodo=Agregar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
+	</div>	
+   
 
     <script type="text/javascript">	
 
@@ -110,29 +83,11 @@
 			var campo = document.getElementById('campo').value;			
 			var textBuscar=document.getElementById('textBuscar').value;
 			textBuscar=textBuscar.toUpperCase();			
-			var estado=document.getElementById("estBusqueda").value;
-				
-			if(campo==0){ 
-				campo="ins_nombre";				
-			}else{ 
-				campo="ins_ruc";
-			}			
-			if(estado==2){
-				estado="";
-			}
-			if(textBuscar==""){
-				// textBuscar="*****";
-			}
+			var estado=document.getElementById("estBusqueda").value;			
 			
-			let url=`http://localhost:8888/institucion?campo=${campo}&bus=${textBuscar}&est=${estado}`;
+			let url=`${raizServidor}/institucion?campo=${campo}&bus=${textBuscar}&est=${estado}`;
 
-			lista.innerHTML=`
-			<div class="text-center">
-			<div class="spinner-border text-info" role="status">
-				<span class="sr-only">Loading...</span>
-			</div>
-			</div>				
-				`;	
+			lista.innerHTML=`<div class="text-center"><div class="spinner-border text-info" role="status"><span class="sr-only">Loading...</span></div></div>`;	
 			fetch(url)
 		 	.then((res) => {return res.json(); })
 			.then(produ => {
@@ -145,18 +100,8 @@
 						<td> ${prod.ruc}</td>
 						<td> ${prod.nombre}</td>
 						<td> ${prod.direccion}</td>	
-						<td> ${prod.telefono}</td>	
-						
-					`
-					if(prod.estado===0){
-						// est="<span class='badge badge-info'>INACTIVO</span>";
-						est="INACTIVO";
-					}else{
-						// est="<span class='badge badge-success'>ACTIVO</span>";
-						est="ACTIVO";
-					}					
-					result +=
-					`	<td>${est}</td>
+						<td> ${prod.telefono}</td>							
+						<td> ${prod.estado==1?"ACTIVO":"INACTIVO"} </td>
 						<td>
 							<?php echo "<a href="?>institucionEditar.php?metodo=Modificar&id=${prod.id}
 							<?php echo "class='fas fa-edit'>Editar</a>" ?>

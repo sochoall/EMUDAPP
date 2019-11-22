@@ -5,12 +5,11 @@ import 'package:fave_reads/Models/Estudiante.dart';
 class EstudianteController extends ResourceController{
 
 
-
   @Operation.get()
-  Future<Response> obtenerLista() async
+  Future<Response> obtenerLista(@Bind.query('campo') String id,@Bind.query('valor') String valor,@Bind.query('estado') String estado) async
   {
     final servicio = Estudiante();
-    return Response.ok(await servicio.obtenerDatos());
+    return Response.ok(await servicio.obtenerDatos(id,valor,estado));
   }
 
   @Operation.get('id')

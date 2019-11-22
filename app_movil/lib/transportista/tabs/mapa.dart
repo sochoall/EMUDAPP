@@ -7,9 +7,9 @@ import 'package:geolocator/geolocator.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:app_movil/transportista/tabs/rutas.dart';
 
-Future<List<Post>> fetchPost() async
+Future<List<Post>> fetchPost(idR) async
 {
-  var response = await http.get("http://192.168.137.1:8888/parada/1");
+  var response = await http.get("http://192.168.137.1:8888/parada/$idR");
 
   if(response.statusCode == 200)
   {
@@ -48,14 +48,14 @@ class Post
 
 class MyApp extends StatelessWidget 
 {
-  final String aux; 
-  MyApp(this.aux);
+  final String idR; 
+  MyApp(this.idR);
   
   @override
   Widget build(BuildContext context) 
   {
     return new MaterialApp(
-      home: new MyHomePage(),
+      home: new MyHomePage(idR),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -63,12 +63,20 @@ class MyApp extends StatelessWidget
 
 class MyHomePage extends StatefulWidget 
 {
+  final String idR; 
+  MyHomePage(this.idR);
   @override
-  MyHomePageState createState() => new MyHomePageState();
+  MyHomePageState createState() => new MyHomePageState(idR);
 }
 
 class MyHomePageState extends State<MyHomePage> 
 {
+<<<<<<< HEAD
+=======
+  final String idR; 
+  MyHomePageState(this.idR);
+  bool flag=false;
+>>>>>>> 820b8351f7073f06562884ed3f7bc98e6ee4cc8e
   Future<Post> post;
   Position userLocation;
   List<LatLng> points = [];
@@ -87,7 +95,7 @@ class MyHomePageState extends State<MyHomePage>
       :
       Center(
         child: FutureBuilder<List<Post>>(
-          future: fetchPost(),
+          future: fetchPost(idR),
           builder: (context, snapshot)
           {
             if(snapshot.hasData)

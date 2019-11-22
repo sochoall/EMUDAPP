@@ -9,7 +9,7 @@ class LoginController extends ResourceController{
   @Operation.get('datos')
   Future<Response> verificar(@Bind.path('datos') String datos) async
   {
-    var results=datos.split("*");
+    final results=datos.split("*");
     print(results);
     final servicio = Login();
     servicio.usuario=results[0].toString();
