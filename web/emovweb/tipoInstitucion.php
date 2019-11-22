@@ -2,10 +2,10 @@
     include 'codigophp/sesion.php';
     $menu=Sesiones("EMOV");
 ?>
-<div class="container-fluid grey">
+ <div class="container-fluid grey pr-0 pl-0">
 		<?php 
-        echo $menu 
-        ?>
+		echo $menu 
+		?>
 </div>
 
 <div class="container">
