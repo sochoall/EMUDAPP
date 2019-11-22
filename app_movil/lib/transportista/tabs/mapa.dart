@@ -71,15 +71,11 @@ class MyHomePage extends StatefulWidget
 
 class MyHomePageState extends State<MyHomePage> 
 {
-<<<<<<< HEAD
-=======
   final String idR; 
-  MyHomePageState(this.idR);
-  bool flag=false;
->>>>>>> 820b8351f7073f06562884ed3f7bc98e6ee4cc8e
   Future<Post> post;
   Position userLocation;
   List<LatLng> points = [];
+  MyHomePageState(this.idR);
   bool flag=false, statusFlag=false;
   Geolocator geolocator = Geolocator();
 
