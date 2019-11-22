@@ -7,10 +7,10 @@ class EstadoObjetosController extends ResourceController{
 
 
   @Operation.get()
-  Future<Response> obtenerLista() async
+  Future<Response> obtenerLista(@Bind.query('campo') String campo,@Bind.query('bus') String bus ) async
   {
     final servicio = EstadoObjetos();
-    return Response.ok(await servicio.obtenerDatos());
+    return Response.ok(await servicio.obtenerDatos(campo,bus));
   }
 
   @Operation.get('id')

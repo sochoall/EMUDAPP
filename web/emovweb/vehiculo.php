@@ -1,63 +1,44 @@
 <?php include 'header.php'; 
-// include 'codigophp/funcionesphp.php';
+   include 'codigophp/sesion.php';
+ $menu=Sesiones("EMOV");
+//    $menu=Sesiones("EMPRESA DE TRANSPORTE"); 
+//    $idFun="2";
+//    $idIns="2";
 ?>
 
- <?php
-    session_start();
-    if (isset($_SESSION['id']) && isset($_SESSION['rol'])) {
-        $id = $_SESSION['id'];
-        $rol = $_SESSION['rol'];
-		$menu=$_SESSION['menu'];
-        echo " <script type='text/javascript'>
-					window.onload=function() {
-
-						document.getElementById('rol').innerHTML ='ROL - $rol';
-						document.getElementById('btncerrar').style.display = 'block';
-					}
-			 </script>
-	 ";
-    } else {
-        header('Location: ./');
-    }   
-
-?>
-
-
- 
-<div class="container-fluid grey">
+<div class="container-fluid grey pr-0 pl-0">
 		<?php 
 		echo $menu 
 		?>
 </div>
 
-
 <div class="container">
     <div class="row mt-3 ">
         <div class="h3 text-left font-weight-bold">VEHÍCULO</div>
     </div>
-	<div class="form-group row mt-3">
+	<div class="form-group row mt-3 align-middle">
 		<div class="col-md-3">
-			<label class="align-self-center">Campo:</label>
+			<label>Campo:</label>
 			<select id="campo" name="campo" class="browser-default custom-select" onchange="veroferta(this.value)">
-				<option value="0" selected >PLACA</option>	
+				<option value="veh_placa" selected >PLACA</option>	
 			</select>
 		</div>
 
 		<div class="col-md-3">
-			<label for="txtuser">Buscar:</label>
-			<input type="text" id="textBuscar" name="textBuscar" class="form-control">     
-		</div>
+            <label>Buscar:</label>
+            <input type="text" id="textBuscar" name="textBuscar" class="form-control text-uppercase">     
+        </div>	
 
-		<div class="col-sm-2 align-self-center">
+		<div class="col-sm-2">
             <label>Estado:</label>
             <SELECT id="estBusqueda"  class="browser-default custom-select"> 
-                <OPTION VALUE="2" selected >TODOS</OPTION>
+                <OPTION VALUE="" selected >TODOS</OPTION>
                 <OPTION VALUE="1">ACTIVO</OPTION>
                 <OPTION VALUE="0">INACTIVO</OPTION>             
             </SELECT> 
         </div>
 
-		<div class="col-md-4 mt-3" id="buscar">
+		<div class="col-sm-2 align-self-center" id="buscar">
 				<a href="" class="btn grey"><i class="fas fa fa-search "></i></a>
 		</div>
 	</div>
@@ -88,88 +69,53 @@
     </div>
 </div>
 
-<div class="position-fixed btn-group-lg" style="bottom:20px; right:80px; width:120px; height:80px;">
-			<a href="vehiculoEditar.php?metodo=Ingresar" class="cyan btn "  
-			style="  -webkit-border-radius: 50px;
-  					-moz-border-radius: 50px;
-					  border-radius: 50px;
-					  color:#fff;
-					  padding-top: 20px;
-					  width:70px; height:70px;
-					  ">
-			
-			<i class="fa fa-plus" ></i></a>
+<div class="cyan circulo">
+	<a href="vehiculoEditar.php?metodo=Agregar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
 </div>	
 
+<script type="text/javascript">			
+	const boton=document.querySelector('#buscar');		
+	const lista=document.querySelector('#lista');		
 
-
-<script type="text/javascript">		
-	
-		const boton=document.querySelector('#buscar');		
-		const lista=document.querySelector('#lista');		
-	
-		function Buscar(){	
-			event.preventDefault();
-
-			var campo = document.getElementById('campo').value;			
-			var textBuscar=document.getElementById('textBuscar').value;
-			textBuscar=textBuscar.toUpperCase();			
-			var estado=document.getElementById("estBusqueda").value;
-						
-			campo="veh_placa";									
-			if(estado==2){
-                estado="";
-            }
-			if(textBuscar==""){
-				// textBuscar="*****";
-			}
-			let url=`http://localhost:8888/vehiculo?campo=${campo}&bus=${textBuscar}&est=${estado}`;
-
-			lista.innerHTML=`
-			<div class="text-center">
-			<div class="spinner-border text-info" role="status">
-				<span class="sr-only">Loading...</span>
-			</div>
-			</div>				
-				`;	
-			fetch(url)
-		 	.then((res) => {return res.json(); })
-			.then(produ => {
+	function Buscar(){	
+		event.preventDefault();
+		var campo = document.getElementById('campo').value;			
+		var textBuscar=document.getElementById('textBuscar').value;
+		textBuscar=textBuscar.toUpperCase();			
+		var estado=document.getElementById("estBusqueda").value;	
+		lista.innerHTML=`<div class="text-center"><div class="spinner-border text-info" role="status"><span class="sr-only">Loading...</span></div></div>`;	
+				
+		(async () => {
+			try{
+				var idIns="1";
+				var url=`${raizServidor}/vehiculo?campo=${campo}&bus=${textBuscar}&est=${estado}&idIns=${idIns}`;
+				
+				let response = await fetch(url);
+				let data = await response.json();
 				let result="";					
 				est="";
-				for(let prod of produ){						
+				for(let prod of data){						
 					result +=
 					`<tr> 
 						<td> ${prod.id}</td>
 						<td> ${prod.placa}</td>
 						<td class="text-center"> ${prod.capacidad}</td>	
-					`
-					if(prod.estado===0){
-						est="INACTIVO";
-					}else{
-						est="ACTIVO";
-					}
-					result +=
-					`<td> ${est}</td>
+						<td> ${prod.estado==1?"ACTIVO":"INACTIVO"} </td>
 						<td>
 							<?php echo "<a href="?>vehiculoEditar.php?metodo=Modificar&id=${prod.id}
 							<?php echo "class='fas fa-edit'>Editar</a>" ?>
 						</td>
-					</tr>`;						
-										
+					</tr>`;										
 				}
 				result += `</table> `;
-				lista.innerHTML=result;							
-					return produ;				
-				})		
-				.catch(error => { lista.innerHTML =`<div>No se encuentras coincidencias</div>`;	 console.log("error",error); return error; })					
-		}		
-			
+				lista.innerHTML=result;	
+			}catch(e){
+				toastr.error('Error al Cargar algunos datos'+ e); 	
+			}
+		})();
+
+}				
 		boton.addEventListener('click',Buscar);
 	</script>	
-
-
-
-
 
  <?php include 'footer.php'; ?>

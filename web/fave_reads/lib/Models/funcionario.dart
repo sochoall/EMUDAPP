@@ -16,10 +16,14 @@ class Funcionario extends Serializable
   int estado;
   int institutoId;
  
-  Future<List> obtenerDatos(String campo ,String bus, String est) async {
+  Future<List> obtenerDatos(String campo ,String bus, String est, String intitucionId) async {
     
     final conexion = Conexion();
-    final String sql = "select * from public.te_funcionario where $campo::text LIKE '%$bus%' and fun_estado::text LIKE '%$est%' order by fun_id DESC";
+    String sql; 
+    if(intitucionId != "")
+      sql = "select * from public.te_funcionario where ins_id=$intitucionId and $campo::text LIKE '%$bus%' and fun_estado::text LIKE '%$est%' order by fun_id DESC";
+    else
+      sql = "select * from public.te_funcionario where $campo::text LIKE '%$bus%' and fun_estado::text LIKE '%$est%' order by fun_id DESC";
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
     if(query != null && query.isNotEmpty)

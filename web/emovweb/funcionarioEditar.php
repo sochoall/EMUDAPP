@@ -1,35 +1,12 @@
-<?php include 'header.php'; ?>
-
- <?php
-    session_start();
-    if (isset($_SESSION['id']) && isset($_SESSION['rol'])) {
-        $id = $_SESSION['id'];
-        $rol = $_SESSION['rol'];
-        $menu=$_SESSION['menu'];
-        echo " <script>
-                    
-                    window.onload = function() 
-                    {
-                      
-                        document.getElementById('rol').innerHTML ='ROL: $rol';
-                        document.getElementById('btncerrar').style.display = 'block';
-                    };
-                   
-                       
-                </script>
-        ";
-    } else {
-        header('Location: ./');
-    }   
-
+<?php include 'header.php'; 
+	 include 'codigophp/sesion.php';
+	 $menu=Sesiones("EMOV");
+	 include 'modalFuncionario.php';
 ?>
-<?php
-		include 'modalFuncionario.php';
-?>	
 
-<div class="container text-left mt-2 text-uppercase">
+<div class="container text-left mt-2">
 	<div class="row">
-    	<div class="col-md-6 offset-md-3">
+    	<div class="col-md-6 offset-md-2">
 			<div class="card">
       			<h3 class="card-header cyan white-text text-uppercase font-weight-bold text-center" id="titulo"></h3>
       			<div class="card-body">
@@ -132,7 +109,7 @@
 	$id=0;
 	if (isset($_GET['metodo'])) {
 		$metodo = $_GET['metodo'];
-		if($metodo=='Ingresar'){
+		if($metodo=='Agregar'){
 				
 			
 	
@@ -220,7 +197,7 @@
 											
 											var parametros={"id":5,"cedula":ced.value,"nombre":nom.value.toUpperCase(),"apellido":ape.value.toUpperCase(),"direccion":dir.value,"telefono":telf.value,"celular":cel.value,"correo":correo.value,"estado":estado.value,"institutoId":inst.value};		
 									
-													if(v.value=="Ingresar"){	
+													if(v.value=="Agregar"){	
 														Ingresar(parametros);
 													}	
 													if(v.value=="Modificar"){

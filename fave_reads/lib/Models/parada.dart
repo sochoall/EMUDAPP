@@ -10,14 +10,14 @@ class Parada extends Serializable
   String nombre;
   int orden;
   String latitud;
-  String longitud;
+  String longuitud;
   String tiempoPromedio;
   int    estado;
   int    recId;
  
   Future<List> obtenerDatos() async {
     final conexion = Conexion();
-    const String sql = "select * from public.te_parada where par_estado=1";
+    const String sql = "select * from public.te_parada where par_estado=0";
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 
@@ -31,7 +31,7 @@ class Parada extends Serializable
         reg.nombre=query[i][1].toString();
         reg.orden=int.parse(query[i][2].toString());        
         reg.latitud=query[i][3].toString();
-        reg.longitud=query[i][4].toString();    
+        reg.longuitud=query[i][4].toString();    
         reg.tiempoPromedio=query[i][5].toString();
         reg.estado=int.parse(query[i][6].toString());
         reg.recId=int.parse(query[i][7].toString());
@@ -46,29 +46,23 @@ class Parada extends Serializable
     
   }
 
-  Future<List> obtenerDatoId(int id) async {
+  Future<Parada> obtenerDatoId(int id) async {
     final conexion = Conexion();
-    final String sql = "select * from public.te_parada where par_estado=1 and rec_id=$id";
-    final List datos=[];
-    final List<dynamic> query = await conexion.obtenerTabla(sql);
+    final String sql = "select * from public.te_parada where par_id=$id";
 
+    final List<dynamic> query = await conexion.obtenerTabla(sql);
     if(query != null && query.isNotEmpty)
-    {
-      for(int i=0; i<query.length;i++)
-      {
+    { 
         final reg = Parada();
-        
-        reg.id=int.parse(query[i][0].toString());
-        reg.nombre=query[i][1].toString();
-        reg.orden=int.parse(query[i][2].toString());        
-        reg.latitud=query[i][3].toString();
-        reg.longitud=query[i][4].toString();    
-        reg.tiempoPromedio=query[i][5].toString();
-        reg.estado=int.parse(query[i][6].toString());
-        reg.recId=int.parse(query[i][7].toString());
-        datos.add(reg.asMap()); 
-      }
-      return datos;
+       reg.id=int.parse(query[0][0].toString());
+        reg.nombre=query[0][1].toString();
+        reg.orden=int.parse(query[0][2].toString());        
+        reg.latitud=query[0][3].toString();
+        reg.longuitud=query[0][4].toString();    
+        reg.tiempoPromedio=query[0][5].toString();
+        reg.estado=int.parse(query[0][6].toString());
+        reg.recId=int.parse(query[0][7].toString());
+        return reg;
     }
     else
     {
@@ -80,7 +74,7 @@ class Parada extends Serializable
   Future<void> ingresar(Parada dato) async{
     final conexion = Conexion();
     final String sql = "INSERT INTO public.te_parada(par_id,par_nombre,par_orden,par_latitud,par_longuitud,par_tiempo_promedio,par_estado,rec_id)"
-   " VALUES (${dato.id},'${dato.nombre}',${dato.orden},'${dato.latitud}', '${dato.longitud}', '${dato.tiempoPromedio}',${dato.estado},${dato.recId})";
+   " VALUES (${dato.id},'${dato.nombre}',${dato.orden},'${dato.latitud}', '${dato.longuitud}', '${dato.tiempoPromedio}',${dato.estado},${dato.recId})";
     print(sql);
     await conexion.operaciones(sql);
   }
@@ -105,7 +99,7 @@ class Parada extends Serializable
     'nombre': nombre,
     'orden': orden,
     'latitud': latitud,
-    'longitud': longitud,
+    'longuitud': longuitud,
     'tiempoPromedio': tiempoPromedio,
     'estado': estado,
     'recId':recId 
@@ -117,7 +111,7 @@ class Parada extends Serializable
     nombre= object['nombre'].toString();
     orden= int.parse(object['orden'].toString());
     latitud= object['latitud'].toString();
-    longitud=object['longitud'].toString();
+    longuitud=object['longuitud'].toString();
     tiempoPromedio=object['tiempoPromedio'].toString();
     estado=int.parse(object['estado'].toString());
     recId=int.parse(object['recId'].toString());

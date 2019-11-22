@@ -12,7 +12,8 @@ class Hijo extends Serializable {
   String url;
 
   Future<List> obtenerSoloHijos(String id) async {
-    final String sql = "select * from te_opcion where opc_url is not null and opc_padre_id !=$id";
+    final String sql = "select * from (select * from te_opcion p left join te_opcion_rol r on p.opc_id =r.opc_id "
+    "where opc_padre_id=$id) l where l.rol_id is null";
     final reg= Opcion();
     return reg.obtenerOpcionesHijo(sql);
   }

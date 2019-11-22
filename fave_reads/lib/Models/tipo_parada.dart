@@ -10,9 +10,9 @@ class TipoParada extends Serializable
   String nombre;
   int    estado;
  
-  Future<List> obtenerDatos() async {
+  Future<List> obtenerDatos(String campo ,String bus, String est) async {
     final conexion = Conexion();
-    const String sql = "select * from public.te_tipo_parada where tpa_estado=0";
+    final String sql = "select * from public.te_tipo_parada where $campo::text LIKE '%$bus%' and tpa_estado::text LIKE '%$est%'";
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 
@@ -58,8 +58,8 @@ class TipoParada extends Serializable
 
   Future<void> ingresar(TipoParada dato) async{
     final conexion = Conexion();
-    final String sql = "INSERT INTO public.te_tipo_parada(tpa_id, tpa_nombre,tpa_estado)"
-   " VALUES (${dato.id},'${dato.nombre}',${dato.estado}";
+    final String sql = "INSERT INTO public.te_tipo_parada( tpa_nombre,tpa_estado)"
+   " VALUES ('${dato.nombre}',${dato.estado}";
     print(sql);
     await conexion.operaciones(sql);
   }
@@ -67,7 +67,7 @@ class TipoParada extends Serializable
    Future<void> modificar(int id,TipoParada dato) async{
     final conexion = Conexion();
     final String sql = 
-    "UPDATE public.te_tipo_parada SET tpa_nombre='${dato.nombre}' "
+    "UPDATE public.te_tipo_parada SET tpa_nombre='${dato.nombre}',tpa_estado=${dato.estado} "
 	  "WHERE tpa_id=$id";
     await conexion.operaciones(sql);
   }

@@ -1,30 +1,9 @@
-<?php include 'header.php'; ?>
-
- <?php
-    session_start();
-    if (isset($_SESSION['id']) && isset($_SESSION['rol'])) {
-        $id = $_SESSION['id'];
-        $rol = $_SESSION['rol'];
-        $menu=$_SESSION['menu'];
-        echo " <script>
-                    
-                    window.onload = function() 
-                    {
-                      
-                        document.getElementById('rol').innerHTML ='ROL: $rol';
-                        document.getElementById('btncerrar').style.display = 'block';
-                    };
-                   
-                       
-                </script>
-        ";
-    } else {
-        header('Location: ./');
-    }   
-
+<?php include 'header.php'; 
+	include 'codigophp/sesion.php';
+	$menu=Sesiones("EMOV");
 ?>
 
-<div class="container-fluid grey">
+<div class="container-fluid grey pr-0 pl-0">
 		<?php 
 		echo $menu 
 		?>
@@ -38,7 +17,7 @@
         <div class="col-md-3">
             <label class="align-self-center">Campo:</label>
             <select id="campo" class="browser-default custom-select">
-				<option VALUE="0" selected >Nombre</option>	
+				<option VALUE="tse_nombre" selected >Nombre</option>	
             </select>
         </div>
 
@@ -50,7 +29,7 @@
         <div class="col-sm-2 align-self-center">
             <label>Estado:</label>
             <SELECT id="estBusqueda"  class="browser-default custom-select"> 
-                <OPTION VALUE="2" selected >TODOS</OPTION>
+                <OPTION VALUE="" selected >TODOS</OPTION>
                 <OPTION VALUE="1">ACTIVO</OPTION>
                 <OPTION VALUE="0">INACTIVO</OPTION>             
             </SELECT> 
@@ -88,18 +67,9 @@
 </div>
             
 
-     <div class="position-fixed btn-group-lg" style="bottom:20px; right:80px; width:120px; height:80px;">
-			<a href="tipoServicioEditar.php?metodo=Ingresar" class="cyan btn "  
-			style="  -webkit-border-radius: 50px;
-  					-moz-border-radius: 50px;
-					  border-radius: 50px;
-					  color:#fff;
-					  padding-top: 20px;
-					  width:70px; height:70px;
-					  ">
-			
-			<i class="fa fa-plus" ></i></a>
-		</div>
+<div class="cyan circulo">
+        <a href="tipoServicioEditar.php?metodo=Agregar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
+</div>	
 
     <script type="text/javascript">		
 	
@@ -109,25 +79,15 @@
 		function Buscar(){	
 			event.preventDefault();
 
-			var campo = "tse_nombre";			
+			var campo = document.getElementById('campo').value;			
 			var textBuscar=document.getElementById('textBuscar').value;
 			textBuscar=textBuscar.toUpperCase();			
 			var estado=document.getElementById("estBusqueda").value;					
-			if(estado==2){
-                estado="";
-            }
-			if(textBuscar==""){
-				// textBuscar="*****";
-			}
-			let url=`http://localhost:8888/tipoServicio?campo=${campo}&bus=${textBuscar}&est=${estado}`;
+			
+			let url=`${raizServidor}/tipoServicio?campo=${campo}&bus=${textBuscar}&est=${estado}`;
 
-			lista.innerHTML=`
-			<div class="text-center">
-			<div class="spinner-border text-info" role="status">
-				<span class="sr-only">Loading...</span>
-			</div>
-			</div>				
-				`;	
+			lista.innerHTML=`<div class="text-center"><div class="spinner-border text-info" role="status"><span class="sr-only">Loading...</span></div></div>`;	
+		
 			fetch(url)
 		 	.then((res) => {return res.json(); })
 			.then(produ => {
@@ -138,18 +98,11 @@
 					`<tr> 
 						<td> ${prod.id}</td>
 						<td> ${prod.nombre}</td>
-					`;
-					if(prod.estado===0){
-						est="inactivo";
-					}else{
-						est="activo";
-					}
-					result +=
-					`<td> ${est}</td>
-					<td>
-						<?php echo "<a href="?>tipoServicioEditar.php?metodo=Modificar&id=${prod.id}
-						<?php echo "class='fas fa-edit'>Editar</a>" ?>
-					</td>
+						<td> ${prod.estado==1?"ACTIVO":"INACTIVO"} </td>
+						<td>
+							<?php echo "<a href="?>tipoServicioEditar.php?metodo=Modificar&id=${prod.id}
+							<?php echo "class='fas fa-edit'>Editar</a>" ?>
+						</td>
 					</tr>`;								
 				}
 				result += `</table> `;

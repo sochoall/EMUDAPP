@@ -12,10 +12,23 @@ class Recorrido extends Serializable
   int    estado;
   int    senId;
   int    rutId;
+
+  Future<int> obtenerNumeroElementos() async {
+    final conexion = Conexion();
+    const String sql = "select count(*) from public.te_recorrido";
+    int datos= -1;
+    final List<dynamic> query = await conexion.obtenerTabla(sql);
+
+    if(query != null && query.isNotEmpty)
+    {
+      datos=int.parse(query[0][0].toString());
+    }
+     return datos;
+  }
  
   Future<List> obtenerDatos() async {
     final conexion = Conexion();
-    const String sql = "select * from public.te_recorrido where rec_estado=1";
+    const String sql = "select * from public.te_recorrido where rec_estado=0";
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 
@@ -108,4 +121,3 @@ class Recorrido extends Serializable
   }
 
 }
-

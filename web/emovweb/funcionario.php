@@ -24,15 +24,19 @@
 
 ?>
 
-<div class="container-fluid grey">
-		<?php echo $menu ?>
+<div class="container-fluid grey pr-0 pl-0">
+		<?php 
+		echo $menu 
+		?>
 </div>
 
 
-<div class="container">
-	<div class="row mt-3 pt-3">
+<div class="container pt-3">
+	<div class="row">
+		<div class="h3 text-left font-weight-bold">FUNCIONARIO</div>
+	</div>
+	<div class="row mt-3">
     <div class="col">
-		<h1>Funcionario</h1>
 		<div class="form-group row">
 			<label class="col-sm-0 col-form-label align-self-center">Campo:</label>
 			<div class="col-sm-2 align-self-center">
@@ -50,9 +54,10 @@
 
 			<div class="col-sm-2 align-self-center">
 				<SELECT id="estado"  class="browser-default custom-select"> 	
-					  <option value="1">Activo</option>
-					  <option value="0">Inactivo</option>
-					  <option value="">Todos</option>
+					<option value="">TODOS</option>
+					<option value="1">ACTIVO</option>
+					<option value="0">INACTIVO</option>
+					  
 					  
 				</SELECT> 
 			</div>
@@ -160,8 +165,8 @@
 			if(textBuscar==""){
 				//textBuscar="*****";
 			}
-			
-			let url=`http://localhost:8888/funcionario?campo=${campo}&bus=${textBuscar}&est=${estado}`;
+			var idIns="";
+			let url=`http://localhost:8888/funcionario?campo=${campo}&bus=${textBuscar}&est=${estado}&idIns=${idIns}`;
 			
 			
 			fetch(url)

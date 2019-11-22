@@ -1,35 +1,14 @@
 <?php 
-include 'header.php';
+    include 'header.php';
+    include 'codigophp/sesion.php';
+	$menu=Sesiones("EMOV");
  ?>
 
- <?php
-    session_start();
-    if (isset($_SESSION['id']) && isset($_SESSION['rol'])) {
-        $id = $_SESSION['id'];
-        $rol = $_SESSION['rol'];
-        $menu=$_SESSION['menu'];
-        echo " <script>
-                    
-                    window.onload = function() 
-                    {
-                      
-                        document.getElementById('rol').innerHTML ='ROL: $rol';
-                        document.getElementById('btncerrar').style.display = 'block';
-                    };
-                   
-                       
-                </script>
-        ";
-    } else {
-        header('Location: ./');
-    }   
 
-?>
-
-<div class="container-fluid grey">
-        <?php 
-        // echo $menu 
-        ?>
+<div class="container-fluid grey pr-0 pl-0">
+		<?php 
+		echo $menu 
+		?>
 </div>
 
 <div class="container">
@@ -41,7 +20,7 @@ include 'header.php';
         <div class="col-md-3">
             <label class="align-self-center">Campo:</label>
             <select id="campo" class="browser-default custom-select">
-				<option VALUE="0" selected >NOMBRE</option>	
+				<option VALUE="ple_nombre" selected >NOMBRE</option>	
             </select>
         </div>
 
@@ -50,7 +29,7 @@ include 'header.php';
             <input type="text" id="textBuscar" name="textBuscar" class="form-control text-uppercase">     
         </div>
 
-       <div class="col-sm-2 align-self-center">
+       <div class="col-md-2 align-self-center">
             <label>Estado:</label>
             <SELECT id="estBusqueda"  class="browser-default custom-select"> 
                 <OPTION VALUE="2" selected >TODOS</OPTION>
@@ -88,21 +67,11 @@ include 'header.php';
             </div>                
         </div>
     </div>
-</div>
-         
+</div>         
 
- <div class="position-fixed btn-group-lg" style="bottom:20px; right:80px; width:120px; height:80px;">
-		<a href="periodoLectivoEditar.php?metodo=Ingresar" class="cyan btn "  
-		style="  -webkit-border-radius: 50px;
-					-moz-border-radius: 50px;
-				  border-radius: 50px;
-				  color:#fff;
-				  padding-top: 20px;
-				  width:70px; height:70px;
-				  ">
-		
-		<i class="fa fa-plus" ></i></a>
-	</div>
+<div class="cyan circulo">
+        <a href="periodoLectivoEditar.php?metodo=Agregar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
+</div>	
 
 <script type="text/javascript">     
     
@@ -112,26 +81,16 @@ include 'header.php';
         function Buscar(){  
             event.preventDefault();
 
-            var campo = "ple_nombre";           
+            var campo = document.getElementById('campo').value;	          
             var textBuscar=document.getElementById('textBuscar').value;
             textBuscar=textBuscar.toUpperCase();            
             var estado=document.getElementById("estBusqueda").value;    
                     
-            if(estado==2){
-                estado="";
-            }
-            if(textBuscar==""){
-                // textBuscar="*****";
-            }
-            let url=`http://localhost:8888/periodo?campo=${campo}&bus=${textBuscar}&est=${estado}`;
+            
+            let url=`${raizServidor}/periodo?campo=${campo}&bus=${textBuscar}&est=${estado}`;
 
-            lista.innerHTML=`
-            <div class="text-center">
-            <div class="spinner-border text-info" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            </div>              
-                `;  
+            lista.innerHTML=`<div class="text-center"><div class="spinner-border text-info" role="status"><span class="sr-only">Loading...</span></div></div>`;	
+		 
             fetch(url)
             .then((res) => {return res.json(); })
             .then(produ => {
@@ -142,18 +101,11 @@ include 'header.php';
                     `<tr> 
                         <td> ${prod.id}</td>
                         <td> ${prod.nombre}</td>
-                    `;
-                    if(prod.estado==0){
-                        est="INACTIVO";
-                    }else{
-                        est="ACTIVO";
-                    }
-                    result +=
-                    `<td> ${est}</td>
-                    <td>
-                        <?php echo "<a href="?>periodoLectivoEditar.php?metodo=Modificar&id=${prod.id}
-                        <?php echo "class='fas fa-edit'>Editar</a>" ?>
-                    </td>
+                        <td> ${prod.estado==1?"ACTIVO":"INACTIVO"} </td>
+                        <td>
+                            <?php echo "<a href="?>periodoLectivoEditar.php?metodo=Modificar&id=${prod.id}
+                            <?php echo "class='fas fa-edit'>Editar</a>" ?>
+                        </td>
                     </tr>`;                             
                 }
                 result += `</table> `;
