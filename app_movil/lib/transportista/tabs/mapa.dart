@@ -7,9 +7,9 @@ import 'package:geolocator/geolocator.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:app_movil/transportista/tabs/rutas.dart';
 
-Future<List<Post>> fetchPost() async
+Future<List<Post>> fetchPost(idR) async
 {
-  var response = await http.get("http://192.168.137.1:8888/parada/1");
+  var response = await http.get("http://192.168.137.1:8888/parada/$idR");
 
   if(response.statusCode == 200)
   {
@@ -48,14 +48,14 @@ class Post
 
 class MyApp extends StatelessWidget 
 {
-  final String aux; 
-  MyApp(this.aux);
+  final String idR; 
+  MyApp(this.idR);
   
   @override
   Widget build(BuildContext context) 
   {
     return new MaterialApp(
-      home: new MyHomePage(),
+      home: new MyHomePage(idR),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -63,16 +63,24 @@ class MyApp extends StatelessWidget
 
 class MyHomePage extends StatefulWidget 
 {
+  final String idR; 
+  MyHomePage(this.idR);
   @override
-  MyHomePageState createState() => new MyHomePageState();
+  MyHomePageState createState() => new MyHomePageState(idR);
 }
 
 class MyHomePageState extends State<MyHomePage> 
 {
+<<<<<<< HEAD
+=======
+  final String idR; 
+  MyHomePageState(this.idR);
   bool flag=false;
+>>>>>>> 820b8351f7073f06562884ed3f7bc98e6ee4cc8e
   Future<Post> post;
   Position userLocation;
   List<LatLng> points = [];
+  bool flag=false, statusFlag=false;
   Geolocator geolocator = Geolocator();
 
   @override
@@ -87,7 +95,7 @@ class MyHomePageState extends State<MyHomePage>
       :
       Center(
         child: FutureBuilder<List<Post>>(
-          future: fetchPost(),
+          future: fetchPost(idR),
           builder: (context, snapshot)
           {
             if(snapshot.hasData)
@@ -128,35 +136,35 @@ class MyHomePageState extends State<MyHomePage>
 
   void getUserProximity()
   {
-    double posX, posY, negX, negY;
+    double xPos, yPos, xNeg, yNeg, rad = 0.000100;
     
     if(points.isNotEmpty)
     {
-      posX=points.first.latitude+0.000020;
-      posY=points.first.longitude+0.000020;
-      negX=points.first.latitude-0.000020;
-      negY=points.first.longitude-0.000020;
+      xPos=points.first.latitude+rad;
+      yPos=points.first.longitude+rad;
+      xNeg=points.first.latitude-rad;
+      yNeg=points.first.longitude-rad;
 
-      if(userLocation.latitude>posX && userLocation.longitude>posY)
-      {
-        removeStopMarkers(points.first);
-        RutasEstado.names.removeAt(0);
-      }
-      else if(userLocation.latitude>negX && userLocation.longitude>posY)
-      {
-        removeStopMarkers(points.first);
-        RutasEstado.names.removeAt(0);
-      }
-      else if(userLocation.latitude>negX && userLocation.longitude>negY)
-      {
-        removeStopMarkers(points.first);
-        RutasEstado.names.removeAt(0);
-      }
-      else if(userLocation.latitude>posX && userLocation.longitude>negY)
-      {
-        removeStopMarkers(points.first);
-        RutasEstado.names.removeAt(0);        
-      }
+      if((userLocation.latitude<xPos && userLocation.longitude<yPos) && (userLocation.latitude>points.first.latitude && userLocation.longitude>points.first.longitude))
+        statusFlag=true;
+      else if((userLocation.latitude>xNeg && userLocation.longitude<yPos) && (userLocation.latitude<points.first.latitude && userLocation.longitude>points.first.longitude))
+        statusFlag=true;
+      else if((userLocation.latitude>xNeg && userLocation.longitude>yNeg) && (userLocation.latitude<points.first.latitude && userLocation.longitude<points.first.longitude))
+        statusFlag=true;
+      else if((userLocation.latitude<xPos && userLocation.longitude>yNeg) && (userLocation.latitude>points.first.latitude && userLocation.longitude<points.first.longitude)) 
+        statusFlag=true;
+      else
+        getFlagStatus();
+    }
+  }
+
+  void getFlagStatus()
+  {
+    if(statusFlag)
+    {
+      removeStopMarkers(points.first);
+      RutasEstado.names.removeAt(0);
+      statusFlag=false;
     }
   }
 
@@ -175,8 +183,7 @@ class MyHomePageState extends State<MyHomePage>
             iconSize: 45.0,
             onPressed:()
             {
-              removeStopMarkers(latlng);
-              //RutasEstado.removeName();
+
             },
           ),
         ),
@@ -211,7 +218,7 @@ class MyHomePageState extends State<MyHomePage>
         point: LatLng(userLocation.latitude, userLocation.longitude),
         builder: (context) => new Container(
           child: IconButton(
-            icon: Icon(Icons.navigation),
+            icon: Icon(Icons.my_location),
             color: Colors.lightBlue,
             iconSize: 35.0,
             onPressed: ()
@@ -219,7 +226,8 @@ class MyHomePageState extends State<MyHomePage>
               
             },
           ),
-        )
+        ),
+        anchorPos: AnchorPos.align(AnchorAlign.center),
       )
     ]);
   }

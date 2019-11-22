@@ -1,31 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import '../../provider.dart';
 import 'package:http/http.dart' as http;
-import 'package:app_movil/transportista/tabs/mapa.dart';
+import 'package:app_movil/transportista/tabs/mapa.dart'; 
 
-Future<List<Post>> fetchPostP() async
-{
-  var response = await http.get("http://192.168.137.1:8888/parada/1");
-
-  if(response.statusCode == 200)
-  {
-    final jsonresponse = json.decode(response.body).cast<Map<String, dynamic>>();
-    List<Post> listOfRoutes = jsonresponse.map<Post>((json)
-    {
-      return Post.fromJson(json);
-    }).toList();
-
-    return listOfRoutes;
-  }  
-  else
-    throw Exception('Failed to get items');
-}
-
-class Post
-{
+class Post {
   String nombre;
-
   Post(
     {
       this.nombre,
@@ -39,7 +20,6 @@ class Post
     );
   }
 }
-
 class Rutas extends StatelessWidget 
 {
   @override
@@ -49,7 +29,7 @@ class Rutas extends StatelessWidget
   Widget build(BuildContext context) 
   {
     return new MaterialApp(
-      home: new RutaParada(),
+      home: new RutaParada(idRecorrido),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -58,14 +38,19 @@ class Rutas extends StatelessWidget
 class RutaParada extends StatefulWidget 
 {
   @override
-  RutasEstado createState() => new RutasEstado();
+  final String idRecorrido;
+
+  RutaParada(this.idRecorrido);
+  RutasEstado createState() => new RutasEstado(idRecorrido);
 }
 
 class RutasEstado extends State<RutaParada> 
 {
+  final String idRecorrido;
   Timer timer;
   bool flag = false;
   Future<Post> post;
+  RutasEstado(this.idRecorrido);
   static List<String> names = [];
 
   @override
@@ -86,7 +71,7 @@ class RutasEstado extends State<RutaParada>
       :
       Center(
         child: FutureBuilder<List<Post>>(
-          future: fetchPostP(),
+          future: listaParadasProvider.cargarData7(idRecorrido),
           builder: (context, snapshot)
           {
             if(snapshot.hasData)
@@ -112,7 +97,7 @@ class RutasEstado extends State<RutaParada>
           floating: false,
           pinned: true,
           flexibleSpace: FlexibleSpaceBar(
-            background: MyApp(""),
+            background: MyApp(idRecorrido),
             title: Row(
               children: <Widget>[
                 Text("PARADAS  ",style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
@@ -133,15 +118,14 @@ class RutasEstado extends State<RutaParada>
                     return index/names.length == 0
                     ?
                     Container(
-                      color: Colors.grey.withOpacity(.5),
+                      color: Colors.lightBlue,
                       height: 50,
                       child: Center(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Text("#"),
-                            Text("Parada"),
-                            Text("ETA")
+                            Text("Parada", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
+                            Text("Tiempo Estimado", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black))
                           ],
                         )
                       ),
@@ -150,9 +134,19 @@ class RutasEstado extends State<RutaParada>
                     :
                     Container(
                       height: 50,
+                      color: index-1 == 0 ? Colors.grey.withOpacity(0.2) : null,
                       child: Center(
-                        child: names.isEmpty ? CircularProgressIndicator() : Text(names[index-1]),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: names.isEmpty ? <Widget>[CircularProgressIndicator()] : <Widget>[
+                            Text(names[index-1]),
+                          ],
+                        ),
                       ),
+                      padding: EdgeInsets.all(10.0),
+                      /*child: Center(
+                        child: names.isEmpty ? CircularProgressIndicator() : Text(names[index-1]),
+                      ),*/
                     );
                   },
                   childCount: names.length+1
