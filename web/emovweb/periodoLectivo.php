@@ -20,7 +20,7 @@
         <div class="col-md-3">
             <label class="align-self-center">Campo:</label>
             <select id="campo" class="browser-default custom-select">
-				<option VALUE="0" selected >NOMBRE</option>	
+				<option VALUE="ple_nombre" selected >NOMBRE</option>	
             </select>
         </div>
 
@@ -81,26 +81,16 @@
         function Buscar(){  
             event.preventDefault();
 
-            var campo = "ple_nombre";           
+            var campo = document.getElementById('campo').value;	          
             var textBuscar=document.getElementById('textBuscar').value;
             textBuscar=textBuscar.toUpperCase();            
             var estado=document.getElementById("estBusqueda").value;    
                     
-            if(estado==2){
-                estado="";
-            }
-            if(textBuscar==""){
-                // textBuscar="*****";
-            }
+            
             let url=`${raizServidor}/periodo?campo=${campo}&bus=${textBuscar}&est=${estado}`;
 
-            lista.innerHTML=`
-            <div class="text-center">
-            <div class="spinner-border text-info" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            </div>              
-                `;  
+            lista.innerHTML=`<div class="text-center"><div class="spinner-border text-info" role="status"><span class="sr-only">Loading...</span></div></div>`;	
+		 
             fetch(url)
             .then((res) => {return res.json(); })
             .then(produ => {

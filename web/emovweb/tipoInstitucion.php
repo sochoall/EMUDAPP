@@ -16,7 +16,7 @@
         <div class="col-md-3">
             <label class="align-self-center">Campo:</label>
             <select id="campo" class="browser-default custom-select">
-                <option VALUE="0" selected>NOMBRE</option>	
+                <option VALUE="tin_nombre" selected>NOMBRE</option>	
             </select>
         </div>
 
@@ -28,7 +28,7 @@
        <div class="col-sm-2 align-self-center">
             <label>Estado:</label>
             <SELECT id="estBusqueda"  class="browser-default custom-select"> 
-                <OPTION VALUE="2" selected >TODOS</OPTION>
+                <OPTION VALUE="" selected >TODOS</OPTION>
                 <OPTION VALUE="1">ACTIVO</OPTION>
                 <OPTION VALUE="0">INACTIVO</OPTION>        
             </SELECT> 
@@ -77,28 +77,17 @@
     function Buscar(){	
         event.preventDefault();
 
-        var campo = "tin_nombre";			
+        var campo = document.getElementById('campo').value;		
         var textBuscar=document.getElementById('textBuscar').value;
         textBuscar=textBuscar.toUpperCase();			
-        var estado=document.getElementById("estBusqueda").value;
-                
-        if(estado==2){
-                estado="";
-            }
-        if(textBuscar==""){
-            // 
-        }
+        var estado=document.getElementById("estBusqueda").value;                
+        
         let url=`${raizServidor}/tipoInstitucion?campo=${campo}&bus=${textBuscar}&est=${estado}`;
 
-        lista.innerHTML=`
-        <div class="text-center">
-        <div class="spinner-border text-info" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-        </div>				
-            `;	
+        lista.innerHTML=`<div class="text-center"><div class="spinner-border text-info" role="status"><span class="sr-only">Loading...</span></div></div>`;	
+		
         fetch(url)
-         .then((res) => {return res.json(); })
+        .then((res) => {return res.json(); })
         .then(produ => {
             let result = "";					
             est="";

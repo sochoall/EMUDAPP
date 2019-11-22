@@ -20,8 +20,8 @@
         <div class="col-md-3">
             <label>Campo:</label>
             <select id="campo" class="browser-default custom-select">
-                <option value="1" selected>NOMBRE</option>
-                <option value="2">RUC</option>
+                <option value="ins_nombre" selected>NOMBRE</option>
+                <option value="ins_ruc">RUC</option>
             </select>
         </div>
 
@@ -33,7 +33,7 @@
         <div class="col-sm-2 align-self-center">
         	<label>Estado:</label>
 			<SELECT id="estBusqueda"  class="browser-default custom-select"> 
-				<OPTION VALUE="2" selected >TODOS</OPTION>
+				<OPTION VALUE="" selected >TODOS</OPTION>
 				<OPTION VALUE="1">ACTIVO</OPTION>
 				<OPTION VALUE="0">INACTIVO</OPTION>					
 			</SELECT> 
@@ -83,19 +83,7 @@
 			var campo = document.getElementById('campo').value;			
 			var textBuscar=document.getElementById('textBuscar').value;
 			textBuscar=textBuscar.toUpperCase();			
-			var estado=document.getElementById("estBusqueda").value;
-				
-			if(campo==0){ 
-				campo="ins_nombre";				
-			}else{ 
-				campo="ins_ruc";
-			}			
-			if(estado==2){
-				estado="";
-			}
-			if(textBuscar==""){
-				// textBuscar="*****";
-			}
+			var estado=document.getElementById("estBusqueda").value;			
 			
 			let url=`${raizServidor}/institucion?campo=${campo}&bus=${textBuscar}&est=${estado}`;
 
