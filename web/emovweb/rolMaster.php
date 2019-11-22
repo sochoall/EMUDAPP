@@ -238,6 +238,28 @@
 </div>
 
 
+<div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="tittle"
+  aria-hidden="true">
+
+  <!-- Change class .modal-sm to change the size of the modal -->
+  <div class="modal-dialog modal-md" role="document">
+
+    <div class="modal-content">
+        <div class="modal-header text-center m-0 p-0 red">
+            <h4 class="modal-title w-100 text-white" id="title">Eliminar</h4>
+            </button>
+        </div>
+        <div class="modal-body" id="cuerpoModal">
+			<label class="col-form-label text-center">Esta seguro de eliminar?</label>
+            <div class="row justify-content-center mt-3">
+                <div class=""><input type="button" value="Eliminar" class="btn white" onclick="eliminar();"  /></div>
+                <div class=""><input type="button" value="Cancelar" class="btn white" data-dismiss="modal"/><br/></div>
+            </div> 
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 
 	$("#combomodal1").change(function() {
@@ -295,20 +317,34 @@
 		//
 	});
 
+	var id1=0;
+	var id2=0;
+	
 	$('#opciones').on('click', '.actionmodal2', function(e) {
-		toastr.warning("<br /><button type='button' value='yes'>Yes</button><button type='button'  value='no' >No</button>",'Está seguro de eliminar?',
-		{
-			allowHtml: true,
-			onclick: function (toast) {
-			value = toast.target.value
-			if (value == 'yes') {
-				console.log(toast.target.value, 'carai')  
-			}
-			}
-
-		})
+		$('#modalEliminar').modal('show');
+		id1=idRol;
+		id2 = $(this).parents('tr').find('td')[2].innerHTML;
 	});
 
+	async function eliminar(){
+    try{
+
+		var parametros={"id": id1, "nombre": "", "idhijo":id2, "nombrehijo": ""};	
+		var url='http://localhost:8888/opcionRol/1'; 
+
+        let response = await  fetch(url, {
+                method: 'PUT',
+                body:JSON.stringify(parametros),
+                headers:{'Content-Type': 'application/json'}				
+            })
+        let data = await response.json();
+        toastr.success('Eliminado correctamente');	
+		setTimeout("window.location.reload()",1000); 
+      
+    }catch(e){
+        toastr.error(`Error al eliminar la información`);			
+    }
+}
 
 	function resetearModal()
 	{
@@ -334,7 +370,6 @@
 
 			
 			if(v.value=='AGREGAR'){	
-				alert(v.value);
 				Ingresar(parametros,"http://localhost:8888/rol");
 			}	
 			else{

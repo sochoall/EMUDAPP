@@ -1,4 +1,7 @@
 <?php include 'header.php'; ?>
+<script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+<script src="leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine.js"></script>
+<script src="leaflet-routing-machine-3.2.12/src/Control.Geocoder.js"></script>
 
  <?php
     session_start();
@@ -36,16 +39,14 @@
 
 
 <div class="container-fluid my-5">
-	<div class="row">
-		<div class="h3 text-left font-weight-bold ml-5 mb-5">Rutas y Recorridos</div>
-	</div>
-	<div class="row text-uppercase">
-		<div class="col-md-5 p-4  card">
+	<div class="row ">
+		<div class="col-md-5 m-0  card">
 			<div class="container-fluid m-0 p-0">
 				<div class="row">
 					<div class="col-md-12">
-						<form class="needs-validation text-left">	
-							<div class="form-group row">
+						<form class="needs-validation text-left">
+							<h3 class="card-header cyan white-text font-weight-bold text-center p-1" >Ruta</h3>
+							<div class="form-group row mt-1">
 								<label class="col-md-3 col-form-label">Nombre:<span style="color:red" >*</span></label>
 								<div class="col-md-8">
 									<input type="text" id="nombreRuta" name="nombreRuta" class="form-control text-uppercase">
@@ -55,7 +56,7 @@
 							<div class="form-group row">
 								<label class="col-md-3 col-form-label">Descripción:<span style="color:red" >*</span></label>
 								<div class="col-md-8">
-									<input type="text" id="descRuta" name="descRuta" class="form-control text-uppercase">
+									<input type="text" id="descripcionRuta" name="descripcionRuta" class="form-control text-uppercase">
 								</div>
 							</div>
 
@@ -76,7 +77,7 @@
 									<div class="col-md-3 align-self-center">
 										<input type='text' id= "idfun" class="form-control form-control-sm " />
 									</div>
-				<!-- BOTON MODAL.... en la cabecera importo el modal -->
+				
 									<div class="col-sm-0 align-self-center" id="buscar">
 											<a class="btn grey" href="#" role="button" data-toggle="modal" data-target="#centralModalSm"><i class="fas fa fa-search "></i></a>
 										</div>	
@@ -93,7 +94,8 @@
 						</form>
 
 						<form class="needs-validation text-left mt-1">	
-						<div class="form-group row">
+						<h3 class="card-header cyan white-text font-weight-bold text-center  p-1" >Recorrido</h3>
+						<div class="form-group row mt-1">
 								<label class="col-md-3 col-form-label">Hora inicio:<span style="color:red" >*</span></label>
 								<div class="col-md-3">
 									<input type='time' id= "inicioRuta" name="inicioRuta" class="form-control" required/>
@@ -119,32 +121,36 @@
 							<div class="form-group row">
 								<label class="col-md-3 col-form-label">Estado:<span style="color:red" >*</span></label>
 								<div class="col-md-4">
-									<SELECT id="estado"  class="browser-default custom-select"> 
-										<OPTION VALUE="0" selected >Activo</OPTION>
-										<OPTION VALUE="1">Inactivo</OPTION>
+									<SELECT id="estado2"  class="browser-default custom-select"> 
+										<OPTION VALUE="1" selected >ACTIVO</OPTION>
+										<OPTION VALUE="0">INACTIVO</OPTION>
 									</SELECT> 
 								</div>
 							</div>
 
 							
 						</form>
-					</div>
-				</div>
-			</div>
 
+					</div>
+					
+				</div>
+				<div class="row justify-content-end mt-3 mr-5">
+		<input value="Guardar" class="btn cyan text-white" onclick="IngMod(this)" type="submit" value="" id="metodo" name="metodo"/>
+	</div>
+			</div>
+			
 		</div>
 		<div class="col-md-7 p-3">
 			<div id="map" style="width: 100%; height: 500px;"></div>
+			<div class="grey-text text-center">*Para guardar la información debe primero seleccionar las paradas correspondientes a las rutas</div>
 		</div>
 	</div>
 
-	<div class="row justify-content-end mt-3 mr-5">
-		<input value="Guardar" class="btn cyan text-white" onclick="IngMod(this)" type="submit" value="" id="metodo" name="metodo"/>
-	</div>
+	
 		
 </div>
 
-	
+
 <script type="text/javascript">
 
 	var timeControl1 = document.getElementById('inicioRuta');
@@ -202,33 +208,54 @@
 		var ruta ={ 'id': idRuta, 'nombre': nombreRuta, 'descripcion': descRuta,'estado': estado,'cupoMaximo': cupoRuta,'color': colorRuta,'insId': idfun };
 		var recorrido ={'id': idRecorrido,'horaInicio': inicioRuta,'horaFin': finRuta,'estado': estado,'senId': listaSentido,'rutId': idRuta};
 
-		Ingresar(ruta,"http://localhost:8888/rutas");
-		Ingresar(recorrido,"http://localhost:8888/recorrido");
+	
+		IngresarDatos(ruta,"http://localhost:8888/rutas");
+		console.log(ruta);
+		IngresarDatos(recorrido,"http://localhost:8888/recorrido");
 
 		for (i=0; i<vec.length ; i++)
 		{
 			var div1 = vec[i].split("(");
 			var div2=div1[1].split(")");
-			var div3=div2[0].split(";");
+			var div3=div2[0].split(",");
 			var par="Parada " + i;
 
-			var parada ={'nombre': par,'orden': i,'latitud': div3[0],'longuitud': div3[1],'tiempoPromedio': 0,'estado':1,'recId':idRecorrido };
+			var parada ={'id':0,'nombre': par,'orden': i,'latitud': div3[0],'longuitud': div3[1],'tiempoPromedio': "00:00:00",'estado':1,'recId':idRecorrido };
+			// var parada ={'nombre': "holaaa",'orden': 5,'latitud': div3[0],'longuitud': div3[1],'tiempoPromedio': "00:00:00",'estado':1,'recId':1 };
+			console.log(parada);
+			setTimeout(IngresarDatos(parada,"http://localhost:8888/parada"),(i+1)*1000);
+		}
 
-			Ingresar(parada,"http://localhost:8888/parada"),1000
+		setTimeout("window.location.reload()",1000);  
+	}
+
+
+	
+	async function IngresarDatos(parametros,url) {	 
+		try{	
+			let response = await fetch(url, {
+					method: 'POST',
+					body:JSON.stringify(parametros),
+					headers:{'Content-Type': 'application/json'}
+				});           	
+			let data = await response.json();	
+			toastr.success('Guardado correctamente');        
+		}catch(e){
+			toastr.error('Error al Guardar la información');			
 		}
 	}
+
 	function IngMod(v) {	
 			var nombreRuta = document.getElementById('nombreRuta');
-			var descRuta = document.getElementById('descRuta');
+			var descRuta = document.getElementById('descripcionRuta');
 			var cupoRuta = document.getElementById('cupoRuta');
 			var colorRuta = document.getElementById('colorRuta');
 			var idfun = document.getElementById('idfun');
 			var inicioRuta = document.getElementById('inicioRuta');
 			var finRuta = document.getElementById('finRuta');
 			var listaSentido = document.getElementById('listaSentido').value;
-			var estado = document.getElementById('estado').value;
+			var estado = document.getElementById('estado2').value;
 			
-		
 		event.preventDefault();			
 
 
@@ -242,7 +269,7 @@
 				toastr.error('Debe llenar el campo');
 				document.getElementById("descRuta").style.borderColor="red";
 			}else{ 
-				document.getElementById("descRuta").style.borderColor='#ced4da';
+				document.getElementById("descripcionRuta").style.borderColor='#ced4da';
 				if(cupoRuta.value < 1){
 				toastr.error('Ingrese datos válidos');
 				document.getElementById("cupoRuta").style.borderColor="red";
@@ -268,7 +295,7 @@
 							let response2 = await fetch(`http://localhost:8888/contadores?opcion=2`);		
 							let data2 = await response2.json();
 							idRecorrido =data2.numero + 1; 
-							ingresarRutaRecorrido(nombreRuta.value,descRuta.value,cupoRuta.value,colorRuta.value,idfun.value,inicioRuta.value,finRuta.value,listaSentido,estado);
+							ingresarRutaRecorrido(nombreRuta.value,descripcionRuta.value,cupoRuta.value,colorRuta.value,idfun.value,inicioRuta.value,finRuta.value,listaSentido,estado);
 						})();
 						}
 						
@@ -369,15 +396,15 @@
 			});
 			
 			
-			function onLocationFound(e) 
-			{
-				var radius = e.accuracy / 2;
+			// function onLocationFound(e) 
+			// {
+			// 	var radius = e.accuracy / 2;
 
-				L.marker(e.latlng).addTo(map)
-					.bindPopup("You are within " + radius + " meters from this point").openPopup();
+			// 	L.marker(e.latlng).addTo(map)
+			// 		.bindPopup("You are within " + radius + " meters from this point").openPopup();
 
-				L.circle(e.latlng, radius).addTo(map);
-			}
+			// 	L.circle(e.latlng, radius).addTo(map);
+			// }
 
 			function onLocationError(e)
 			{

@@ -17,7 +17,7 @@ class Parada extends Serializable
  
   Future<List> obtenerDatos() async {
     final conexion = Conexion();
-    const String sql = "select * from public.te_parada where par_estado=0";
+    const String sql = "select * from public.te_parada where par_estado=1";
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 
@@ -37,12 +37,8 @@ class Parada extends Serializable
         reg.recId=int.parse(query[i][7].toString());
         datos.add(reg.asMap()); 
       }
+    }
       return datos;
-    }
-    else
-    {
-      return null;
-    }
     
   }
 
@@ -71,10 +67,11 @@ class Parada extends Serializable
     
   }
 
+
   Future<void> ingresar(Parada dato) async{
     final conexion = Conexion();
-    final String sql = "INSERT INTO public.te_parada(par_id,par_nombre,par_orden,par_latitud,par_longuitud,par_tiempo_promedio,par_estado,rec_id)"
-   " VALUES (${dato.id},'${dato.nombre}',${dato.orden},'${dato.latitud}', '${dato.longuitud}', '${dato.tiempoPromedio}',${dato.estado},${dato.recId})";
+    final String sql = "INSERT INTO public.te_parada(par_nombre,par_orden,par_latitud,par_longitud,par_tiempo_promedio,par_estado,rec_id)"
+   " VALUES ('${dato.nombre}',${dato.orden},'${dato.latitud}', '${dato.longuitud}', '${dato.tiempoPromedio}',${dato.estado},${dato.recId})";
     print(sql);
     await conexion.operaciones(sql);
   }

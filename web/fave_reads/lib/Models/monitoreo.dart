@@ -40,12 +40,9 @@ class Monitoreo extends Serializable
         reg.recId=int.parse(query[i][8].toString());
         datos.add(reg.asMap()); 
       }
-      return datos;
+    
     }
-    else
-    {
-      return null;
-    }
+    return datos;
     
   }
 
@@ -57,7 +54,7 @@ class Monitoreo extends Serializable
     if(query != null && query.isNotEmpty)
     { 
         final reg = Monitoreo();
-       reg.id=int.parse(query[0][0].toString());
+        reg.id=int.parse(query[0][0].toString());
         reg.fechaHora=query[0][1].toString();
         reg.completo=int.parse(query[0][2].toString());        
         reg.latitud=query[0][3].toString();

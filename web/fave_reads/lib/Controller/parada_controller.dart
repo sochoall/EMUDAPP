@@ -23,6 +23,7 @@ class ParadaController extends ResourceController{
   @Operation.post()
   Future<Response> crearParada(@Bind.body() Parada body )async
   {
+
      final servicio = Parada();
      await servicio.ingresar(body);
     return Response.ok('se ha ingresado');

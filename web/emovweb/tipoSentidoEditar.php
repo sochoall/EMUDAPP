@@ -107,7 +107,7 @@
 							Ingresar(parametros);
 						}	
 						if(v.value=="Modificar"){
-                            alert(parametros.estado);
+                            // alert(parametros.estado);
 							Modificar(parametros);
 						}
 					}	
@@ -133,7 +133,6 @@
 			})
 	}
 	function Modificar(parametros) {
-        alert
 		var id= '<?php echo $id;?>'						
 		var url='http://localhost:8888/sentido/'+id;
 		fetch(url, {

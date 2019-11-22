@@ -26,7 +26,6 @@ class OpcionRol extends Serializable {
       }
       
     } 
-  print(datos);
     return datos;
   }
 
@@ -60,7 +59,9 @@ class OpcionRol extends Serializable {
   Future<void> eliminar(int id,OpcionRol dato) async{
     final conexion = Conexion();
     final String sql = 
-    "Delete from public.te_opcion_rol where id_rol=${dato.id} and id_opc=${dato.idhijo} ";
+    "Delete from public.te_opcion_rol where rol_id=${dato.id} and opc_id=${dato.idhijo} ";
+
+    print(sql);
     await conexion.operaciones(sql);
   }
  

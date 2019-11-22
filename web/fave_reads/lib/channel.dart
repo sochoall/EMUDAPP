@@ -73,7 +73,7 @@ class FaveReadsChannel extends ApplicationChannel {
 
     ..route('/login/[:datos]').link(() => LoginController())
 
-    ..route('/opcionRol/[:datos]').link(() => OpcionRolController())
+    ..route('/opcionRol/[:id]').link(() => OpcionRolController())
     ..route('/hijo/[:id]').link(() =>OpcionHijoController())
     ..route('/contadores/[:id]').link(() =>ContadoresController())
     ..route('/vehiculo/[:id]').link(() => VehiculoController())

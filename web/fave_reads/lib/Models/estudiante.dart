@@ -83,8 +83,8 @@ class Estudiante extends Serializable
 
   Future<void> ingresar(Estudiante dato) async{
     final conexion = Conexion();
-    final String sql = "INSERT INTO public.te_estudiante(est_id,est_cedula,est_nombre,est_apellido,est_direccion,est_telefono,est_correo,est_estado,ins_id)"
-   " VALUES (${dato.id}, '${dato.cedula}','${dato.nombre}','${dato.apellido}','${dato.direccion}', '${dato.telefono}', '${dato.correo.replaceAll('@','*')}',${dato.estado},${dato.insId})";
+    final String sql = "INSERT INTO public.te_estudiante(est_cedula,est_nombre,est_apellido,est_direccion,est_telefono,est_correo,est_estado,ins_id)"
+   " VALUES ('${dato.cedula}','${dato.nombre}','${dato.apellido}','${dato.direccion}', '${dato.telefono}', '${dato.correo.replaceAll('@','*')}',${dato.estado},${dato.insId})";
     print(sql);
     await conexion.operaciones(sql);
   }

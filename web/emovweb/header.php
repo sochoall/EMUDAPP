@@ -7,9 +7,6 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>Material Design Bootstrap</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
-  <script src="leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine.js"></script>
-  <script src="leaflet-routing-machine-3.2.12/src/Control.Geocoder.js"></script>
   <link rel="stylesheet" href="leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine.css" /> 
   <link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet">
   <!-- Font Awesome -->
