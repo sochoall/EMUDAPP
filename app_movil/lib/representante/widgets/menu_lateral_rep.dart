@@ -1,6 +1,7 @@
 //Clase que permite crear el menu lateral
 //en cualquier ventana de la app segun se lo requiera
 
+import 'package:app_movil/transportista/tabs/objetos_perdidos_page.dart';
 import 'package:flutter/material.dart';
 import '../../provider.dart';
 
@@ -62,6 +63,16 @@ List<Widget> _listItems(List<dynamic> data, BuildContext context) {
         ));
     },
   );
+  opciones
+    ..add(ListTile(
+      title: Text("OBJETOS PERDIDOS"),
+      leading: Icon(Icons.view_headline),
+      onTap: () {
+         Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext contexto) => ObjetosP()));
+      },
+    ));
+    
   opciones..add(ListTile(
     title: Text("SALIR"),
     leading: Icon(Icons.exit_to_app),
