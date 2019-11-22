@@ -54,8 +54,6 @@ class HomeScreenState extends State<HomeScreen> {
         return Rutas(this.idRecorrido);
       case 1:
         return listado();
-      case 2:
-        return ObjetosP();
         break;
       default:
         return Rutas(this.idRecorrido);

@@ -44,48 +44,13 @@ class HomeScreenState extends State<HomeScreen> {
   HomeScreenState(this.nombreRuta,this.idRecorrido,this.nombre,this.idUsuario); 
  
 
-  int index = 0;
-
-  Widget callPage(int index) {
-    switch (index) {
-      case 0:
-        return Rutas(this.idRecorrido);
-      case 1:
-        return ObjetosP();
-        break;
-      default:
-        return ObjetosP();
-    }
-  }
+  
 
   @override
   Widget build(BuildContext contexto) {
     return new Scaffold(
-        body: callPage(index),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: index,
-          onTap: (value) {
-            index = value;
-            setState(() {});
-          },
-          items: [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.add_location, color: Colors.black),
-                title: Text("Rutas",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        wordSpacing: 5.0)),
-                backgroundColor: Colors.black),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.assignment, color: Colors.black),
-                title: Text("O.Perdidos",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        wordSpacing: 5.0))),
-          ],
-        ),
+        body: Rutas(this.idRecorrido),
+        
         appBar: AppBar(
           //title: Text(aux1),
           actions: <Widget>[
