@@ -17,6 +17,7 @@ import 'Controller/funcionario_controller.dart';
 import 'Controller/institucion_controller.dart';
 import 'Controller/objetos_perdidos_controller.dart';
 import 'Controller/opcion_hijos_controller.dart';
+import 'Controller/opcion_rol_controller.dart';
 import 'Controller/representante_controller.dart';
 import 'Controller/rol_controller.dart';
 import 'Controller/ruta_controller.dart';
@@ -72,6 +73,7 @@ class FaveReadsChannel extends ApplicationChannel {
 
     ..route('/login/[:datos]').link(() => LoginController())
 
+    ..route('/opcionRol/[:datos]').link(() => OpcionRolController())
     ..route('/hijo/[:id]').link(() =>OpcionHijoController())
     ..route('/contadores/[:id]').link(() =>ContadoresController())
     ..route('/vehiculo/[:id]').link(() => VehiculoController())

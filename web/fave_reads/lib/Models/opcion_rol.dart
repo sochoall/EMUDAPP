@@ -49,6 +49,20 @@ class OpcionRol extends Serializable {
 
     return datos;
   }
+
+
+  Future<void> ingresar(OpcionRol dato) async{
+    final conexion = Conexion();
+    final String sql = "Insert into te_opcion_rol values(${dato.id},${dato.idhijo})";
+    await conexion.operaciones(sql);
+  }
+
+  Future<void> eliminar(int id,OpcionRol dato) async{
+    final conexion = Conexion();
+    final String sql = 
+    "Delete from public.te_opcion_rol where id_rol=${dato.id} and id_opc=${dato.idhijo} ";
+    await conexion.operaciones(sql);
+  }
  
   @override
   Map<String, dynamic> asMap() =>
@@ -57,8 +71,8 @@ class OpcionRol extends Serializable {
   @override
   void readFromMap(Map<String, dynamic> object) {
     id = object['id'].toString();
-    nombre = object['idpadre'].toString();
-    idhijo = object['estado'].toString();
-    nombrehijo = object['url'].toString();
+    nombre = object['nombre'].toString();
+    idhijo = object['idhijo'].toString();
+    nombrehijo = object['nombrehijo'].toString();
   }
 }

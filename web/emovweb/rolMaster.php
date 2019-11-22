@@ -35,7 +35,8 @@
 
     <script>
    let datosHijos=0;
- 
+	
+   var idRol=0;
 	function obtenerValores(e) {
 		var elementosTD=e.srcElement.parentElement.getElementsByTagName("td");
 		 let valores=`<td></td>
@@ -44,8 +45,8 @@
 					</div></td>
 					<td></td>`;
         document.getElementById('opciones').innerHTML=valores;
-
-        cargarOpciones(elementosTD[0].innerHTML);
+		idRol=elementosTD[0].innerHTML;
+        cargarOpciones(idRol);
         function cargarOpciones(id) 
 		{
 			var result=``;
@@ -93,7 +94,7 @@
 
 
 			let url2= `http://localhost:8888/opcion?id=`+id+`&opcion=2`;
-			alert(url2);
+			// alert(url2); ==================================================================AQUI SE IMPRIME LA URL PARA CARGAR OOPCIONES
 
 			const api2 = new XMLHttpRequest();
 			api2.open('GET',url2,true);
@@ -149,7 +150,7 @@
 				<th></th>
 				</tr>
 			</thead>
-			<tbody class='dt-select' id="listaroles">
+			<tbody class="dt-select" id="listaroles">
 				
 			</tbody>
 		</table>
@@ -284,6 +285,7 @@
 		idMod =$(this).parents('tr').find('td')[0].innerHTML;
 		document.getElementById('nombreModal').value = nom;
 
+
 		if(cod == "ACTIVO")
 			$('[id="estadoModal"]').val('1');
 		else
@@ -294,7 +296,6 @@
 	});
 
 	$('#opciones').on('click', '.actionmodal2', function(e) {
-		
 		toastr.warning("<br /><button type='button' value='yes'>Yes</button><button type='button'  value='no' >No</button>",'Está seguro de eliminar?',
 		{
 			allowHtml: true,
@@ -349,41 +350,22 @@
 
 	function AsignarOpcion(v)
 	{
-		var padre = document.getElementById('combomodal1');
+		var padre = idRol;
 		var hijo = document.getElementById('combomodal2');
 		
 		event.preventDefault();			
 
 		if(padre.value == 0){
-				toastr.error('Debe eligir una opcion');
+				toastr.error('Debe eligir una opción');
 				padre.style.borderColor="red";
 		}
 		else
 		{
+			var parametros={"id": padre, "nombre": "", "idhijo":hijo.value, "nombrehijo": ""};	
+
+			var url='http://localhost:8888/opcionRol';
+			Ingresar(parametros,url);
 			
-			var parametros={"nombre": "Mantenimientos", "id": 1,"idpadre":padre.value,"estado": 0, "url": "null", "hijo": ""};		
-		
-			if(v.value=="Agregar"){		
-				alert('hola');		
-				var url='http://localhost:8888/hijo/'+hijo.value;
-				fetch(url, {
-					method: 'PUT',
-					body:JSON.stringify(parametros),
-					headers:{
-						'Content-Type': 'application/json'
-					}				
-				}).then(res => res.json())
-				.catch(error => {
-					toastr.error('Error al Guardar');
-				})
-				.then(respuesta => {
-					toastr.success('Guardado correctamente');	
-					$('#modalOpciones').modal('hide');		
-				});
-			}	
-			else{
-				//Aqui va la opcion de eliminado
-			}
 		}	
 	}
 
