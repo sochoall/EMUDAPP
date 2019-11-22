@@ -52,6 +52,9 @@ class _objetosPerdidosPageState extends State<objetosPerdidosPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar( 
+        title: Text("Objetos Perdidos."),
+        ),
       key: scaffoldKey,
       body: _crearListado(context),
       floatingActionButton: _crearBoton(context),
