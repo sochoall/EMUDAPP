@@ -1,15 +1,17 @@
 import 'dart:async';
-import 'dart:convert';
-import 'package:flutter/material.dart';
 import '../../provider.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
 import 'package:app_movil/transportista/tabs/mapa.dart'; 
 
-class Post {
+class Post 
+{
   String nombre;
+  String tEstimado;
+
   Post(
     {
       this.nombre,
+      this.tEstimado
     }
   );
 
@@ -17,9 +19,11 @@ class Post {
   {
     return Post(
       nombre: json['nombre'],
+      tEstimado: json['tiempoPromedio']
     );
   }
 }
+
 class Rutas extends StatelessWidget 
 {
   @override
@@ -51,7 +55,7 @@ class RutasEstado extends State<RutaParada>
   bool flag = false;
   Future<Post> post;
   RutasEstado(this.idRecorrido);
-  static List<String> names = [];
+  static List<String> names = [], time = [];
 
   @override
   void initState() 
@@ -76,7 +80,7 @@ class RutasEstado extends State<RutaParada>
           {
             if(snapshot.hasData)
             {
-              flag == false && names.isEmpty ? snapshot.data.map((post) => buildListNames(post.nombre)).toList() : flag;
+              flag == false && names.isEmpty ? snapshot.data.map((post) => buildLists(post.nombre, post.tEstimado)).toList() : flag;
               flag = true;
             }
             else if (snapshot.hasError)
@@ -118,15 +122,14 @@ class RutasEstado extends State<RutaParada>
                     return index/names.length == 0
                     ?
                     Container(
-                      color: Colors.grey.withOpacity(.5),
+                      color: Colors.lightBlue,
                       height: 50,
                       child: Center(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Text("#"),
-                            Text("Parada"),
-                            Text("ETA")
+                            Text("Parada", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
+                            Text("Tiempo Estimado", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black))
                           ],
                         )
                       ),
@@ -135,9 +138,17 @@ class RutasEstado extends State<RutaParada>
                     :
                     Container(
                       height: 50,
+                      color: index-1 == 0 ? Colors.grey.withOpacity(0.2) : null,
                       child: Center(
-                        child: names.isEmpty ? CircularProgressIndicator() : Text(names[index-1]),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: names.isEmpty ? <Widget>[CircularProgressIndicator()] : <Widget>[
+                            Text(names[index-1]),
+                            Text(time[index-1]),
+                          ],
+                        ),
                       ),
+                      padding: EdgeInsets.all(10.0),
                     );
                   },
                   childCount: names.length+1
@@ -150,8 +161,9 @@ class RutasEstado extends State<RutaParada>
     );
   }
 
-  void buildListNames(String name)
+  void buildLists(String name, String tiempo)
   {
     names.add(name);
+    time.add(tiempo);
   }
 }
