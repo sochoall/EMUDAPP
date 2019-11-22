@@ -58,7 +58,7 @@
 
 
                     <div class="row justify-content-center text-white mt-4 mb-2">
-                        <input value="Modificar" class="btn cyan" onclick="IngMod(this)" type="submit" value="" id="metodo" name="metodo"/>		
+                        <input value="Modificar" class="btn cyan" onclick="IngMod(this);" type="submit" value="" id="metodo" name="metodo"/>		
                         <input type="button" value="Cancelar" class="btn cyan" onclick="location.href = 'usuario.php';"/>
                     </div>
                         
@@ -101,37 +101,22 @@ function IngMod(v)
     
     event.preventDefault();			
 
-    if(valCedula(cedula.value)==false){
+    if(validarRUC(cedula.value)==false){
+        alert("holaaaa");
             toastr.error('Cédula con caracteres incorrectos');
             cedula.style.borderColor="red";
     }
     else{
-
-        var parametros={'id':0,'correo':cedula.value,'password':contra.value, 'estado':estado};		
-        Modificar(parametros);
+        
+        var id= '<?php echo $id;?>'	;
+        var parametros={'id':0,'correo':cedula.value,'password':contra.value, 'estado':estado};	
+        
+        var url='http://localhost:8888/usuario/'+id;
+        Modificar(parametros,url,"usuario.php");
            
     }	
 }
         
-
-function Modificar(parametros) {
-    var id= '<?php echo $id;?>'						
-    var url='http://localhost:8888/usuario/'+id
-    fetch(url, {
-        method: 'PUT',
-        body:JSON.stringify(parametros),
-        headers:{
-            'Content-Type': 'application/json'
-        }				
-    }).then(res => res.json())
-    .catch(error => {
-        toastr.error('Error al Guardar');
-    })
-    .then(respuesta => {
-        toastr.success('Guardado correctamente');	
-        setTimeout("location.href='usuario.php'",1000);		
-    });
-}
 
     
 </script>

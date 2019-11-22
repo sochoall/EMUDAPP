@@ -120,8 +120,8 @@ function obtenerValores(e) {
             <label class="align-self-center">Estado:</label>
             <select id="comboactivo" name="comboactivo" class="browser-default custom-select">
                 <option value="2" selected>TODOS</option>
-                <option value="1">ACTIVOS</option>
-                <option value="0">INACTIVOS</option>
+                <option value="1">ACTIVO</option>
+                <option value="0">INACTIVO</option>
             </select>
         </div>
 
@@ -175,7 +175,7 @@ function obtenerValores(e) {
                                         <th scope='col'>ESTADO</th>
                                     </tr>
                                 </thead>
-                                <tbody id="opciones">
+                                <tbody id="opciones" class='dt-select'>
                                 </tbody>
                             </table>
                         </div>
@@ -267,11 +267,13 @@ function obtenerValores(e) {
                     for(let i=0;i<elementos.length;i++)
                     {
                         elementos[i].addEventListener('click',obtenerValores);
-                    }                   
+                    }  
+                           
                 }
 				else{
 					lista.innerHTML =`<div>No se encuentras coincidencias.</div>`				
-				}
+                }
+                   
 					return produ;				
 				})		
 				.catch(error => { console.log("error",error); return error; })					

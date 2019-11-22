@@ -17,9 +17,10 @@
 
 			<div class="col-sm-2 align-self-center">
 				<SELECT id="estado"  class="browser-default custom-select"> 	
-					  <option value="1">Activo</option>
-					  <option value="0">Inactivo</option>
-					  <option value="">Todos</option>
+					  
+					<option value="">TODOS</option>
+					<option value="0">ACTIVO</option>
+					<option value="1">INACTIVO</option>
 					  
 				</SELECT> 
 			</div>
