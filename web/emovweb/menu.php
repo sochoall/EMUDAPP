@@ -9,6 +9,7 @@
 	 echo " <script>
 				 window.onload = function() 
 				 {
+					 
 					 document.getElementById('rol').innerHTML ='ROL: $rol';
 					 document.getElementById('btncerrar').style.display = 'block';
 					 

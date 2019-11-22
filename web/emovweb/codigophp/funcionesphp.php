@@ -183,6 +183,7 @@
             }
             $lista.='</ul> </div>
             </nav>';
+
         }
         else
         {
@@ -214,7 +215,7 @@
                 }
 
                 $lista.="
-                <td><a href='#' class='text-dark fas fa-edit actionmodal' >Editar</a></td>
+                <td><a href='#' class='text-dark fas fa-edit activarModal'>Editar</a></td>
                 </tr>";
                 
 
