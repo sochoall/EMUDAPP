@@ -1,28 +1,9 @@
-<?php include 'header.php'; ?>
-
-<?php
-   session_start();
-   if (isset($_SESSION['id']) && isset($_SESSION['rol'])) {
-       $id = $_SESSION['id'];
-       $rol = $_SESSION['rol'];
-       $menu=$_SESSION['menu'];
-       echo " <script>
-                   
-                   window.onload = function() 
-                   {
-                     
-                       document.getElementById('rol').innerHTML ='ROL: $rol';
-                       document.getElementById('btncerrar').style.display = 'block';
-                   };
-                  
-                      
-               </script>
-       ";
-   } else {
-       header('Location: ./');
-   }   
-
+<?php include 'header.php'; 
+	 include 'codigophp/sesion.php';
+	 $menu=Sesiones("EMOV");
 ?>
+
+
 
 <div class="container text-center mt-2 text-uppercase">
    <div class="row">

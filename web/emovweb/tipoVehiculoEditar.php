@@ -16,7 +16,7 @@
                             <div class="row">
                                 <label class="col-md-3 col-form-label">Nombre:</label>
                                 <div class="col-md-9">
-                                    <input type='text' id= "nombre" class="form-control text-upperCase form-control-sm"  maxlength="50"/>
+                                    <input type='text' id= "nombre" class="form-control text-uppercase form-control-sm"  maxlength="50"/>
                                 </div>
                             </div>
                         
@@ -24,8 +24,8 @@
                                 <label class="col-md-3 col-form-label">Estado:</label>
                                 <div class="col-md-9">
                                     <SELECT id="estado"  class="browser-default custom-select"> 
-                                        <OPTION VALUE="1" selected >Activo</OPTION>
-                                        <OPTION VALUE="0">Inactivo</OPTION>
+                                        <OPTION VALUE="1" selected >ACTIVO</OPTION>
+                                        <OPTION VALUE="0">INACTIVO</OPTION>
                                     </SELECT> 
                                 </div>
                             </div>
@@ -49,13 +49,13 @@
 		if($metodo=='Ingresar'){			
 			 echo "<script language='javascript'> 
 				document.getElementById('metodo').value ='$metodo';
-				document.getElementById('titulo').innerHTML = '$metodo tipo vehiculo';
+				document.getElementById('titulo').innerHTML = 'tipo de vehículo';
 			 </script>";
 		}else{			
 			$id = $_GET['id'];			
 			echo "<script language='javascript'> 
 			document.getElementById('metodo').value ='$metodo';
-			document.getElementById('titulo').innerHTML = '$metodo tipo vehiculo';
+			document.getElementById('titulo').innerHTML = 'tipo de vehículo';
 			fetch('http://localhost:8888/tipoVehiculo/$id')
 			  .then(response => response.json())
 			  .then(data => {		  	
@@ -80,58 +80,20 @@
 				toastr.error('Nombre con caracteres incorrecto');
 				nombre.style.borderColor="red";
 		}else{
-			
+			var parametros={'id':0,'nombre':nombre.value.toUpperCase(),'estado':estado.value};		
+			var url="http://localhost:8888/tipoVehiculo";
 
-						var parametros={'id':0,'nombre':nombre.value.toUpperCase(),'estado':estado.value};		
-	
-						if(v.value=="Ingresar"){	
-							Ingresar(parametros);
-						}	
-						if(v.value=="Modificar"){
-							Modificar(parametros);
-						}
-					}	
-				}
-			
-	
-	
-		
-	function Ingresar(parametros) {	
-		fetch('http://localhost:8888/tipoVehiculo', {
-				method: 'POST',
-				body:JSON.stringify(parametros),
-				headers:{
-					'Content-Type': 'application/json'
-				}		
-			}).then(res => res.json())
-			.catch(error => {				
-				toastr.error('Error al Guardar');
-			})
-			.then(respuesta => {
-				toastr.success('Guardado correctamente');	
-				setTimeout("location.href='tipoVehiculo.php?metodo=Ingresar'",1000);
-			})
+			if(v.value=="Ingresar"){	
+				Ingresar(parametros,url);
+			}	
+			if(v.value=="Modificar"){
+				let para = new URLSearchParams(location.search);				
+				var id=para.get('id');
+				let redirigir="tipoVehiculo.php";
+				Modificar(parametros,`${url}/${id}`,redirigir);
+			}
+		}	
 	}
-	function Modificar(parametros) {
-		var id= '<?php echo $id;?>'						
-		var url='http://localhost:8888/tipoVehiculo/'+id
-		fetch(url, {
-			method: 'PUT',
-			body:JSON.stringify(parametros),
-			headers:{
-				'Content-Type': 'application/json'
-			}				
-		}).then(res => res.json())
-		.catch(error => {
-			toastr.error('Error al Guardar');
-		})
-		.then(respuesta => {
-			toastr.success('Guardado correctamente');	
-			setTimeout("location.href='tipoVehiculo.php'",1000);		
-		});
-	}
-
-		
 	</script>
 
 <?php include 'footer.php'; ?>
