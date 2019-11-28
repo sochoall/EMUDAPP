@@ -145,5 +145,10 @@
 			// ENVIO EL RESULTADO A LOS INPUT DE LA VENTANA PRINCIPAL
 			document.getElementById('chofer').value = (`${nom}`);
 			document.getElementById('idfun').value = cod;
+
+			if(institutoMonitoreo == true)
+			{
+				cargarRutas(cod);
+			}
 		});		 
 	</script>

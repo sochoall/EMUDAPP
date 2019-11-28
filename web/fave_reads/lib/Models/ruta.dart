@@ -27,9 +27,25 @@ class Ruta extends Serializable
      return datos;
   }
  
-  Future<List> obtenerDatos() async {
+  Future<List> obtenerDatos(int opcion, int id) async {
     final conexion = Conexion();
-    const String sql = "select * from public.te_ruta where rut_estado=1";
+    String sql;
+
+    switch(opcion)
+    {
+      case 1:
+        sql = "select * from public.te_ruta where rut_estado=1";
+        break;
+      
+      case 2:
+        sql="select * from public.te_ruta where rut_estado=1 and ins_id=$id";
+        break;
+
+      default: break;
+    }
+
+  print(sql);
+
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 
@@ -54,6 +70,8 @@ class Ruta extends Serializable
      return datos;
     
   }
+
+
 
   Future<Ruta> obtenerDatoId(int id) async {
     final conexion = Conexion();

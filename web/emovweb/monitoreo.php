@@ -1,4 +1,4 @@
-<?php include 'header.php'; ?>
+<?php include 'header.php';?>
 <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
 <script src="leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine.js"></script>
 <script src="leaflet-routing-machine-3.2.12/src/Control.Geocoder.js"></script>
@@ -25,6 +25,8 @@
     }   
 
 ?>
+<script>var institutoMonitoreo=true;</script>
+<?php  include 'funcionario_modal_selec_institucion.php';?>
 
 
 <div class="container-fluid grey pr-0 pl-0">
@@ -37,8 +39,79 @@
 <div class="container-fluid my-5">
 	<div class="row ml-2">
 		<div class="col-md-4 m-0  card">
-      <input type="button" value="Obtener" class="btn cyan " onclick="cargarUbicaciones();"  />
+      	
+			<div class="h3 text-left font-weight-bold">Filtros</div>
+
+			<div class=" row">
+					<label class="col-md-3  col-form-label align-self-center">Instituci&oacute;n:<span style="color:red" >*</span></label>
+					<div class="col-md-3 align-self-center">
+						<input type='text' id= "idfun" class="form-control form-control-sm " />
+					</div>
+					<!-- BOTON MODAL.... en la cabecera importo el modal -->
+					<div class="col-sm-0 align-self-center" id="buscar">
+							<a class="btn grey" href="#" role="button" data-toggle="modal" data-target="#centralModalSm"><i class="fas fa fa-search "></i></a>
+					</div>
+					
+			</div>
+			<div class="row ">
+				<label class="col-md-3 col-form-label  align-self-center">Nombre:</label>
+				<div class="col-md-8 align-self-center">
+					<input type="text" id= "chofer" class="form-control text-uppercase form-control-sm" readonly disabled />
+				</div>
+			</div>
 			
+			<div class="row mt-3">
+				<div class="h4 text-left font-weight-bold col-md-6">Rutas</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+				<div class='table-responsive-sm my-custom-scrollbar'>
+                        <table class='table-sm table table-hover text-center' cellspacing='0' width='100%'>
+                            <thead class='cyan white-text'>
+                            <tr>
+								<th scope='col'>ID</th>
+								<th scope='col'>RUTA</th>
+							</tr>
+                        </thead>
+                        <tbody  id="listaRutas" class='dt-select' >
+                            <!-- AQUI SE CARGA LA TABLA CON LOS REGISTROS -->
+                        </tbody>
+                        </table>
+                    </div>
+
+				</div>
+			</div>
+
+			<div class="row mt-3">
+				<div class="h4 text-left font-weight-bold col-md-6">Vehículos</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+
+					<div class='table-responsive-md my-custom-scrollbar'>
+						<table id='dt-select' class='table-sm table table-hover text-center  cellspacing='0' width='100%'>
+							<thead class='cyan white-text'>
+								<tr>
+								<th scope='col'>ID</th>
+								<th scope='col'>RUTA</th>
+								<th>
+									<!-- Default unchecked -->
+									<div class="custom-control custom-checkbox">
+									<input type="checkbox" class="custom-control-input" id="tableDefaultCheck1">
+									<label class="custom-control-label" for="tableDefaultCheck1">TODOS</label>
+									</div>
+								</th>
+								</tr>
+							</thead>
+							<tbody id="listaVehículos">
+							</tbody>
+						</table>
+					</div>
+
+				</div>
+			</div>
+
+			<input type="button" value="Obtener" class="btn cyan " onclick="cargarUbicaciones();"  />
 		</div>
 
 
@@ -50,23 +123,52 @@
 
 
 <script>
-    var result="";
-     function cargarUbicaciones()
-        {
-            var result="";
-            fetch("http://localhost:8888/monitoreo")
-            .then((res) => {return res.json(); })
-            .then(produ => {
-                
-                for(let prod of produ){						
-                    result += ` ${prod.latitud} , ${prod.longuitud};`;								
-                                        
-                }	
-                    return produ;				
-                })		
-                .catch(error => { console.log("error",error); return error; });
 
-        }
+    var result="";
+
+	function cargarRutas(id)
+	{
+		var url=`http://localhost:8888/rutas?opcion=2&id=`+id;
+		fetch(url)
+		.then((res) => {return res.json(); })
+		.then(produ => {
+			
+			for(let prod of produ){						
+				result += `<tr> 
+							<td class="boton">${prod.id}</td>
+							<td class="boton">${prod.nombre}</td> 
+							</tr>`;								
+									
+			}
+			$(".dt-select tr").click(function(){
+				$(this).addClass('filaSeleccionada').siblings().removeClass('filaSeleccionada');
+			});
+
+			document.getElementById('listaRutas').innerHTML =result;
+			return produ;				
+			})		
+			.catch(error => { console.log("error",error); return error; });
+	}
+
+    function cargarUbicaciones(id)
+	{
+		var url=`http://localhost:8888/monitoreo?id=`+id;
+		fetch(url)
+		.then((res) => {return res.json(); })
+		.then(produ => {
+			
+			for(let prod of produ){						
+				result += ` ${prod.latitud} , ${prod.longuitud};`;								
+									
+			}	
+				alert(result);
+				return produ;				
+			})		
+			.catch(error => { console.log("error",error); return error; });
+
+	}
+
+
 </script>
 
 
@@ -186,4 +288,5 @@
 				}
 			});
 		</script>
+
 <?php include 'footer.php'; ?>

@@ -188,7 +188,8 @@
 											document.getElementById("email").style.borderColor="#ced4da";
 											
 											
-											var parametros={"id":5,"cedula":ced.value,"nombre":nom.value.toUpperCase(),"apellido":ape.value.toUpperCase(),"direccion":dir.value,"telefono":telf.value,"celular":cel.value,"correo":correo.value,"estado":estado.value,"institutoId":inst.value};		
+											var parametros={"id":5,"cedula":ced.value,"nombre":nom.value.toUpperCase(),"apellido":ape.value.toUpperCase(),"direccion":dir.value,
+											"telefono":telf.value,"celular":cel.value,"correo":correo.value,"estado":estado.value,"institutoId":inst.value};		
 									
 													if(v.value=="Agregar"){	
 														Ingresar(parametros);

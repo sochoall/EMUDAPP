@@ -52,7 +52,7 @@
             <div class="row">
                 <div class="col-md-12">                    
                     <div class='table-responsive-sm my-custom-scrollbar'>
-                        <table id='dt-select' class='table-sm table table-hover text-center' cellspacing='0' width='100%'>
+                        <table class='table-sm table table-hover text-center' cellspacing='0' width='100%'>
                             <thead class='cyan white-text'>
                             <tr>
 								<th scope='col'>ID</th>
@@ -159,7 +159,7 @@
 					}
 					
 					$(".dt-select tr ").click(function(){
-						$(this).addClass('filaSeleccionada').siblings().removeClass('filaSeleccionada');   
+						$(this).addClass('filaSeleccionada').siblings().removeClass('filaSeleccionada'); 
 					});
 					return produ;				
 				})		
