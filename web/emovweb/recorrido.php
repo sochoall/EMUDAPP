@@ -36,7 +36,7 @@
 </div>
 
 
-<div class="container-fluid my-5">
+<div class="container-fluid m-1">
 	<div class="row ">
 		<div class="col-md-5 m-0  card">
 			<div class="container-fluid m-0 p-0">
@@ -54,7 +54,7 @@
 							<div class="form-group row">
 								<label class="col-md-3 col-form-label">Descripción:<span style="color:red" >*</span></label>
 								<div class="col-md-8">
-									<input type="text" id="descripcionRuta" name="descripcionRuta" class="form-control text-uppercase">
+									<input type="text" id="dRuta" name="dRuta" class="form-control text-uppercase">
 								</div>
 							</div>
 
@@ -129,6 +129,21 @@
 							
 						</form>
 
+						<div class='table-responsive-md my-custom-scrollbar'>
+								<table id='dt-select' class='table-sm table table-hover text-center  cellspacing='0' width='100%'>
+									<thead class='cyan white-text'>
+										<tr>
+										<th scope='col'>NRO</th>
+										<th scope='col'>NOMBRE</th>
+										<th scope='col'>POSICIÓN</th>
+										<!-- <th><input type="checkbox" class="checkAll mr-2" name="checkAll"/>TODOS</th> -->
+										</tr>
+									</thead>
+									<tbody id="listaParadas">
+									</tbody>
+								</table>
+						</div>
+
 					</div>
 					
 				</div>
@@ -148,6 +163,33 @@
 		
 </div>
 
+<div class="modal fade" id="nombreParada" tabindex="-1" role="dialog" aria-labelledby="tittle"
+  aria-hidden="true">
+
+  <!-- Change class .modal-sm to change the size of the modal -->
+  <div class="modal-dialog modal-md" role="document">
+
+    <div class="modal-content">
+        <div class="modal-header text-center m-0 p-0 cyan">
+            <h4 class="modal-title w-100 text-white text-center" id="title">Parada</h4>
+            </button>
+        </div>
+        <div class="modal-body" id="cuerpoModal">
+			<div class="row">
+				<label class="col-sm-4 col-form-label">Nombre:</label>
+				<div class="col-sm-8">
+					<input type="text" id= "nomParada" class="form-control text-uppercase form-control-sm"/>
+				</div>
+			</div>
+            
+            <div class="row justify-content-center mt-3">
+                <div class=""><input type="button" value="Guardar" class="btn cyan" onclick="agregarNombreVector();"  /></div>
+                <div class=""><input type="button" value="Cancelar" class="btn cyan" data-dismiss="modal"/><br/></div>
+            </div> 
+      </div>
+    </div>
+  </div>
+</div>
 
 <script type="text/javascript">
 
@@ -200,9 +242,31 @@
 	var idRuta = -1;
 	var idRecorrido = -1;
 	var vec=[];
+	var vecnombres=[];
 
+	function agregarNombreVector()
+	{
+		vecnombres.push(document.getElementById('nomParada').value);
+		$("#nombreParada").modal('hide');
+		actualizarListaParadas();
+	}
 
-	function ingresarRutaRecorrido(nombreRuta,descRuta,cupoRuta,colorRuta,idfun,inicioRuta,finRuta,listaSentido,estado){
+	function actualizarListaParadas()
+	{	
+		document.getElementById("listaParadas").innerHTML="";
+		var result="";
+		for(var i=0; i<vec.length;i++)
+		{
+			result+=`<tr>
+						<td>${i+1}</td>
+						<td>${vecnombres[i]}</td>
+						<td>${vec[i]}</td>
+					</tr>`;
+		}
+		document.getElementById("listaParadas").innerHTML=result;
+	}
+
+	function ingresarRutaRecorrido(nombreRuta,descRuta,cupoRuta,colorRuta,idfun,inicioRuta,finRuta,listaSentido,estado){ 
 		var ruta ={ 'id': idRuta, 'nombre': nombreRuta, 'descripcion': descRuta,'estado': estado,'cupoMaximo': cupoRuta,'color': colorRuta,'insId': idfun };
 		var recorrido ={'id': idRecorrido,'horaInicio': inicioRuta,'horaFin': finRuta,'estado': estado,'senId': listaSentido,'rutId': idRuta};
 
@@ -218,9 +282,7 @@
 			var div3=div2[0].split(",");
 			var par="Parada " + i;
 
-			var parada ={'id':0,'nombre': par,'orden': i,'latitud': div3[0],'longuitud': div3[1],'tiempoPromedio': "00:00:00",'estado':1,'recId':idRecorrido };
-			// var parada ={'nombre': "holaaa",'orden': 5,'latitud': div3[0],'longuitud': div3[1],'tiempoPromedio': "00:00:00",'estado':1,'recId':1 };
-			console.log(parada);
+			var parada ={'id':0,'nombre': vecnombres[i],'orden': i,'latitud': div3[0],'longuitud': div3[1],'tiempoPromedio': "00:00:00",'estado':1,'recId':idRecorrido };
 			setTimeout(IngresarDatos(parada,"http://localhost:8888/parada"),(i+1)*1000);
 		}
 
@@ -245,7 +307,7 @@
 
 	function IngMod(v) {	
 			var nombreRuta = document.getElementById('nombreRuta');
-			var descRuta = document.getElementById('descripcionRuta');
+			var descRuta = document.getElementById('dRuta');
 			var cupoRuta = document.getElementById('cupoRuta');
 			var colorRuta = document.getElementById('colorRuta');
 			var idfun = document.getElementById('idfun');
@@ -255,19 +317,16 @@
 			var estado = document.getElementById('estado2').value;
 			
 		event.preventDefault();			
-
-
-
 		if(valSololetras(nombreRuta.value)==false){
 			toastr.error('Ingrese solo letras');
 			document.getElementById("nombreRuta").style.borderColor="red";
 		}else{
 			document.getElementById("nombreRuta").style.borderColor='#ced4da';
-			if(descRuta.value.is_null){
+			if(descRuta.value == ""){
 				toastr.error('Debe llenar el campo');
-				document.getElementById("descRuta").style.borderColor="red";
+				document.getElementById("dRuta").style.borderColor="red";
 			}else{ 
-				document.getElementById("descripcionRuta").style.borderColor='#ced4da';
+				document.getElementById("dRuta").style.borderColor='#ced4da';
 				if(cupoRuta.value < 1){
 				toastr.error('Ingrese datos válidos');
 				document.getElementById("cupoRuta").style.borderColor="red";
@@ -293,7 +352,7 @@
 							let response2 = await fetch(`http://localhost:8888/contadores?opcion=2`);		
 							let data2 = await response2.json();
 							idRecorrido =data2.numero + 1; 
-							ingresarRutaRecorrido(nombreRuta.value,descripcionRuta.value,cupoRuta.value,colorRuta.value,idfun.value,inicioRuta.value,finRuta.value,listaSentido,estado);
+							ingresarRutaRecorrido(nombreRuta.value,document.getElementById('dRuta').value,cupoRuta.value,colorRuta.value,idfun.value,inicioRuta.value,finRuta.value,listaSentido,estado);
 						})();
 						}
 						
@@ -354,35 +413,48 @@
 					startBtn = createButton('Comenzar ruta aqui', container),
 					interBtn = createButton('Realizar parada aqui', container),
 					destBtn = createButton('Finalizar ruta aqui', container),
-					delBtn = createButton('Eliminar ultima parada', container);
+					delBtn = createButton('Eliminar ultima parada', container)
+
+			
+
+		
 
 				L.popup()
 					.setContent(container)
 					.setLatLng(e.latlng)
 					.openOn(map);
-					
+
+
 				L.DomEvent.on(startBtn, 'click', function() 
 				{
+					document.getElementById('nomParada').value="";
 					control.spliceWaypoints(0, 1, e.latlng);
 					map.closePopup();
+					$('#nombreParada').modal('show');
+					
+
 					vec=[];
+					vecnombres=[];
 					vec.push(e.latlng.toString());
 				});
 				
 				L.DomEvent.on(interBtn, 'click', function() 
 				{
+					document.getElementById('nomParada').value="";
 					control.spliceWaypoints(cont, 0, e.latlng);
 					map.closePopup();
+					$('#nombreParada').modal('show');
 					cont++;
 					vec.push(e.latlng.toString());
 				});
 				
 				L.DomEvent.on(destBtn, 'click', function() 
 				{
+					document.getElementById('nomParada').value="";
 					control.spliceWaypoints(control.getWaypoints().length - 1, 1, e.latlng);
 					map.closePopup();
+					$('#nombreParada').modal('show');
 					vec.push(e.latlng.toString());
-					console.log(vec);
 				});
 				
 				L.DomEvent.on(delBtn, 'click', function() 
@@ -390,6 +462,8 @@
 					control.spliceWaypoints(control.getWaypoints().length - 1, 1);
 					map.closePopup();
 					vec.pop();
+					vecnombres.pop();
+					actualizarListaParadas();
 				});
 			});
 			

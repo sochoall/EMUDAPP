@@ -3,6 +3,7 @@
 <script src="leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine.js"></script>
 <script src="leaflet-routing-machine-3.2.12/src/Control.Geocoder.js"></script>
 
+
  <?php
     session_start();
     if (isset($_SESSION['id']) && isset($_SESSION['rol'])) {
@@ -71,6 +72,7 @@
                             <tr>
 								<th scope='col'>ID</th>
 								<th scope='col'>RUTA</th>
+								<th><input type="checkbox" class="checkAll mr-2" name="checkAll"/>TODOS</th>
 							</tr>
                         </thead>
                         <tbody  id="listaRutas" class='dt-select' >
@@ -94,13 +96,7 @@
 								<tr>
 								<th scope='col'>ID</th>
 								<th scope='col'>RUTA</th>
-								<th>
-									<!-- Default unchecked -->
-									<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" id="tableDefaultCheck1">
-									<label class="custom-control-label" for="tableDefaultCheck1">TODOS</label>
-									</div>
-								</th>
+								<!-- <th><input type="checkbox" class="checkAll mr-2" name="checkAll"/>TODOS</th> -->
 								</tr>
 							</thead>
 							<tbody id="listaVehículos">
@@ -111,7 +107,6 @@
 				</div>
 			</div>
 
-			<input type="button" value="Obtener" class="btn cyan " onclick="cargarUbicaciones();"  />
 		</div>
 
 
@@ -121,8 +116,219 @@
 	</div>
 </div>
 
-
 <script>
+
+var institutoMonitoreo=true;
+ 
+
+function cargarRutas(id)
+{
+	var result=`<td></td>
+			<td class=" text-center"><div class="spinner-border text-center" role="status">
+			<span class="sr-only">Loading...</span>
+			</div></td>`;
+	document.getElementById('listaRutas').innerHTML =result;
+	var url=`http://localhost:8888/rutas?opcion=2&id=`+id;
+	fetch(url)
+	.then((res) => {return res.json(); })
+	.then(produ => {
+		result=``;
+		if(produ.length > 0)
+		{
+			for(let prod of produ){						
+			result += `<tr> 
+						<td class="boton">${prod.id}</td>
+						<td class="boton">${prod.nombre}</td> 
+						<td><input type="checkbox" class="case" name="case[]" value="${prod.id}"/></td>
+						</tr>`;								
+								
+			}
+			
+		}
+		else{
+			result= `<tr> 
+						<td></td>
+						<td>No se encuentran coincidencias</td> 
+						</tr>`;	
+		}
+		document.getElementById('listaRutas').innerHTML =result;
+		
+		let elementos=document.getElementsByClassName('boton');
+
+		for(let i=0;i<elementos.length;i++)
+		{
+			elementos[i].addEventListener('click',obtenerValores);
+		} 
+		$(".dt-select tr ").click(function(){
+						$(this).addClass('filaSeleccionada').siblings().removeClass('filaSeleccionada'); 
+		});
+		
+		$('.checkAll').on('click', function () {
+			$(this).closest('table').find('tbody :checkbox')
+			.prop('checked', this.checked)
+			.closest('tr').toggleClass('selected', this.checked);
+		});
+
+		$('tbody :checkbox').on('click', function () {
+			$(this).closest('tr').toggleClass('selected', this.checked); 
+			$(this).closest('table').find('.checkAll').prop('checked', ($(this).closest('table').find('tbody :checkbox:checked').length == $(this).closest('table').find('tbody :checkbox').length)); //Tira / coloca a seleção no .checkAll
+		});
+
+		$("input.case").click(myfunc);
+		return produ;				
+		})		
+		.catch(error => { console.log("error",error); return error; });
+}
+
+function mostarRuta(e) {
+var elementosTD=e.srcElement.parentElement.getElementsByTagName("td");
+
+
+cargarVehiculos(elementosTD[0].innerHTML);
+
+		 
+function cargarVehiculos(id)
+{
+	var result=``;
+	let url= `http://localhost:8888/rutaVehiculo?id=${id}`;
+
+	fetch(url)
+	.then((res) => {return res.json(); })
+	.then(produ => {
+		
+		if(produ.length > 0)
+		{
+			for(let prod of produ){						
+			result += `<tr> 
+						<td class="boton">${prod.id}</td>
+						<td class="boton">${prod.placa}</td> 
+						</tr>`;								
+								
+			}
+			
+		}
+		else{
+			result= `<tr> 
+						<td></td>
+						<td>No se encuentran coincidencias</td> 
+						</tr>`;	
+		}
+		document.getElementById('listaVehículos').innerHTML =result;
+
+
+		return produ;				
+		})		
+		.catch(error => { console.log("error",error); return error; });
+}	
+
+
+}
+
+function obtenerValores(e) {
+var elementosTD=e.srcElement.parentElement.getElementsByTagName("td");
+let valores=`<td></td>
+			<td class=" text-center"><div class="spinner-border text-center" role="status">
+			<span class="sr-only">Loading...</span>
+			</div></td>
+			<td></td>`;
+document.getElementById('listaVehículos').innerHTML=valores;
+
+cargarVehiculos(elementosTD[0].innerHTML);
+
+		 
+function cargarVehiculos(id)
+{
+	var result=``;
+	let url= `http://localhost:8888/rutaVehiculo?id=${id}`;
+
+	fetch(url)
+	.then((res) => {return res.json(); })
+	.then(produ => {
+		
+		if(produ.length > 0)
+		{
+			for(let prod of produ){						
+			result += `<tr> 
+						<td class="boton">${prod.id}</td>
+						<td class="boton">${prod.placa}</td> 
+						</tr>`;								
+								
+			}
+			
+		}
+		else{
+			result= `<tr> 
+						<td></td>
+						<td>No se encuentran coincidencias</td> 
+						</tr>`;	
+		}
+		document.getElementById('listaVehículos').innerHTML =result;
+
+
+		return produ;				
+		})		
+		.catch(error => { console.log("error",error); return error; });
+}	
+
+
+}
+
+
+var posiciones;
+
+function cargarUbicaciones(values)
+{
+	var inst =document.getElementById('idInst').value;
+	var result="";
+	for(var i = 0 ; i<values.length;i+=2)
+	{
+		var url=`http://localhost:8888/monitoreo?institucion=${inst}&ruta=`+values[i];
+		fetch(url)
+		.then((res) => {return res.json(); })
+		.then(produ => {
+			if(produ.length>0)
+			{
+				for(let prod of produ)
+				{						
+					result += ` ${prod.latitud} , ${prod.longuitud},`;					
+				}	
+			}
+			else
+			{
+				result="";
+			}
+			
+
+			if(result != "")
+			{
+				posiciones=result;
+				dibujarPosicion();
+			}
+			return produ;				
+			})		
+			.catch(error => { console.log("error",error); return error; });
+	}
+	
+
+}
+
+
+function myfunc(ele) {
+
+var values = new Array();
+	  $.each($("input[name='case[]']:checked").closest("td").siblings("td"),
+			 function () {
+				  values.push($(this).text());
+				
+			 });
+			 
+setInterval(cargarUbicaciones(values),10000);
+}
+	
+
+</script>
+
+<!-- <script>
 
 var institutoMonitoreo=true;
  
@@ -199,6 +405,7 @@ function cargarVehiculos(id)
 			result += `<tr> 
 						<td class="boton">${prod.id}</td>
 						<td class="boton">${prod.placa}</td> 
+						<td><input type="checkbox" name="check" /></td>
 						</tr>`;								
 								
 			}
@@ -211,6 +418,19 @@ function cargarVehiculos(id)
 						</tr>`;	
 		}
 		document.getElementById('listaVehículos').innerHTML =result;
+
+
+		$('.checkAll').on('click', function () {
+			$(this).closest('table').find('tbody :checkbox')
+			.prop('checked', this.checked)
+			.closest('tr').toggleClass('selected', this.checked);
+		});
+
+		$('tbody :checkbox').on('click', function () {
+			$(this).closest('tr').toggleClass('selected', this.checked); 
+		
+			$(this).closest('table').find('.checkAll').prop('checked', ($(this).closest('table').find('tbody :checkbox:checked').length == $(this).closest('table').find('tbody :checkbox').length)); //Tira / coloca a seleção no .checkAll
+		});
 		return produ;				
 		})		
 		.catch(error => { console.log("error",error); return error; });
@@ -241,12 +461,25 @@ function cargarUbicaciones(id)
 }
 
 
-</script>
+</script> -->
 
 
 
 <script>
 
+			function dibujarPosicion()
+			{
+				var lista=posiciones.split(",");
+				for(var i =0;i<lista.length;i+=2)
+				{
+					
+					L.marker([lista[i],lista[i+1]]).addTo(map)
+					.bindPopup(`Posicion ${i}`)
+					.openPopup();
+
+					console.log(`${lista[i]},${lista[i+1]}`);
+				}
+			}
 
 			var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 				osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -255,20 +488,25 @@ function cargarUbicaciones(id)
 			var cont=1;
 			var map = L.map('map').setView([-2.901866, -79.006055], 14).addLayer(osm);
 			map.doubleClickZoom.disable();
+
+
 			var control = L.Routing.control({
 
-				routeWhileDragging: true,
-				reverseWaypoints: true,
-				showAlternatives: true,
-				altLineOptions: {
-					styles: [
-						{color: 'black', opacity: 0.15, weight: 9},
-						{color: 'white', opacity: 0.8, weight: 6},
-						{color: 'blue', opacity: 0.5, weight: 2}
-					]
-				}
-				//geocoder: L.Control.Geocoder.nominatim()
+			routeWhileDragging: true,
+			reverseWaypoints: true,
+			showAlternatives: true,
+			altLineOptions: {
+				styles: [
+					{color: 'black', opacity: 0.15, weight: 9},
+					{color: 'white', opacity: 0.8, weight: 6},
+					{color: 'blue', opacity: 0.5, weight: 2}
+				]
+			}
+			//geocoder: L.Control.Geocoder.nominatim()
 			}).addTo(map);
+			
+			
+			
 			
 			//Marcador en la Ciudad de Cuenca				
 			/*L.marker([-2.901866, -79.006055],{title: '1'})
@@ -331,34 +569,11 @@ function cargarUbicaciones(id)
 				});
 			});
 			
+	
+
 			
-			// function onLocationFound(e) 
-			// {
-			// 	var radius = e.accuracy / 2;
 
-			// 	L.marker(e.latlng).addTo(map)
-			// 		.bindPopup("You are within " + radius + " meters from this point").openPopup();
-
-			// 	L.circle(e.latlng, radius).addTo(map);
-			// }
-
-			function onLocationError(e)
-			{
-				alert(e.message);
-			}
-
-			map.on('locationfound', onLocationFound);
-			map.on('locationerror', onLocationError);
-
-			map.locate({setView: true, maxZoom: 16});
 			
-			L.Routing.errorControl(control).addTo(map);
-
-			L.Routing.Formatter = L.Class.extend({
-				options: {
-					language: 'sp'
-				}
-			});
 		</script>
 
 <?php include 'footer.php'; ?>
