@@ -36,7 +36,7 @@ async function Ingresar(parametros, url) {
     });
     let data = await response.json();
     toastr.success("Guardado correctamente");
-    setTimeout("window.location.reload()", 1000);
+    // setTimeout("window.location.reload()", 1000);
   } catch (e) {
     toastr.error("Error al Guardar la información");
   }
@@ -51,9 +51,9 @@ async function Modificar(parametros, url, redirigir) {
     });
     let data = await response.json();
     toastr.success("Guardado correctamente");
-    setTimeout(function() {
-      location.href = redirigir;
-    }, 1000);
+    // setTimeout(function() {
+    //   location.href = redirigir;
+    // }, 1000);
   } catch (e) {
     toastr.error(`Error al modificar la información`);
   }
