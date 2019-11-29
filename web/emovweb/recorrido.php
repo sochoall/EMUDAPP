@@ -69,7 +69,7 @@
 							</div>
 
 							<div class=" row">
-									<label class="col-md-3 col-form-label align-self-center">Vehículo<span style="color:red" >*</span></label>
+									<label class="col-md-3 col-form-label align-self-center">Vehículo Placa<span style="color:red" >*</span></label>
 									<div class="col-md-3 align-self-center">
 										<input type='text' id= "placa" class="form-control form-control-sm"/>
 									</div>
@@ -78,15 +78,6 @@
 											<a class="btn grey" href="#" role="button" data-toggle="modal" data-target="#centralModalSm"><i class="fas fa fa-search "></i></a>
 										</div>	
 								</div>
-								
-									<div class="row ">
-								<label class="col-md-3 col-form-label  align-self-center">Nombre:</label>
-								<div class="col-md-8 align-self-center">
-									<input type="text" id= "chofer" class="form-control text-uppercase form-control-sm" readonly disabled />
-								</div>
-										
-							</div>
-							
 						</form>
 
 						<form class="needs-validation text-left mt-1">	
@@ -197,7 +188,7 @@
 
 
 	function ingresarRutaRecorrido(nombreRuta,descRuta,cupoRuta,colorRuta,idfun,inicioRuta,finRuta,listaSentido,estado){
-		var ruta ={ 'id': idRuta, 'nombre': nombreRuta, 'descripcion': descRuta,'estado': estado,'cupoMaximo': cupoRuta,'color': colorRuta,'insId': idfun };
+		var ruta ={ 'id': idRuta, 'nombre': nombreRuta, 'descripcion': descRuta,'estado': estado,'cupoMaximo': cupoRuta,'color': colorRuta,'insId': 2 };
 		var recorrido ={'id': idRecorrido,'horaInicio': inicioRuta,'horaFin': finRuta,'estado': estado,'senId': listaSentido,'rutId': idRuta};
 
 	

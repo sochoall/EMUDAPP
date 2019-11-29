@@ -105,10 +105,7 @@
 						<td> ${prod.placa}</td>
 						<td class="text-center"> ${prod.capacidad}</td>	
 						<td> ${prod.estado==1?"ACTIVO":"INACTIVO"} </td>
-						<td>
-							<?php echo "<a href="?>vehiculoEditar.php?metodo=Modificar&id=${prod.id}
-							<?php echo "class='fas fa-edit'>Editar</a>" ?>
-						</td>
+						<td><a class='bot fas fa-check-circle' data-dismiss='modal'>Seleccionar</a></td> 
 					</tr>`;										
 				}
 				result += `</table> `;
@@ -124,13 +121,10 @@
 		// la clase bot es del boton de seleccionar. 
 		//  la lista es el div contenedor del resultado de la busqueda
 		$("#lista").on('click', '.bot', function(e) {
-			// CAPTURA LOS DATOS DE LAS POSICIONES DE LA TABLA DE BUSQUEDA.
-			var cod = $(this).parents("tr").find("td")[0].innerHTML;
-			var nom = $(this).parents("tr").find("td")[1].innerHTML;
-			var ape = $(this).parents("tr").find("td")[2].innerHTML;
+			// CAPTURA LOS DATOS DE LAS POSICIONES DE LA TABLA DE BUSQUEDA.			
+			var placa = $(this).parents("tr").find("td")[1].innerHTML;
 			// ENVIO EL RESULTADO A LOS INPUT DE LA VENTANA PRINCIPAL
-			document.getElementById('chofer').value = (`${nom} ${ape}`);
-			document.getElementById('idfun').value = cod;
+			document.getElementById('placa').value = (`${placa}`);
 		});		 
 	</script>	
  
