@@ -282,7 +282,7 @@ function myfunc(ele) {
 			
 			});
 
-	setInterval(cargarUbicaciones(), 3000);
+	cargarUbicaciones(values);
 
 }
 
@@ -291,7 +291,6 @@ var posiciones;
 
 function cargarUbicaciones(values)
 {
-	alert("hola");
 	var inst =document.getElementById('idInst').value;
 	var result="";
 	for(var i = 0 ; i<values.length;i+=2)
@@ -312,16 +311,17 @@ function cargarUbicaciones(values)
 				result="";
 			}
 			
-
+			
 			if(result != "")
 			{
 				posiciones=result;
-				
+				setInterval('dibujarPosicion();',3000);
 			}
+			
 			return produ;				
 			})		
 			.catch(error => { console.log("error",error); return error; });
-			dibujarPosicion();
+			
 	}
 	
 
