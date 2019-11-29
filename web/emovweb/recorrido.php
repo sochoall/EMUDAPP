@@ -1,4 +1,6 @@
-<?php include 'header.php'; ?>
+<?php include 'header.php'; 
+	//  $menu=Sesiones("EMPRESA DE TRANSPORTE"); 
+?>
 <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
 <script src="leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine.js"></script>
 <script src="leaflet-routing-machine-3.2.12/src/Control.Geocoder.js"></script>
@@ -9,23 +11,20 @@
         $id = $_SESSION['id'];
         $rol = $_SESSION['rol'];
         $menu=$_SESSION['menu'];
-        echo " <script>
-                    
-                    window.onload = function() 
-                    {
-                      
-                        document.getElementById('rol').innerHTML ='ROL: $rol';
-						document.getElementById('btncerrar').style.display = 'block';
-						cargarComboSentido();
-                    };
-                   
-                       
-                </script>
+        echo " <script>                    
+			window.onload = function() 
+			{                      
+				document.getElementById('rol').innerHTML ='ROL: $rol';
+				document.getElementById('btncerrar').style.display = 'block';
+				cargarComboSentido();
+			};                      
+			</script>
         ";
     } else {
         header('Location: ./');
     }   
 
+		include 'recorrido_modal_select_vehiculo.php';
 ?>
 
 
@@ -34,7 +33,6 @@
 		echo $menu 
 		?>
 </div>
-
 
 <div class="container-fluid my-5">
 	<div class="row ">
@@ -71,9 +69,9 @@
 							</div>
 
 							<div class=" row">
-									<label class="col-md-3 col-form-label align-self-center">Instituci&oacute;n:<span style="color:red" >*</span></label>
+									<label class="col-md-3 col-form-label align-self-center">Vehículo<span style="color:red" >*</span></label>
 									<div class="col-md-3 align-self-center">
-										<input type='text' id= "idfun" class="form-control form-control-sm " />
+										<input type='text' id= "placa" class="form-control form-control-sm"/>
 									</div>
 				
 									<div class="col-sm-0 align-self-center" id="buscar">
@@ -124,13 +122,9 @@
 										<OPTION VALUE="0">INACTIVO</OPTION>
 									</SELECT> 
 								</div>
-							</div>
-
-							
+							</div>							
 						</form>
-
-					</div>
-					
+					</div>					
 				</div>
 				<div class="row justify-content-end mt-3 mr-5">
 		<input value="Guardar" class="btn cyan text-white" onclick="IngMod(this)" type="submit" value="" id="metodo" name="metodo"/>
