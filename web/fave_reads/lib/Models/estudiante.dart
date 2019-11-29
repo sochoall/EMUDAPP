@@ -52,7 +52,7 @@ class Estudiante extends Serializable {
       reg.apellido = query[0][3].toString();
       reg.direccion = query[0][4].toString();
       reg.telefono = query[0][5].toString();
-      reg.correo = query[0][6].toString();
+      reg.correo = query[0][6].toString().replaceAll('*', '@');
       reg.estado = query[0][7].toString();
       reg.insId = query[0][0].toString();
       return reg;
@@ -73,7 +73,7 @@ class Estudiante extends Serializable {
   Future<void> modificar(int id, Estudiante dato) async {
     final conexion = Conexion();
     final String sql =
-        "UPDATE public.te_estudiante SET est_nombre='${dato.nombre}',est_apellido='${dato.apellido}',est_direccion='${dato.direccion}',est_correo='${dato.correo}' "
+        "UPDATE public.te_estudiante SET est_nombre='${dato.nombre}',est_apellido='${dato.apellido}',est_direccion='${dato.direccion}',est_correo='${dato.correo.replaceAll('@', '*')}' "
         "WHERE est_id=$id";
     await conexion.operaciones(sql);
   }

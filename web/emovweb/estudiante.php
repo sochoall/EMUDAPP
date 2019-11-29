@@ -61,7 +61,7 @@
 </div>
 
 <div class="cyan circulo">
-    <a href="estudianteEditar.php?metodo=Agregar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
+    <a href="estudianteEditar.php?metodo=Guardar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
 </div>	
 
 <script type="text/javascript">
@@ -94,7 +94,10 @@
                         <td class='boton'> ${prod.nombre}  ${prod.apellido}</td>
                         <td class='boton'> ${prod.direccion}</td>                    
                         <td class='boton'> ${prod.estado==1?"ACTIVO":"INACTIVO"} </td>
-                        <td><a href='estudiante?id=${prod.id}' class='fas fa-edit'>Editar</a></td>
+                        <td>
+                        <?php echo "<a href="?>estudianteEditar.php?metodo=Modificar&id=${prod.id}
+                        <?php echo "class='fas fa-edit'>Editar</a>" ?>
+                        </td>
                     </tr> `;                            
                 }
                 lista.innerHTML=result;	                

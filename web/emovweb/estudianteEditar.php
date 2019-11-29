@@ -1,121 +1,150 @@
-<?php 
-	include 'header.php'; 
+<?php include 'header.php'; 
 	include 'codigophp/sesion.php';
-	$menu=Sesiones("EMPRESA DE TRANSPORTE"); 
+	 $menu=Sesiones("EMPRESA DE TRANSPORTE"); 
 ?>
+<div class="container text-align-left mt-2 ">
+	<div class="row">
+    	<div class="col-md-6 offset-md-2">
+			<div class="card">
+				<h3 class="card-header cyan white-text text-uppercase font-weight-bold text-center" id="titulo">ESTUDIANTE</h3>
+      			<div class="card-body">
+						<!--AQUI VA EL FORMULARIO DE INGRESO Y EDICION -->
+					<form>	
+							<div class=" row">
+								<label class="col-md-3 col-form-label">Cédula: <span class="text-danger">* </span></label>
+								<div class="col-md-5">
+									<input type='text' id= "cedula" class="form-control form-control-sm"  maxlength="13"/>
+								</div>
+							</div>
 
-<div class="container-fluid grey pr-0 pl-0">
-		<?php 
-		echo $menu 
-		?>
+							<div class="row">
+								<label class="col-md-3 col-form-label">Nombres: <span class="text-danger">*</span></label>
+								<div class="col-md-9">
+									<input type='text' id="nombre" class="form-control text-uppercase form-control-sm"  maxlength="50"/>
+								</div>
+							</div>
+
+                            <div class="row">
+								<label class="col-md-3 col-form-label">Apellidos: <span class="text-danger">*</span></label>
+								<div class="col-md-9">
+									<input type='text' id="apellido" class="form-control text-uppercase form-control-sm"  maxlength="50"/>
+								</div>
+							</div>
+							
+							<div class="row">
+								<label class="col-md-3 col-form-label">Dirección: <span class="text-danger">* </span></label>
+								<div class="col-md-9">
+									<input type='text'id= "direccion" class="form-control text-uppercase form-control-sm"  maxlength="100" />
+								</div>
+							</div>
+							<div class="row">
+								<label class="col-md-3 col-form-label" >Teléfono: <span class="text-danger">* </span></label>
+								<div class="col-md-9">
+									<input type='text' id="telefono"  class="form-control form-control-sm" maxlength="10" />
+								</div>
+							</div>
+							<div class="row">
+								<label class="col-md-3 col-form-label">Correo: <span class="text-danger">* </span></label>
+								<div class="col-md-9">
+									<input type='text'id= "correo" class="form-control form-control-sm" maxlength="100"/>
+								</div>
+							</div>	
+							<div class="row">
+								<label class="col-md-3 col-form-label">Estado: <span class="text-danger">* </span></label>
+								<div class="col-md-5">
+									<SELECT id="estado"  class="browser-default custom-select"> 
+										<OPTION VALUE="1" selected >ACTIVO</OPTION>
+										<OPTION VALUE="0">INACTIVO</OPTION>
+									</SELECT> 
+								</div>
+							</div>							
+							<div class="text-white row justify-content-center mt-3">
+								<input class="btn cyan" onclick="IngMod(this)" type="submit" value="" id="metodo" name="metodo"/>		
+								<input type="button" value="Cancelar" class="btn cyan" onclick="location.href = 'estudiante.php';"/><br/>
+							</div>
+						</form>
+						
+				</div>
+			</div>
+      	</div>
+	</div>
 </div>
- 
-<div class="container">
-    <div class="row mt-3 ">
-        <div class="h3 text-left font-weight-bold">ESTUDIANTE</div>
-    </div>
-
-    <div class="form-group row mt-3">
-        <div class="col-md-3">
-            <label>Campo:</label>
-            <select id="campo" class="browser-default custom-select">
-                <option value="est_nombre" selected>NOMBRE</option>
-                <option value="est_ruc">RUC</option>
-            </select>
-        </div>
-
-        <div class="col-md-3">
-            <label>Buscar:</label>
-            <input type="text" id="textBuscar" name="textBuscar" class="form-control text-uppercase">     
-        </div>
-
-        <div class="col-sm-2 align-self-center">
-        	<label>Estado:</label>
-			<SELECT id="estBusqueda"  class="browser-default custom-select"> 
-				<OPTION VALUE="" selected >TODOS</OPTION>
-				<OPTION VALUE="1">ACTIVO</OPTION>
-				<OPTION VALUE="0">INACTIVO</OPTION>					
-			</SELECT> 
-		</div>
-
-        <div class="col-md-2 mt-3" id="buscar">
-                <a href="" class="btn grey"><i class="fas fa fa-search "></i></a>
-        </div>
-    </div>
-
-    <div class="row mt-2">
-         <div class="container">                    
-            <div class='table-responsive-sm my-custom-scrollbar'>
-                <table id='dt-select' class='table-sm table table-hover text-center' cellspacing='0' width='100%'>
-                <thead class='cyan white-text'>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">RUC</th>
-                        <th scope="col">NOMBRE</th>
-                        <th scope="col">DIRECCIÓN</th> 
-                        <th scope="col">TELÉFONO</th>  
-                        <th scope="col">ESTADO</th>  
-                        <th></th> 
-                    </tr>
-                </thead>
-                <tbody  id="lista" >
-                    <!-- AQUI SE CARGA LA TABLA CON LOS REGISTROS -->
-                </tbody>
-                </table>
-            </div>                           
-        </div>
-    </div>
-</div>         
-    <div class="cyan circulo">
-		<a href="institucionEditar.php?metodo=Guardar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
-	</div>	   
-
-    <script type="text/javascript">	
-
-		const boton=document.querySelector('#buscar');		
-		const lista=document.querySelector('#lista');		
 	
-		function Buscar(){	
-			event.preventDefault();
+<script type="text/javascript">
 
-			var campo = document.getElementById('campo').value;			
-			var textBuscar=document.getElementById('textBuscar').value;
-			textBuscar=textBuscar.toUpperCase();			
-			var estado=document.getElementById("estBusqueda").value;			
-			
-			let url=`${raizServidor}/institucion?campo=${campo}&bus=${textBuscar}&est=${estado}`;
+	let parametro = new URLSearchParams(location.search);
+	var metodo = parametro.get('metodo');	
+	document.getElementById('metodo').value =metodo;
+	var id;
+	var divContenedor=document.querySelector('#lista');		
+	if(metodo=='Guardar'){			
+		document.getElementById("estado").disabled=true;	
+	}if(metodo=='Modificar'){
+		id= parametro.get('id');	
+		(async () => {
+			try{
+				let response = await fetch(`${raizServidor}/estudiante/${id}`)
+			    let data = await response.json();						
+                document.getElementById('cedula').value = (data['cedula']);
+                document.getElementById('nombre').value = (data['nombre']);
+                document.getElementById('apellido').value = (data['apellido']);
+				document.getElementById('direccion').value = (data['direccion']);
+				document.getElementById('telefono').value = (data['telefono']);
+				document.getElementById('correo').value = (data['correo']); 		  
+				//let Tins= (data['tipoInstitucionId']); 				
+			}catch(e){
+				toastr.error('Error al Cargar algunos datos'); 	
+			}
+		})();			
+	}	
 
-			lista.innerHTML=`<div class="text-center"><div class="spinner-border text-info" role="status"><span class="sr-only">Loading...</span></div></div>`;	
-			fetch(url)
-		 	.then((res) => {return res.json(); })
-			.then(produ => {
-				let result="";					
-				est="";
-				for(let prod of produ){						
-					result +=
-					`<tr> 
-						<td> ${prod.id}</td>
-						<td> ${prod.ruc}</td>
-						<td> ${prod.nombre}</td>
-						<td> ${prod.direccion}</td>	
-						<td> ${prod.telefono}</td>							
-						<td> ${prod.estado==1?"ACTIVO":"INACTIVO"} </td>
-						<td>
-							<?php echo "<a href="?>institucionEditar.php?metodo=Modificar&id=${prod.id}
-							<?php echo "class='fas fa-edit'>Editar</a>" ?>
-						</td>
-					</tr>`;									
-										
-				}
-				result += `</table> `;
-				lista.innerHTML=result;							
-					return produ;				
-				})		
-				.catch(error => { lista.innerHTML =`<div>No se encuentran coincidencias</div>`;	 console.log("error",error); return error; })		
-		}		
-			
-		boton.addEventListener('click',Buscar);
-		
+	function IngMod(v) {
+		event.preventDefault();			
+
+		if(valCedula(cedula.value)==false){
+			toastr["error"]("Cédula incorrecto!")
+			cedula.style.borderColor="red";
+		}else{
+			cedula.style.borderColor='green';
+			if(valSololetras(nombre.value)==false){
+				toastr["error"]("Ingrese solo letras", "Caracteres incorrectos!")
+				nombre.style.borderColor="red";
+			}else{
+                nombre.style.borderColor='green';		
+                if(valSololetras(apellido.value)==false){
+                    toastr["error"]("Ingrese solo letras", "Caracteres incorrectos!")
+                    apellido.style.borderColor="red";
+                }else{
+                    apellido.style.borderColor='green';
+                    if(valTelefono(telefono.value)==false){				
+                    toastr["error"]("Ingrese solo números", "Teléfono incorrecto!")
+                    telefono.style.borderColor="red";
+                    }else{ 
+                        telefono.style.borderColor='green';
+                        if(valCorreo(correo.value)==false){					
+                            toastr["error"]("Ingrese caracteres válidos", "Correo incorrecto!")						
+                            correo.style.borderColor="red";
+                        }else{
+                            correo.style.borderColor="green";   
+                            var parametros={'id':0,'cedula':cedula.value,'nombre':nombre.value.toUpperCase(),'apellido':apellido.value.toUpperCase(),'direccion':direccion.value.toUpperCase(),'telefono':telefono.value,'correo':correo.value,'estado':estado.value,'insId':1};		
+                            //console.log(parametros);
+                            var url=`${raizServidor}/estudiante`;
+                            if(v.value=="Guardar"){	
+                                Ingresar(parametros,url);
+                            }	
+                            if(v.value=="Modificar"){
+                                let redirigir="institucion.php";
+                                Modificar(parametros,`${url}/${id}`,redirigir);
+                            }                            
+                        }	
+                    }	
+                }		
+			}
+		}
+	}
+	
+	
 	</script>
 
- <?php include 'footer.php'; ?>
+
+<?php include 'footer.php'; ?>
