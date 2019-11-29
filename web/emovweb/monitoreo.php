@@ -140,9 +140,7 @@
 							</tr>`;								
 									
 			}
-			$(".dt-select tr").click(function(){
-				$(this).addClass('filaSeleccionada').siblings().removeClass('filaSeleccionada');
-			});
+			
 
 			document.getElementById('listaRutas').innerHTML =result;
 			return produ;				

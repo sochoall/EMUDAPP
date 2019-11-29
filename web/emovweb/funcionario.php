@@ -104,7 +104,7 @@
 		</div>
 	</div>
 	<div class="cyan circulo">
-		<a href="funcionarioEditar.php?metodo=Agregar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
+		<a href="funcionarioEditar.php?metodo=Guardar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
 	</div>
 </div>
 
