@@ -4,10 +4,10 @@ import 'package:fave_reads/Models/estado_objetos.dart';
 
 class EstadoObjetosController extends ResourceController {
   @Operation.get()
-  Future<Response> obtenerLista(@Bind.query('campo') String campo,
-      @Bind.query('bus') String bus, @Bind.query('est') String est) async {
+  Future<Response> obtenerLista(
+      @Bind.query('campo') String campo, @Bind.query('bus') String bus) async {
     final servicio = EstadoObjetos();
-    return Response.ok(await servicio.obtenerDatos(campo, bus, est));
+    return Response.ok(await servicio.obtenerDatos(campo, bus));
   }
 
   @Operation.get('id')

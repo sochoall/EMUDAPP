@@ -13,14 +13,14 @@
                    
                        <form>	
 							<div class="row">
-								<label class="col-sm-3 col-form-label">Nombre:</label>
+								<label class="col-sm-3 col-form-label">Nombre: <span class="text-danger">* </span></label>
 								<div class="col-sm-9">
 									<input type='text' id= "nombre" class="form-control text-upperCase form-control-sm"  maxlength="50"/>
 								</div>
 							</div>
 						
 							<div class="row">
-								<label class="col-sm-3 col-form-label">Estado:</label>
+								<label class="col-sm-3 col-form-label">Estado: <span class="text-danger">* </span></label>
 								<div class="col-sm-5">
 									<SELECT id="estado"  class="browser-default custom-select"> 
 										<OPTION VALUE="1" selected >ACTIVO</OPTION>

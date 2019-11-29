@@ -25,14 +25,7 @@
             <input type="text" id="textBuscar" name="textBuscar" class="form-control text-uppercase">     
         </div>
    
-		<div class="col-sm-2 align-self-center">
-            <label>Estado:</label>
-            <SELECT id="estado"  class="browser-default custom-select"> 
-                <OPTION VALUE="" selected >TODOS</OPTION>
-                <OPTION VALUE="1">ACTIVO</OPTION>
-                <OPTION VALUE="0">INACTIVO</OPTION>        
-            </SELECT> 
-        </div>
+		
 		
 		<div class="col-sm-0 align-self-center" id="buscar">
 			<a href="" class="btn grey"><i class="fas fa fa-search "></i></a>
@@ -80,9 +73,8 @@
 			var campo = document.getElementById('campo').value;			
 			var textBuscar=document.getElementById('textBuscar').value;
 			textBuscar=textBuscar.toUpperCase();			
-			var estado=document.getElementById("estado").value;
 		
-			let url=`http://localhost:8888/estadoObjetos?campo=${campo}&bus=${textBuscar}&est=${estado}`;
+			let url=`http://localhost:8888/estadoObjetos?campo=${campo}&bus=${textBuscar}`;
 
 			fetch(url)
 		 	.then((res) => {return res.json(); })

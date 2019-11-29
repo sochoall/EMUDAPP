@@ -1,7 +1,7 @@
 <?php 
 	include 'header.php'; 
 	include 'codigophp/sesion.php';
-	$menu=Sesiones("EMOV");
+	$menu=Sesiones("EMPRESA DE TRANSPORTE"); 
 ?>
 
 <div class="container-fluid grey pr-0 pl-0">
@@ -12,15 +12,15 @@
  
 <div class="container">
     <div class="row mt-3 ">
-        <div class="h3 text-left font-weight-bold">INSTITUCIÓN</div>
+        <div class="h3 text-left font-weight-bold">ESTUDIANTE</div>
     </div>
 
     <div class="form-group row mt-3">
         <div class="col-md-3">
             <label>Campo:</label>
             <select id="campo" class="browser-default custom-select">
-                <option value="ins_nombre" selected>NOMBRE</option>
-                <option value="ins_ruc">RUC</option>
+                <option value="est_nombre" selected>NOMBRE</option>
+                <option value="est_ruc">RUC</option>
             </select>
         </div>
 

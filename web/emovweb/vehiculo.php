@@ -70,7 +70,7 @@
 </div>
 
 <div class="cyan circulo">
-	<a href="vehiculoEditar.php?metodo=Agregar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
+	<a href="vehiculoEditar.php?metodo=Guardar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
 </div>	
 
 <script type="text/javascript">			

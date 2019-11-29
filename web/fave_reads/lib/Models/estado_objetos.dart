@@ -6,10 +6,10 @@ class EstadoObjetos extends Serializable {
   int id;
   String nombre;
 
-  Future<List> obtenerDatos(String campo, String bus, String est) async {
+  Future<List> obtenerDatos(String campo, String bus) async {
     final conexion = Conexion();
     final String sql =
-        "select * from public.te_estado_objetos where $campo::text LIKE '%$bus%' and eob_estado::text LIKE '%$est%' order by eob_id DESC";
+        "select * from public.te_estado_objetos where $campo::text LIKE '%$bus%' order by eob_id DESC";
     final List datos = [];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 
