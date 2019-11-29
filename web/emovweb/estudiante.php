@@ -4,7 +4,14 @@
 ?>
 
 
-<div class="container ">
+<div class="container-fluid grey">
+		<?php 
+		echo $menu 
+		?>
+</div>
+
+
+<div class="container  pt-3">
     <div class="row mt-3 ">
         <div class="h3 text-left font-weight-bold">ESTUDIANTE</div>
     </div>
