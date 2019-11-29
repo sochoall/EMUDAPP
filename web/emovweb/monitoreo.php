@@ -24,9 +24,9 @@
         header('Location: ./');
     }   
 
-?>
-<script>var institutoMonitoreo=true;</script>
-<?php  include 'funcionario_modal_selec_institucion.php';?>
+  include 'funcionario_modal_selec_institucion.php';
+  
+  ?>
 
 
 <div class="container-fluid grey pr-0 pl-0">
@@ -45,7 +45,7 @@
 			<div class=" row">
 					<label class="col-md-3  col-form-label align-self-center">Instituci&oacute;n:<span style="color:red" >*</span></label>
 					<div class="col-md-3 align-self-center">
-						<input type='text' id= "idfun" class="form-control form-control-sm " />
+						<input type='text' id= "idInst" class="form-control form-control-sm " />
 					</div>
 					<!-- BOTON MODAL.... en la cabecera importo el modal -->
 					<div class="col-sm-0 align-self-center" id="buscar">
@@ -56,7 +56,7 @@
 			<div class="row ">
 				<label class="col-md-3 col-form-label  align-self-center">Nombre:</label>
 				<div class="col-md-8 align-self-center">
-					<input type="text" id= "chofer" class="form-control text-uppercase form-control-sm" readonly disabled />
+					<input type="text" id= "nomInst" class="form-control text-uppercase form-control-sm" readonly disabled />
 				</div>
 			</div>
 			
@@ -124,47 +124,121 @@
 
 <script>
 
-    var result="";
+var institutoMonitoreo=true;
+ 
 
-	function cargarRutas(id)
-	{
-		var url=`http://localhost:8888/rutas?opcion=2&id=`+id;
-		fetch(url)
-		.then((res) => {return res.json(); })
-		.then(produ => {
-			
+function cargarRutas(id)
+{
+	var result=`<td></td>
+			<td class=" text-center"><div class="spinner-border text-center" role="status">
+			<span class="sr-only">Loading...</span>
+			</div></td>`;
+	document.getElementById('listaRutas').innerHTML =result;
+	var url=`http://localhost:8888/rutas?opcion=2&id=`+id;
+	fetch(url)
+	.then((res) => {return res.json(); })
+	.then(produ => {
+		result=``;
+		if(produ.length > 0)
+		{
 			for(let prod of produ){						
-				result += `<tr> 
-							<td class="boton">${prod.id}</td>
-							<td class="boton">${prod.nombre}</td> 
-							</tr>`;								
-									
+			result += `<tr> 
+						<td class="boton">${prod.id}</td>
+						<td class="boton">${prod.nombre}</td> 
+						</tr>`;								
+								
 			}
 			
+		}
+		else{
+			result= `<tr> 
+						<td></td>
+						<td>No se encuentran coincidencias</td> 
+						</tr>`;	
+		}
+		document.getElementById('listaRutas').innerHTML =result;
+		let elementos=document.getElementsByClassName('boton');
 
-			document.getElementById('listaRutas').innerHTML =result;
-			return produ;				
-			})		
-			.catch(error => { console.log("error",error); return error; });
-	}
+		for(let i=0;i<elementos.length;i++)
+		{
+			elementos[i].addEventListener('click',obtenerValores);
+		} 
+		$(".dt-select tr ").click(function(){
+						$(this).addClass('filaSeleccionada').siblings().removeClass('filaSeleccionada'); 
+					});
+		return produ;				
+		})		
+		.catch(error => { console.log("error",error); return error; });
+}
 
-    function cargarUbicaciones(id)
-	{
-		var url=`http://localhost:8888/monitoreo?id=`+id;
-		fetch(url)
-		.then((res) => {return res.json(); })
-		.then(produ => {
-			
+
+function obtenerValores(e) {
+var elementosTD=e.srcElement.parentElement.getElementsByTagName("td");
+let valores=`<td></td>
+			<td class=" text-center"><div class="spinner-border text-center" role="status">
+			<span class="sr-only">Loading...</span>
+			</div></td>
+			<td></td>`;
+document.getElementById('listaVehículos').innerHTML=valores;
+
+cargarVehiculos(elementosTD[0].innerHTML);
+
+		 
+function cargarVehiculos(id)
+{
+	var result=``;
+	let url= `http://localhost:8888/rutaVehiculo?id=${id}`;
+
+	fetch(url)
+	.then((res) => {return res.json(); })
+	.then(produ => {
+		
+		if(produ.length > 0)
+		{
 			for(let prod of produ){						
-				result += ` ${prod.latitud} , ${prod.longuitud};`;								
-									
-			}	
-				alert(result);
-				return produ;				
-			})		
-			.catch(error => { console.log("error",error); return error; });
+			result += `<tr> 
+						<td class="boton">${prod.id}</td>
+						<td class="boton">${prod.placa}</td> 
+						</tr>`;								
+								
+			}
+			
+		}
+		else{
+			result= `<tr> 
+						<td></td>
+						<td>No se encuentran coincidencias</td> 
+						</tr>`;	
+		}
+		document.getElementById('listaVehículos').innerHTML =result;
+		return produ;				
+		})		
+		.catch(error => { console.log("error",error); return error; });
+}	
 
-	}
+
+}
+
+
+
+
+function cargarUbicaciones(id)
+{
+	var url=`http://localhost:8888/monitoreo?id=`+id;
+	fetch(url)
+	.then((res) => {return res.json(); })
+	.then(produ => {
+		
+		for(let prod of produ){						
+			result += ` ${prod.latitud} , ${prod.longuitud};`;								
+								
+		}	
+			alert(result);
+			return produ;				
+		})		
+		.catch(error => { console.log("error",error); return error; });
+
+}
 
 
 </script>

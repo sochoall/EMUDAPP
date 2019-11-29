@@ -7,7 +7,7 @@ class MonitoreoController extends ResourceController{
 
 
   @Operation.get()
-  Future<Response> obtenerLista(@Bind.query('id') int id,) async
+  Future<Response> obtenerLista(@Bind.query('id') int id) async
   {
     final servicio = Monitoreo();
     return Response.ok(await servicio.obtenerDatos(id));
