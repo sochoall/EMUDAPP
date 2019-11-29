@@ -273,11 +273,25 @@ function cargarVehiculos(id)
 
 }
 
+var values = new Array();
+function myfunc(ele) {
+
+	$.each($("input[name='case[]']:checked").closest("td").siblings("td"),
+			function () {
+				values.push($(this).text());
+			
+			});
+
+	setInterval(cargarUbicaciones(), 3000);
+
+}
+
 
 var posiciones;
 
 function cargarUbicaciones(values)
 {
+	alert("hola");
 	var inst =document.getElementById('idInst').value;
 	var result="";
 	for(var i = 0 ; i<values.length;i+=2)
@@ -302,29 +316,16 @@ function cargarUbicaciones(values)
 			if(result != "")
 			{
 				posiciones=result;
-				dibujarPosicion();
+				
 			}
 			return produ;				
 			})		
 			.catch(error => { console.log("error",error); return error; });
+			dibujarPosicion();
 	}
 	
 
 }
-
-
-function myfunc(ele) {
-
-var values = new Array();
-	  $.each($("input[name='case[]']:checked").closest("td").siblings("td"),
-			 function () {
-				  values.push($(this).text());
-				
-			 });
-			 
-setInterval(cargarUbicaciones(values),10000);
-}
-	
 
 </script>
 
