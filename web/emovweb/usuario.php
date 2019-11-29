@@ -145,7 +145,7 @@ function obtenerValores(e) {
                     <th></th>
                     </tr>
                 </thead>
-                <tbody  id="lista" class="dt-select" >
+                <tbody  id="lista" class="td-select" >
                     <!-- AQUI SE CARGA LA TABLA CON LOS REGISTROS -->
                 </tbody>
             </table>
@@ -274,9 +274,7 @@ function obtenerValores(e) {
 				else{
 					lista.innerHTML =`<div>No se encuentras coincidencias.</div>`				
                 }
-                    $(".dt-select tr ").click(function(){
-                            $(this).addClass('filaSeleccionada').siblings().removeClass('filaSeleccionada'); 
-                        });
+                   
 					return produ;				
 				})		
 				.catch(error => { console.log("error",error); return error; })					

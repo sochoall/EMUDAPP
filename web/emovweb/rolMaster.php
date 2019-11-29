@@ -446,9 +446,7 @@
 				elementos[i].addEventListener('click',obtenerValores);
 			} 
 			document.getElementById('tituloModal').innerHTML = 'ROL';	
-			$(".dt-select tr ").click(function(){
-                            $(this).addClass('filaSeleccionada').siblings().removeClass('filaSeleccionada'); 
-                        });
+
 				return produ;				
 			})		
 			.catch(error => { lista.innerHTML =`<div>No se encuentran coincidencias</div>`;	 console.log("error",error); return error; })		

@@ -134,7 +134,7 @@ class Ruta extends Serializable
   void readFromMap(Map<String, dynamic> object) {
     id= int.parse(object['id'].toString());
     nombre= object['nombre'].toString();
-    descripcion= object['descripcion'].toString();
+    descripcion= object['desccripcion'].toString();
     estado=int.parse( object['estado'].toString());
     cupoMaximo=int.parse( object['cupoMaximo'].toString());
     color= object['color'].toString();
