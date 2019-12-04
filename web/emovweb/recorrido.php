@@ -119,6 +119,7 @@
 				</div>
 				<div class="row justify-content-end mt-3 mr-5">
 		<input value="Guardar" class="btn cyan text-white" onclick="IngMod(this)" type="submit" value="" id="metodo" name="metodo"/>
+		
 	</div>
 			</div>
 			
@@ -193,7 +194,6 @@
 
 	
 		IngresarDatos(ruta,"http://localhost:8888/rutas");
-		console.log(ruta);
 		IngresarDatos(recorrido,"http://localhost:8888/recorrido");
 
 		for (i=0; i<vec.length ; i++)
@@ -205,8 +205,7 @@
 
 			var parada ={'id':0,'nombre': par,'orden': i,'latitud': div3[0],'longuitud': div3[1],'tiempoPromedio': "00:00:00",'estado':1,'recId':idRecorrido };
 			// var parada ={'nombre': "holaaa",'orden': 5,'latitud': div3[0],'longuitud': div3[1],'tiempoPromedio': "00:00:00",'estado':1,'recId':1 };
-			console.log(parada);
-			setTimeout(IngresarDatos(parada,"http://localhost:8888/parada"),(i+1)*1000);
+			IngresarDatos(parada,"http://localhost:8888/parada");
 		}
 
 		setTimeout("window.location.reload()",1000);  
@@ -233,14 +232,13 @@
 			var descRuta = document.getElementById('descripcionRuta');
 			var cupoRuta = document.getElementById('cupoRuta');
 			var colorRuta = document.getElementById('colorRuta');
-			var idfun = document.getElementById('idfun');
+			var placa = document.getElementById('placa');
 			var inicioRuta = document.getElementById('inicioRuta');
 			var finRuta = document.getElementById('finRuta');
 			var listaSentido = document.getElementById('listaSentido').value;
 			var estado = document.getElementById('estado2').value;
 			
-		event.preventDefault();			
-
+		event.preventDefault();		
 
 
 		if(valSololetras(nombreRuta.value)==false){
@@ -248,9 +246,9 @@
 			document.getElementById("nombreRuta").style.borderColor="red";
 		}else{
 			document.getElementById("nombreRuta").style.borderColor='#ced4da';
-			if(descRuta.value.is_null){
+			if(descRuta.value == ""){
 				toastr.error('Debe llenar el campo');
-				document.getElementById("descRuta").style.borderColor="red";
+				document.getElementById("descripcionRuta").style.borderColor="red";
 			}else{ 
 				document.getElementById("descripcionRuta").style.borderColor='#ced4da';
 				if(cupoRuta.value < 1){
@@ -258,11 +256,11 @@
 				document.getElementById("cupoRuta").style.borderColor="red";
 			}else{ 
 				document.getElementById("cupoRuta").style.borderColor='#ced4da';
-				if(valNumeros(idfun.value)==false){
-					toastr.error('Institución incorrecta');
-					document.getElementById("idfun").style.borderColor="red";
+				if(valNumeros(placa.value)==false){
+					toastr.error('Placa Incorrecta');
+					document.getElementById("placa").style.borderColor="red";
 					}else{ 
-						document.getElementById("idfun").style.borderColor='#ced4da';
+						document.getElementById("placa").style.borderColor='#ced4da';
 						
 						if(vec.length == 0 )
 						{
@@ -278,7 +276,7 @@
 							let response2 = await fetch(`http://localhost:8888/contadores?opcion=2`);		
 							let data2 = await response2.json();
 							idRecorrido =data2.numero + 1; 
-							ingresarRutaRecorrido(nombreRuta.value,descripcionRuta.value,cupoRuta.value,colorRuta.value,idfun.value,inicioRuta.value,finRuta.value,listaSentido,estado);
+							ingresarRutaRecorrido(nombreRuta.value,descRuta.value,cupoRuta.value,colorRuta.value,placa.value,inicioRuta.value,finRuta.value,listaSentido,estado);
 						})();
 						}
 						
