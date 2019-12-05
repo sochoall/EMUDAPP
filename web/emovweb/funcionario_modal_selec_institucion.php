@@ -139,9 +139,5 @@
 			// ENVIO EL RESULTADO A LOS INPUT DE LA VENTANA PRINCIPAL
 			document.getElementById('nomInst').value = (`${nom}`);
 			document.getElementById('idInst').value = cod;
-			if(institutoMonitoreo == true)
-			{
-				cargarRutas(cod);
-			}
 		});		 
 	</script>

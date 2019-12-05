@@ -74,8 +74,9 @@ class Funcionario extends Serializable {
   Future<void> ingresar(Funcionario dato) async {
     final conexion = Conexion();
     final String sql =
-        "INSERT INTO public.te_funcionario( fun_id,fun_cedula, fun_nombre, fun_apellido, fun_direccion, fun_telefono, fun_celular, fun_correo, fun_estado, ins_id)"
-        " VALUES (${dato.id},'${dato.cedula}','${dato.nombre}','${dato.apellido}','${dato.direccion}','${dato.telefono}','${dato.celular}','${dato.correo.replaceAll('@', '*')}',${dato.estado},${dato.institutoId});";
+        "INSERT INTO public.te_funcionario(fun_cedula, fun_nombre, fun_apellido, fun_direccion, fun_telefono, fun_celular, fun_correo, fun_estado, ins_id)"
+        " VALUES ('${dato.cedula}','${dato.nombre}','${dato.apellido}','${dato.direccion}','${dato.telefono}','${dato.celular}','${dato.correo.replaceAll('@', '*')}',${dato.estado},${dato.institutoId});";
+    print(sql);
     await conexion.operaciones(sql);
   }
 
