@@ -41,6 +41,10 @@
                                 $idLogueado=$dataUser[0]["funId"];
                             }
                         }
+                                //Aqui voy a traer los datos del funcionario
+                        $userId='http://localhost:8888/usuario/'.str_replace('"','',$data);
+                        $dataUser=json_decode(file_get_contents($userId),true);
+                        
 
                         $_SESSION['id']=$data2[0]["id"];
                         $_SESSION['rol']=$data2[0]["nombre"];
