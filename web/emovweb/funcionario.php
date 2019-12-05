@@ -51,7 +51,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                <a href="funcionarioEditar.php?metodo=Ingresar" class="btn cyan">+</a>
+                <a href="funcionarioEditar.php?metodo=Guardar" class="btn cyan">+</a>
                     <div class='table-responsive-sm my-custom-scrollbar'>
                         <table id='dt-select' class='table-sm table table-hover text-center' cellspacing='0' width='100%'>
                             <thead class='cyan white-text'>

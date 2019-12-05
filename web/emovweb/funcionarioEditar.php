@@ -124,7 +124,8 @@
 	}	
 
 
-	function IngMod(v) {					
+	function IngMod(v) {	
+						
 		event.preventDefault();			
 
 		if(valCedula(ced.value)==false){
@@ -167,7 +168,7 @@
 
 									var parametros={"id":5,"cedula":ced.value,"nombre":nom.value.toUpperCase(),"apellido":ape.value.toUpperCase(),"direccion":dir.value,"telefono":telf.value,"celular":cel.value,"correo":email.value,"estado":est.value,"institutoId":idInst.value};							
 									var url=`${raizServidor}/funcionario`;									
-									if(v.value=="Guardar"){	
+									if(v.value=="Guardar"){
 										 Ingresar(parametros,url);
 									}	
 									if(v.value=="Modificar"){
