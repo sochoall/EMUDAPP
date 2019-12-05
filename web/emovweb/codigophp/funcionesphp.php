@@ -48,10 +48,7 @@
                         $_SESSION['rol']=$data2[0]["nombre"];
                         $_SESSION['menu']=cargarMenu($data2[0]["id"]);
                         $_SESSION['institutoId']=$dataFuncionario["institutoId"];
-
-                        echo "holaaaaaaaaaaaaaaaaaaa";
-                        echo $_SESSION['institutoId'];
-                        // header('location: menu.php');
+                        header('location: menu.php');
                     }
                     else
                     {

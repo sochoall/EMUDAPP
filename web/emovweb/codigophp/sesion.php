@@ -7,16 +7,19 @@
                 $id = $_SESSION['id'];
                 $rol = $_SESSION['rol'];               
                 $menu=$_SESSION['menu'];   
-                $insitutoId=$_SESSION['insitutoId'];
-                $nombreUser=$SESSION['nombreUser'];
-                echo " <script>                
+                $institutoId=$_SESSION['institutoId'];
+                $nombreUser=$_SESSION['nombreUser'];
+
+                echo " <script> 
+                        var IntitucionPrincipal=0;
                         window.onload = function()
-                        {                      
-                            alert($nombreUser);
+                        { 
+                            IntitucionPrincipal=$institutoId;
+                            document.getElementById('name').innerHTML='$nombreUser';
                             document.getElementById('rol').innerHTML ='ROL: $rol';
                             document.getElementById('btncerrar').style.display = 'block';
                         };                      
-                        </script>";
+                        </script>" ;
                 return $menu;
             } else 
                 header('Location: ./');
