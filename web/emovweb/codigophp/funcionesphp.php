@@ -25,6 +25,23 @@
 
                     if(count($data2) == 1)
                     {
+                        $userId='http://localhost:8888/usuario/'.str_replace('"','',$data);
+                        $dataUser=json_decode(file_get_contents($userId),true);
+                        
+                        $idLogueado=0;
+
+                        if(count($dataUser))==1)
+                        {
+                            if($dataUser[0]["repId"] != "null")
+                            {
+                                $idLogueado=$dataUser[0]["repId"];
+                            }
+                            else if($dataUser[0]["funId"] != "null")
+                            {
+                                $idLogueado=$dataUser[0]["funId"];
+                            }
+                        }
+
                         $_SESSION['id']=$data2[0]["id"];
                         $_SESSION['rol']=$data2[0]["nombre"];
                         $_SESSION['menu']=cargarMenu($data2[0]["id"]);

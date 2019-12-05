@@ -61,8 +61,6 @@ class Usuario extends Serializable
            
         datos.add(reg.asMap()); 
       }
-      print(datos);
-     
     }
 
      return datos;
