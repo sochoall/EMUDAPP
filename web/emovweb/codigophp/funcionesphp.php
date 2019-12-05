@@ -30,26 +30,28 @@
                         
                         $idLogueado=0;
 
-                        if(count($dataUser))==1)
+                        if($dataUser["repId"] != "null")
                         {
-                            if($dataUser[0]["repId"] != "null")
-                            {
-                                $idLogueado=$dataUser[0]["repId"];
-                            }
-                            else if($dataUser[0]["funId"] != "null")
-                            {
-                                $idLogueado=$dataUser[0]["funId"];
-                            }
+                            $idLogueado=$dataUser["repId"];
+                        }
+                        else if($dataUser["funId"] != "null")
+                        {
+                            $idLogueado=$dataUser["funId"];
                         }
                                 //Aqui voy a traer los datos del funcionario
-                        $userId='http://localhost:8888/usuario/'.str_replace('"','',$data);
-                        $dataUser=json_decode(file_get_contents($userId),true);
+                        $funcionarioId='http://localhost:8888/funcionario/'.$idLogueado;
+                        $dataFuncionario=json_decode(file_get_contents($funcionarioId),true);
                         
 
+                        $_SESSION['nombreUser']=''.$dataFuncionario["nombre"].' '.$dataFuncionario["apellido"];
                         $_SESSION['id']=$data2[0]["id"];
                         $_SESSION['rol']=$data2[0]["nombre"];
                         $_SESSION['menu']=cargarMenu($data2[0]["id"]);
-                        header('location: menu.php');
+                        $_SESSION['institutoId']=$dataFuncionario["institutoId"];
+
+                        echo "holaaaaaaaaaaaaaaaaaaa";
+                        echo $_SESSION['institutoId'];
+                        // header('location: menu.php');
                     }
                     else
                     {

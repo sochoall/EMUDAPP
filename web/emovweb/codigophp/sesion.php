@@ -6,10 +6,13 @@
                 
                 $id = $_SESSION['id'];
                 $rol = $_SESSION['rol'];               
-                $menu=$_SESSION['menu'];                
-                echo " <script>                    
+                $menu=$_SESSION['menu'];   
+                $insitutoId=$_SESSION['insitutoId'];
+                $nombreUser=$SESSION['nombreUser'];
+                echo " <script>                
                         window.onload = function()
                         {                      
+                            alert($nombreUser);
                             document.getElementById('rol').innerHTML ='ROL: $rol';
                             document.getElementById('btncerrar').style.display = 'block';
                         };                      

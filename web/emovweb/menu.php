@@ -3,21 +3,22 @@
  <?php
  session_start();
  if (isset($_SESSION['id']) && isset($_SESSION['rol'])) {
-	 $id = $_SESSION['id'];
-	 $rol = $_SESSION['rol'];
-	 $menu=$_SESSION['menu'];
-	 echo " <script>
-				 window.onload = function() 
-				 {
-					 
-					 document.getElementById('rol').innerHTML ='ROL: $rol';
-					 document.getElementById('btncerrar').style.display = 'block';
-					 
-				 };
-				
-					
-			 </script>
-	 ";
+	$id = $_SESSION['id'];
+	$rol = $_SESSION['rol'];               
+	$menu=$_SESSION['menu'];   
+	$institutoId=$_SESSION['institutoId'];
+	$nombreUser=$SESSION['nombreUser'];
+
+
+	echo " <script> 
+			var id=<?php echo $institutoId ?>;
+			alert(id);      
+			window.onload = function()
+			{ 
+				document.getElementById('rol').innerHTML ='ROL: $rol';
+				document.getElementById('btncerrar').style.display = 'block';
+			};                      
+			</script>" ;
  }
  else if(isset($_SESSION['roles']))  // ENTRA SOLO LA PRIMERA VEZ QUE SE ELIGE EL ROL
  {
