@@ -97,7 +97,7 @@
 	<script type="text/javascript">
 
 	let parametro = new URLSearchParams(location.search);
-	var metodo = parametro.get('metodo');	
+	var metodo = parametro.get('metodo');		
 	document.getElementById('metodo').value =metodo;
 	var id;
 	if(metodo=='Guardar'){				
@@ -168,7 +168,7 @@
 
 									var parametros={"id":0,"cedula":ced.value,"nombre":nom.value.toUpperCase(),"apellido":ape.value.toUpperCase(),"direccion":dir.value,"telefono":telf.value,"celular":cel.value,"correo":email.value,"estado":est.value,"institutoId":idInst.value};							
 									var url=`${raizServidor}/funcionario`;	
-									var ParametrosUsuario={"id":0,"usucorreo"};								
+									var ParametrosUsuario={"id":0,"correo":ced.value,"password":"1234","estado":1,"funId":1};								
 									var urlUsuario=`${raizServidor}/usuario`;	
 									if(v.value=="Guardar"){
 										 Ingresar(parametros,url);
