@@ -10,15 +10,6 @@ class UsuarioController extends ResourceController {
     return Response.ok(await servicio.obtenerDatos(campo, bus, est));
   }
 
-  // @Operation.get()
-  // Future<Response> obtenerLista(
-  //     @Bind.query('campo') String id,
-  //     @Bind.query('valor') String valor,
-  //     @Bind.query('estado') String estado) async {
-  //   final servicio = Usuario();
-  //   return Response.ok(await servicio.obtenerDatos(id, valor, estado));
-  // }
-
   @Operation.get('id')
   Future<Response> obtenerListaId(@Bind.path('id') int id) async {
     final servicio = Usuario();
