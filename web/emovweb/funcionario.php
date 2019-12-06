@@ -43,15 +43,23 @@
 		</div>
 
 
-		<div class="col-sm-2 align-self-center" id="buscar">
+		<div class="col-sm-2 align-self-center mt-3" id="buscar">
 			<a href="" class="btn grey"><i class="fas fa fa-search "></i></a>
 		</div>
 	</div>
+
+
 	<div class="row mt-2">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                <a href="funcionarioEditar.php?metodo=Guardar" class="btn cyan">+</a>
+				
+					<div class="row justify-content-end text-white mr-1">
+						<a href="funcionarioEditar.php?metodo=Guardar" class="btn btn-info p-1"  ><i class="far fa-plus-square pr-2" aria-hidden="true"></i>Funcionario</a> 
+					</div>
+
+
+              
                     <div class='table-responsive-sm my-custom-scrollbar'>
                         <table id='dt-select' class='table-sm table table-hover text-center' cellspacing='0' width='100%'>
                             <thead class='cyan white-text'>
@@ -81,8 +89,6 @@
 
 			<!--codigo de tabs      -->
 			<script></script>
-			<!-- boton para agregar un rol -->
-			<button type="button" class="btn btn-info p-1"  role="button" data-toggle="modal" data-target="#modalRol"><i class="far fa-plus-square pr-2" aria-hidden="true"></i>rol</button>
 
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
 				<li class="nav-item">
@@ -95,6 +101,11 @@
 
 				<div class="row">
 					<div class="col-md-6">
+
+					<div class="row justify-content-end text-white mr-1">
+						<button type="button" class="btn btn-info p-1"  role="button" data-toggle="modal" data-target="#modalRol"><i class="far fa-plus-square pr-2" aria-hidden="true"></i>Rol</button>
+					</div>
+
 					<div class="tab-content" id="myTabContent">
 							<div class='table-responsive-md'>
 								<table id='dt-select' class='table-sm table table-hover text-center' cellspacing='0' width='100%' style="height:100px">
@@ -349,7 +360,7 @@
 	      <!--codigo del modal -->
 
 				<div class="card">
-	      			<h3 class="card-header cyan white-text text-uppercase font-weight-bold text-center py-5" id="titulo">Agregar Rol</h3>
+	      			<h3 class="card-header cyan white-text text-uppercase font-weight-bold text-center" id="titulo">Agregar Rol</h3>
 	      			<div class="card-body">
 							<div class="container">
 		<div class="row mt-3 pt-3">
@@ -371,7 +382,7 @@
 
 
 		</form>
-		<div class="mt-5" id="alerta"></div>
+		
 		</div></div></div>
 
 
@@ -385,5 +396,5 @@
 	  </div>
 	</div>
 <!--acaba la ventana del modal-->
-
+<div  id="alerta"></div>
  <?php include 'footer.php'; ?>

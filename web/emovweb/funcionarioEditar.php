@@ -97,7 +97,8 @@
 	<script type="text/javascript">
 
 	let parametro = new URLSearchParams(location.search);
-	var metodo = parametro.get('metodo');	
+	var metodo = parametro.get('metodo');
+	alert(metodo);	
 	document.getElementById('metodo').value =metodo;
 	var id;
 	if(metodo=='Guardar'){				
