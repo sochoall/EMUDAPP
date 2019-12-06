@@ -42,6 +42,34 @@ class Parada extends Serializable
     
   }
 
+
+   Future<List> obtenerParadaRuta(int id) async {
+    final conexion = Conexion();
+    final String sql = "select * from public.te_parada p, public.te_ruta u,public.te_recorrido r where r.rut_id=u.rut_id and r.rec_id=p.rec_id and r.rut_id=$id";
+    final List datos=[];
+    final List<dynamic> query = await conexion.obtenerTabla(sql);
+
+    if(query != null && query.isNotEmpty)
+    {
+      for(int i=0; i<query.length;i++)
+      {
+        final reg = Parada();
+        
+        reg.id=int.parse(query[i][0].toString());
+        reg.nombre=query[i][1].toString();
+        reg.orden=int.parse(query[i][2].toString());        
+        reg.latitud=query[i][3].toString();
+        reg.longuitud=query[i][4].toString();    
+        reg.tiempoPromedio=query[i][5].toString();
+        reg.estado=int.parse(query[i][6].toString());
+        reg.recId=int.parse(query[i][7].toString());
+        datos.add(reg.asMap()); 
+      }
+    }
+      return datos;
+    
+  }
+
   Future<Parada> obtenerDatoId(int id) async {
     final conexion = Conexion();
     final String sql = "select * from public.te_parada where par_id=$id";

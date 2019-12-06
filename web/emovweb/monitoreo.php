@@ -66,11 +66,12 @@
 			<div class="row">
 				<div class="col-md-12">
 				<div class='table-responsive-sm my-custom-scrollbar'>
-                        <table class='table-sm table table-hover text-center' cellspacing='0' width='100%'>
+                        <table id="tablaRutas" class='table-sm table table-hover text-center' cellspacing='0' width='100%'>
                             <thead class='cyan white-text'>
                             <tr>
 								<th scope='col'>ID</th>
 								<th scope='col'>RUTA</th>
+								<th><input type="checkbox" class="checkAll" name="checkAll" /></th>
 							</tr>
                         </thead>
                         <tbody  id="listaRutas" class='dt-select' >
@@ -94,13 +95,6 @@
 								<tr>
 								<th scope='col'>ID</th>
 								<th scope='col'>RUTA</th>
-								<th>
-									<!-- Default unchecked -->
-									<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" id="tableDefaultCheck1">
-									<label class="custom-control-label" for="tableDefaultCheck1">TODOS</label>
-									</div>
-								</th>
 								</tr>
 							</thead>
 							<tbody id="listaVehículos">
@@ -110,8 +104,6 @@
 
 				</div>
 			</div>
-
-			<input type="button" value="Obtener" class="btn cyan " onclick="cargarUbicaciones();"  />
 		</div>
 
 
@@ -125,10 +117,11 @@
 <script>
 
 var institutoMonitoreo=true;
- 
+var idRutas=[];
 
 function cargarRutas(id)
 {
+	
 	var result=`<td></td>
 			<td class=" text-center"><div class="spinner-border text-center" role="status">
 			<span class="sr-only">Loading...</span>
@@ -145,6 +138,7 @@ function cargarRutas(id)
 			result += `<tr> 
 						<td class="boton">${prod.id}</td>
 						<td class="boton">${prod.nombre}</td> 
+						<td><input type="checkbox" name="check" /></td>
 						</tr>`;								
 								
 			}
@@ -164,13 +158,67 @@ function cargarRutas(id)
 			elementos[i].addEventListener('click',obtenerValores);
 		} 
 		$(".dt-select tr ").click(function(){
-						$(this).addClass('filaSeleccionada').siblings().removeClass('filaSeleccionada'); 
-					});
+			$(this).addClass('filaSeleccionada').siblings().removeClass('filaSeleccionada'); 
+
+			
+		});
+
+
+		$('.checkAll').on('click', function () {
+		$(this).closest('table').find('tbody :checkbox')
+			.prop('checked', this.checked)
+			.closest('tr').toggleClass('selected', this.checked);
+			
+			var cont=0; var message=""; idRutas=[];
+			$("#tablaRutas input[type=checkbox]:checked").each(function () {
+				var row = $(this).closest("tr")[0];
+				if(cont>0)
+				{
+					idRutas.push(row.cells[0].innerHTML);
+					cargarListaParadas(row.cells[0].innerHTML);
+				}
+				cont++;
+			});
+
+			setInterval(() => {
+ 				cargarUbicaciones(document.getElementById('idInst').value)
+			}, 5000);
+		});
+
+		$('tbody :checkbox').on('click', function () {
+			$(this).closest('tr').toggleClass('selected', this.checked); 
+		
+			$(this).closest('table').find('.checkAll').prop('checked', ($(this).closest('table').find('tbody :checkbox:checked').length == $(this).closest('table').find('tbody :checkbox').length)); //Tira / coloca a seleção no .checkAll
+					
+		});
+
 		return produ;				
 		})		
 		.catch(error => { console.log("error",error); return error; });
 }
 
+function cargarListaParadas(id)
+{
+	let url= `http://localhost:8888/parada?opcion=1&dato=${id}`;
+
+	fetch(url)
+	.then((res) => {return res.json(); })
+	.then(produ => {
+		
+		if(produ.length > 0)
+		{
+			var layerGroup2 = L.layerGroup().addTo(map);
+			for(let prod of produ){	
+
+				agregarMarcador(prod.latitud,prod.longuitud,cont,layerGroup2);							
+								
+			}
+			
+		}
+		return produ;				
+		})		
+		.catch(error => { console.log("error",error); return error; });
+}
 
 function obtenerValores(e) {
 var elementosTD=e.srcElement.parentElement.getElementsByTagName("td");
@@ -228,12 +276,12 @@ function cargarUbicaciones(id)
 	fetch(url)
 	.then((res) => {return res.json(); })
 	.then(produ => {
-		
-		for(let prod of produ){						
-			result += ` ${prod.latitud} , ${prod.longuitud};`;								
-								
-		}	
-			alert(result);
+		cont=0;
+		layerGroup.clearLayers();
+		for(let prod of produ){			
+			agregarMarcador(prod.latitud,prod.longuitud,cont,layerGroup);	
+			cont++;									
+		}
 			return produ;				
 		})		
 		.catch(error => { console.log("error",error); return error; });
@@ -276,7 +324,25 @@ function cargarUbicaciones(id)
 				.bindPopup('Ciudad de Cuenca.')
 				.openPopup();*/
 			
-		
+				var greenIcon = new L.Icon({
+					iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+					shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+					iconSize: [25, 41],
+					iconAnchor: [12, 41],
+					popupAnchor: [1, -34],
+					shadowSize: [41, 41]
+					});
+
+
+			var layerGroup = L.layerGroup().addTo(map);
+
+
+			function agregarMarcador(lat,lng,num,grupo)
+			{
+				L.marker([lat, lng], {icon: greenIcon}).addTo(grupo)
+				.bindPopup(`Parada ${num + 1}`)
+				.openPopup();
+			}
 			
 			function createButton(label, container) 
 			{
@@ -286,50 +352,6 @@ function cargarUbicaciones(id)
 				return btn;
 			}
 
-			map.on('dblclick', function(e) 
-			{
-				var container = L.DomUtil.create('div'),
-					startBtn = createButton('Comenzar ruta aqui', container),
-					interBtn = createButton('Realizar parada aqui', container),
-					destBtn = createButton('Finalizar ruta aqui', container),
-					delBtn = createButton('Eliminar ultima parada', container);
-
-				L.popup()
-					.setContent(container)
-					.setLatLng(e.latlng)
-					.openOn(map);
-					
-				L.DomEvent.on(startBtn, 'click', function() 
-				{
-					control.spliceWaypoints(0, 1, e.latlng);
-					map.closePopup();
-					vec=[];
-					vec.push(e.latlng.toString());
-				});
-				
-				L.DomEvent.on(interBtn, 'click', function() 
-				{
-					control.spliceWaypoints(cont, 0, e.latlng);
-					map.closePopup();
-					cont++;
-					vec.push(e.latlng.toString());
-				});
-				
-				L.DomEvent.on(destBtn, 'click', function() 
-				{
-					control.spliceWaypoints(control.getWaypoints().length - 1, 1, e.latlng);
-					map.closePopup();
-					vec.push(e.latlng.toString());
-					console.log(vec);
-				});
-				
-				L.DomEvent.on(delBtn, 'click', function() 
-				{
-					control.spliceWaypoints(control.getWaypoints().length - 1, 1);
-					map.closePopup();
-					vec.pop();
-				});
-			});
 			
 			
 			// function onLocationFound(e) 
@@ -341,11 +363,6 @@ function cargarUbicaciones(id)
 
 			// 	L.circle(e.latlng, radius).addTo(map);
 			// }
-
-			function onLocationError(e)
-			{
-				alert(e.message);
-			}
 
 			map.on('locationfound', onLocationFound);
 			map.on('locationerror', onLocationError);

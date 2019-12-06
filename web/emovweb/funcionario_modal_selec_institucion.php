@@ -73,9 +73,6 @@
 					
 			
 	    </div>
-        <div class="modal-footer">
-        	<button type="button" class="btn btn-sm grey" data-dismiss="modal">Cancelar</button>        
-      	</div>
     </div>
   </div>
 </div>
@@ -135,9 +132,13 @@
 			// CAPTURA LOS DATOS DE LAS POSICIONES DE LA TABLA DE BUSQUEDA.
 			var cod = $(this).parents("tr").find("td")[0].innerHTML;
 			var nom = $(this).parents("tr").find("td")[2].innerHTML;
-				
 			// ENVIO EL RESULTADO A LOS INPUT DE LA VENTANA PRINCIPAL
 			document.getElementById('nomInst').value = (`${nom}`);
 			document.getElementById('idInst').value = cod;
+
+			if(institutoMonitoreo)
+			{
+				cargarRutas(cod);
+			}
 		});		 
 	</script>

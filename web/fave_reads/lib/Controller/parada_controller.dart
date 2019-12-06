@@ -7,10 +7,20 @@ class ParadaController extends ResourceController{
 
 
   @Operation.get()
-  Future<Response> obtenerLista() async
+  Future<Response> obtenerLista(@Bind.query('opcion') int opcion,@Bind.query('dato') int dato ) async
   {
     final servicio = Parada();
-    return Response.ok(await servicio.obtenerDatos());
+
+    switch(opcion)
+    {
+      case 1://caso opcion del query 1, Recuperar los datos de la parada por id de ruta
+                return Response.ok(await servicio.obtenerParadaRuta(dato));
+        break;
+      default:
+                return Response.ok(await servicio.obtenerDatos());
+        break;
+    }
+    
   }
 
   @Operation.get('id')

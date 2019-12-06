@@ -283,7 +283,7 @@
 		var recorrido ={'id': idRecorrido,'horaInicio': inicioRuta,'horaFin': finRuta,'estado': estado,'senId': listaSentido,'rutId': idRuta};
 
 		
-		IngresarDatos(rutaVehiculo,"http://localhost:8888/rutaVehiculo");
+		
 		IngresarDatos(ruta,"http://localhost:8888/rutas");
 		setTimeout(IngresarDatos(recorrido,"http://localhost:8888/recorrido"),1000);
 
@@ -297,7 +297,7 @@
 			// var parada ={'nombre': "holaaa",'orden': 5,'latitud': div3[0],'longuitud': div3[1],'tiempoPromedio': "00:00:00",'estado':1,'recId':1 };
 			setTimeout(IngresarDatos(parada,"http://localhost:8888/parada"),2000);
 		}
-
+		IngresarDatos(rutaVehiculo,"http://localhost:8888/rutaVehiculo");
 		setTimeout("window.location.reload()",1000);  
 	}
 
