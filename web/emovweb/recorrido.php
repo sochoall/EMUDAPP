@@ -7,18 +7,24 @@
 
  <?php
     session_start();
-    if (isset($_SESSION['id']) && isset($_SESSION['rol'])) {
-        $id = $_SESSION['id'];
-        $rol = $_SESSION['rol'];
-        $menu=$_SESSION['menu'];
-        echo " <script>                    
-			window.onload = function() 
-			{                      
-				document.getElementById('rol').innerHTML ='ROL: $rol';
-				document.getElementById('btncerrar').style.display = 'block';
-				cargarComboSentido();
-			};                      
-			</script>
+	if (isset($_SESSION['id']) && isset($_SESSION['rol']))
+	{
+		$id = $_SESSION['id'];
+		$rol = $_SESSION['rol'];               
+		$menu=$_SESSION['menu'];   
+		$institutoId=$_SESSION['institutoId'];
+		$nombreUser=$_SESSION['nombreUser'];
+
+		echo " <script> 
+					var IntitucionPrincipal=0;
+					window.onload = function()
+					{ 
+						IntitucionPrincipal=$institutoId;                  
+					document.getElementById('rol').innerHTML ='ROL: $rol';
+					document.getElementById('btncerrar').style.display = 'block';
+					cargarComboSentido();
+				};                      
+				</script>
         ";
     } else {
         header('Location: ./');
@@ -34,7 +40,7 @@
 		?>
 </div>
 
-<div class="container-fluid my-5">
+<div class="container-fluid mt-2">
 	<div class="row ">
 		<div class="col-md-5 m-0  card">
 			<div class="container-fluid m-0 p-0">
@@ -69,15 +75,20 @@
 							</div>
 
 							<div class=" row">
-									<label class="col-md-3 col-form-label align-self-center">Vehículo Placa<span style="color:red" >*</span></label>
+									<label class="col-md-3 col-form-label align-self-center">Vehículo Id<span style="color:red" >*</span></label>
 									<div class="col-md-3 align-self-center">
-										<input type='text' id= "placa" class="form-control form-control-sm"/>
+										<input type='text' id= "idVehiculo" class="form-control form-control-sm"/>
+									
 									</div>
 				
 									<div class="col-sm-0 align-self-center" id="buscar">
 											<a class="btn grey" href="#" role="button" data-toggle="modal" data-target="#centralModalSm"><i class="fas fa fa-search "></i></a>
 										</div>	
 								</div>
+							<div class="row">
+								<label class="col-md-3 col-form-label align-self-center">Placa<span style="color:red" >*</span></label>
+								<div class="col-md-3 align-self-center"><input type='text' id= "placa" class="form-control form-control-sm" disabled/></div>
+							</div>	
 						</form>
 
 						<form class="needs-validation text-left mt-1">	
@@ -265,11 +276,14 @@
 		}
 	}
 
-	function ingresarRutaRecorrido(nombreRuta,descRuta,cupoRuta,colorRuta,idfun,inicioRuta,finRuta,listaSentido,estado){
-		var ruta ={ 'id': idRuta, 'nombre': nombreRuta, 'descripcion': descRuta,'estado': estado,'cupoMaximo': cupoRuta,'color': colorRuta,'insId': 2 };
+	function ingresarRutaRecorrido(nombreRuta,descRuta,cupoRuta,colorRuta,idVehiculo,inicioRuta,finRuta,listaSentido,estado){
+
+		var rutaVehiculo={'vehiculoId':idVehiculo,'rutaId':idRuta};
+		var ruta ={ 'id': idRuta, 'nombre': nombreRuta, 'descripcion': descRuta,'estado': estado,'cupoMaximo': cupoRuta,'color': colorRuta,'insId': IntitucionPrincipal };
 		var recorrido ={'id': idRecorrido,'horaInicio': inicioRuta,'horaFin': finRuta,'estado': estado,'senId': listaSentido,'rutId': idRuta};
 
-	
+		
+		IngresarDatos(rutaVehiculo,"http://localhost:8888/rutaVehiculo");
 		IngresarDatos(ruta,"http://localhost:8888/rutas");
 		setTimeout(IngresarDatos(recorrido,"http://localhost:8888/recorrido"),1000);
 
@@ -308,14 +322,13 @@
 			var descRuta = document.getElementById('descripcionRuta');
 			var cupoRuta = document.getElementById('cupoRuta');
 			var colorRuta = document.getElementById('colorRuta');
-			var placa = document.getElementById('placa');
+			var idVehiculo = document.getElementById('idVehiculo');
 			var inicioRuta = document.getElementById('inicioRuta');
 			var finRuta = document.getElementById('finRuta');
 			var listaSentido = document.getElementById('listaSentido').value;
 			var estado = document.getElementById('estado2').value;
 			
 		event.preventDefault();		
-
 
 		if(valSololetras(nombreRuta.value)==false){
 			toastr.error('Ingrese solo letras');
@@ -332,11 +345,11 @@
 				document.getElementById("cupoRuta").style.borderColor="red";
 			}else{ 
 				document.getElementById("cupoRuta").style.borderColor='#ced4da';
-				if(valNumeros(placa.value)==false){
+				if(valNumeros(idVehiculo.value)==false){
 					toastr.error('Placa Incorrecta');
-					document.getElementById("placa").style.borderColor="red";
+					document.getElementById("idVehiculo").style.borderColor="red";
 					}else{ 
-						document.getElementById("placa").style.borderColor='#ced4da';
+						document.getElementById("idVehiculo").style.borderColor='#ced4da';
 						
 						if(vec.length == 0 )
 						{
@@ -352,7 +365,7 @@
 							let response2 = await fetch(`http://localhost:8888/contadores?opcion=2`);		
 							let data2 = await response2.json();
 							idRecorrido =data2.numero + 1; 
-							ingresarRutaRecorrido(nombreRuta.value,descRuta.value,cupoRuta.value,colorRuta.value,placa.value,inicioRuta.value,finRuta.value,listaSentido,estado);
+							ingresarRutaRecorrido(nombreRuta.value,descRuta.value,cupoRuta.value,colorRuta.value,idVehiculo.value,inicioRuta.value,finRuta.value,listaSentido,estado);
 						})();
 						}
 						

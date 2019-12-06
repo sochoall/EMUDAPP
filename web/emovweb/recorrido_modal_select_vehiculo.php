@@ -122,9 +122,11 @@
 		//  la lista es el div contenedor del resultado de la busqueda
 		$("#lista").on('click', '.bot', function(e) {
 			// CAPTURA LOS DATOS DE LAS POSICIONES DE LA TABLA DE BUSQUEDA.			
+			var id = $(this).parents("tr").find("td")[0].innerHTML;
 			var placa = $(this).parents("tr").find("td")[1].innerHTML;
 			// ENVIO EL RESULTADO A LOS INPUT DE LA VENTANA PRINCIPAL
 			document.getElementById('placa').value = (`${placa}`);
+			document.getElementById('idVehiculo').value = (`${id}`);
 		});		 
 	</script>	
  

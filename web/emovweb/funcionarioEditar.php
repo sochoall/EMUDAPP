@@ -205,8 +205,7 @@
 			var valor=e.target.value;
 			BusInstituion(valor);
 		}
-	});	
-	
+	});
 	</script>
 
 <?php include 'footer.php'; ?>
