@@ -7,18 +7,24 @@
 
  <?php
     session_start();
-    if (isset($_SESSION['id']) && isset($_SESSION['rol'])) {
-        $id = $_SESSION['id'];
-        $rol = $_SESSION['rol'];
-        $menu=$_SESSION['menu'];
-        echo " <script>                    
-			window.onload = function() 
-			{                      
-				document.getElementById('rol').innerHTML ='ROL: $rol';
-				document.getElementById('btncerrar').style.display = 'block';
-				cargarComboSentido();
-			};                      
-			</script>
+	if (isset($_SESSION['id']) && isset($_SESSION['rol']))
+	{
+		$id = $_SESSION['id'];
+		$rol = $_SESSION['rol'];               
+		$menu=$_SESSION['menu'];   
+		$institutoId=$_SESSION['institutoId'];
+		$nombreUser=$_SESSION['nombreUser'];
+
+		echo " <script> 
+					var IntitucionPrincipal=0;
+					window.onload = function()
+					{ 
+						IntitucionPrincipal=$institutoId;                  
+					document.getElementById('rol').innerHTML ='ROL: $rol';
+					document.getElementById('btncerrar').style.display = 'block';
+					cargarComboSentido();
+				};                      
+				</script>
         ";
     } else {
         header('Location: ./');
@@ -272,10 +278,11 @@
 
 	function ingresarRutaRecorrido(nombreRuta,descRuta,cupoRuta,colorRuta,idVehiculo,inicioRuta,finRuta,listaSentido,estado){
 
-		var rutaVehiculo={'vehiculoId':idVehiculo,'rutaId':2};
-		var ruta ={ 'id': idRuta, 'nombre': nombreRuta, 'descripcion': descRuta,'estado': estado,'cupoMaximo': cupoRuta,'color': colorRuta,'insId': 2 };
+		var rutaVehiculo={'vehiculoId':idVehiculo,'rutaId':idRuta};
+		var ruta ={ 'id': idRuta, 'nombre': nombreRuta, 'descripcion': descRuta,'estado': estado,'cupoMaximo': cupoRuta,'color': colorRuta,'insId': IntitucionPrincipal };
 		var recorrido ={'id': idRecorrido,'horaInicio': inicioRuta,'horaFin': finRuta,'estado': estado,'senId': listaSentido,'rutId': idRuta};
 
+		
 		IngresarDatos(rutaVehiculo,"http://localhost:8888/rutaVehiculo");
 		IngresarDatos(ruta,"http://localhost:8888/rutas");
 		setTimeout(IngresarDatos(recorrido,"http://localhost:8888/recorrido"),1000);
@@ -322,7 +329,6 @@
 			var estado = document.getElementById('estado2').value;
 			
 		event.preventDefault();		
-
 
 		if(valSololetras(nombreRuta.value)==false){
 			toastr.error('Ingrese solo letras');
