@@ -1,6 +1,6 @@
 <?php include 'header.php'; 
     include 'codigophp/sesion.php';	 
-    $menu=Sesiones("EMPRESA DE TRANSPORTE"); 
+    $menu=Sesiones("EMOV"); 
 ?>
 
 

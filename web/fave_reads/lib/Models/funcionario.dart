@@ -13,6 +13,19 @@ class Funcionario extends Serializable {
   int estado;
   int institutoId;
 
+  Future<int> obtenerNumeroElementos() async {
+    final conexion = Conexion();
+    const String sql = "select count(*) from public.te_funcionario";
+    int datos= -1;
+    final List<dynamic> query = await conexion.obtenerTabla(sql);
+
+    if(query != null && query.isNotEmpty)
+    {
+      datos=int.parse(query[0][0].toString());
+    }
+     return datos;
+  }
+
   Future<List> obtenerDatos(
       String campo, String bus, String est, String intitucionId) async {
     final conexion = Conexion();

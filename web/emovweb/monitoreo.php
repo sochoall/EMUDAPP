@@ -63,7 +63,7 @@
 			<div class="row mt-3">
 				<div class="h4 text-left font-weight-bold col-md-6">Rutas</div>
 			</div>
-			<div class="row">
+			<div class="row border">
 				<div class="col-md-12">
 				<div class='table-responsive-sm my-custom-scrollbar'>
                         <table id="tablaRutas" class='table-sm table table-hover text-center' cellspacing='0' width='100%'>
@@ -71,7 +71,7 @@
                             <tr>
 								<th scope='col'>ID</th>
 								<th scope='col'>RUTA</th>
-								<th><input type="checkbox" class="checkAll" name="checkAll" /></th>
+								<th scope='col'>SELECCIONAR</th>
 							</tr>
                         </thead>
                         <tbody  id="listaRutas" class='dt-select' >
@@ -84,24 +84,19 @@
 			</div>
 
 			<div class="row mt-3">
-				<div class="h4 text-left font-weight-bold col-md-6">Vehículos</div>
+				<div class="h4 text-left font-weight-bold col-md-6">Fechas</div>
 			</div>
 			<div class="row">
-				<div class="col-md-12">
+				<label class="col-md-3 col-form-label  align-self-center">Desde:</label>
+				<div class="col-md-5 align-self-center">
+					<input type="date" id= "fdesde" class="form-control text-uppercase form-control-sm"/>
+				</div>
+			</div>
 
-					<div class='table-responsive-md my-custom-scrollbar'>
-						<table id='dt-select' class='table-sm table table-hover text-center  cellspacing='0' width='100%'>
-							<thead class='cyan white-text'>
-								<tr>
-								<th scope='col'>ID</th>
-								<th scope='col'>RUTA</th>
-								</tr>
-							</thead>
-							<tbody id="listaVehículos">
-							</tbody>
-						</table>
-					</div>
-
+			<div class="row">
+				<label class="col-md-3 col-form-label  align-self-center">Hasta:</label>
+				<div class="col-md-5 align-self-center">
+					<input type="date" id= "fhasta" class="form-control text-uppercase form-control-sm"/>
 				</div>
 			</div>
 		</div>
@@ -115,6 +110,15 @@
 
 
 <script>
+
+n =  new Date();
+y = n.getFullYear();
+m = n.getMonth() + 1;
+d = n.getDate();
+
+//Lo ordenas a gusto.
+document.getElementById("fhasta").value = `${y}-${m}-${d}`;
+document.getElementById("fdesde").value = `${y}-${m}-${d}`;
 
 var institutoMonitoreo=true;
 var idRutas=[];
@@ -138,7 +142,7 @@ function cargarRutas(id)
 			result += `<tr> 
 						<td class="boton">${prod.id}</td>
 						<td class="boton">${prod.nombre}</td> 
-						<td><input type="checkbox" name="check" /></td>
+						<td><input type="checkbox" name="check" class="case" /></td>
 						</tr>`;								
 								
 			}
@@ -163,42 +167,81 @@ function cargarRutas(id)
 			
 		});
 
-
-		$('.checkAll').on('click', function () {
-		$(this).closest('table').find('tbody :checkbox')
-			.prop('checked', this.checked)
-			.closest('tr').toggleClass('selected', this.checked);
-			
-			var cont=0; var message=""; idRutas=[];
-			$("#tablaRutas input[type=checkbox]:checked").each(function () {
-				var row = $(this).closest("tr")[0];
-				if(cont>0)
-				{
-					idRutas.push(row.cells[0].innerHTML);
-					cargarListaParadas(row.cells[0].innerHTML);
-				}
-				cont++;
-			});
-
-			setInterval(() => {
- 				cargarUbicaciones(document.getElementById('idInst').value)
-			}, 5000);
-		});
-
-		$('tbody :checkbox').on('click', function () {
-			$(this).closest('tr').toggleClass('selected', this.checked); 
 		
-			$(this).closest('table').find('.checkAll').prop('checked', ($(this).closest('table').find('tbody :checkbox:checked').length == $(this).closest('table').find('tbody :checkbox').length)); //Tira / coloca a seleção no .checkAll
+		$("input.case").click(myfunc);
+		// $('.checkAll').on('click', function () {
+		// $(this).closest('table').find('tbody :checkbox')
+		// 	.prop('checked', this.checked)
+		// 	.closest('tr').toggleClass('selected', this.checked);
+			
+		// 	var cont=0; var message=""; idRutas=[];
+		// 	$("#tablaRutas input[type=checkbox]:checked").each(function () {
+		// 		var row = $(this).closest("tr")[0];
+		// 		if(cont>0)
+		// 		{
+		// 			idRutas.push(row.cells[0].innerHTML);
+		// 			cargarListaParadas(row.cells[0].innerHTML);
+		// 		}
+		// 		cont++;
+		// 	});
+
+		// 	setInterval(() => {
+ 		// 		cargarUbicaciones(document.getElementById('idInst').value)
+		// 	}, 5000);
+		// });
+
+		// $('tbody :checkbox').on('click', function () {
+		// 	$(this).closest('tr').toggleClass('selected', this.checked); 
+		
+		// 	$(this).closest('table').find('.checkAll').prop('checked', ($(this).closest('table').find('tbody :checkbox:checked').length == $(this).closest('table').find('tbody :checkbox').length)); //Tira / coloca a seleção no .checkAll
 					
-		});
+		// });
 
 		return produ;				
 		})		
 		.catch(error => { console.log("error",error); return error; });
 }
 
+var layers=[];
+function myfunc(ele) {
+
+	var values = new Array();
+	var cont=true;
+	  $.each($("input[name='check']:checked").closest("td").siblings("td"),
+			 function () {
+				 if(cont)
+				 {
+					values.push($(this).text());
+					cont=false;
+				 }
+				 else{
+					 cont=true;
+				 }
+				 
+			 });
+	
+	if(layers.length > 0 )
+	{
+		for(var i=0;i<layers.length;i++)
+		{
+			layers[i].clearLayers();
+		}
+	}
+	if(values.length>0)
+	{
+		
+		for(var i=0;i<values.length;i++)
+		{
+			cargarListaParadas(values[i]);
+		}
+	}
+	
+	
+}
+
 function cargarListaParadas(id)
 {
+	
 	let url= `http://localhost:8888/parada?opcion=1&dato=${id}`;
 
 	fetch(url)
@@ -207,10 +250,11 @@ function cargarListaParadas(id)
 		
 		if(produ.length > 0)
 		{
-			var layerGroup2 = L.layerGroup().addTo(map);
+			var layerGroup2 = L.layerGroup().addTo(map)
+			layers.push(layerGroup2);
 			for(let prod of produ){	
 
-				agregarMarcador(prod.latitud,prod.longuitud,cont,layerGroup2);							
+				agregarMarcador(prod.latitud,prod.longuitud,prod.nombre,layerGroup2);							
 								
 			}
 			

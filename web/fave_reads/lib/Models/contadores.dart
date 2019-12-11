@@ -3,6 +3,8 @@ import 'package:fave_reads/Models/recorrido.dart';
 import 'package:fave_reads/Models/ruta.dart';
 import 'package:fave_reads/fave_reads.dart';
 
+import 'funcionario.dart';
+
 class Contadores extends Serializable {
   int numero;
 
@@ -20,8 +22,8 @@ class Contadores extends Serializable {
 
         break;
       case 3:
-        final recorrido = Recorrido();
-        reg.numero = await recorrido.obtenerNumeroElementos();
+        final funcionario = Funcionario();
+        reg.numero = await funcionario.obtenerNumeroElementos();
 
         break;
 
