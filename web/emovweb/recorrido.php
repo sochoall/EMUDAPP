@@ -285,7 +285,7 @@
 		
 		
 		IngresarDatos(ruta,"http://localhost:8888/rutas");
-		setTimeout(IngresarDatos(recorrido,"http://localhost:8888/recorrido"),1000);
+		setTimeout(IngresarDatos(recorrido,"http://localhost:8888/recorrido"),2000);
 
 		for (i=0; i<vec.length ; i++)
 		{
@@ -295,10 +295,10 @@
 
 			var parada ={'id':0,'nombre': vecNombres[i],'orden': i,'latitud': div3[0],'longuitud': div3[1],'tiempoPromedio': "00:00:00",'estado':1,'recId':idRecorrido };
 			// var parada ={'nombre': "holaaa",'orden': 5,'latitud': div3[0],'longuitud': div3[1],'tiempoPromedio': "00:00:00",'estado':1,'recId':1 };
-			setTimeout(IngresarDatos(parada,"http://localhost:8888/parada"),2000);
+			setTimeout(IngresarDatos(parada,"http://localhost:8888/parada"),3000);
 		}
 		IngresarDatos(rutaVehiculo,"http://localhost:8888/rutaVehiculo");
-		setTimeout("window.location.reload()",1000);  
+		setTimeout("window.location.reload()",8000);  
 	}
 
 

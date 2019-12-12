@@ -50,6 +50,41 @@ class Monitoreo extends Serializable
     
   }
 
+   Future<List> obtenerMonitoreoId(int id) async {
+    final conexion = Conexion();
+    final String sql="select l.idpar, m.b,m.c,l.lat,l.long,m.f,m.g,m.parada,m.h "
+"from (select p.par_id as idpar, p.par_latitud as lat,p.par_longitud as long from public.te_ruta r, public.te_recorrido e,public.te_parada p "
+"where e.rec_id=p.rec_id and r.rut_id=e.rut_id and r.rut_id=$id) as l "
+" LEFT JOIN (select m.mon_id as a,m.mon_fecha_hora as b,m.mon_completo as c,m.mon_latitud as d,m.mon_longitud as e,m.tmo_id as f,m.tpa_id as g,m.par_id as parada,m.rec_id as h  FROM public.te_monitoreo m, public.te_recorrido e, "
+"public.te_ruta r, public.te_parada p where m.rec_id=e.rec_id and r.rut_id=e.rut_id and m.par_id=p.par_id and r.rut_id=$id) as m"
+ " ON m.parada = l.idpar";
+    print(sql);       
+    final List datos=[];
+    final List<dynamic> query = await conexion.obtenerTabla(sql);
+
+    if(query != null && query.isNotEmpty)
+    {
+      for(int i=0; i<query.length;i++)
+      {
+        final reg = Monitoreo();
+        
+        reg.id=int.parse(query[i][0].toString());
+        reg.fechaHora=query[i][1].toString();
+        reg.completo=int.parse(query[i][2].toString());        
+        reg.latitud=query[i][3].toString();
+        reg.longuitud=query[i][4].toString();    
+        reg.tmoId=query[i][5].toString();
+        reg.tpaId=query[i][6].toString();
+        reg.parId=query[i][7].toString();
+        reg.recId=query[i][8].toString();
+        datos.add(reg.asMap()); 
+      }
+    
+    }
+    return datos;
+    
+  }
+  
 
   
   Future<Monitoreo> obtenerDatoId(int id) async {

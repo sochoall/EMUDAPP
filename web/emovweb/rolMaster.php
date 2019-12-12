@@ -440,6 +440,12 @@
 									
 			}
 			lista.innerHTML=result;
+			$(".dt-select tr ").click(function(){
+			$(this).addClass('filaSeleccionada').siblings().removeClass('filaSeleccionada'); 
+
+			
+			});
+
 			let elementos=document.getElementsByClassName('boton');
 			for(let i=0;i<elementos.length;i++)
 			{

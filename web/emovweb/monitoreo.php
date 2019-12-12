@@ -203,6 +203,8 @@ function cargarRutas(id)
 }
 
 var layers=[];
+var layers2=[];
+var intervalos=[];
 function myfunc(ele) {
 
 	var values = new Array();
@@ -220,6 +222,21 @@ function myfunc(ele) {
 				 
 			 });
 	
+   	if(intervalos.length > 0 )
+	{
+		for(var i=0;i<intervalos.length;i++)
+		{
+			
+			clearInterval(intervalos[i]);
+		}
+	}
+	if(layers2.length > 0 )
+	{
+		for(var i=0;i<layers2.length;i++)
+		{
+			layers2[i].clearLayers();
+		}
+	}
 	if(layers.length > 0 )
 	{
 		for(var i=0;i<layers.length;i++)
@@ -227,12 +244,14 @@ function myfunc(ele) {
 			layers[i].clearLayers();
 		}
 	}
+
 	if(values.length>0)
 	{
-		
+		intervalos=[];
 		for(var i=0;i<values.length;i++)
 		{
 			cargarListaParadas(values[i]);
+			cargar(values[i]);
 		}
 	}
 	
@@ -254,14 +273,31 @@ function cargarListaParadas(id)
 			layers.push(layerGroup2);
 			for(let prod of produ){	
 
-				agregarMarcador(prod.latitud,prod.longuitud,prod.nombre,layerGroup2);							
+				agregarMarcadorRojo(prod.latitud,prod.longuitud,prod.nombre,layerGroup2);							
 								
 			}
 			
 		}
-		return produ;				
+		return produ;	
+		
+		
+		
+		
 		})		
 		.catch(error => { console.log("error",error); return error; });
+
+}
+
+function cargar(id)
+{
+	cargarUbicaciones(id);
+
+	var pasos = setInterval(function(){
+        cargarUbicaciones(id);
+	}, 3000); 
+
+	intervalos.push(pasos);
+	
 }
 
 function obtenerValores(e) {
@@ -320,10 +356,10 @@ function cargarUbicaciones(id)
 	fetch(url)
 	.then((res) => {return res.json(); })
 	.then(produ => {
-		cont=0;
-		layerGroup.clearLayers();
+		var layerGroup = L.layerGroup().addTo(map)
+		layers2.push(layerGroup);
 		for(let prod of produ){			
-			agregarMarcador(prod.latitud,prod.longuitud,cont,layerGroup);	
+			agregarMarcadorAzul(prod.latitud,prod.longuitud,prod.nombre,layerGroup);	
 			cont++;									
 		}
 			return produ;				
@@ -378,13 +414,19 @@ function cargarUbicaciones(id)
 					});
 
 
-			var layerGroup = L.layerGroup().addTo(map);
+			
 
-
-			function agregarMarcador(lat,lng,num,grupo)
+			function agregarMarcadorRojo(lat,lng,num,grupo)
 			{
 				L.marker([lat, lng], {icon: greenIcon}).addTo(grupo)
-				.bindPopup(`Parada ${num + 1}`)
+				.bindPopup(`${num}`)
+				.openPopup();
+			}
+
+			function agregarMarcadorAzul(lat,lng,num,grupo)
+			{
+				L.marker([lat, lng]).addTo(grupo)
+				.bindPopup(`${num}`)
 				.openPopup();
 			}
 			
