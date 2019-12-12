@@ -126,7 +126,7 @@
 
 	function IngMod(v) {	
 						
-		event.preventDefault();			
+		event.preventDefault();	
 
 		if(valCedula(ced.value)==false){
 			toastr.error('Cédula incorrecta');
@@ -168,11 +168,21 @@
 
 									var parametros={"id":0,"cedula":ced.value,"nombre":nom.value.toUpperCase(),"apellido":ape.value.toUpperCase(),"direccion":dir.value,"telefono":telf.value,"celular":cel.value,"correo":email.value,"estado":est.value,"institutoId":idInst.value};							
 									var url=`${raizServidor}/funcionario`;	
-									var ParametrosUsuario={"id":0,"correo":ced.value,"password":"1234","estado":1,"funId":1};								
-									var urlUsuario=`${raizServidor}/usuario`;	
+									
 									if(v.value=="Guardar"){
-										 Ingresar(parametros,url);
-										 Ingresar(ParametrosUsuario,urlUsuario);
+										Ingresar(parametros,url);
+										 (async () => {
+											try{												
+												let response = await fetch(`${raizServidor}/contadores?opcion=3`)
+												let data = await response.json();	
+												var urlUsuario=`${raizServidor}/usuario`;
+												var ParametrosUsuario={"id":0,"correo":ced.value,"password":"1234","estado":1,"funId":data.numero};																										
+												//console.log(ParametrosUsuario);
+												Ingresar(ParametrosUsuario,urlUsuario);												
+											}catch(e){
+												toastr.error('Error al Cargar algunos datos'); 	
+											}
+										})();								
 									}	
 									if(v.value=="Modificar"){
 										let redirigir="funcionario.php";

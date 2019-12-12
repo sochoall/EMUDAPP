@@ -15,15 +15,14 @@ class Funcionario extends Serializable {
 
   Future<int> obtenerNumeroElementos() async {
     final conexion = Conexion();
-    const String sql = "select count(*) from public.te_funcionario";
-    int datos= -1;
+    const String sql = "select max (fun_id) from public.te_funcionario";
+    int datos = -1;
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 
-    if(query != null && query.isNotEmpty)
-    {
-      datos=int.parse(query[0][0].toString());
+    if (query != null && query.isNotEmpty) {
+      datos = int.parse(query[0][0].toString());
     }
-     return datos;
+    return datos;
   }
 
   Future<List> obtenerDatos(
@@ -61,7 +60,6 @@ class Funcionario extends Serializable {
   }
 
   Future<Funcionario> obtenerDatoId(int id) async {
-    print("holi");
     final conexion = Conexion();
     final String sql = "select * from public.te_funcionario where fun_id=$id";
 

@@ -60,9 +60,9 @@ class Usuario extends Serializable {
   }
 
   Future<void> ingresar(Usuario dato) async {
-    final conexion = Conexion();
+    final conexion = Conexion();   
     final String sql =
-        "INSERT INTO public.te_usuario(usu_correo, usu_password, usu_estado, rep_id, fun_id, rol_id, est_id)"
+        "INSERT INTO public.te_usuario(usu_correo, usu_password, usu_estado, rep_id, fun_id, est_id)"
         " VALUES ('${dato.correo.replaceAll('@', '*')}', '${dato.password}',${dato.estado},${dato.repId},${dato.funId}, ${dato.estId})";
     print(sql);
     await conexion.operaciones(sql);
