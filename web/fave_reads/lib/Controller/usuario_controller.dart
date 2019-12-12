@@ -4,12 +4,12 @@ import 'package:fave_reads/Models/usuario.dart';
 
 class UsuarioController extends ResourceController {
   @Operation.get()
-  Future<Response> obtenerLista(@Bind.query('campo') String campo,
-      @Bind.query('bus') String bus, @Bind.query('est') String est) async {
+  Future<Response> obtenerLista(@Bind.query('campo') String campo,@Bind.query('bus') String bus, @Bind.query('est') String est) async {
+    print("ss");
     final servicio = Usuario();
     return Response.ok(await servicio.obtenerDatos(campo, bus, est));
   }
-
+ 
   @Operation.get('id')
   Future<Response> obtenerListaId(@Bind.path('id') int id) async {
     final servicio = Usuario();

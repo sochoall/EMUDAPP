@@ -11,32 +11,58 @@ class Usuario extends Serializable {
   String funId;
   String estId;
 
-  Future<List> obtenerDatos(String campo, String bus, String est) async {
+ Future<List> obtenerDatos(String camp, String valor ,String est) async {
     final conexion = Conexion();
-    final String sql =
-        "select * from public.te_usuario where $campo::text LIKE '%$bus%' and usu_estado::text LIKE '%$est%' order by usu_id DESC";
+    String sql="";
+    String estado=est;
+    String campo="";
+    
+    if(camp=="1")
+      campo="usu_correo";				
+    else if (camp=="2") 
+      campo="fun_id";
+    else if (camp=="3") 
+      campo="rep_id";
+    else
+      campo="est_id";
 
-    final List datos = [];
+    if(est=="2")
+    {
+      estado="0 or usu_estado=1";
+    }
+
+    if (camp == "usu_correo")
+    {
+      sql = "select * from public.te_usuario  where $campo::text LIKE '%$valor%' and usu_estado=$estado order by usu_id ASC";
+    }
+    else{
+      sql = "select * from public.te_usuario  where $campo is not null and usu_estado=$estado order by usu_id ASC";
+    }
+    
+    print(sql);
+    final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 
-    if (query != null && query.isNotEmpty) {
-      for (int i = 0; i < query.length; i++) {
+    if(query != null && query.isNotEmpty)
+    {
+      for(int i=0; i<query.length;i++)
+      {
         final reg = Usuario();
-
-        reg.id = int.parse(query[i][0].toString());
-        reg.correo = query[i][1].toString();
-        reg.password = query[i][2].toString();
-        reg.estado = int.parse(query[i][3].toString());
-        reg.repId = query[i][4].toString();
-        reg.funId = query[i][5].toString();
-        reg.estId = query[i][6].toString();
-
-        datos.add(reg.asMap());
+        
+        reg.id=int.parse(query[i][0].toString());
+        reg.correo=query[i][1].toString();
+        reg.password=query[i][2].toString();
+        reg.estado=int.parse(query[i][3].toString());
+        reg.repId=query[i][4].toString();
+        reg.funId=query[i][5].toString();
+        reg.estId=query[i][6].toString();
+           
+        datos.add(reg.asMap()); 
       }
-      return datos;
-    } else {
-      return null;
+      print(datos);
+     
     }
+     return datos;    
   }
 
   Future<Usuario> obtenerDatoId(int id) async {
