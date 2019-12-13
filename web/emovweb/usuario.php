@@ -25,7 +25,6 @@
 ?>
 
 <script>
-
 function obtenerValores(e) {
     var elementosTD=e.srcElement.parentElement.getElementsByTagName("td");
     let valores=`<td></td>
@@ -37,6 +36,7 @@ function obtenerValores(e) {
 
     cargarOpciones(elementosTD[0].innerHTML);
 
+             
     function cargarOpciones(id)
     {
         var result=``;
@@ -145,7 +145,7 @@ function obtenerValores(e) {
                     <th></th>
                     </tr>
                 </thead>
-                <tbody  id="lista" >
+                <tbody  id="lista" class="td-select" >
                     <!-- AQUI SE CARGA LA TABLA CON LOS REGISTROS -->
                 </tbody>
             </table>
@@ -215,7 +215,8 @@ function obtenerValores(e) {
 			textBuscar=textBuscar.toUpperCase();			
 			var estado=document.getElementById("comboactivo").value;
 			
-			let url=`http://localhost:8888/usuario?campo=${campo}&valor=${textBuscar}&estado=${estado}`;
+			let url=`http://localhost:8888/usuario?campo=${campo}&valor=${textBuscar}&est=${estado}`;    
+            alert(url);       
 			fetch(url)
 		 	.then((res) => {return res.json(); })
 			.then(produ => {
@@ -267,7 +268,8 @@ function obtenerValores(e) {
                     for(let i=0;i<elementos.length;i++)
                     {
                         elementos[i].addEventListener('click',obtenerValores);
-                    }  
+                    } 
+                   
                            
                 }
 				else{
@@ -279,7 +281,10 @@ function obtenerValores(e) {
 				.catch(error => { console.log("error",error); return error; })					
 		}		
 			
-		boton.addEventListener('click',Buscar);
+        boton.addEventListener('click',Buscar);
+        
+       
+          
 	</script>	
 
  <?php include 'footer.php'; ?>

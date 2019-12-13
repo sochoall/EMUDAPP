@@ -3,7 +3,7 @@
 	$menu=Sesiones("EMOV");
 ?>
 
-<div class="container text-left mt-2 text-uppercase">
+<div class="container text-left mt-2">
    <div class="row">
        <div class="col-md-6 offset-md-3">
            <div class="card">
@@ -46,7 +46,7 @@
 	var metodo = parametro.get('metodo');
 	var id;	
 	document.getElementById('metodo').value =metodo;
-	if(metodo=='Agregar')
+	if(metodo=='Guardar')
 	document.getElementById("estado").disabled=true;
 
 	if(metodo=='Modificar'){		
@@ -70,7 +70,7 @@
 			nombre.style.borderColor='green';
 			var parametros={'id':0,'nombre':nombre.value.toUpperCase(),'estado':estado.value};		
 			var url=`${raizServidor}/tipoInstitucion`;
-			if(v.value=="Agregar"){
+			if(v.value=="Guardar"){
 				Ingresar(parametros,url);
 			}	
 			if(v.value=="Modificar"){

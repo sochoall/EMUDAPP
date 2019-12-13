@@ -5,6 +5,7 @@ import 'package:fave_reads/Controller/opcion_controller.dart';
 import 'package:fave_reads/Controller/parada_controller.dart';
 import 'package:fave_reads/Controller/periodo_controller.dart';
 import 'package:fave_reads/Controller/recorrido_controller.dart';
+import 'package:fave_reads/Controller/ruta_vehiculo_controller.dart';
 import 'package:fave_reads/Controller/sentido_controller.dart';
 import 'package:fave_reads/Controller/tipo_institucion_controller.dart';
 import 'package:fave_reads/Controller/tipo_monitoreo_controller.dart';
@@ -57,7 +58,7 @@ class FaveReadsChannel extends ApplicationChannel {
     // See: https://aqueduct.io/docs/http/request_controller/
 
     ..route('/funcionario/[:id]').link(() => FuncionarioController())
-
+    ..route('/rutaVehiculo/[:id]').link(() => RutaVehiculoController())
     ..route('/institucion/[:id]').link(() => InstitucionController())
 
     ..route('/tipoInstitucion/[:id]').link(() => TipoInstitucionController())
@@ -73,7 +74,7 @@ class FaveReadsChannel extends ApplicationChannel {
 
     ..route('/login/[:datos]').link(() => LoginController())
 
-    ..route('/opcionRol/[:datos]').link(() => OpcionRolController())
+    ..route('/opcionRol/[:id]').link(() => OpcionRolController())
     ..route('/hijo/[:id]').link(() =>OpcionHijoController())
     ..route('/contadores/[:id]').link(() =>ContadoresController())
     ..route('/vehiculo/[:id]').link(() => VehiculoController())
@@ -88,6 +89,7 @@ class FaveReadsChannel extends ApplicationChannel {
     ..route('/sentido/[:id]').link(() => SentidoController())
     ..route('/tipoVehiculo/[:id]').link(() => TipoVehiculoController())
     ..route('/tipoParada/[:id]').link(() => TipoParadaController())
+    
     ..route('/tipoMonitoreo/[:id]').link(() => TipoMonitoreoController());
 
 

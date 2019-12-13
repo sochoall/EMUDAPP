@@ -73,9 +73,6 @@
 					
 			
 	    </div>
-        <div class="modal-footer">
-        	<button type="button" class="btn btn-sm grey" data-dismiss="modal">Cancelar</button>        
-      	</div>
     </div>
   </div>
 </div>
@@ -96,13 +93,7 @@
 			
 			let url=`http://localhost:8888/institucion?campo=${campo}&bus=${textBuscar}&est=${estado}`;
 
-			lista.innerHTML=`
-			<div class="text-center">
-			<div class="spinner-border text-info" role="status">
-				<span class="sr-only">Loading...</span>
-			</div>
-			</div>				
-				`;	
+			lista.innerHTML=`<div class="text-center"><div class="spinner-border text-info" role="status"><span class="sr-only">Loading...</span></div></div>`;	
 			fetch(url)
 		 	.then((res) => {return res.json(); })
 			.then(produ => {
@@ -141,9 +132,13 @@
 			// CAPTURA LOS DATOS DE LAS POSICIONES DE LA TABLA DE BUSQUEDA.
 			var cod = $(this).parents("tr").find("td")[0].innerHTML;
 			var nom = $(this).parents("tr").find("td")[2].innerHTML;
-				
 			// ENVIO EL RESULTADO A LOS INPUT DE LA VENTANA PRINCIPAL
-			document.getElementById('chofer').value = (`${nom}`);
-			document.getElementById('idfun').value = cod;
+			document.getElementById('nomInst').value = (`${nom}`);
+			document.getElementById('idInst').value = cod;
+
+			if(institutoMonitoreo)
+			{
+				cargarRutas(cod);
+			}
 		});		 
 	</script>

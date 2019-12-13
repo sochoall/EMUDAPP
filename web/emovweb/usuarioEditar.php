@@ -102,7 +102,6 @@ function IngMod(v)
     event.preventDefault();			
 
     if(validarRUC(cedula.value)==false){
-        alert("holaaaa");
             toastr.error('Cédula con caracteres incorrectos');
             cedula.style.borderColor="red";
     }

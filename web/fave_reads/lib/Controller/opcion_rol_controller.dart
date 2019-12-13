@@ -8,7 +8,7 @@ class OpcionRolController extends ResourceController{
 
   
  @Operation.post()
-  Future<Response> crearMonitoreo(@Bind.body() OpcionRol body )async
+  Future<Response> crearOpcionRol(@Bind.body() OpcionRol body )async
   {
      final servicio = OpcionRol();
      await servicio.ingresar(body);
@@ -18,10 +18,13 @@ class OpcionRolController extends ResourceController{
 
 
   @Operation.put('id')
-  Future<Response> modificarTipoVehiculo(@Bind.path('id') int id,@Bind.body() OpcionRol body) async
+  Future<Response> modificarOpcionRol(@Bind.path('id') int id, @Bind.body() OpcionRol body) async
   {
+    print(id);
+    print(body);
     final servicio = OpcionRol();
     await servicio.eliminar(id, body);
     return Response.ok('se ha modificado');
   }
+
 }

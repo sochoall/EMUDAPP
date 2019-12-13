@@ -1,16 +1,17 @@
 import 'dart:async';
 import 'package:aqueduct/aqueduct.dart';
 import 'package:fave_reads/Models/Monitoreo.dart';
+import 'package:fave_reads/Models/parada.dart';
 
 class MonitoreoController extends ResourceController{
 
 
 
   @Operation.get()
-  Future<Response> obtenerLista() async
+  Future<Response> obtenerLista(@Bind.query('id') int id) async
   {
-    final servicio = Monitoreo();
-    return Response.ok(await servicio.obtenerDatos());
+    final servicio = Parada();
+    return Response.ok(await servicio.obtenerParadaMonitoreo(id,""));
   }
 
   @Operation.get('id')

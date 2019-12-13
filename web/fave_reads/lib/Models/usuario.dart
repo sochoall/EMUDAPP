@@ -2,24 +2,21 @@ import 'dart:async';
 import 'package:fave_reads/Models/conexion.dart';
 import 'package:fave_reads/fave_reads.dart';
 
-
-class Usuario extends Serializable
-{
-  
+class Usuario extends Serializable {
   int id;
   String correo;
   String password;
-  int  estado;
+  int estado;
   String repId;
   String funId;
   String estId;
- 
-  Future<List> obtenerDatos(String camp, String valor ,String est) async {
+
+ Future<List> obtenerDatos(String camp, String valor ,String est) async {
     final conexion = Conexion();
     String sql="";
     String estado=est;
     String campo="";
-
+    
     if(camp=="1")
       campo="usu_correo";				
     else if (camp=="2") 
@@ -42,6 +39,7 @@ class Usuario extends Serializable
       sql = "select * from public.te_usuario  where $campo is not null and usu_estado=$estado order by usu_id ASC";
     }
     
+    print(sql);
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 
@@ -64,9 +62,7 @@ class Usuario extends Serializable
       print(datos);
      
     }
-
-     return datos;
-    
+     return datos;    
   }
 
   Future<Usuario> obtenerDatoId(int id) async {
@@ -74,77 +70,72 @@ class Usuario extends Serializable
     final String sql = "select * from public.te_usuario where usu_id=$id";
 
     final List<dynamic> query = await conexion.obtenerTabla(sql);
-    if(query != null && query.isNotEmpty)
-    { 
-        final reg = Usuario();
-        reg.id=int.parse(query[0][0].toString());
-        reg.correo=query[0][1].toString();
-        reg.password=query[0][2].toString();
-        reg.estado=int.parse(query[0][3].toString());
-        reg.repId=query[0][4].toString();
-        reg.funId=query[0][5].toString();
-        reg.estId=query[0][6].toString();
-        return reg;
-    }
-    else
-    {
+    if (query != null && query.isNotEmpty) {
+      final reg = Usuario();
+      reg.id = int.parse(query[0][0].toString());
+      reg.correo = query[0][1].toString();
+      reg.password = query[0][2].toString();
+      reg.estado = int.parse(query[0][3].toString());
+      reg.repId = query[0][4].toString();
+      reg.funId = query[0][5].toString();
+      reg.estId = query[0][6].toString();
+      return reg;
+    } else {
       return null;
     }
-    
   }
 
-  Future<void> ingresar(Usuario dato) async{
-    final conexion = Conexion();
-    final String sql = "INSERT INTO public.te_usuario(usu_id, usu_correo, usu_password, usu_estado, rep_id, fun_id, rol_id, est_id)"
-   " VALUES (${dato.id},'${dato.correo.replaceAll('@','*')}', '${dato.password}',${dato.estado},${dato.repId},${dato.funId}, ${dato.estId})";
+  Future<void> ingresar(Usuario dato) async {
+    final conexion = Conexion();   
+    final String sql =
+        "INSERT INTO public.te_usuario(usu_correo, usu_password, usu_estado, rep_id, fun_id, est_id)"
+        " VALUES ('${dato.correo.replaceAll('@', '*')}', '${dato.password}',${dato.estado},${dato.repId},${dato.funId}, ${dato.estId})";
     print(sql);
     await conexion.operaciones(sql);
   }
 
-   Future<void> modificar(int id,Usuario dato) async{
+  Future<void> modificar(int id, Usuario dato) async {
     final conexion = Conexion();
-    String sql ='';
-    if(dato.password == "null")
-    {
-      sql = "UPDATE public.te_usuario SET usu_correo='${dato.correo}' , usu_estado=${dato.estado}"
-	          "WHERE usu_id=$id";
+    String sql = '';
+    if (dato.password == "null") {
+      sql =
+          "UPDATE public.te_usuario SET usu_correo='${dato.correo}' , usu_estado=${dato.estado}"
+          "WHERE usu_id=$id";
+    } else {
+      sql =
+          "UPDATE public.te_usuario SET usu_password='${dato.password}' , usu_correo='${dato.correo}' , usu_estado=${dato.estado}"
+          "WHERE usu_id=$id";
     }
-    else{
-      sql = "UPDATE public.te_usuario SET usu_password='${dato.password}' , usu_correo='${dato.correo}' , usu_estado=${dato.estado}"
-	          "WHERE usu_id=$id";
-    }
-     
-   
+
     await conexion.operaciones(sql);
   }
 
-   Future<void> eliminar(int id) async{
+  Future<void> eliminar(int id) async {
     final conexion = Conexion();
-    final String sql = "UPDATE public.te_usuario SET usu_estado=1 WHERE usu_id=$id";
+    final String sql =
+        "UPDATE public.te_usuario SET usu_estado=1 WHERE usu_id=$id";
     await conexion.operaciones(sql.toString());
   }
 
   @override
   Map<String, dynamic> asMap() => {
-    'id': id,
-    'correo': correo,
-    'password': password,
-    'estado': estado,
-    'repId': repId,
-    'funId': funId,
-    'estId' : estId
-  };
+        'id': id,
+        'correo': correo,
+        'password': password,
+        'estado': estado,
+        'repId': repId,
+        'funId': funId,
+        'estId': estId
+      };
 
   @override
   void readFromMap(Map<String, dynamic> object) {
-    id= int.parse(object['id'].toString());
-    correo= object['correo'].toString();
-    password= object['password'].toString();
-    estado=int.parse( object['estado'].toString());
-    repId=object['repId'].toString();
-    funId=object['funId'].toString();
-    estId=object['estId'].toString();
+    id = int.parse(object['id'].toString());
+    correo = object['correo'].toString();
+    password = object['password'].toString();
+    estado = int.parse(object['estado'].toString());
+    repId = object['repId'].toString();
+    funId = object['funId'].toString();
+    estId = object['estId'].toString();
   }
-
-
 }

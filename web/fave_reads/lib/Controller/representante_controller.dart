@@ -7,10 +7,10 @@ class RepresentanteController extends ResourceController{
 
 
   @Operation.get()
-  Future<Response> obtenerLista() async
+  Future<Response> obtenerLista(@Bind.query('campo') String campo,@Bind.query('valor') String valor,@Bind.query('estado') String estado) async
   {
     final servicio = Representante();
-    return Response.ok(await servicio.obtenerDatos());
+    return Response.ok(await servicio.obtenerDatos(campo,valor,estado));
   }
 
   @Operation.get('id')

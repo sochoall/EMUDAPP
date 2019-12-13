@@ -7,9 +7,6 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>Material Design Bootstrap</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
-  <script src="leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine.js"></script>
-  <script src="leaflet-routing-machine-3.2.12/src/Control.Geocoder.js"></script>
   <link rel="stylesheet" href="leaflet-routing-machine-3.2.12/dist/leaflet-routing-machine.css" /> 
   <link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet">
   <!-- Font Awesome -->
@@ -49,7 +46,10 @@
     
     <div class="col-sm-3 h6 mt-3">
 
-      <div class="font-weight-bold "> <div id="rol"></div></div>
+      <div class="font-weight-bold "> 
+          <div id="name"></div>
+          <div id="rol"></div>
+      </div>
 
       <div class="" id="btncerrar">
         <a class="col-md-12 text-white font-weight-bold text-center " href="./codigophp/cerrarSesion.php"><i class="fas fa-sign-out-alt pr-2" aria-hidden="true"></i> SALIR</a>

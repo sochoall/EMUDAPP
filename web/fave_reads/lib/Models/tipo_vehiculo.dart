@@ -59,7 +59,7 @@ class TipoVehiculo extends Serializable
   Future<void> ingresar(TipoVehiculo dato) async{
     final conexion = Conexion();
     final String sql = "INSERT INTO public.te_tipo_vehiculo( tve_nombre,tve_estado)"
-   " VALUES ('${dato.nombre}',${dato.estado}";
+   " VALUES ('${dato.nombre}',${dato.estado})";
     print(sql);
     await conexion.operaciones(sql);
   }

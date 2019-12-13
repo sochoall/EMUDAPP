@@ -4,7 +4,6 @@
 	$menu=Sesiones("EMOV");
 ?>
 
-
 <div class="container-fluid grey pr-0 pl-0">
 		<?php 
 		echo $menu 
@@ -68,9 +67,8 @@
     </div>
 </div>         
     <div class="cyan circulo">
-			<a href="institucionEditar.php?metodo=Agregar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
-	</div>	
-   
+		<a href="institucionEditar.php?metodo=Guardar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
+	</div>	   
 
     <script type="text/javascript">	
 

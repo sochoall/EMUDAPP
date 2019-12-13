@@ -1,37 +1,17 @@
-<?php include 'header.php'; ?>
-
- <?php
-    session_start();
-    if (isset($_SESSION['id']) && isset($_SESSION['rol'])) {
-        $id = $_SESSION['id'];
-        $rol = $_SESSION['rol'];
-        $menu=$_SESSION['menu'];
-        echo " <script>
-                    
-                    window.onload = function() 
-                    {
-                      
-                        document.getElementById('rol').innerHTML ='ROL: $rol';
-                        document.getElementById('btncerrar').style.display = 'block';
-                    };
-                   
-                       
-                </script>
-        ";
-    } else {
-        header('Location: ./');
-    }   
-
+<?php include 'header.php'; 
+    include 'codigophp/sesion.php';	 
+    $menu=Sesiones("EMOV"); 
 ?>
 
-<div class="container-fluid grey pr-0 pl-0">
+
+<div class="container-fluid grey">
 		<?php 
 		echo $menu 
 		?>
 </div>
 
 
-<div class="container ">
+<div class="container  pt-3">
     <div class="row mt-3 ">
         <div class="h3 text-left font-weight-bold">ESTUDIANTE</div>
     </div>
@@ -39,10 +19,10 @@
         <div class="col-md-3">
             <label class="align-self-center">Campo:</label>
             <select id="campo" name="campo" class="browser-default custom-select" onchange="veroferta(this.value)">
-                <option value="1" selected>C&Eacute;DULA</option>
-                <option value="2">NOMBRE</option>
-                <option value="3">APELLIDO</option>
-                <option value="4">DIRECCI&Oacute;N</option>
+                <option value="est_cedula" selected>C&Eacute;DULA</option>
+                <option value="est_nombre">NOMBRE</option>
+                <option value="est_apellido">APELLIDO</option>
+                <option value="est_direccion">DIRECCI&Oacute;N</option>
             </select>
         </div>
 
@@ -54,7 +34,7 @@
         <div class="col-md-2 ">
             <label class="align-self-center">Estado:</label>
             <select id="comboactivo" name="comboactivo" class="browser-default custom-select">
-                <option value="2" selected>TODOS</option>
+                <option value="" selected>TODOS</option>
                 <option value="1">ACTIVOS</option>
                 <option value="0">INACTIVOS</option>
             </select>
@@ -88,7 +68,7 @@
 </div>
 
 <div class="cyan circulo">
-        <a href="vehiculoEditar.php?metodo=Agregar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
+    <a href="estudianteEditar.php?metodo=Guardar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
 </div>	
 
 <script type="text/javascript">
@@ -103,14 +83,8 @@
         var campo = document.getElementById('campo').value;			
         var textBuscar=document.getElementById('textBuscar').value;
         textBuscar=textBuscar.toUpperCase();			
-        var estado=document.getElementById("comboactivo").value;
-                    
-        
-        if(textBuscar=="")
-        {
-            textBuscar="*";
-        }
-        
+        var estado=document.getElementById("comboactivo").value;                    
+              
         let url=`http://localhost:8888/estudiante?campo=${campo}&valor=${textBuscar}&estado=${estado}`;
         fetch(url)
         .then((res) => {return res.json(); })
@@ -125,23 +99,15 @@
                         <td class='boton'> ${prod.id}</td>
                         <td class='boton'> ${prod.cedula}</td>
                         <td class='boton'> ${prod.nombre}  ${prod.apellido}</td>
-                        <td class='boton'> ${prod.direccion}</td>
-                    `;
-                    
-                    if(prod.estado===1){
-                        estado="INACTIVO";
-                    }else{
-                        estado="ACTIVO";
-                    }
-
-                    result +=`
-                    <td class='boton'>${estado}</td>
-                    <td><a href='estudiante?id=${prod.id}' class='fas fa-edit'>Editar</a></td></tr> `;
-                            
+                        <td class='boton'> ${prod.direccion}</td>                    
+                        <td class='boton'> ${prod.estado==1?"ACTIVO":"INACTIVO"} </td>
+                        <td>
+                        <?php echo "<a href="?>estudianteEditar.php?metodo=Modificar&id=${prod.id}
+                        <?php echo "class='fas fa-edit'>Editar</a>" ?>
+                        </td>
+                    </tr> `;                            
                 }
-
-                lista.innerHTML=result;	
-                
+                lista.innerHTML=result;	                
             }
             else{
                 lista.innerHTML =`<div>No se encuentras coincidencias.</div>`				

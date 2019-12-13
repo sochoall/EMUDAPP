@@ -15,9 +15,20 @@ class Representante extends Serializable
   String correo;
   int estado;
  
-  Future<List> obtenerDatos() async {
+  Future<List> obtenerDatos(String camp, String valor ,String est) async {
     final conexion = Conexion();
-    const String sql = "select * from public.te_representante where rep_estado=0";
+    String estado="";
+
+    if(est == "2")
+    {
+      estado="1 and est_estado=0";
+    }
+    else{
+      estado=est;
+    }
+    
+    final String sql = "select * from public.te_representante  where $camp::text LIKE '%$valor%' and rep_estado=$estado order by rep_id ASC";
+ 
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 

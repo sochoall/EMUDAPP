@@ -1,78 +1,57 @@
 import 'package:postgres/postgres.dart';
 
-class Conexion  
-{
-  // PostgreSQLConnection conexion = PostgreSQLConnection("localhost", 5432, "emov", username: "postgres", password: "1234");
-PostgreSQLConnection conexion = PostgreSQLConnection("localhost", 5432, "emov", username: "postgres", password: "admin");
-  Future conectar()async {
-
+class Conexion {
+  PostgreSQLConnection conexion = PostgreSQLConnection("localhost", 5432, "emov",username: "postgres", password: "1234");
+//  PostgreSQLConnection conexion = PostgreSQLConnection("localhost", 5432, "emov", username: "postgres", password: "admin");
+  Future conectar() async {
     await conexion.open();
     print('conexion establecida');
   }
 
-  Future desconectar() async{
-    
-    if (!conexion.isClosed)
-    {
+  Future desconectar() async {
+    if (!conexion.isClosed) {
       await conexion.close();
     }
-    
   }
 
-  Future<List<dynamic>> obtenerTabla(String sql) async{
-     
+  Future<List<dynamic>> obtenerTabla(String sql) async {
     List<dynamic> results;
-    
-    try{
-        await conectar();
-        results =  await conexion.query(sql);
-    }
-    catch(Exception)
-    {
+
+    try {
+      await conectar();
+      results = await conexion.query(sql);
+    } catch (Exception) {
       print(Exception);
-    }
-    finally
-    {
+    } finally {
       await desconectar();
     }
 
-   return results;
+    return results;
   }
 
-  Future<void> operaciones(String sql) async{
-    try{
-        await conectar();
-        await conexion.query(sql);
-        print('Se ha completado exitosamente');
-    }
-    catch(Exception)
-    {
+  Future<void> operaciones(String sql) async {
+    try {
+      await conectar();
+      await conexion.query(sql);
+      print('Se ha completado exitosamente');
+    } catch (Exception) {
       print(Exception);
       print('Ha fallado');
-    }
-    finally
-    {
+    } finally {
       await desconectar();
     }
-
   }
-   Future<int> busqueda(String sql) async{
-     
+
+  Future<int> busqueda(String sql) async {
     List<dynamic> results;
     int cont;
-    try{
-        results =  await conexion.query(sql);
-        cont=int.parse(results[0][0].toString());
-    }
-    catch(Exception)
-    {
+    try {
+      results = await conexion.query(sql);
+      cont = int.parse(results[0][0].toString());
+    } catch (Exception) {
       print(Exception);
-    }
-    finally
-    {
-    }
+    } finally {}
 
-   return cont;
+    return cont;
   }
-
 }

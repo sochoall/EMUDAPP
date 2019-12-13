@@ -31,8 +31,10 @@ class Opcion extends Serializable {
   }
 
   Future<List> obtenerPadresHijos(String id) async {
-    final String sql = "select p.id,p.nom,m.opc_id,m.opc_nombre from (select o.opc_id as id,o.opc_nombre as  nom from te_opcion_rol r, te_opcion o where r.opc_id=o.opc_id and r.rol_id=$id and opc_padre_id is null and o.opc_estado = 1) as p,te_opcion m"  
-                      " where m.opc_padre_id=p.id order by 1";
+    final String sql = "select k.id,k.nom,k.opc_id,k.opc_nombre from (select p.id,p.nom,m.opc_id,m.opc_nombre from (select o.opc_id as id,o.opc_nombre as  nom from te_opcion_rol r, te_opcion o "
+                      " where r.opc_id=o.opc_id and r.rol_id=$id and opc_padre_id is null and o.opc_estado = 1) as p,te_opcion m "
+                      " where m.opc_padre_id=p.id order by 1) as k, te_opcion_rol a"
+                      " where a.opc_id=k.opc_id and rol_id=$id";
     final reg = OpcionRol();
     
     return reg.obtenerHijos(sql);
