@@ -5,12 +5,11 @@ import 'package:fave_reads/Models/usuario.dart';
 class UsuarioController extends ResourceController{
 
 
-
   @Operation.get()
-  Future<Response> obtenerLista(@Bind.query('campo') String id,@Bind.query('valor') String valor,@Bind.query('estado') String estado) async
+  Future<Response> obtenerLista() async
   {
     final servicio = Usuario();
-    return Response.ok(await servicio.obtenerDatos(id,valor,estado));
+    return Response.ok(await servicio.obtenerDatos());
   }
 
   @Operation.get('id')
@@ -43,14 +42,13 @@ class UsuarioController extends ResourceController{
     await servicio.eliminar(id);
     return Response.ok('se ha eliminado');
   }
-
- /* @Operation.get('correo','password')
+  @Operation.get('correo','password')
   Future<Response> busqueda(@Bind.path('correo') String correo,@Bind.path('password') String pss) async
   {
     final servicio = Usuario();
     String aux=await servicio.busquedaUsuario(correo,pss);
     return Response.ok(aux);
 
-  }*/
+  }
   
 }

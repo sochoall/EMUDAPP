@@ -11,7 +11,7 @@ class Rol extends Serializable
  
   Future<List> obtenerDatos() async {
     final conexion = Conexion();
-    const String sql = "select * from public.te_rol where rol_estado=1";
+    const String sql = "select * from public.te_rol where rol_estado=0";
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 
@@ -59,8 +59,8 @@ class Rol extends Serializable
 
   Future<void> ingresar(Rol dato) async{
     final conexion = Conexion();
-    final String sql = "INSERT INTO public.te_rol(rol_nombre, rol_estado)"
-   " VALUES ('${dato.nombre}', ${dato.estado })";
+    final String sql = "INSERT INTO public.te_rol(rol_id, rol_nombre, rol_estado )"
+   " VALUES (${dato.id},'${dato.nombre}', ${dato.estado }";
     print(sql);
     await conexion.operaciones(sql);
   }
@@ -68,7 +68,7 @@ class Rol extends Serializable
    Future<void> modificar(int id,Rol dato) async{
     final conexion = Conexion();
     final String sql = 
-    "UPDATE public.te_rol SET rol_nombre='${dato.nombre}', rol_estado=${dato.estado} "
+    "UPDATE public.te_rol SET rol_nombre='${dato.nombre}' "
 	  "WHERE rol_id=$id";
     await conexion.operaciones(sql);
   }

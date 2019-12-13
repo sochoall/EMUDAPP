@@ -27,11 +27,13 @@ Future<List<Post>> fetchPost(idR) async
 
 class Post
 {
+  int id;
   String latitud;
   String longitud;
 
   Post(
     {
+      this.id,
       this.latitud,
       this.longitud,
     }
@@ -40,6 +42,7 @@ class Post
   factory Post.fromJson(Map<String, dynamic> json)
   {
     return Post(
+      id: json['id'],
       latitud: json['latitud'],
       longitud: json['longitud'],
     );
@@ -74,8 +77,9 @@ class MyHomePageState extends State<MyHomePage>
   final String idR; 
   Future<Post> post;
   Position userLocation;
-  List<LatLng> points = [];
+  static List<int> ids = [];
   MyHomePageState(this.idR);
+  static List<LatLng> points = [];
   bool flag=false, statusFlag=false;
   Geolocator geolocator = Geolocator();
 
@@ -83,7 +87,7 @@ class MyHomePageState extends State<MyHomePage>
   Widget build(BuildContext context) 
   {
     getUserCoords();
-    return new Scaffold(
+    return Scaffold(
       body: userLocation == null ? 
       Center(
         child: CircularProgressIndicator()
@@ -96,7 +100,7 @@ class MyHomePageState extends State<MyHomePage>
           {
             if(snapshot.hasData)
             {
-              flag == false ? snapshot.data.map((post) => buildStopMarkers(post.latitud, post.longitud)).toList() : getUserProximity();
+              flag == false && points.isEmpty ? snapshot.data.map((post) => buildStopMarkers(post.id, post.latitud, post.longitud)).toList() : getUserProximity();
               flag = true;
             }
             else if (snapshot.hasError)
@@ -206,7 +210,7 @@ class MyHomePageState extends State<MyHomePage>
 
   MarkerLayerOptions buildUserMarkLocation()
   {
-    return new MarkerLayerOptions(markers: [
+    return MarkerLayerOptions(markers: [
       new Marker(
         width: 45.0,
         height: 45.0,
@@ -227,14 +231,16 @@ class MyHomePageState extends State<MyHomePage>
     ]);
   }
 
-  void buildStopMarkers(String latitud, String longitud)
+  void buildStopMarkers(int id, String latitud, String longitud)
   {
     LatLng latlng = new LatLng(double.parse(latitud), double.parse(longitud));
     points.add(latlng);
+    ids.add(id);
   }
 
   void removeStopMarkers(LatLng latlng)
   {
-    points.removeWhere((item) => (item.latitude == latlng.latitude) & (item.longitude == latlng.longitude));
+    points.removeAt(0);
+    ids.removeAt(0);
   }
 }

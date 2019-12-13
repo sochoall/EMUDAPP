@@ -6,11 +6,11 @@ class FuncionarioController extends ResourceController{
 
 
 
- @Operation.get()
-  Future<Response> obtenerLista(@Bind.query('campo') String campo,@Bind.query('bus') String bus,@Bind.query('est') String est ) async
+  @Operation.get()
+  Future<Response> obtenerLista() async
   {
     final servicio = Funcionario();
-    return Response.ok(await servicio.obtenerDatos(campo,bus,est));
+    return Response.ok(await servicio.obtenerDatos());
   }
 
   @Operation.get('id')
@@ -31,6 +31,7 @@ class FuncionarioController extends ResourceController{
   @Operation.put('id')
   Future<Response> modificarFuncionario(@Bind.path('id') int id,@Bind.body() Funcionario body) async
   {
+    print("Holaaaaaaaaaaaa0");
     final servicio = Funcionario();
     await servicio.modificar(id, body);
     return Response.ok('se ha modificado');

@@ -9,9 +9,9 @@ class EstadoObjetos extends Serializable
   int id;
   String nombre;
  
-  Future<List> obtenerDatos(String campo ,String bus) async {
+  Future<List> obtenerDatos() async {
     final conexion = Conexion();
-    final String sql = "select * from public.te_estado_objetos   where $campo::text LIKE '%$bus%'";
+    const String sql = "select * from public.te_estado_objetos ";
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 
@@ -55,8 +55,8 @@ class EstadoObjetos extends Serializable
 
   Future<void> ingresar(EstadoObjetos dato) async{
     final conexion = Conexion();
-    final String sql = "INSERT INTO public.te_estado_objetos(eob_nombre)"
-   " VALUES ( '${dato.nombre}')";
+    final String sql = "INSERT INTO public.te_estado_objetos(eob_id,eob_nombre)"
+   " VALUES (${dato.id}, '${dato.nombre}')";
     print(sql);
     await conexion.operaciones(sql);
   }

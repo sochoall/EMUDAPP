@@ -1,13 +1,7 @@
-import 'package:app_movil/transportista/tabs/alumnos.dart';
-import 'package:app_movil/transportista/tabs/objetos_perdidos_page.dart';
-import 'package:app_movil/transportista/tabs/registro_estudiantes_page.dart';
-
-import 'package:app_movil/transportista/tabs/rutas.dart';
-import 'package:app_movil/transportista/widgets/menu_lateral.dart';
 import 'package:flutter/material.dart';
-import 'package:app_movil/rutas/rutas.dart';
-
-
+import 'package:app_movil/transportista/tabs/mapa.dart';
+import 'package:app_movil/transportista/tabs/rutas.dart';
+import 'package:app_movil/transportista/tabs/registro_estudiantes_page.dart';
 
 class PantallaParadas extends StatelessWidget {
   final String nombreRuta; //Creacion de varibales que se vayan a usar
@@ -38,7 +32,8 @@ final String idUsuario;
   HomeScreenState createState() => HomeScreenState(nombreRuta,idRecorrido,nombre,idUsuario); //Paso de paramteros
 }
 
-class HomeScreenState extends State<HomeScreen> {
+class HomeScreenState extends State<HomeScreen> 
+{
   @override
   final String nombreRuta; //Creacion de varibales que se vayan a usar
   final String idRecorrido;
@@ -50,12 +45,18 @@ class HomeScreenState extends State<HomeScreen> {
  
   int index = 0;
 
-  Widget callPage(int index,String sentido) {
-    switch (index) {
+  //Widget callPage(int index,String sentido) {
+    
+    //switch (index) {
+      
+  Widget callPage(int index,String sentido) 
+  {
+    switch (index) 
+    {
       case 0:
         return Rutas(this.idRecorrido);
       case 1:
-        return listado();
+        return listado(MyHomePageState.ids.first);
         break;
       default:
         return Rutas(this.idRecorrido);
@@ -129,16 +130,13 @@ class HomeScreenState extends State<HomeScreen> {
                         //),
                       ]),
         ),
-        //drawer: Drawer(
-          //child: MenuLateral(idUsuario),
-        //)
-        );
-  }
+      );
+      }
 }
 
-class Choice {
+class Choice 
+{
   const Choice({this.title, this.icon});
-
   final String title;
   final IconData icon;
 }

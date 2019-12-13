@@ -7,11 +7,13 @@ import 'package:fave_reads/Models/tipo_institucion.dart';
 
 class TipoInstitucionController extends ResourceController{
 
+
+
   @Operation.get()
-  Future<Response> obtenerLista(@Bind.query('campo') String campo,@Bind.query('bus') String bus,@Bind.query('est') String est ) async
+  Future<Response> obtenerLista() async
   {
     final servicio = TipoInstitucion();
-    return Response.ok(await servicio.obtenerDatos(campo,bus,est));
+    return Response.ok(await servicio.obtenerDatos());
   }
 
   @Operation.get('id')
