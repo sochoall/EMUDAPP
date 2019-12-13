@@ -14,13 +14,14 @@ class PantallaParadas extends StatelessWidget {
   final String idRecorrido;
   final String nombre;
   final String idUsuario;
-
+  
   PantallaParadas(this.nombreRuta,this.idRecorrido,this.nombre,this.idUsuario); 
 
 
   @override
   Widget build(BuildContext contexto) {
     //final appTitle = 'Form Validation Demo';
+    
     return HomeScreen(nombreRuta,idRecorrido,nombre,idUsuario);
   }
 }
@@ -43,12 +44,13 @@ class HomeScreenState extends State<HomeScreen> {
   final String idRecorrido;
   final String nombre;
   final String idUsuario;
+ String sentido="";
   HomeScreenState(this.nombreRuta,this.idRecorrido,this.nombre,this.idUsuario); 
  
-
+ 
   int index = 0;
 
-  Widget callPage(int index) {
+  Widget callPage(int index,String sentido) {
     switch (index) {
       case 0:
         return Rutas(this.idRecorrido);
@@ -62,8 +64,14 @@ class HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext contexto) {
+     if (nombreRuta.toUpperCase().compareTo("IDA")==0) {
+       sentido="EMBARQUE";
+    } else {
+      sentido="DESEMBARQUE";
+      }
+
     return new Scaffold(
-        body: callPage(index),
+        body: callPage(index,sentido),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: index,
           onTap: (value) {
@@ -109,16 +117,16 @@ class HomeScreenState extends State<HomeScreen> {
           title: 
               Row(children: <Widget>[
                         Text(
-                          nombre+" ",
+                          sentido+" ",
                           style: TextStyle(
                               fontWeight: FontWeight.bold),
                         ),
-                        Icon(Icons.compare_arrows),
-                        Text(
-                          " "+nombreRuta,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold),
-                        ),
+                        //Icon(Icons.compare_arrows),
+                        //Text(
+                          //" "+nombre,
+                          //style: TextStyle(
+                            //  fontWeight: FontWeight.bold),
+                        //),
                       ]),
         ),
         //drawer: Drawer(

@@ -26,7 +26,6 @@ class MyApp extends StatelessWidget {
         'home': (BuildContext context) =>  PagInicial(id_usuario,""),
         'home2': (BuildContext context) => PagEleccion(id_usuario),
         'homeRep': (BuildContext context) => PagInicialRep(id_usuario,rol),
-         'objetosPerdidos': (BuildContext context) => ObjetosP(),
       },
       theme: ThemeData(primaryColor: Colors.lightBlue),
     ));
@@ -226,7 +225,7 @@ class Login extends StatelessWidget {
           child: TextField(
             obscureText: true,
             decoration: InputDecoration(
-              icon: Icon(Icons.lock, color: Colors.lightBlue),
+              icon: Icon(Icons.lock, color: Colors.cyan),
               labelText: "Contraseña",
               counterText: snapshot.data,
               errorText: snapshot.error,

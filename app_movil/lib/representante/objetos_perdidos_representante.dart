@@ -9,23 +9,18 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'dart:async';
 import 'dart:convert';
-import 'consulta_objetos_perdidos_page.dart';
-import 'objetos_perdidos_seleccionar_fecha_page.dart';
 
-class objetosPerdidosPage extends StatefulWidget {
+class objetosPerdidosRep extends StatefulWidget {
   @override
   final String idRecorrido;
-  objetosPerdidosPage(this.idRecorrido);
-  _objetosPerdidosPageState createState() => _objetosPerdidosPageState(idRecorrido);
+  objetosPerdidosRep(this.idRecorrido);
+  _objetosPerdidosPageStateR createState() => _objetosPerdidosPageStateR(idRecorrido);
 }
 
-class _objetosPerdidosPageState extends State<objetosPerdidosPage> {
-
-  final String idRecorrido;
-  
-  _objetosPerdidosPageState(this.idRecorrido);
-
+class _objetosPerdidosPageStateR extends State<objetosPerdidosRep> {
   final formKey = GlobalKey<FormState>();
+    final String idRecorrido;
+    _objetosPerdidosPageStateR(this.idRecorrido);
   final scaffoldKey = GlobalKey<ScaffoldState>();
   List<estadoObjeto> estadoDeObjetos = List<estadoObjeto>();
 
@@ -33,11 +28,10 @@ class _objetosPerdidosPageState extends State<objetosPerdidosPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar( 
-        title: Text("Objetos Perdidos"),
+        title: Text("Objetos Perdidos."),
         ),
       key: scaffoldKey,
       body: _crearListado(context),
-      floatingActionButton: _crearBoton(context),
     );
   }
 
@@ -122,17 +116,7 @@ class _objetosPerdidosPageState extends State<objetosPerdidosPage> {
     );
   }
 
-  Widget _crearBoton(BuildContext context) {
-    return FloatingActionButton(
-      child: Icon(Icons.calendar_today),
-      backgroundColor: Colors.cyan,
-      onPressed: () {
-         Navigator.of(context).push(MaterialPageRoute(
-              builder: (BuildContext contexto) => objetosPerdidosSeleccionarFechaPage(idRecorrido)));
-      }
-    );
-  }
-
+  
   Widget _crearItem(BuildContext context, objetosPerdidoss objeto) {
     var fechaEncontrado = objeto.fechaHora.split(" ");
 
@@ -170,10 +154,7 @@ class _objetosPerdidosPageState extends State<objetosPerdidosPage> {
                   fontSize: 15.0,
                 ),
               ),
-              onTap: () {
-                 Navigator.of(context).push(MaterialPageRoute(
-              builder: (BuildContext contexto) => editObjetosPerdidosPage(objeto,idRecorrido)));
-              } 
+             
             ),
             //SizedBox(height: 1.0,)
           ],

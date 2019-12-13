@@ -13,15 +13,25 @@ import 'dart:async';
 import 'package:intl/intl.dart' as prefix1;
 
 class editObjetosPerdidosPage extends StatefulWidget {
+
+   final objetosPerdidoss objetoData;
+  final idRecorrido;
+   editObjetosPerdidosPage(this.objetoData,this.idRecorrido);
+
   @override
   _editObjetosPerdidosPageState createState() =>
-      _editObjetosPerdidosPageState();
+      _editObjetosPerdidosPageState(objetoData,idRecorrido);
 }
 
 class _editObjetosPerdidosPageState extends State<editObjetosPerdidosPage> {
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  objetosPerdidoss objeto = objetosPerdidoss();
+final idRecorrido;
+ final objetosPerdidoss objetoData;
+
+   _editObjetosPerdidosPageState(this.objetoData,this.idRecorrido);
+
+ objetosPerdidoss objeto = objetosPerdidoss();
   bool _guardando = false;
 
   List<DropdownMenuItem<String>> _dropDownMenuItems;
@@ -132,9 +142,10 @@ class _editObjetosPerdidosPageState extends State<editObjetosPerdidosPage> {
 
   @override
   Widget build(BuildContext context) {
-    final objetosPerdidoss objetoData =
-        ModalRoute.of(context).settings.arguments;
 
+    //final objetosPerdidoss objetoData =
+      //  ModalRoute.of(context).settings.arguments;
+    
     if (objetoData != null) {
       objeto = objetoData;
 
@@ -172,6 +183,9 @@ class _editObjetosPerdidosPageState extends State<editObjetosPerdidosPage> {
 
     return Scaffold(
       key: scaffoldKey,
+     appBar: AppBar( 
+        title: Text("Objetos Perdidos"),
+        ),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(15.0),
@@ -256,10 +270,20 @@ class _editObjetosPerdidosPageState extends State<editObjetosPerdidosPage> {
             objeto.fechaHora =
                 arrayFecha[2] + "-" + arrayFecha[0] + "-" + arrayFecha[1];
           },
-        )),
+        ),
+        ),
+        IconButton(
+            icon: new Icon(Icons.more_horiz),
+            tooltip: 'Choose date',
+            onPressed: (() {
+              _chooseDate(context, _controller2.text);
+            }),
+          )
       ]),
     );
   }
+
+
 
   bool isValidDob(String dob) {
     if (dob.isEmpty) return true;
@@ -299,6 +323,13 @@ class _editObjetosPerdidosPageState extends State<editObjetosPerdidosPage> {
               },
             ),
           ),
+           IconButton(
+            icon: new Icon(Icons.more_horiz),
+            tooltip: 'Choose date',
+            onPressed: (() {
+              _chooseDate2(context, _controller2.text);
+            }),
+          )
           /*IconButton(
             icon: new Icon(Icons.more_horiz),
             tooltip: 'Choose date',
@@ -375,7 +406,7 @@ class _editObjetosPerdidosPageState extends State<editObjetosPerdidosPage> {
         var url = "http://192.168.137.1:8888/objetosPerdidos/${objeto.id}";
         Map<String, String> headers = {"Content-type": "application/json"};
         String json =
-            '{"id": "${objeto.id}","descripcion": "${objeto.descripcion.toUpperCase()}", "fechaHora": "${objeto.fechaHora}", "fechaDevolucion": "${objeto.fechaDevolucion}", "recId": "","eobId": "${objeto.eobId}","stId": "" }';
+            '{"id": "${objeto.id}","descripcion": "${objeto.descripcion.toUpperCase()}", "fechaHora": "${objeto.fechaHora}", "fechaDevolucion": "${objeto.fechaDevolucion}", "recId": "$idRecorrido","eobId": "${objeto.eobId}","stId": "" }';
         print(json);
         Response response = await http.put(url, headers: headers, body: json);
         int statusCode = response.statusCode;

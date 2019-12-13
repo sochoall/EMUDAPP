@@ -2,12 +2,18 @@
 //en cualquier ventana de la app segun se lo requiera
 
 import 'package:app_movil/transportista/tabs/objetos_perdidos_page.dart';
+import 'package:app_movil/transportista/tabs/objetos_perdidos_rutas.dart';
 import 'package:flutter/material.dart';
 import '../../provider.dart';
 
+ String idUsuario1="";
+
 class MenuLateral extends StatelessWidget {
   final String idUsuario;
+
   MenuLateral(this.idUsuario);
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +32,7 @@ class MenuLateral extends StatelessWidget {
                   if (snapshot.hasData) {
                     //print(snapshot.data);
                     return ListView(
-                      children: _listItems(snapshot.data, context),
+                      children: _listItems(snapshot.data, context,idUsuario),
                     );
                   } else {
                     return Center(
@@ -41,7 +47,7 @@ class MenuLateral extends StatelessWidget {
   }
 }
 
-List<Widget> _listItems(List<dynamic> data, BuildContext context) {
+List<Widget> _listItems(List<dynamic> data, BuildContext context,idUsuario) {
   final List<Widget> opciones = [];
   //widgetTemp=Widget;
 
@@ -70,17 +76,17 @@ List<Widget> _listItems(List<dynamic> data, BuildContext context) {
   );
   opciones
     ..add(ListTile(
-      title: Text("OBJETOS PERDIDOS"),
+      title: Text("Objetos Perdidos"),
       leading: Icon(Icons.view_headline),
       onTap: () {
          Navigator.of(context).push(MaterialPageRoute(
-              builder: (BuildContext contexto) => ObjetosP()));
+              builder: (BuildContext contexto) => PantallaObjetos(idUsuario)));
       },
     ));
 
     opciones
     ..add(ListTile(
-      title: Text("SALIR"),
+      title: Text("Salir"),
       leading: Icon(Icons.exit_to_app),
       onTap: () {},
     ));

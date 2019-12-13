@@ -28,6 +28,8 @@ class Rutas extends StatelessWidget
 {
   @override
    final String idRecorrido;
+
+
   Rutas(this.idRecorrido);
   
   Widget build(BuildContext context) 
@@ -44,6 +46,7 @@ class RutaParada extends StatefulWidget
   @override
   final String idRecorrido;
 
+
   RutaParada(this.idRecorrido);
   RutasEstado createState() => new RutasEstado(idRecorrido);
 }
@@ -51,6 +54,7 @@ class RutaParada extends StatefulWidget
 class RutasEstado extends State<RutaParada> 
 {
   final String idRecorrido;
+
   Timer timer;
   bool flag = false;
   Future<Post> post;
@@ -103,11 +107,11 @@ class RutasEstado extends State<RutaParada>
           flexibleSpace: FlexibleSpaceBar(
             background: MyApp(idRecorrido),
             title: Row(
-              children: <Widget>[
-                Text("PARADAS  ",style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
-                Icon(Icons.arrow_downward),
-                Icon(Icons.arrow_upward)
-              ],
+              //children: <Widget>[
+                //Text("",style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
+                //Icon(Icons.arrow_downward),
+                //Icon(Icons.arrow_upward)
+              //],
             ),
           ),
         ),
