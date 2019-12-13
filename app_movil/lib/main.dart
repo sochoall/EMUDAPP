@@ -1,27 +1,29 @@
 import 'dart:convert';
-import 'package:app_movil/transportista/tabs/objetos_perdidos_page.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:app_movil/bloc/provider.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:app_movil/representante/pantalla_inicial_rep.dart';
+import 'package:app_movil/bloc/login_bloc.dart';
 import 'package:app_movil/transportista/alerta.dart';
 import 'package:app_movil/transportista/pantalla_inicial.dart';
-import 'package:flutter/material.dart';
-import 'package:app_movil/bloc/login_bloc.dart';
-import 'package:app_movil/bloc/provider.dart';
-import 'package:http/http.dart' as http;
-
+import 'package:app_movil/representante/pantalla_inicial_rep.dart';
+import 'package:app_movil/transportista/tabs/objetos_perdidos_page.dart';
 
 void main() => runApp(MyApp()); //Inicio del Programa
 String rol;
 String id_usuario;
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget 
+{
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return Provider(
         child: MaterialApp(
       initialRoute: 'login',
       debugShowCheckedModeBanner: false,
-      routes: {
+      routes: 
+      {
         'login': (BuildContext context) => Login(), //Rutas establecidas
         'home': (BuildContext context) =>  PagInicial(id_usuario,""),
         'home2': (BuildContext context) => PagEleccion(id_usuario),
@@ -33,30 +35,33 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Login extends StatelessWidget {
+class Login extends StatelessWidget 
+{
   @override
 
-   Future<bool> check() async {
+   Future<bool> check() async 
+   {
     var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.mobile) {
+
+    if (connectivityResult == ConnectivityResult.mobile)
       return true;
-    } else if (connectivityResult == ConnectivityResult.wifi) {
-      return true;
-    }
+    else if (connectivityResult == ConnectivityResult.wifi)
+  		return true;
     return false;
   }
 
    
 
-  Widget build(BuildContext context) {
-    
+  Widget build(BuildContext context) 
+  {
     return Scaffold(
-        body: Stack(
-      children: <Widget>[_crearFondo(context), _loginForm(context)],
+      body: Stack(
+      	children: <Widget>[_crearFondo(context), _loginForm(context)],
     ));
   }
 
-  Widget _crearFondo(BuildContext context) {
+  Widget _crearFondo(BuildContext context) 
+  {
     final size = MediaQuery.of(context).size;
     final fondoMorado = Container(
       height: size.height * 0.4,
@@ -106,19 +111,12 @@ class Login extends StatelessWidget {
         Container(
           padding: EdgeInsets.only(top: 80.0),
           child: Column(
-            //mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Image.asset(
                 'assets/emov.png',
                 height: 100,
                 width: 300,
               ),
-
-              //Icon(
-              //Icons.person_pin_circle,
-              //color: Colors.white,
-              //size: 100.0,
-              //),
               SizedBox(
                 height: 10.0,
                 width: double.infinity,
@@ -137,7 +135,8 @@ class Login extends StatelessWidget {
     );
   }
 
-  Widget _loginForm(BuildContext context) {
+  Widget _loginForm(BuildContext context) 
+  {
     final bloc = Provider.of(context);
     final size = MediaQuery.of(context).size;
 
@@ -193,11 +192,13 @@ class Login extends StatelessWidget {
     );
   }
 
-  Widget _crearCedula(LoginBloc bloc) {
+  Widget _crearCedula(LoginBloc bloc) 
+  {
     //Campos para el ingreso de la cédula
     return StreamBuilder(
       stream: bloc.cedulaStream,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
+      builder: (BuildContext context, AsyncSnapshot snapshot) 
+      {
         return Container(
           padding: EdgeInsets.symmetric(horizontal: 20.0),
           child: TextField(
@@ -216,11 +217,13 @@ class Login extends StatelessWidget {
     );
   }
 
-  Widget _crearPassword(LoginBloc bloc) {
+  Widget _crearPassword(LoginBloc bloc) 
+  {
     //Campo para creacion de la contraseña
     return StreamBuilder(
       stream: bloc.passwordStream,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
+      builder: (BuildContext context, AsyncSnapshot snapshot) 
+      {
         return Container(
           padding: EdgeInsets.symmetric(horizontal: 20.0),
           child: TextField(
@@ -238,14 +241,12 @@ class Login extends StatelessWidget {
     );
   }
 
-  Widget _crearBoton(LoginBloc bloc) {
-    //formValidStream
-    //snapshot.hasData
-    //true?algo si true:algo si false
-
+  Widget _crearBoton(LoginBloc bloc) 
+  {
     return StreamBuilder(
       stream: bloc.formValidStream,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
+      builder: (BuildContext context, AsyncSnapshot snapshot) 
+      {
         return RaisedButton(
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
@@ -260,18 +261,17 @@ class Login extends StatelessWidget {
         );
       },
     );
-    
   }
 
-  _login(LoginBloc bloc, BuildContext context) {
-   
-      
-   
-    Future<String> consultar() async {
+  _login(LoginBloc bloc, BuildContext context) 
+  {
+    Future<String> consultar() async 
+    {
       final response = await http.get("http://192.168.137.1:8888/login/${bloc.cedula}*${bloc.password}");
       return Future.value(response.body);
     }
-    Future<List> consultarRoles(id) async {
+    Future<List> consultarRoles(id) async 
+    {
       final response = await http.get("http://192.168.137.1:8888/rol?op=$id");
       return json.decode(response.body);
     }
@@ -279,47 +279,30 @@ class Login extends StatelessWidget {
     checkValue() async {
       String val = await consultar();
       val=val.replaceAll('"', "");
-      print(val);
       id_usuario=val;
-      String representante;
-      String transportista;
       
-      if (id_usuario.compareTo("0")==0) {
-         //mostrarAlert(context);
+      if (id_usuario.compareTo("0")==0) 
          showToast(context);
-      } else {
-        List<dynamic> listaRoles = await consultarRoles(id_usuario);
-        if (listaRoles.length==1) {
-          print("vale");
-          print('=========================');
-          listaRoles.forEach((opt)
-          {
-           if ( opt['nombre'].toString().compareTo("PADRE DE FAMILIA")==0) {
-             Navigator.pushReplacementNamed(context, 'homeRep');
-           } 
-           else if(opt['nombre'].toString().compareTo("TRANSPORTISTA")==0){
-             Navigator.pushReplacementNamed(context, 'home');
-           }
-           else{
-             usuarioInvalido(context);
-           }
-           
-          });
-          //Navigator.pushReplacementNamed(context, 'homeRep');
-        } else {
-          print("Dos Usuarios");
-          print('=========================');
-          
-            Navigator.pushReplacementNamed(context, 'home2');
+			else 
+      {
+      	List<dynamic> listaRoles = await consultarRoles(id_usuario);
 
-          //Navigator.pushReplacementNamed(context, 'homeRep');
-          
-        }
+        if (listaRoles.length==1) 
+        {
+        	listaRoles.forEach((opt)
+          {
+          	if ( opt['nombre'].toString().compareTo("PADRE DE FAMILIA")==0)
+          		Navigator.pushReplacementNamed(context, 'homeRep');
+           	else if(opt['nombre'].toString().compareTo("TRANSPORTISTA")==0)
+             	Navigator.pushReplacementNamed(context, 'home');
+           	else
+             	usuarioInvalido(context);
+          });
+        } 
+        else
+        	Navigator.pushReplacementNamed(context, 'home2');
       }
     }
-
     checkValue();
-    //print(val == 1 ? "yes" : "no");
   }
- 
 }

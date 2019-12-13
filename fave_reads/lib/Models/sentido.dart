@@ -9,9 +9,9 @@ class Sentido extends Serializable
   String nombre;
   int estado;
  
-  Future<List> obtenerDatos(String campo ,String bus, String est) async {
+  Future<List> obtenerDatos() async {
     final conexion = Conexion();
-    final String sql = "select * from public.te_sentido where $campo::text LIKE '%$bus%' and sen_estado::text LIKE '%$est%'order by sen_id DESC";
+    const String sql = "select * from public.te_sentido where sen_estado=1";
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 
@@ -67,7 +67,7 @@ class Sentido extends Serializable
    Future<void> modificar(int id,Sentido dato) async{
     final conexion = Conexion();
     final String sql = 
-    "UPDATE public.te_sentido SET sen_nombre='${dato.nombre}',sen_estado=${dato.estado}"
+    "UPDATE public.te_sentido SET sen_nombre='${dato.nombre}',sen_estado='${dato.estado}'"
 	  "WHERE sen_id=$id";
     await conexion.operaciones(sql);
   }

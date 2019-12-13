@@ -1,13 +1,7 @@
-import 'package:app_movil/transportista/tabs/alumnos.dart';
-import 'package:app_movil/transportista/tabs/objetos_perdidos_page.dart';
-import 'package:app_movil/transportista/tabs/registro_estudiantes_page.dart';
-
-import 'package:app_movil/transportista/tabs/rutas.dart';
-import 'package:app_movil/transportista/widgets/menu_lateral.dart';
 import 'package:flutter/material.dart';
-import 'package:app_movil/rutas/rutas.dart';
-
-
+import 'package:app_movil/transportista/tabs/mapa.dart';
+import 'package:app_movil/transportista/tabs/rutas.dart';
+import 'package:app_movil/transportista/tabs/registro_estudiantes_page.dart';
 
 class PantallaParadas extends StatelessWidget {
   final String nombreRuta; //Creacion de varibales que se vayan a usar
@@ -37,7 +31,8 @@ final String idUsuario;
   HomeScreenState createState() => HomeScreenState(nombreRuta,idRecorrido,nombre,idUsuario); //Paso de paramteros
 }
 
-class HomeScreenState extends State<HomeScreen> {
+class HomeScreenState extends State<HomeScreen> 
+{
   @override
   final String nombreRuta; //Creacion de varibales que se vayan a usar
   final String idRecorrido;
@@ -48,12 +43,14 @@ class HomeScreenState extends State<HomeScreen> {
 
   int index = 0;
 
-  Widget callPage(int index) {
-    switch (index) {
+  Widget callPage(int index) 
+  {
+    switch (index) 
+    {
       case 0:
         return Rutas(this.idRecorrido);
       case 1:
-        return listado();
+        return listado(MyHomePageState.ids.first);
         break;
       default:
         return Rutas(this.idRecorrido);
@@ -61,76 +58,81 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   @override
-  Widget build(BuildContext contexto) {
+  Widget build(BuildContext contexto) 
+  {
     return new Scaffold(
-        body: callPage(index),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: index,
-          onTap: (value) {
-            index = value;
-            setState(() {});
-          },
-          items: [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.add_location, color: Colors.black),
-                title: Text("Rutas",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        wordSpacing: 5.0)),
-                backgroundColor: Colors.black),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.account_box, color: Colors.black),
-                title: Text("Alumnos",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        wordSpacing: 5.0)),
-                backgroundColor: Colors.black),
-          ],
-        ),
-        appBar: AppBar(
-          //title: Text(aux1),
-          actions: <Widget>[
-            PopupMenuButton<Choice>(
-              //onSelected: _select,
-              itemBuilder: (BuildContext context) {
-                return choices.map((Choice choice) {
-                  return PopupMenuItem<Choice>(
-                    value: choice,
-                    child: Text(choice.title),
-                  );
-                }).toList();
-              },
+      body: callPage(index),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: index,
+        onTap: (value) 
+        {
+          index = value;
+          setState(() {
+
+          });
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add_location, color: Colors.black),
+            title: Text("Rutas",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+                wordSpacing: 5.0
+              )
             ),
-          ],
-          backgroundColor: Color.fromRGBO(0, 172, 200, 1),
-          //Text(nombre+Icons.play_arrow+ nombreRuta,
-          title: 
-              Row(children: <Widget>[
-                        Text(
-                          nombre+" ",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Icon(Icons.compare_arrows),
-                        Text(
-                          " "+nombreRuta,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ]),
+            backgroundColor: Colors.black
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_box, color: Colors.black),
+            title: Text("Alumnos",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+                wordSpacing: 5.0)),
+            backgroundColor: Colors.black
+          ),
+        ],
+      ),
+      appBar: AppBar(
+        actions: <Widget>[
+          PopupMenuButton<Choice>(
+            itemBuilder: (BuildContext context) 
+            {
+              return choices.map((Choice choice) 
+              {
+                return PopupMenuItem<Choice>(
+                  value: choice,
+                  child: Text(choice.title),
+                );
+              }).toList();
+            },
+          ),
+        ],
+        backgroundColor: Color.fromRGBO(0, 172, 200, 1),
+        title: 
+          Row(children: <Widget>[
+            Text(
+              nombre+" ",
+              style: TextStyle(
+                fontWeight: FontWeight.bold),
+            ),
+            Icon(Icons.compare_arrows),
+            Text(
+              " "+nombreRuta,
+              style: TextStyle(
+                fontWeight: FontWeight.bold),
+            ),
+          ]
         ),
-        //drawer: Drawer(
-          //child: MenuLateral(idUsuario),
-        //)
-        );
+      ),
+    );
   }
 }
 
-class Choice {
+class Choice 
+{
   const Choice({this.title, this.icon});
-
   final String title;
   final IconData icon;
 }

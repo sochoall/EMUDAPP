@@ -1,16 +1,10 @@
-class Estudiante {
+class Estudiante 
+{
   int id;
-  String cedula;
   String nombre;
   String apellido;
-  String direccion;
-  String telefono;
-  String correo;
-  int estado;
-  int insId;
-  bool verificado;
+  int verificado;
+  int monitoreo;
 
-  Estudiante({this.id, this.cedula= '', this.nombre= '', this.apellido= '', this.direccion= '',
-      this.telefono= '', this.correo= '', this.estado=0, this.insId=0, this.verificado=false});
-
+  Estudiante({this.id, this.nombre= '', this.apellido= '', this.verificado=0, this.monitoreo});
 }
