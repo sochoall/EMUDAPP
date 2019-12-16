@@ -68,7 +68,7 @@
             
 
 <div class="cyan circulo">
-        <a href="tipoServicioEditar.php?metodo=Guardar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
+        <a href="tipoServicioEditar.php?metodo=Agregar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
 </div>	
 
     <script type="text/javascript">		

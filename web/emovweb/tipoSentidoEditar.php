@@ -47,14 +47,16 @@
 	$id=0;
 	if (isset($_GET['metodo'])) {
 		$metodo = $_GET['metodo'];
-		if($metodo=='Guardar'){			
+		if($metodo=='Agregar'){			
 			 echo "<script language='javascript'> 
 				document.getElementById('metodo').value ='$metodo';
+				document.getElementById('titulo').innerHTML = 'tipos de sentido';
 			 </script>";
 		}else{			
 			$id = $_GET['id'];			
 			echo "<script language='javascript'> 
 			document.getElementById('metodo').value ='$metodo';
+			document.getElementById('titulo').innerHTML = 'tipos de sentido';
 			fetch('http://localhost:8888/sentido/$id')
 			  .then(response => response.json())
 			  .then(data => {		  	
@@ -76,13 +78,67 @@
 		event.preventDefault();			
 
 		if(valSololetras(nombre.value)==false){
-			toastr.error('Nombre con caracteres incorrecto');
-			nombre.style.borderColor="red";
+				toastr.error('Nombre con caracteres incorrecto');
+				nombre.style.borderColor="red";
 		}else{
-			nombre.style.borderColor="green";
+<<<<<<< HEAD
+			
+
+						var parametros={'id':0,'nombre':nombre.value.toUpperCase(),'estado':estado.value};		
+	
+						if(v.value=="Ingresar"){	
+							Ingresar(parametros);
+						}	
+						if(v.value=="Modificar"){
+                            // alert(parametros.estado);
+							Modificar(parametros);
+						}
+					}	
+				}
+			
+	
+	
+		
+	function Ingresar(parametros) {	
+		fetch('http://localhost:8888/sentido', {
+				method: 'POST',
+				body:JSON.stringify(parametros),
+				headers:{
+					'Content-Type': 'application/json'
+				}		
+			}).then(res => res.json())
+			.catch(error => {				
+				toastr.error('Error al Guardar');
+			})
+			.then(respuesta => {
+				toastr.success('Guardado correctamente');	
+				setTimeout("location.href='sentido.php?metodo=Ingresar'",1000);
+			})
+	}
+	function Modificar(parametros) {
+		var id= '<?php echo $id;?>'						
+		var url='http://localhost:8888/sentido/'+id;
+		fetch(url, {
+			method: 'PUT',
+			body:JSON.stringify(parametros),
+			headers:{
+				'Content-Type': 'application/json'
+			}				
+		}).then(res => res.json())
+		.catch(error => {
+			toastr.error('Error al Guardar');
+		})
+		.then(respuesta => {
+			toastr.success('Guardado correctamente');	
+			setTimeout("location.href='sentido.php'",1000);		
+		});
+	}
+
+		
+=======
 			var parametros={'id':0,'nombre':nombre.value.toUpperCase(),'estado':estado.value};		
 			var url="http://localhost:8888/sentido";
-			if(v.value=="Guardar"){	
+			if(v.value=="Agregar"){	
 				Ingresar(parametros,url);
 			}	
 			if(v.value=="Modificar"){
@@ -93,6 +149,7 @@
 			}
 		}	
 	}
+>>>>>>> a8160bd0c4a95052b225ba06791831f51f1253ec
 	</script>
 
 <?php include 'footer.php'; ?>

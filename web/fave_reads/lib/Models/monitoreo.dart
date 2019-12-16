@@ -11,19 +11,15 @@ class Monitoreo extends Serializable
   int    completo;
   String latitud;
   String longuitud;
-  String    tmoId;
-  String    tpaId;
-  String    parId;
-  String    recId;  
+  int    tmoId;
+  int    tpaId;
+  int    parId;
+  int    recId;  
  
-
-  Future<List> obtenerDatos(int id) async {
+ 
+  Future<List> obtenerDatos() async {
     final conexion = Conexion();
-    final String sql = "select * from te_monitoreo w, "
-                    "(select max(m.mon_id) as id from public.te_monitoreo m, public.te_recorrido r, public.te_ruta t, public.te_institucion i "
-                    " where r.rec_id=m.rec_id and r.rut_id=t.rut_id and t.ins_id=i.ins_id and i.ins_id=$id group by m.rec_id order by 1) as x"
-                    " where  x.id=w.mon_id";
-    print(sql);       
+    const String sql = "select * from public.te_monitoreo";
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 
@@ -38,10 +34,10 @@ class Monitoreo extends Serializable
         reg.completo=int.parse(query[i][2].toString());        
         reg.latitud=query[i][3].toString();
         reg.longuitud=query[i][4].toString();    
-        reg.tmoId=query[i][5].toString();
-        reg.tpaId=query[i][6].toString();
-        reg.parId=query[i][7].toString();
-        reg.recId=query[i][8].toString();
+        reg.tmoId=int.parse(query[i][5].toString());
+        reg.tpaId=int.parse(query[i][6].toString());
+        reg.parId=int.parse(query[i][7].toString());
+        reg.recId=int.parse(query[i][8].toString());
         datos.add(reg.asMap()); 
       }
     
@@ -50,43 +46,6 @@ class Monitoreo extends Serializable
     
   }
 
-   Future<List> obtenerMonitoreoId(int id) async {
-    final conexion = Conexion();
-    final String sql="select l.idpar, m.b,m.c,l.lat,l.long,m.f,m.g,m.parada,m.h "
-"from (select p.par_id as idpar, p.par_latitud as lat,p.par_longitud as long from public.te_ruta r, public.te_recorrido e,public.te_parada p "
-"where e.rec_id=p.rec_id and r.rut_id=e.rut_id and r.rut_id=$id) as l "
-" LEFT JOIN (select m.mon_id as a,m.mon_fecha_hora as b,m.mon_completo as c,m.mon_latitud as d,m.mon_longitud as e,m.tmo_id as f,m.tpa_id as g,m.par_id as parada,m.rec_id as h  FROM public.te_monitoreo m, public.te_recorrido e, "
-"public.te_ruta r, public.te_parada p where m.rec_id=e.rec_id and r.rut_id=e.rut_id and m.par_id=p.par_id and r.rut_id=$id) as m"
- " ON m.parada = l.idpar";
-    print(sql);       
-    final List datos=[];
-    final List<dynamic> query = await conexion.obtenerTabla(sql);
-
-    if(query != null && query.isNotEmpty)
-    {
-      for(int i=0; i<query.length;i++)
-      {
-        final reg = Monitoreo();
-        
-        reg.id=int.parse(query[i][0].toString());
-        reg.fechaHora=query[i][1].toString();
-        reg.completo=int.parse(query[i][2].toString());        
-        reg.latitud=query[i][3].toString();
-        reg.longuitud=query[i][4].toString();    
-        reg.tmoId=query[i][5].toString();
-        reg.tpaId=query[i][6].toString();
-        reg.parId=query[i][7].toString();
-        reg.recId=query[i][8].toString();
-        datos.add(reg.asMap()); 
-      }
-    
-    }
-    return datos;
-    
-  }
-  
-
-  
   Future<Monitoreo> obtenerDatoId(int id) async {
     final conexion = Conexion();
     final String sql = "select * from public.te_monitoreo where mon_id=$id";
@@ -100,10 +59,10 @@ class Monitoreo extends Serializable
         reg.completo=int.parse(query[0][2].toString());        
         reg.latitud=query[0][3].toString();
         reg.longuitud=query[0][4].toString();    
-        reg.tmoId=query[0][5].toString();
-        reg.tpaId=query[0][6].toString();
-        reg.parId=query[0][7].toString();
-        reg.recId=query[0][8].toString();
+        reg.tmoId=int.parse(query[0][5].toString());
+        reg.tpaId=int.parse(query[0][6].toString());
+        reg.parId=int.parse(query[0][7].toString());
+        reg.recId=int.parse(query[0][8].toString());
         datos.add(reg.asMap());
         return reg;
     }
@@ -156,10 +115,10 @@ class Monitoreo extends Serializable
     completo= int.parse(object['nombre'].toString());
     latitud= object['apellido'].toString();
     longuitud= object['direccion'].toString();
-    tmoId=object['telefono'].toString();
-    tpaId=object['correo'].toString();
-    parId=object['estado'].toString();
-    recId=object['insId'].toString();
+    tmoId=int.parse(object['telefono'].toString());
+    tpaId=int.parse(object['correo'].toString());
+    parId=int.parse(object['estado'].toString());
+    recId=int.parse(object['insId'].toString());
   }
 
 }

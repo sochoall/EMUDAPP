@@ -46,10 +46,7 @@
     
     <div class="col-sm-3 h6 mt-3">
 
-      <div class="font-weight-bold "> 
-          <div id="name"></div>
-          <div id="rol"></div>
-      </div>
+      <div class="font-weight-bold "> <div id="rol"></div></div>
 
       <div class="" id="btncerrar">
         <a class="col-md-12 text-white font-weight-bold text-center " href="./codigophp/cerrarSesion.php"><i class="fas fa-sign-out-alt pr-2" aria-hidden="true"></i> SALIR</a>

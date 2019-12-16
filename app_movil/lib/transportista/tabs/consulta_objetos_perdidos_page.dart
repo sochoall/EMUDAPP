@@ -15,20 +15,31 @@ import 'objetos_perdidos_seleccionar_fecha_page.dart';
 
 class consultaObjetosPerdidosPage extends StatefulWidget {
   @override
+  final fechaConsulta objetoData;
+  final idRecorrido;
+
+  consultaObjetosPerdidosPage(this.objetoData,this.idRecorrido);
+
   _consultaObjetosPerdidosPageState createState() =>
-      _consultaObjetosPerdidosPageState();
+      _consultaObjetosPerdidosPageState(objetoData,idRecorrido);
 }
 
 class _consultaObjetosPerdidosPageState
     extends State<consultaObjetosPerdidosPage> {
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+final fechaConsulta objetoData;
+final idRecorrido;
+
+_consultaObjetosPerdidosPageState(this.objetoData,this.idRecorrido);
+
+
   List<estadoObjeto> estadoDeObjetos = List<estadoObjeto>();
   fechaConsulta objeto = fechaConsulta();
 
   @override
   Widget build(BuildContext context) {
-    final fechaConsulta objetoData = ModalRoute.of(context).settings.arguments;
+    //final fechaConsulta objetoData = ModalRoute.of(context).settings.arguments;
 
     if (objetoData != null) {
       objeto = objetoData;
@@ -36,13 +47,16 @@ class _consultaObjetosPerdidosPageState
 
     return Scaffold(
       key: scaffoldKey,
+      appBar: AppBar( 
+        title: Text("Objetos Perdidos"),
+        ),
       body: _crearListado(context),
       floatingActionButton: _crearBoton(context),
     );
   }
 
   Future<void> _getEstadoObjeto() async {
-    final response = await http.get("http://192.169.4.10:8888/estadoObjetos");
+    final response = await http.get("http://192.168.137.1:8888/estadoObjetos");
 
     var jsonData = json.decode(response.body);
 
@@ -81,10 +95,10 @@ class _consultaObjetosPerdidosPageState
 
     try {
       final response = await http.get(
-          "http://192.169.4.10:8888/objetosPerdidos/${fechaInicio}*${fechaFin}");
+          "http://192.168.137.1:8888/objetosPerdidos/${fechaInicio}*${fechaFin}");
 
       print(
-          "http://192.169.4.10:8888/objetosPerdidos/${fechaInicio}*${fechaFin}");
+          "http://192.168.137.1:8888/objetosPerdidos/${fechaInicio}*${fechaFin}");
 
       var jsonData = json.decode(response.body);
 
@@ -145,8 +159,10 @@ class _consultaObjetosPerdidosPageState
     return FloatingActionButton(
       child: Icon(Icons.add),
       backgroundColor: Colors.cyan,
-      onPressed: () =>
-          Navigator.pushNamed(context, 'seleccionar_fecha_objeto_perdido'),
+      onPressed: () {
+        Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext contexto) =>  objetosPerdidosSeleccionarFechaPage(idRecorrido)));
+      }
     );
   }
 
@@ -187,8 +203,10 @@ class _consultaObjetosPerdidosPageState
                   fontSize: 15.0,
                 ),
               ),
-              onTap: () => Navigator.pushNamed(context, 'edit_objeto_perdido',
-                  arguments: objeto),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext contexto) =>  editObjetosPerdidosPage(objeto,idRecorrido)));
+              }
             ),
             //SizedBox(height: 1.0,)
           ],

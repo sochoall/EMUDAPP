@@ -29,7 +29,7 @@ class Rutas extends StatelessWidget
   @override
    final String idRecorrido;
   Rutas(this.idRecorrido);
-  
+
   Widget build(BuildContext context) 
   {
     return new MaterialApp(
@@ -43,19 +43,21 @@ class RutaParada extends StatefulWidget
 {
   @override
   final String idRecorrido;
-
+  
   RutaParada(this.idRecorrido);
   RutasEstado createState() => new RutasEstado(idRecorrido);
 }
 
 class RutasEstado extends State<RutaParada> 
 {
-  final String idRecorrido;
   Timer timer;
   bool flag = false;
   Future<Post> post;
+  final String idRecorrido;
   RutasEstado(this.idRecorrido);
+  List <int> hours = [], minutes = [], total = [];
   static List<String> names = [], time = [];
+  
 
   @override
   void initState() 
@@ -85,6 +87,8 @@ class RutasEstado extends State<RutaParada>
             }
             else if (snapshot.hasError)
               return Text("No hay paradas cargadas");
+            
+            buildTimeList();
             return buildScrollView();
           }
         )
@@ -103,11 +107,11 @@ class RutasEstado extends State<RutaParada>
           flexibleSpace: FlexibleSpaceBar(
             background: MyApp(idRecorrido),
             title: Row(
-              children: <Widget>[
-                Text("PARADAS  ",style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
-                Icon(Icons.arrow_downward),
-                Icon(Icons.arrow_upward)
-              ],
+              //children: <Widget>[
+                //Text("",style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
+                //Icon(Icons.arrow_downward),
+                //Icon(Icons.arrow_upward)
+              //],
             ),
           ),
         ),
@@ -143,8 +147,8 @@ class RutasEstado extends State<RutaParada>
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: names.isEmpty ? <Widget>[CircularProgressIndicator()] : <Widget>[
-                            Text(names[index-1]),
-                            Text(time[index-1]),
+                            Text(names[index-1], style: index-1 == 0 ? TextStyle(color: Colors.red) : TextStyle(color: Colors.black)),
+                            Text(("${hours[index-1]}:${total[index-1]}:00") , style: index-1 == 0 ? TextStyle(color: Colors.red) : TextStyle(color: Colors.black)),
                           ],
                         ),
                       ),
@@ -163,7 +167,35 @@ class RutasEstado extends State<RutaParada>
 
   void buildLists(String name, String tiempo)
   {
+    List<String> timeValues=tiempo.split(":");
+
     names.add(name);
     time.add(tiempo);
+    minutes.add(int.parse(timeValues[1]));
+  }
+
+  void buildTimeList()
+  {
+		int cont=0;
+
+		for (var i = 0; i < minutes.length; i++) 
+    {
+      if(i == 0)
+      {
+        hours.add(cont);
+      	total.add(minutes[i]);
+      }
+      else if (minutes[i] + total[i-1] >= 60)
+      {
+        cont++;
+    		hours.add(cont);
+				total.add((minutes[i]+total[i-1]) - 60);
+      }
+      else
+      {
+        hours.add(cont);
+      	total.add(minutes[i]+total[i-1]);
+      }
+    }
   }
 }

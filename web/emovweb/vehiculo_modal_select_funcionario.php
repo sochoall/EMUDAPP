@@ -20,9 +20,9 @@
 				    	<div class="col-md-3  align-self-center">		
 							<label>Campo:</label>							
 							<SELECT id="campo"  class="browser-default custom-select"> 
-								<OPTION VALUE="fun_nombre" selected >Nombre</OPTION>
-								<OPTION VALUE="fun_apellido">Apellido</OPTION>	
-								<OPTION VALUE="fun_cedula">Cédula</OPTION>					
+								<OPTION VALUE="0" selected >Nombre</OPTION>
+								<OPTION VALUE="1">Apellido</OPTION>	
+								<OPTION VALUE="2">Cédula</OPTION>					
 							</SELECT> 
 						</div>
 						<div class="col-md-3">
@@ -33,7 +33,7 @@
 						<div class="col-md-3">
 							<label>Estado:</label>
 							<SELECT id="estBusqueda"  class="browser-default custom-select"> 
-								<OPTION VALUE="" selected >TODOS</OPTION>
+								<OPTION VALUE="2" selected >TODOS</OPTION>
 								<OPTION VALUE="1">ACTIVO</OPTION>
 								<OPTION VALUE="0">INACTIVO</OPTION>             
 							</SELECT> 
@@ -90,9 +90,23 @@
 			var campo = document.getElementById('campo').value;			
 			var textBuscar=document.getElementById('textBuscar').value;
 			textBuscar=textBuscar.toUpperCase();			
-			var estado=document.getElementById("estBusqueda").value;
-			
-			
+			var estado=document.getElementById("estado").value;
+						
+			if(campo==0){ 
+				campo="fun_nombre";				
+			}if(campo==1){ 
+				campo="fun_apellido";				
+            }if(campo==2){ 
+				campo="fun_cedula";
+			}			
+			if(estado==2){
+                estado="";
+            }
+			if(textBuscar==""){
+				// textBuscar="*****";
+			}
+
+
 			(async () => {
 				try{
 					var idIns="";

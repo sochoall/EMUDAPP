@@ -7,10 +7,10 @@ class RutaController extends ResourceController{
 
 
   @Operation.get()
-  Future<Response> obtenerLista(@Bind.query('opcion') int opcion,@Bind.query('id') int id) async
+  Future<Response> obtenerLista() async
   {
     final servicio = Ruta();
-    return Response.ok(await servicio.obtenerDatos(opcion, id));
+    return Response.ok(await servicio.obtenerDatos());
   }
 
   @Operation.get('id')

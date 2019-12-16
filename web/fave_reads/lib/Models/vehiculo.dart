@@ -38,27 +38,6 @@ class Vehiculo extends Serializable {
     return datos;
   }
 
- Future<List> obtenerVehiculosRuta(int id) async {
-    final conexion = Conexion();
-    final String sql= "select v.veh_id,v.veh_placa,v.veh_capacidad,v.veh_estado,v.tve_id,v.fun_id from te_ruta_vehiculo r, te_vehiculo v where r.veh_id=v.veh_id and rut_id=$id order by 1";
-    final List datos = [];
-    final List<dynamic> query = await conexion.obtenerTabla(sql);
-
-    if (query != null && query.isNotEmpty) {
-      for (int i = 0; i < query.length; i++) {
-        final reg = Vehiculo();
-        reg.id = query[i][0].toString();
-        reg.placa = query[i][1].toString();
-        reg.capacidad = query[i][2].toString();
-        reg.estado = query[i][3].toString();
-        reg.tve_id = query[i][4].toString();
-        reg.fun_id = query[i][5].toString();
-
-        datos.add(reg.asMap());
-      }      
-    } 
-    return datos;
-  }
 
 
 

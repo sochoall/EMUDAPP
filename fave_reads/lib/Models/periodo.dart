@@ -7,13 +7,11 @@ class Periodo extends Serializable
   
   int id;
   String nombre;
-  String estado;
-
-
-  Future<List> obtenerDatos(String campo, String bus, String est) async {
-    final conexion = Conexion();
+  int estado;
  
-    final String sql = "select * from public.te_periodo_lectivo where $campo::text LIKE '%$bus%' and ple_estado::text LIKE '%$est%' order by ple_id DESC";
+  Future<List> obtenerDatos() async {
+    final conexion = Conexion();
+    const String sql = "select * from public.te_periodo_lectivo where ple_estado=0";
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 
@@ -25,7 +23,7 @@ class Periodo extends Serializable
         
         reg.id=int.parse(query[i][0].toString());
         reg.nombre=query[i][1].toString();
-        reg.estado=query[i][2].toString();
+        reg.estado=int.parse(query[i][2].toString());
       
         datos.add(reg.asMap()); 
       }
@@ -48,7 +46,7 @@ class Periodo extends Serializable
         final reg = Periodo();
       reg.id=int.parse(query[0][0].toString());
         reg.nombre=query[0][1].toString();
-        reg.estado=query[0][2].toString();
+        reg.estado=int.parse(query[0][2].toString());
         return reg;
     }
     else
@@ -60,8 +58,8 @@ class Periodo extends Serializable
 
   Future<void> ingresar(Periodo dato) async{
     final conexion = Conexion();
-    final String sql = "INSERT INTO public.te_periodo_lectivo(ple_nombre, ple_estado)"
-    " VALUES ('${dato.nombre}',${dato.estado});";
+    final String sql = "INSERT INTO public.te_periodo_lectivo(ple_id, ple_nombre, ple_estado)"
+    " VALUES (${dato.id},'${dato.nombre}',${dato.estado});";
     print(sql);
     await conexion.operaciones(sql);
   }
@@ -69,7 +67,7 @@ class Periodo extends Serializable
    Future<void> modificar(int id,Periodo dato) async{
     final conexion = Conexion();
     final String sql = 
-    "UPDATE public.te_periodo_lectivo SET ple_nombre='${dato.nombre}', ple_estado='${dato.estado}'"
+    "UPDATE public.te_periodo_lectivo SET ple_nombre='${dato.nombre}'"
 	  "WHERE ple_id=$id";
     await conexion.operaciones(sql);
   }
@@ -91,7 +89,7 @@ class Periodo extends Serializable
   void readFromMap(Map<String, dynamic> object) {
     id= int.parse(object['id'].toString());
     nombre= object['nombre'].toString();
-    estado=object['estado'].toString();
+    estado=int.parse(object['estado'].toString());
   }
 
 

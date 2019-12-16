@@ -75,7 +75,7 @@
 	var id;
 	var divContenedor=document.querySelector('#lista');
 	var urlCombo=`${raizServidor}/tipoInstitucion?campo=tin_nombre&bus=&est`;		
-	if(metodo=='Guardar'){			
+	if(metodo=='Agregar'){			
 		cargarCombo(urlCombo,"tipoIns",divContenedor,"");	
 		document.getElementById("estado").disabled=true;	
 	}if(metodo=='Modificar'){
@@ -127,7 +127,7 @@
 							tipoIns.style.borderColor="green";
 							var parametros={'id':0,'nombre':nombre.value.toUpperCase(),'ruc':ruc.value,'direccion':direccion.value.toUpperCase(),'telefono':telefono.value,'correo':correo.value,'estado':estado.value,'tipoInstitucionId':tipoIns.value};		
 							var url=`${raizServidor}/institucion`;
-							if(v.value=="Guardar"){	
+							if(v.value=="Agregar"){	
 								Ingresar(parametros,url);
 							}	
 							if(v.value=="Modificar"){

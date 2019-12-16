@@ -16,12 +16,19 @@ import 'package:intl/intl.dart' as prefix1;
 
 class addObjetosPerdidosPage extends StatefulWidget {
   @override
-  _addObjetosPerdidosPageState createState() => _addObjetosPerdidosPageState();
+  final idRecorrido;
+
+  addObjetosPerdidosPage(this.idRecorrido);
+  _addObjetosPerdidosPageState createState() => _addObjetosPerdidosPageState(idRecorrido);
 }
 
 class _addObjetosPerdidosPageState extends State<addObjetosPerdidosPage> {
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final idRecorrido;
+  _addObjetosPerdidosPageState(this.idRecorrido);
+
   objetosPerdidoss objeto = objetosPerdidoss();
   bool _guardando = false;
 
@@ -34,7 +41,7 @@ class _addObjetosPerdidosPageState extends State<addObjetosPerdidosPage> {
   final TextEditingController _controller2 = new TextEditingController();
 
   Future<void> _getEstadoObjeto() async {
-    final response = await http.get("http://192.169.4.10:8888/estadoObjetos");
+    final response = await http.get("http://192.168.137.1:8888/estadoObjetos");
 
     var jsonData = json.decode(response.body);
 
@@ -138,6 +145,9 @@ class _addObjetosPerdidosPageState extends State<addObjetosPerdidosPage> {
 
     return Scaffold(
       key: scaffoldKey,
+       appBar: AppBar( 
+        title: Text("Objetos Perdidos"),
+        ),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(15.0),
@@ -340,11 +350,11 @@ class _addObjetosPerdidosPageState extends State<addObjetosPerdidosPage> {
           (_controller2.text.isNotEmpty &&
               (objeto.eobId == 2 || objeto.eobId == 3))) {
         try {
-          var url = "http://192.169.4.10:8888/objetosPerdidos";
+          var url = "http://192.168.137.1:8888/objetosPerdidos";
 
           Map<String, String> headers = {"Content-type": "application/json"};
           String json =
-              '{"id": "31","descripcion": "${objeto.descripcion.toUpperCase()}", "fechaHora": "${objeto.fechaHora}", "fechaDevolucion": "${objeto.fechaDevolucion.toString()}", "recId": "","eobId": "${objeto.eobId}","stId": "" }';
+              '{"id": "31","descripcion": "${objeto.descripcion.toUpperCase()}", "fechaHora": "${objeto.fechaHora}", "fechaDevolucion": "${objeto.fechaDevolucion.toString()}", "recId": "$idRecorrido","eobId": "${objeto.eobId}","stId": "" }';
 
           print(json);
           Response response =

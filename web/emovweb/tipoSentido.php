@@ -69,7 +69,7 @@
 </div>
 
 	 <div class="cyan circulo">
-		<a href="tipoSentidoEditar.php?metodo=Guardar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
+		<a href="tipoSentidoEditar.php?metodo=Agregar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
 	</div>
 
 	<script type="text/javascript">		

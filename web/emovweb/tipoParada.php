@@ -69,7 +69,7 @@
 </div>
 
 	 <div class="cyan circulo">
-		<a href="tipoParadaEditar.php?metodo=Guardar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
+		<a href="tipoParadaEditar.php?metodo=Ingresar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
 	</div>
 
 	<script type="text/javascript">		
@@ -85,6 +85,10 @@
 			textBuscar=textBuscar.toUpperCase();			
 			var estado=document.getElementById("estado").value;
 			
+			if(textBuscar==""){
+				//textBuscar="*****";
+			}
+			
 			let url=`http://localhost:8888/tipoParada?campo=${campo}&bus=${textBuscar}&est=${estado}`;
 		
 			fetch(url)
@@ -99,7 +103,7 @@
 					`<tr> 
 						<td> ${prod.id}</td>
 						<td> ${prod.nombre}</td>
-					    <td > ${prod.estado==0?"INACTIVO":"ACTIVO"} </td>
+					    <td > ${prod.estado==0?"Inactivo":"Activo"} </td>
 						<td>
 							<?php echo "<a href="?>tipoParadaEditar.php?metodo=Modificar&id=${prod.id}
 							<?php echo "class='fas fa-edit'>Editar</a>" ?>

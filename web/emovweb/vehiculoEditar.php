@@ -76,7 +76,7 @@
 	var urlCombo=`${raizServidor}/tipoVehiculo?campo=tve_nombre&bus=&est`;	
 	var divContenedor=document.querySelector('#vehiculo');
 	document.getElementById('metodo').value =metodo;
-	if(metodo=='Guardar'){			
+	if(metodo=='Agregar'){			
 		cargarCombo(urlCombo,"tipoVehiculo",divContenedor,"");	
 		document.getElementById("estado").disabled=true;
 	}if(metodo=='Modificar'){		
@@ -150,7 +150,7 @@
 						chofer.style.borderColor="green";	
 						var parametros={'id':0,'placa':placa.value.toUpperCase(),'capacidad':capacidad.value,'estado':estado.value,'tve_id':tipoVehiculo.value,'fun_id':idfun.value};	
 						var urlVe=`${raizServidor}/vehiculo`;					
-						if(v.value=="Guardar")	
+						if(v.value=="Agregar")	
 							Ingresar(parametros,urlVe);
 						if(v.value=="Modificar"){
 							let redirigir="vehiculo.php";

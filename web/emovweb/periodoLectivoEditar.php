@@ -3,30 +3,8 @@
 	$menu=Sesiones("EMOV");
 ?>
 
- <div class="modal fade" id="modalConfirmar" tabindex="-1" role="dialog" aria-labelledby="tittle"
-  aria-hidden="true">
 
-  <!-- Change class .modal-sm to change the size of the modal -->
-  <div class="modal-dialog modal-md" role="document">
-
-    <div class="modal-content">
-        <div class="modal-header text-center m-0 p-0 warning-color">
-            <h4 class="modal-title w-100 text-white text-center" id="title">CONFIRMAR</h4>
-            </button>
-        </div>
-        <div class="modal-body" id="cuerpoModal">
-		      	<label class="col-form-label text-center">Se modificarán los restantes periodos lectivos a estado INACTIVO.!</label>
-            <div class="row justify-content-center mt-3">
-                <div class=""><input value="" class="btn grey" onclick="IngMod(this)" type="submit" value="" id="confirmar" name="confirmar"/>	</div>
-                <div class=""><input type="button" value="Cancelar" class="btn grey" data-dismiss="modal"/><br/></div>
-            </div> 
-        </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="container text-center mt-2">
+<div class="container text-center mt-2 text-uppercase">
    <div class="row">
        <div class="col-md-6 offset-md-3">
            <div class="card">
@@ -52,9 +30,7 @@
                             </div>
                         </div>
                         <div class=" mt-3 justify-content-between text-white">
-                          <!-- <input value="Guardar" class="btn cyan" onclick="IngMod(this)" type="submit" value="" id="metodo" name="metodo"/>	 -->
-                          
-                          <input value="" class="btn cyan" id="metodo"  type="button" data-toggle="modal" data-target="#modalConfirmar"/>	                          
+                          <input value="Guardar" class="btn cyan" onclick="IngMod(this)" type="submit" value="" id="metodo" name="metodo"/>	
                           <input type="button" value="Cancelar" class="btn cyan" onclick="location.href = 'periodoLectivo.php';"/>
                         </div>                            
                     </form>                   
@@ -69,9 +45,7 @@
   var metodo = parametro.get('metodo');
   var id;  
   document.getElementById('metodo').value =metodo;
-  document.getElementById('confirmar').value=metodo;
- 
-  if(metodo=='Guardar')
+  if(metodo=='Agregar')
 	    document.getElementById("estado").disabled=true;
   if(metodo=='Modificar'){   
     id= parametro.get('id');
@@ -88,9 +62,10 @@
     })();
   }
 
-	function IngMod(v) {		
+	function IngMod(v) {	
+		var nombre = document.getElementById('nombre');		
 		event.preventDefault();			
-    
+
 		if((nombre.value)==""){
 			toastr["error"]("Ingrese algún valor", "Campo incorrecto!")
 			nombre.style.borderColor="red";
@@ -98,8 +73,7 @@
 			nombre.style.borderColor='green';
 			var parametros={'id':0,'nombre':nombre.value.toUpperCase(),'estado':estado.value};		
 			var url=`${raizServidor}/periodo`;
-			if(v.value=="Guardar"){
-        modEstado(url);
+			if(v.value=="Agregar"){
 				Ingresar(parametros,url);
 			}	
 			if(v.value=="Modificar"){				
@@ -109,14 +83,13 @@
 			}
 		}	
   }
- 
+  
   async function modEstado(url){      
       try{
-        let response = await fetch(`${raizServidor}/periodo?campo=ple_nombre&bus=&est`);
+        let response = await fetch(`http://localhost:8888/periodo?campo=ple_nombre&bus=&est`);
         let data = await response.json();
         for(let pro of data){ 
-          if(pro.estado==1){  
-                           
+           if(pro.estado==1){                
                let parametros={'id':0,'nombre':pro.nombre,'estado':0};                      
                let response = await fetch(`${url}/${pro.id}`, {
                   method: 'PUT',
@@ -124,7 +97,8 @@
                   headers:{'Content-Type': 'application/json'}        
               }) 
            }
-        }              
+        }                  
+             
       }catch(e){
           toastr.error('Error al procesar algunos datos');  
       }  

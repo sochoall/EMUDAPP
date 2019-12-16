@@ -1,26 +1,21 @@
-import 'package:app_movil/transportista/tabs/alumnos.dart';
-import 'package:app_movil/transportista/tabs/objetos_perdidos_page.dart';
-import 'package:app_movil/transportista/tabs/registro_estudiantes_page.dart';
-
-import 'package:app_movil/transportista/tabs/rutas.dart';
-import 'package:app_movil/transportista/widgets/menu_lateral.dart';
 import 'package:flutter/material.dart';
-import 'package:app_movil/rutas/rutas.dart';
-
-
+import 'package:app_movil/transportista/tabs/mapa.dart';
+import 'package:app_movil/transportista/tabs/rutas.dart';
+import 'package:app_movil/transportista/tabs/registro_estudiantes_page.dart';
 
 class PantallaParadas extends StatelessWidget {
   final String nombreRuta; //Creacion de varibales que se vayan a usar
   final String idRecorrido;
   final String nombre;
   final String idUsuario;
-
+  
   PantallaParadas(this.nombreRuta,this.idRecorrido,this.nombre,this.idUsuario); 
 
 
   @override
   Widget build(BuildContext contexto) {
     //final appTitle = 'Form Validation Demo';
+    
     return HomeScreen(nombreRuta,idRecorrido,nombre,idUsuario);
   }
 }
@@ -37,23 +32,31 @@ final String idUsuario;
   HomeScreenState createState() => HomeScreenState(nombreRuta,idRecorrido,nombre,idUsuario); //Paso de paramteros
 }
 
-class HomeScreenState extends State<HomeScreen> {
+class HomeScreenState extends State<HomeScreen> 
+{
   @override
   final String nombreRuta; //Creacion de varibales que se vayan a usar
   final String idRecorrido;
   final String nombre;
   final String idUsuario;
+ String sentido="";
   HomeScreenState(this.nombreRuta,this.idRecorrido,this.nombre,this.idUsuario); 
  
-
+ 
   int index = 0;
 
-  Widget callPage(int index) {
-    switch (index) {
+  //Widget callPage(int index,String sentido) {
+    
+    //switch (index) {
+      
+  Widget callPage(int index,String sentido) 
+  {
+    switch (index) 
+    {
       case 0:
         return Rutas(this.idRecorrido);
       case 1:
-        return listado();
+        return listado(MyHomePageState.ids.first);
         break;
       default:
         return Rutas(this.idRecorrido);
@@ -62,8 +65,14 @@ class HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext contexto) {
+     if (nombreRuta.toUpperCase().compareTo("IDA")==0) {
+       sentido="EMBARQUE";
+    } else {
+      sentido="DESEMBARQUE";
+      }
+
     return new Scaffold(
-        body: callPage(index),
+        body: callPage(index,sentido),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: index,
           onTap: (value) {
@@ -109,28 +118,25 @@ class HomeScreenState extends State<HomeScreen> {
           title: 
               Row(children: <Widget>[
                         Text(
-                          nombre+" ",
+                          sentido+" ",
                           style: TextStyle(
                               fontWeight: FontWeight.bold),
                         ),
-                        Icon(Icons.compare_arrows),
-                        Text(
-                          " "+nombreRuta,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold),
-                        ),
+                        //Icon(Icons.compare_arrows),
+                        //Text(
+                          //" "+nombre,
+                          //style: TextStyle(
+                            //  fontWeight: FontWeight.bold),
+                        //),
                       ]),
         ),
-        //drawer: Drawer(
-          //child: MenuLateral(idUsuario),
-        //)
-        );
-  }
+      );
+      }
 }
 
-class Choice {
+class Choice 
+{
   const Choice({this.title, this.icon});
-
   final String title;
   final IconData icon;
 }

@@ -12,14 +12,23 @@ import 'dart:convert';
 
 import 'package:intl/intl.dart';
 
+import 'consulta_objetos_perdidos_page.dart';
+
 class objetosPerdidosSeleccionarFechaPage extends StatefulWidget {
   @override
+  final idRecorrido;
+  objetosPerdidosSeleccionarFechaPage(this.idRecorrido);
+
   _objetosPerdidosSeleccionarFechaPageState createState() =>
-      _objetosPerdidosSeleccionarFechaPageState();
+      _objetosPerdidosSeleccionarFechaPageState(idRecorrido);
 }
 
 class _objetosPerdidosSeleccionarFechaPageState
     extends State<objetosPerdidosSeleccionarFechaPage> {
+
+      final idRecorrido;
+      _objetosPerdidosSeleccionarFechaPageState(this.idRecorrido);
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
   fechaConsulta objetoFechasConsulta = fechaConsulta();
 
@@ -30,11 +39,17 @@ class _objetosPerdidosSeleccionarFechaPageState
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+       appBar: AppBar( 
+        title: Text("Objetos Perdidos"),
+        ),
       body: _crearEncabezado(context),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         backgroundColor: Colors.cyan,
-        onPressed: () => Navigator.pushNamed(context, 'add_objeto_perdido'),
+
+        onPressed: () { Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext contexto) =>   addObjetosPerdidosPage(idRecorrido)));}
+ 
       ),
     );
   }
@@ -239,8 +254,9 @@ class _objetosPerdidosSeleccionarFechaPageState
             objetoFechasConsulta.fechaFin =
                 _controller2.text.replaceAll("/", "-");
 
-            Navigator.pushNamed(context, 'consulta_objetos_perdidos',
-                arguments: objetoFechasConsulta);
+             Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext contexto) =>  consultaObjetosPerdidosPage(objetoFechasConsulta,idRecorrido)));
+
           } else {
             mostrarSnackbar("Es necesario una fecha de inicio");
           }
