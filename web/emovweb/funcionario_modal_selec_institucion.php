@@ -17,7 +17,7 @@
 				<div class="form-group row">
 					<div class="col-md-3  align-self-center">		
 						<label>Campo:</label>							
-						<SELECT id="campo"  class="browser-default custom-select"> 
+						<SELECT id="campol"  class="browser-default custom-select"> 
 							<OPTION VALUE="ins_ruc" selected >RUC</OPTION>
 							<OPTION VALUE="ins_nombre">NOMBRE</OPTION>	
 							<OPTION VALUE="ins_direccion">DIRECCIÓN</OPTION>					
@@ -26,19 +26,19 @@
 
 					<div class="col-md-3">
 						<label for="txtuser">Buscar:</label>
-						<input type="text" id="textBuscar" name="textBuscar" class="form-control text-uppercase">     
+						<input type="text" id="textBuscarl" name="textBuscar" class="form-control text-uppercase">     
 					</div>
 
 					<div class="col-md-3">
 						<label>Estado:</label>
-						<SELECT id="estado"  class="browser-default custom-select"> 
+						<SELECT id="estadol"  class="browser-default custom-select"> 
 							<OPTION VALUE="" selected >TODOS</OPTION>
 							<OPTION VALUE="1">ACTIVO</OPTION>
 							<OPTION VALUE="0">INACTIVO</OPTION>             
 						</SELECT> 
 					</div>		
 
-					<div class="col-md-2  align-self-center" id="buscar">
+					<div class="col-md-2  align-self-center" id="buscarIns">
 						<a href="" class="btn grey"><i class="fas fa fa-search "></i></a>
 					</div>
 				</div>
@@ -59,7 +59,7 @@
 												<th></th>
 											</tr>
 										</thead>
-										<tbody  id="lista" >
+										<tbody  id="listaIns" >
 											<!-- AQUI SE CARGA LA TABLA CON LOS REGISTROS -->
 										</tbody>
 									</table>
@@ -67,8 +67,7 @@
 							</div>
 						</div>                
 					</div>
-				</div>					
-					<div id="lista"></div>		
+				</div>			
 			</div>
 					
 			
@@ -79,21 +78,21 @@
 		
 
 	<script type="text/javascript">	
-		const boton=document.querySelector('#buscar');		
-		const lista=document.querySelector('#lista');
+		const botonlista=document.querySelector('#buscarIns');		
+		const listaIns=document.querySelector('#listaIns');
 		var idFun;		
 	
 		function Buscar(){	
 			event.preventDefault();
 
-			var campo = document.getElementById('campo').value;			
-			var textBuscar=document.getElementById('textBuscar').value;
+			var campo = document.getElementById('campol').value;			
+			var textBuscar=document.getElementById('textBuscarl').value;
 			textBuscar=textBuscar.toUpperCase();			
-			var estado=document.getElementById("estado").value;
+			var estado=document.getElementById("estadol").value;
 			
 			let url=`http://localhost:8888/institucion?campo=${campo}&bus=${textBuscar}&est=${estado}`;
 
-			lista.innerHTML=`<div class="text-center"><div class="spinner-border text-info" role="status"><span class="sr-only">Loading...</span></div></div>`;	
+			listaIns.innerHTML=`<div class="text-center"><div class="spinner-border text-info" role="status"><span class="sr-only">Loading...</span></div></div>`;	
 			fetch(url)
 		 	.then((res) => {return res.json(); })
 			.then(produ => {
@@ -118,23 +117,23 @@
 					</tr>`;											
 				}
 				result += `</tabla> `;
-				lista.innerHTML=result;
+				listaIns.innerHTML=result;
 				return produ;				
 			})		
-				.catch(error => { lista.innerHTML =`<div>No se encuentras coincidencias</div>`;	 console.log("error",error); return error; })					
+				.catch(error => { listaIns.innerHTML =`<div>No se encuentras coincidencias</div>`;	 console.log("error",error); return error; })					
 		}		
 			
-		boton.addEventListener('click',Buscar);
+		botonlista.addEventListener('click',Buscar);
 		
 		// la clase bot es del boton de seleccionar. 
 		//  la lista es el div contenedor del resultado de la busqueda
-		$("#lista").on('click', '.bot', function(e) {
+		$("#listaIns").on('click', '.bot', function(e) {
 			// CAPTURA LOS DATOS DE LAS POSICIONES DE LA TABLA DE BUSQUEDA.
 			var cod = $(this).parents("tr").find("td")[0].innerHTML;
 			var nom = $(this).parents("tr").find("td")[2].innerHTML;
 			// ENVIO EL RESULTADO A LOS INPUT DE LA VENTANA PRINCIPAL
 			document.getElementById('nomInst').value = (`${nom}`);
-			document.getElementById('idInst').value = cod;
+			document.getElementById('idInst').value = cod.trim();
 
 			if(institutoMonitoreo)
 			{

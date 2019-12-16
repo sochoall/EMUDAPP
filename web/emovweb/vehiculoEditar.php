@@ -47,7 +47,7 @@
 						</div>
 	<!-- BOTON MODAL.... en la cabecera importo el modal -->
 						<div class="col-sm-0 align-self-center" id="buscar">
-								<a class="btn grey" href="#" role="button" data-toggle="modal" data-target="#centralModalSm"><i class="fas fa fa-search "></i></a>
+								<a class="btn grey" href="#" role="button" data-toggle="modal" data-target="#centralModalSmC"><i class="fas fa fa-search "></i></a>
 							</div>	
 					</div>
 				<div class="row ">
