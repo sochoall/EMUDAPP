@@ -1,10 +1,5 @@
-import 'package:app_movil/representante/pantalla_inicial_rep.dart';
-import 'package:app_movil/rutas/rutas.dart';
-import 'package:app_movil/transportista/widgets/lista_rutas.dart';
 import 'package:app_movil/transportista/widgets/lista_rutas_objetos.dart';
-import 'package:app_movil/transportista/widgets/menu_lateral.dart';
 import 'package:flutter/material.dart';
-
 
 
 class PantallaObjetos extends StatefulWidget {
@@ -18,10 +13,7 @@ class PantallaObjetos extends StatefulWidget {
 class PantallaObjetosEstado extends State<PantallaObjetos> {
   @override
   final String id_usuario; //Creacion de varibales que se vayan a usar
-
-
   PantallaObjetosEstado(this.id_usuario);
-
   Widget build(BuildContext contexto) {
     return new Scaffold(
         body: CustomScrollView(

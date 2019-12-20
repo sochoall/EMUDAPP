@@ -6,18 +6,15 @@ import '../../provider.dart';
 import 'lista_recorrido_objetos.dart';
 
 class ListaRutasObjetos extends StatelessWidget {
-  //Creacion de Lista de rutas
   @override
-  final String id_usuario; //Creacion de varibales que se vayan a usar
+  final String id_usuario;
 
   ListaRutasObjetos(this.id_usuario);
 
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: listaProvider.cargarData1(id_usuario),
-        //Enlazada al cargardata
         initialData: [],
-        //Informcion por defecto
         builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
           if (snapshot.hasData) {
             return CustomScrollView(
@@ -59,14 +56,7 @@ List<Widget> datosListTile(List<dynamic> datos, BuildContext context) {
           opt['nombre'],
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        //subtitle: Text(opt['descripcion']),
-
-        leading:Icon(Icons.call_to_action),
-
-        //onTap: (){
-        //Navigator.of(context).push(
-        //MaterialPageRoute(builder: (BuildContext contexto) => PantallaParadas(opt['nombre'])));
-        //},
+        leading: Icon(Icons.call_to_action),
         trailing: Icon(Icons.keyboard_arrow_right, color: Colors.blue),
         children: <Widget>[
           Container(
@@ -74,7 +64,6 @@ List<Widget> datosListTile(List<dynamic> datos, BuildContext context) {
           )
         ],
       );
-
       opciones..add(widgetTemp);
     },
   );

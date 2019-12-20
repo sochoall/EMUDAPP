@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_calendar/flutter_calendar.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 import 'dart:async';
 import 'dart:convert';
 
@@ -83,29 +84,37 @@ _consultaObjetosPerdidosPageState(this.objetoData,this.idRecorrido);
   Future<List<objetosPerdidoss>> _getObjetosPerdidos(
       String fechaInicios, String fechaFins) async {
     List<String> fechaConvert = objeto.fechaInicio.split("-");
-    var fechaInicio =
-        fechaConvert[1] + "-" + fechaConvert[0] + "-" + fechaConvert[2];
+     String fecha;
+    String fechaInicio =
+        fechaConvert[2] + "-" + fechaConvert[0] + "-" + fechaConvert[1];
 
-    var fechaFin = "";
+    String fechaFin = "";
     if (objeto.fechaFin.isNotEmpty) {
       fechaConvert = objeto.fechaFin.split("-");
       fechaFin =
-          fechaConvert[1] + "-" + fechaConvert[0] + "-" + fechaConvert[2];
+          fechaConvert[2] + "-" + fechaConvert[0] + "-" + fechaConvert[1];
+    }
+    else
+    {
+      DateTime now = DateTime.now();
+      fecha = DateFormat('yyyy-MM-dd').format(now);
+      print(fecha);
+       fechaFin =fecha;
     }
 
     try {
       final response = await http.get(
-          "http://192.168.137.1:8888/objetosPerdidos/${fechaInicio}*${fechaFin}");
+          "http://192.168.137.1:8888/objetosPerdidos?f1=${fechaInicio}&f2=${fechaFin}&f3=$idRecorrido");
 
       print(
-          "http://192.168.137.1:8888/objetosPerdidos/${fechaInicio}*${fechaFin}");
+          "http://192.168.137.1:8888/objetosPerdidos?f1=${fechaInicio}&f2=${fechaFin}&f3=$idRecorrido");
 
-      var jsonData = json.decode(response.body);
-
+      var jsonData = json.decode(response.body);      
       List<objetosPerdidoss> objetos = List<objetosPerdidoss>();
 
       for (var ob in jsonData) {
         objetosPerdidoss object = objetosPerdidoss();
+        print(ob['id'].toString());
         object.id = int.parse(ob['id'].toString());
         object.fechaHora = ob['fechaHora'].toString();
         object.descripcion = ob['descripcion'].toString();

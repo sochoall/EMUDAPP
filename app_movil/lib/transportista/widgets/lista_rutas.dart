@@ -14,9 +14,7 @@ class ListaRutas extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: listaProvider.cargarData1(id_usuario),
-        //Enlazada al cargardata
         initialData: [],
-        //Informcion por defecto
         builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
           if (snapshot.hasData) {
             return CustomScrollView(
@@ -58,14 +56,7 @@ List<Widget> datosListTile(List<dynamic> datos, BuildContext context) {
           opt['nombre'],
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        //subtitle: Text(opt['descripcion']),
-
         leading: CircleAvatar(backgroundImage: AssetImage('assets/ruta.jpg')),
-
-        //onTap: (){
-        //Navigator.of(context).push(
-        //MaterialPageRoute(builder: (BuildContext contexto) => PantallaParadas(opt['nombre'])));
-        //},
         trailing: Icon(Icons.keyboard_arrow_right, color: Colors.blue),
         children: <Widget>[
           Container(
