@@ -55,6 +55,34 @@ class Estudiante extends Serializable
     
   }
 
+  Future<List> obtenerDatosRepresentante(String id) async {
+    final conexion = Conexion();
+    final String sql =
+        "select * from public.te_estudiante e, public.te_Estudiante_representante r where r.est_id=e.est_id and r.rep_id=$id";
+    final List datos = [];
+    final List<dynamic> query = await conexion.obtenerTabla(sql);
+
+    if (query != null && query.isNotEmpty) {
+      for (int i = 0; i < query.length; i++) {
+        final reg = Estudiante();
+
+        reg.id = query[i][0].toString();
+        reg.cedula = query[i][1].toString();
+        reg.nombre = query[i][2].toString();
+        reg.apellido = query[i][3].toString();
+        reg.direccion = query[i][4].toString();
+        reg.telefono = query[i][5].toString();
+        reg.correo = query[i][6].toString();
+        reg.estado = query[i][7].toString();
+        reg.insId = query[i][8].toString();
+        datos.add(reg.asMap());
+      }
+    }
+    return datos;
+  }
+
+
+  
   Future<Estudiante> obtenerDatoId(int id) async {
     final conexion = Conexion();
     final String sql = "select * from public.te_estudiante where est_id=$id";
