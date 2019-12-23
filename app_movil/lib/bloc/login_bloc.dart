@@ -2,11 +2,11 @@ import 'dart:async';
 import 'package:rxdart/rxdart.dart';
 import 'package:app_movil/bloc/validators.dart';
 
-class LoginBloc with Validators {
- final _emailController = BehaviorSubject<String>();
+class LoginBloc with Validators 
+{
+  final _emailController = BehaviorSubject<String>();
   final _passwordController = BehaviorSubject<String>();
   final _cedulaController = BehaviorSubject<String>();
-  
 
   //Recuperar los datos del stream
   Stream<String> get emailStream => _emailController.stream.transform(validarEmail);
@@ -28,7 +28,8 @@ class LoginBloc with Validators {
   
 
   //Cerrar cuando no se escucha
-  dispose() {
+  dispose() 
+  {
     _emailController?.close();
     _passwordController?.close();
     _cedulaController?.close();

@@ -2,10 +2,8 @@ import 'dart:async';
 import 'package:aqueduct/aqueduct.dart';
 import 'package:fave_reads/Models/Monitoreo.dart';
 
-class MonitoreoController extends ResourceController{
-
-
-
+class MonitoreoController extends ResourceController
+{
   @Operation.get()
   Future<Response> obtenerLista() async
   {

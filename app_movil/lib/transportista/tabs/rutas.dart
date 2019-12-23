@@ -75,6 +75,7 @@ class RutasEstado extends State<RutaParada>
         child: CircularProgressIndicator(),
       )
       :
+      names == null ? 
       Center(
         child: FutureBuilder<List<Post>>(
           future: listaParadasProvider.cargarData7(idRecorrido),
@@ -93,6 +94,8 @@ class RutasEstado extends State<RutaParada>
           }
         )
       )
+      :
+      buildScrollView()
     );
   }
 
