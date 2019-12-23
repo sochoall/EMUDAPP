@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:http/http.dart';
 import 'package:latlong/latlong.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -93,6 +94,7 @@ class MyHomePageState extends State<MyHomePage>
         child: CircularProgressIndicator()
       )
       :
+      points == null ? 
       Center(
         child: FutureBuilder<List<Post>>(
           future: fetchPost(idR),
@@ -109,6 +111,8 @@ class MyHomePageState extends State<MyHomePage>
           }
         )
       )
+      :
+      buildMap()
     );
   }
   
@@ -240,7 +244,28 @@ class MyHomePageState extends State<MyHomePage>
 
   void removeStopMarkers(LatLng latlng)
   {
+    sendRecord(points.elementAt(0));
     points.removeAt(0);
     ids.removeAt(0);
+  }
+
+  void sendRecord(LatLng latlng) async 
+  {
+    try 
+    {
+      var url = "http://192.168.137.1:8888/monitoreo";
+
+      Map<String, String> headers = {"Content-Type": "application/json"};
+      String json = "";
+      json ='{"mon_id": "0", "mon_fecha_hora": "${DateTime.now()}", "mon_completo": "0", "mon_latitud": "${latlng.latitude}", "mon_longitud": "${latlng.longitude}", "tmo_id":"1", "tpa_id":"1", "par_id":"1", "rec_id":"$idR"}';
+      Response response =await http.post(url, headers: headers, body: json);
+      int statusCode = response.statusCode;
+      print(statusCode);
+      print("Guardado con éxito.");
+    } 
+    catch (e) 
+    {
+      print(e.toString());
+    }
   }
 }

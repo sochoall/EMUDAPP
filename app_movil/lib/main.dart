@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:app_movil/transportista/tabs/mapa.dart';
+import 'package:app_movil/transportista/tabs/rutas.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:app_movil/bloc/provider.dart';
@@ -28,7 +30,7 @@ class MyApp extends StatelessWidget
         'home': (BuildContext context) =>  PagInicial(id_usuario,""),
         'home2': (BuildContext context) => PagEleccion(id_usuario),
         'homeRep': (BuildContext context) => PagInicialRep(id_usuario,rol),
-         'objetosPerdidos': (BuildContext context) => ObjetosP(),
+        'objetosPerdidos': (BuildContext context) => ObjetosP(),
       },
       theme: ThemeData(primaryColor: Colors.lightBlue),
     ));
@@ -49,9 +51,7 @@ class Login extends StatelessWidget
   		return true;
     return false;
   }
-
    
-
   Widget build(BuildContext context) 
   {
     return Scaffold(
@@ -62,6 +62,8 @@ class Login extends StatelessWidget
 
   Widget _crearFondo(BuildContext context) 
   {
+
+
     final size = MediaQuery.of(context).size;
     final fondoMorado = Container(
       height: size.height * 0.4,
@@ -80,6 +82,7 @@ class Login extends StatelessWidget
           borderRadius: BorderRadius.circular(100.0),
           color: Color.fromRGBO(255, 255, 255, 0.05)),
     );
+
     return Stack(
       children: <Widget>[
         fondoMorado,
@@ -276,7 +279,13 @@ class Login extends StatelessWidget
       return json.decode(response.body);
     }
     
-    checkValue() async {
+    checkValue() async 
+    {
+      MyHomePageState.ids = null;
+      MyHomePageState.points = null;
+      RutasEstado.names = null;
+      RutasEstado.time = null;
+
       String val = await consultar();
       val=val.replaceAll('"', "");
       id_usuario=val;
