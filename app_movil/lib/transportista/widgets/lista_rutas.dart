@@ -1,16 +1,12 @@
 import 'package:app_movil/main.dart';
 import 'package:app_movil/transportista/widgets/lista_recorrido_parada.dart';
 import 'package:flutter/material.dart';
-
 import '../../provider.dart';
 
 class ListaRutas extends StatelessWidget {
-  //Creacion de Lista de rutas
   @override
-  final String id_usuario; //Creacion de varibales que se vayan a usar
-
+  final String id_usuario; 
   ListaRutas(this.id_usuario);
-
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: listaProvider.cargarData1(id_usuario),
@@ -48,7 +44,6 @@ List<Widget> datosSliverList(List<dynamic> datos, BuildContext context) {
 
 List<Widget> datosListTile(List<dynamic> datos, BuildContext context) {
   final List<Widget> opciones = [];
-
   datos.forEach(
     (opt) {
       final widgetTemp = ExpansionTile(
@@ -64,7 +59,6 @@ List<Widget> datosListTile(List<dynamic> datos, BuildContext context) {
           )
         ],
       );
-
       opciones..add(widgetTemp);
     },
   );

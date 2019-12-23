@@ -65,7 +65,7 @@ List<Widget> _listItems(List<dynamic> data, BuildContext context) {
         );
         opciones..add(widgetTemp);
       }
-      ;
+      
     },
   );
   return opciones;

@@ -4,19 +4,56 @@ import 'package:app_movil/transportista/widgets/lista_rutas.dart';
 import 'package:app_movil/transportista/widgets/menu_lateral.dart';
 import 'package:flutter/material.dart';
 
+
+
+
 class PagEleccion extends StatelessWidget {
   @override
   final String id_usuario; //Creacion de varibales que se vayan a usar
 
   PagEleccion(this.id_usuario);
+  Widget build(BuildContext contexto) {
+    return Eleccion(id_usuario);
+  }
+  
+}
 
+class Eleccion extends StatefulWidget 
+{
+  final String id_usuario; //Creacion de varibales que se vayan a usar
+  Eleccion(this.id_usuario);
+
+  HomeEleccionState createState() => HomeEleccionState(id_usuario); //Paso de paramteros
+}
+
+class HomeEleccionState extends State<Eleccion> {
+  @override
+  final String id_usuario; //Creacion de varibales que se vayan a usar
+  HomeEleccionState(this.id_usuario);
   Widget build(BuildContext context) {
-    return AlertDialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-      title: Text("Bienvenido! Por Favor Elija Una Opción:"),
-      content: Column(
+    return Scaffold(
+      backgroundColor:Colors.black,
+      body:Center( 
+        child:
+      Container(
+        height: 190,
+        width: 350,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20)
+        ),
+        //color: Colors.white,
+        child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
+          Text(""),
+          
+          Text("Bienvenido! Por Favor Elija Una Opción:",style:
+          TextStyle(
+          fontSize: 17,
+          fontWeight: FontWeight.bold,
+        ),),
+        Text(""),
           ListTile(
             title: Text("Padre de Familia"),
             leading: CircleAvatar(
@@ -25,7 +62,7 @@ class PagEleccion extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (BuildContext context) =>
-                      PagInicialRep(id_usuario, "")));
+                      PantallaRuta(id_usuario, "")));
             },
           ),
           ListTile(
@@ -33,16 +70,20 @@ class PagEleccion extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (BuildContext context) =>
-                      PagInicial(id_usuario, "")));
+                      PantallaRuta(id_usuario, "")));
             },
-            leading: CircleAvatar(
+           leading: CircleAvatar(
               backgroundImage: AssetImage('assets/transporte.png'),
             ),
-          )
+          ),
+            Text(""),
         ],
+      ),
+      ),
       ),
     );
   }
+
 }
 
 class PagInicial extends StatelessWidget {

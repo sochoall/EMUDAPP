@@ -1,4 +1,3 @@
-import 'package:app_movil/transportista/tabs/alumnos.dart';
 import 'package:app_movil/transportista/tabs/objetos_perdidos_page.dart';
 import 'package:app_movil/transportista/tabs/rutas.dart';
 import 'package:app_movil/transportista/widgets/menu_lateral.dart';
