@@ -23,19 +23,17 @@ class PagEleccion extends StatelessWidget {
               backgroundImage: AssetImage('assets/padre.jpg'),
             ),
             onTap: () {
-               //Navigator.of(context).pop();
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) => PagInicialRep(id_usuario,"")));
-              //Navigator.pushReplacementNamed(context, 'homeRep');
+                  builder: (BuildContext context) =>
+                      PagInicialRep(id_usuario, "")));
             },
           ),
           ListTile(
             title: Text("Conductor"),
             onTap: () {
-               //Navigator.of(context).pop();
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) => PagInicial(id_usuario,"")));
-              //Navigator.pushReplacementNamed(context, 'homeRep');
+                  builder: (BuildContext context) =>
+                      PagInicial(id_usuario, "")));
             },
             leading: CircleAvatar(
               backgroundImage: AssetImage('assets/transporte.png'),
@@ -69,9 +67,7 @@ class PantallaRuta extends StatefulWidget {
   @override
   final String id_usuario; //Creacion de varibales que se vayan a usar
   final String rol;
-
   PantallaRuta(this.id_usuario, this.rol);
-
   PantallaRutaEstado createState() => PantallaRutaEstado(id_usuario, rol);
 }
 
@@ -79,7 +75,6 @@ class PantallaRutaEstado extends State<PantallaRuta> {
   @override
   final String id_usuario; //Creacion de varibales que se vayan a usar
   final String rol;
-
   PantallaRutaEstado(this.id_usuario, this.rol);
 
   Widget build(BuildContext contexto) {
@@ -87,7 +82,6 @@ class PantallaRutaEstado extends State<PantallaRuta> {
         body: CustomScrollView(
           slivers: <Widget>[
             SliverAppBar(
-              //expandedHeight: MediaQuery.of(contexto).size.height - 200,
               floating: false,
               pinned: true,
               flexibleSpace: FlexibleSpaceBar(
@@ -107,7 +101,6 @@ class PantallaRutaEstado extends State<PantallaRuta> {
                   Icon(Icons.arrow_upward)
                 ]),
               ),
-              //child: new Container(color: Colors.red,height: 640.0,
             ),
             SliverFillRemaining(
               child: ListaRutas(id_usuario),

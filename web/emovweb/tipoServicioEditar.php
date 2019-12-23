@@ -46,7 +46,7 @@
 	var metodo = parametro.get('metodo');
 	var id;	
     document.getElementById('metodo').value =metodo;
-    if(metodo=='Guardar')
+    if(metodo=='Agregar')
 	    document.getElementById("estado").disabled=true;    
     if(metodo=='Modificar'){		
 		id= parametro.get('id');
@@ -69,7 +69,7 @@
 			nombre.style.borderColor='green';
 			var parametros={'id':0,'nombre':nombre.value.toUpperCase(),'estado':estado.value};		
 			var url=`${raizServidor}/tipoServicio`;
-			if(v.value=="Guardar"){
+			if(v.value=="Agregar"){
 				Ingresar(parametros,url);
 			}	
 			if(v.value=="Modificar"){			

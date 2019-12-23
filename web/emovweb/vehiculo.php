@@ -1,6 +1,6 @@
 <?php include 'header.php'; 
-//    include 'codigophp/sesion.php';
-//  $menu=Sesiones("EMOV");
+   include 'codigophp/sesion.php';
+ $menu=Sesiones("EMOV");
 //    $menu=Sesiones("EMPRESA DE TRANSPORTE"); 
 //    $idFun="2";
 //    $idIns="2";
@@ -8,7 +8,7 @@
 
 <div class="container-fluid grey pr-0 pl-0">
 		<?php 
-		// echo $menu 
+		echo $menu 
 		?>
 </div>
 
@@ -70,7 +70,7 @@
 </div>
 
 <div class="cyan circulo">
-	<a href="vehiculoEditar.php?metodo=Guardar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
+	<a href="vehiculoEditar.php?metodo=Agregar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
 </div>	
 
 <script type="text/javascript">			

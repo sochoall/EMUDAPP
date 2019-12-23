@@ -4,6 +4,9 @@
 import 'package:app_movil/transportista/tabs/objetos_perdidos_page.dart';
 import 'package:flutter/material.dart';
 import '../../provider.dart';
+import '../objetos_perdidos_inicio.dart';
+import '../objetos_perdidos_representante.dart';
+import 'lista_objetos_estudiante.dart';
 
 class MenuLateralRep extends StatelessWidget {
   final String idUsuario;
@@ -26,7 +29,7 @@ class MenuLateralRep extends StatelessWidget {
 
                   //print(snapshot.data);
                   return ListView(
-                    children: _listItems(snapshot.data, context),
+                    children: _listItems(snapshot.data, context,idUsuario),
                   );
                 }),
           ),
@@ -36,7 +39,7 @@ class MenuLateralRep extends StatelessWidget {
   }
 }
 
-List<Widget> _listItems(List<dynamic> data, BuildContext context) {
+List<Widget> _listItems(List<dynamic> data, BuildContext context,idUsuario) {
   final List<Widget> opciones = [];
   //widgetTemp=Widget;
 
@@ -69,7 +72,7 @@ List<Widget> _listItems(List<dynamic> data, BuildContext context) {
       leading: Icon(Icons.view_headline),
       onTap: () {
          Navigator.of(context).push(MaterialPageRoute(
-              builder: (BuildContext contexto) => ObjetosP()));
+              builder: (BuildContext contexto) => PagInicialOp(idUsuario)));
       },
     ));
     

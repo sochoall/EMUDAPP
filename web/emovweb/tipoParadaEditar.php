@@ -5,7 +5,7 @@
 
 
 
-<div class="container text-center mt-2">
+<div class="container text-center mt-2 text-uppercase">
    <div class="row">
        <div class="col-md-6 offset-md-3">
            <div class="card">
@@ -14,48 +14,50 @@
                        <!--AQUI VA EL FORMULARIO DE INGRESO Y EDICION -->
                    
                        <form>	
-							<div class="row">
-								<label class="col-md-3 col-form-label">Nombre: <span class="text-danger">* </span></label>
-								<div class="col-md-9">
-									<input type='text' id= "nombre" class="form-control text-uppercase form-control-sm"  maxlength="50"/>
-								</div>
-							</div>
-						
-							<div class="row">
-								<label class="col-md-3 col-form-label">Estado: <span class="text-danger">* </span></label>
-								<div class="col-md-9">
-									<SELECT id="estado"  class="browser-default custom-select"> 
-										<OPTION VALUE="1" selected >ACTIVO</OPTION>
-										<OPTION VALUE="0">INACTIVO</OPTION>
-									</SELECT> 
-								</div>
-							</div>
-							<div class=" mt-3 justify-content-between text-white">
-								<input value="Guardar" class="btn cyan" onclick="IngMod(this)" type="submit" value="" id="metodo" name="metodo"/>		
-								<input type="button" value="Cancelar" class="btn cyan" onclick="location.href = 'tipoParada.php';"/>
-							</div>
+		<div class="row">
+			<label class="col-md-3 col-form-label">Nombre:</label>
+			<div class="col-md-9">
+				<input type='text' id= "nombre" class="form-control text-upperCase form-control-sm"  maxlength="50"/>
+			</div>
+		</div>
+	
+		<div class="row">
+			<label class="col-md-3 col-form-label">Estado:</label>
+			<div class="col-md-9">
+				<SELECT id="estado"  class="browser-default custom-select"> 
+					<OPTION VALUE="1" selected >Activo</OPTION>
+					<OPTION VALUE="0">Inactivo</OPTION>
+				</SELECT> 
+			</div>
+		</div>
+        <div class=" mt-3 justify-content-between text-white">
+            <input value="Guardar" class="btn cyan" onclick="IngMod(this)" type="submit" value="" id="metodo" name="metodo"/>		
+		    <input type="button" value="Cancelar" class="btn cyan" onclick="location.href = 'tipoParada.php';"/>
+        </div>
 		
 			
-						</form>	
-               		</div>
-           		</div>
-        	 </div>
-   		</div>
-	</div>
+	</form>
+	<div class="mt-5" id="alerta"></div>	
+               </div>
+           </div>
+         </div>
+   </div>
+</div>
 	
 <?php
 	$id=0;
 	if (isset($_GET['metodo'])) {
 		$metodo = $_GET['metodo'];
-		if($metodo=='Guardar'){			
+		if($metodo=='Ingresar'){			
 			 echo "<script language='javascript'> 
 				document.getElementById('metodo').value ='$metodo';
+				document.getElementById('titulo').innerHTML = '$metodo Tipo Sentido';
 			 </script>";
 		}else{			
 			$id = $_GET['id'];			
 			echo "<script language='javascript'> 
 			document.getElementById('metodo').value ='$metodo';
-			
+			document.getElementById('titulo').innerHTML = '$metodo Institución';
 			fetch('http://localhost:8888/tipoParada/$id')
 			  .then(response => response.json())
 			  .then(data => {		  	
@@ -80,21 +82,58 @@
 				toastr.error('Nombre con caracteres incorrecto');
 				nombre.style.borderColor="red";
 		}else{
-			nombre.style.borderColor="green";
-			var parametros={'id':0,'nombre':nombre.value.toUpperCase(),'estado':estado.value};		
-			var url=`${raizServidor}/tipoParada`;
-			if(v.value=="Guardar"){	
-				Ingresar(parametros,url);
-			}	
-			if(v.value=="Modificar"){
-				let param = new URLSearchParams(location.search);
-				var id =param.get('id');
-				let redirigir="tipoParada.php";
-				Modificar(parametros,`${url}/${id}`,redirigir);
-			}
-		}	
-	}
 			
+
+						var parametros={'id':0,'nombre':nombre.value.toUpperCase(),'estado':estado.value};		
+	
+						if(v.value=="Ingresar"){	
+							Ingresar(parametros);
+						}	
+						if(v.value=="Modificar"){
+							Modificar(parametros);
+						}
+					}	
+				}
+			
+	
+	
+		
+	function Ingresar(parametros) {	
+		fetch('http://localhost:8888/tipoParada', {
+				method: 'POST',
+				body:JSON.stringify(parametros),
+				headers:{
+					'Content-Type': 'application/json'
+				}		
+			}).then(res => res.json())
+			.catch(error => {				
+				toastr.error('Error al Guardar');
+			})
+			.then(respuesta => {
+				toastr.success('Guardado correctamente');	
+				setTimeout("location.href='tipoParada.php?metodo=Ingresar'",1000);
+			})
+	}
+	function Modificar(parametros) {
+		var id= '<?php echo $id;?>'						
+		var url='http://localhost:8888/tipoParada/'+id
+		fetch(url, {
+			method: 'PUT',
+			body:JSON.stringify(parametros),
+			headers:{
+				'Content-Type': 'application/json'
+			}				
+		}).then(res => res.json())
+		.catch(error => {
+			toastr.error('Error al Guardar');
+		})
+		.then(respuesta => {
+			toastr.success('Guardado correctamente');	
+			setTimeout("location.href='tipoParada.php'",1000);		
+		});
+	}
+
+		
 	</script>
 
 <?php include 'footer.php'; ?>

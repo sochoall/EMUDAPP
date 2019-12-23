@@ -4,24 +4,24 @@
  ?>
 
 
-<div class="container text-center mt-2">
+<div class="container text-center mt-2 text-uppercase">
    <div class="row">
        <div class="col-md-6 offset-md-3">
            <div class="card">
-                <h3 class="card-header cyan white-text text-uppercase font-weight-bold text-center" id="titulo">TIPO DE VEHÍCULOS</h3>
-				 <div class="card-body">
+                 <h3 class="card-header cyan white-text text-uppercase font-weight-bold text-center py-5" id="titulo"></h3>
+                 <div class="card-body">
                        <!--AQUI VA EL FORMULARIO DE INGRESO Y EDICION -->
                    
                        <form>	
                             <div class="row">
-                                <label class="col-md-3 col-form-label">Nombre: <span class="text-danger">* </span></label>
+                                <label class="col-md-3 col-form-label">Nombre:</label>
                                 <div class="col-md-9">
                                     <input type='text' id= "nombre" class="form-control text-uppercase form-control-sm"  maxlength="50"/>
                                 </div>
                             </div>
                         
                             <div class="row">
-                                <label class="col-md-3 col-form-label">Estado: <span class="text-danger">* </span></label>
+                                <label class="col-md-3 col-form-label">Estado:</label>
                                 <div class="col-md-9">
                                     <SELECT id="estado"  class="browser-default custom-select"> 
                                         <OPTION VALUE="1" selected >ACTIVO</OPTION>
@@ -46,7 +46,7 @@
 	$id=0;
 	if (isset($_GET['metodo'])) {
 		$metodo = $_GET['metodo'];
-		if($metodo=='Guardar'){			
+		if($metodo=='Ingresar'){			
 			 echo "<script language='javascript'> 
 				document.getElementById('metodo').value ='$metodo';
 				document.getElementById('titulo').innerHTML = 'tipo de vehículo';
@@ -83,7 +83,7 @@
 			var parametros={'id':0,'nombre':nombre.value.toUpperCase(),'estado':estado.value};		
 			var url="http://localhost:8888/tipoVehiculo";
 
-			if(v.value=="Guardar"){	
+			if(v.value=="Ingresar"){	
 				Ingresar(parametros,url);
 			}	
 			if(v.value=="Modificar"){

@@ -9,42 +9,22 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'dart:async';
 import 'dart:convert';
-
 import 'consulta_objetos_perdidos_page.dart';
 import 'objetos_perdidos_seleccionar_fecha_page.dart';
 
-class ObjetosP extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Material App',
-      debugShowCheckedModeBanner: false,
-      initialRoute: 'objetos_perdidos',
-      routes: {
-        // 'registro_estudiantes': (BuildContext context) => listado(),
-        'objetos_perdidos': (BuildContext context) => objetosPerdidosPage(),
-        'add_objeto_perdido': (BuildContext context) =>
-            addObjetosPerdidosPage(),
-        'edit_objeto_perdido': (BuildContext context) =>
-            editObjetosPerdidosPage(),
-        'seleccionar_fecha_objeto_perdido': (BuildContext context) =>
-            objetosPerdidosSeleccionarFechaPage(),
-        'consulta_objetos_perdidos': (BuildContext context) =>
-            consultaObjetosPerdidosPage(),
-      },
-      theme: ThemeData(
-        primaryColor: Colors.cyan,
-      ),
-    );
-  }
-}
-
 class objetosPerdidosPage extends StatefulWidget {
   @override
-  _objetosPerdidosPageState createState() => _objetosPerdidosPageState();
+  final String idRecorrido;
+  objetosPerdidosPage(this.idRecorrido);
+  _objetosPerdidosPageState createState() => _objetosPerdidosPageState(idRecorrido);
 }
 
 class _objetosPerdidosPageState extends State<objetosPerdidosPage> {
+
+  final String idRecorrido;
+  
+  _objetosPerdidosPageState(this.idRecorrido);
+
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   List<estadoObjeto> estadoDeObjetos = List<estadoObjeto>();
@@ -53,7 +33,7 @@ class _objetosPerdidosPageState extends State<objetosPerdidosPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar( 
-        title: Text("Objetos Perdidos."),
+        title: Text("Objetos Perdidos"),
         ),
       key: scaffoldKey,
       body: _crearListado(context),
@@ -89,7 +69,7 @@ class _objetosPerdidosPageState extends State<objetosPerdidosPage> {
   }
 
   Future<List<objetosPerdidoss>> _getObjetosPerdidos() async {
-    final response = await http.get("http://192.168.137.1:8888/objetosPerdidos");
+    final response = await http.get("http://192.168.137.1:8888/objetosPerdidos/$idRecorrido");
     var jsonData = json.decode(response.body);
     //final List<objetosPerdidoss> objetos = List();
     List<objetosPerdidoss> objetos = List<objetosPerdidoss>();
@@ -144,10 +124,12 @@ class _objetosPerdidosPageState extends State<objetosPerdidosPage> {
 
   Widget _crearBoton(BuildContext context) {
     return FloatingActionButton(
-      child: Icon(Icons.add),
+      child: Icon(Icons.calendar_today),
       backgroundColor: Colors.cyan,
-      onPressed: () =>
-          Navigator.pushNamed(context, 'seleccionar_fecha_objeto_perdido'),
+      onPressed: () {
+         Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext contexto) => objetosPerdidosSeleccionarFechaPage(idRecorrido)));
+      }
     );
   }
 
@@ -188,8 +170,10 @@ class _objetosPerdidosPageState extends State<objetosPerdidosPage> {
                   fontSize: 15.0,
                 ),
               ),
-              onTap: () => Navigator.pushNamed(context, 'edit_objeto_perdido',
-                  arguments: objeto),
+              onTap: () {
+                 Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext contexto) => editObjetosPerdidosPage(objeto,idRecorrido)));
+              } 
             ),
             //SizedBox(height: 1.0,)
           ],

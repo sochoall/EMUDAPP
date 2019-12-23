@@ -52,8 +52,6 @@ void mostrarAlert(BuildContext context) {
       });
 }
 
-
-
 void usuarioInvalido(BuildContext context) {
   showDialog(
       context: context,
@@ -105,12 +103,12 @@ void usuarioInvalido(BuildContext context) {
 }
 
 void showToast(BuildContext context) {
-    final scaffold = Scaffold.of(context);
-    scaffold.showSnackBar(
-      SnackBar(
-        content: const Text('CREDENCIALES DE USUARIO INCORRECTAS'),
-        action: SnackBarAction(
-            label: 'Cerrar', onPressed: scaffold.hideCurrentSnackBar),
-      ),
-    );
-  }
+  final scaffold = Scaffold.of(context);
+  scaffold.showSnackBar(
+    SnackBar(
+      content: const Text('CREDENCIALES DE USUARIO INCORRECTAS'),
+      action: SnackBarAction(
+          label: 'Cerrar', onPressed: scaffold.hideCurrentSnackBar),
+    ),
+  );
+}

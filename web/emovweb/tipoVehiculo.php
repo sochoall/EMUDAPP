@@ -65,7 +65,7 @@
 </div>
 
 <div class="cyan circulo">
-	<a href="tipoVehiculoEditar.php?metodo=Guardar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
+	<a href="tipoVehiculoEditar.php?metodo=Ingresar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
 </div>			
 
 	<script type="text/javascript">		

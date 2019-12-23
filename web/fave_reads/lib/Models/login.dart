@@ -26,7 +26,7 @@ class Login extends Serializable
         final String sql ="SELECT usu_id FROM public.te_usuario WHERE usu_correo='${dato.usuario}' and usu_password='${dato.pss}'";
         final int d=await conexion.busqueda(sql).then((value){return value;});
         print(d);
-        print('anterior es el id de si existe');
+        print('anteriro es el id de si existe');
         return d;
         
       }

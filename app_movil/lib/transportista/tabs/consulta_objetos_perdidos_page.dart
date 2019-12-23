@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_calendar/flutter_calendar.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 import 'dart:async';
 import 'dart:convert';
 
@@ -15,20 +16,31 @@ import 'objetos_perdidos_seleccionar_fecha_page.dart';
 
 class consultaObjetosPerdidosPage extends StatefulWidget {
   @override
+  final fechaConsulta objetoData;
+  final idRecorrido;
+
+  consultaObjetosPerdidosPage(this.objetoData,this.idRecorrido);
+
   _consultaObjetosPerdidosPageState createState() =>
-      _consultaObjetosPerdidosPageState();
+      _consultaObjetosPerdidosPageState(objetoData,idRecorrido);
 }
 
 class _consultaObjetosPerdidosPageState
     extends State<consultaObjetosPerdidosPage> {
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+final fechaConsulta objetoData;
+final idRecorrido;
+
+_consultaObjetosPerdidosPageState(this.objetoData,this.idRecorrido);
+
+
   List<estadoObjeto> estadoDeObjetos = List<estadoObjeto>();
   fechaConsulta objeto = fechaConsulta();
 
   @override
   Widget build(BuildContext context) {
-    final fechaConsulta objetoData = ModalRoute.of(context).settings.arguments;
+    //final fechaConsulta objetoData = ModalRoute.of(context).settings.arguments;
 
     if (objetoData != null) {
       objeto = objetoData;
@@ -36,13 +48,16 @@ class _consultaObjetosPerdidosPageState
 
     return Scaffold(
       key: scaffoldKey,
+      appBar: AppBar( 
+        title: Text("Objetos Perdidos"),
+        ),
       body: _crearListado(context),
       floatingActionButton: _crearBoton(context),
     );
   }
 
   Future<void> _getEstadoObjeto() async {
-    final response = await http.get("http://192.169.4.10:8888/estadoObjetos");
+    final response = await http.get("http://192.168.137.1:8888/estadoObjetos");
 
     var jsonData = json.decode(response.body);
 
@@ -69,29 +84,37 @@ class _consultaObjetosPerdidosPageState
   Future<List<objetosPerdidoss>> _getObjetosPerdidos(
       String fechaInicios, String fechaFins) async {
     List<String> fechaConvert = objeto.fechaInicio.split("-");
-    var fechaInicio =
-        fechaConvert[1] + "-" + fechaConvert[0] + "-" + fechaConvert[2];
+     String fecha;
+    String fechaInicio =
+        fechaConvert[2] + "-" + fechaConvert[0] + "-" + fechaConvert[1];
 
-    var fechaFin = "";
+    String fechaFin = "";
     if (objeto.fechaFin.isNotEmpty) {
       fechaConvert = objeto.fechaFin.split("-");
       fechaFin =
-          fechaConvert[1] + "-" + fechaConvert[0] + "-" + fechaConvert[2];
+          fechaConvert[2] + "-" + fechaConvert[0] + "-" + fechaConvert[1];
+    }
+    else
+    {
+      DateTime now = DateTime.now();
+      fecha = DateFormat('yyyy-MM-dd').format(now);
+      print(fecha);
+       fechaFin =fecha;
     }
 
     try {
       final response = await http.get(
-          "http://192.169.4.10:8888/objetosPerdidos/${fechaInicio}*${fechaFin}");
+          "http://192.168.137.1:8888/objetosPerdidos?f1=${fechaInicio}&f2=${fechaFin}&f3=$idRecorrido");
 
       print(
-          "http://192.169.4.10:8888/objetosPerdidos/${fechaInicio}*${fechaFin}");
+          "http://192.168.137.1:8888/objetosPerdidos?f1=${fechaInicio}&f2=${fechaFin}&f3=$idRecorrido");
 
-      var jsonData = json.decode(response.body);
-
+      var jsonData = json.decode(response.body);      
       List<objetosPerdidoss> objetos = List<objetosPerdidoss>();
 
       for (var ob in jsonData) {
         objetosPerdidoss object = objetosPerdidoss();
+        print(ob['id'].toString());
         object.id = int.parse(ob['id'].toString());
         object.fechaHora = ob['fechaHora'].toString();
         object.descripcion = ob['descripcion'].toString();
@@ -145,8 +168,10 @@ class _consultaObjetosPerdidosPageState
     return FloatingActionButton(
       child: Icon(Icons.add),
       backgroundColor: Colors.cyan,
-      onPressed: () =>
-          Navigator.pushNamed(context, 'seleccionar_fecha_objeto_perdido'),
+      onPressed: () {
+        Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext contexto) =>  objetosPerdidosSeleccionarFechaPage(idRecorrido)));
+      }
     );
   }
 
@@ -187,8 +212,10 @@ class _consultaObjetosPerdidosPageState
                   fontSize: 15.0,
                 ),
               ),
-              onTap: () => Navigator.pushNamed(context, 'edit_objeto_perdido',
-                  arguments: objeto),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext contexto) =>  editObjetosPerdidosPage(objeto,idRecorrido)));
+              }
             ),
             //SizedBox(height: 1.0,)
           ],

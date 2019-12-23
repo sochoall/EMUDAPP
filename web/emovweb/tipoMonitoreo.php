@@ -1,6 +1,27 @@
-<?php include 'header.php'; 
-	include 'codigophp/sesion.php';
-    $menu=Sesiones("EMOV");
+<?php include 'header.php'; ?>
+
+ <?php
+    session_start();
+    if (isset($_SESSION['id']) && isset($_SESSION['rol'])) {
+        $id = $_SESSION['id'];
+        $rol = $_SESSION['rol'];
+        $menu=$_SESSION['menu'];
+        echo " <script>
+                    
+                    window.onload = function() 
+                    {
+                      
+                        document.getElementById('rol').innerHTML ='ROL: $rol';
+                        document.getElementById('btncerrar').style.display = 'block';
+                    };
+                   
+                       
+                </script>
+        ";
+    } else {
+        header('Location: ./');
+    }   
+
 ?>
 
 <div class="container-fluid grey pr-0 pl-0">
@@ -10,61 +31,53 @@
 </div>
 <div class="container">
 	<div class="row mt-3 pt-3">
-		<div class="h3 text-left font-weight-bold">TIPO DE MONITOREO</div>
+    <div class="col">
+		<h1>Sentido</h1>
+		<div class="form-group row">
+			<label class="col-sm-0 col-form-label align-self-center">Campo:</label>
+			<div class="col-sm-2 align-self-center">
+				<SELECT id="campo"  class="browser-default custom-select"> 
+					<OPTION VALUE="tmo_nombre" selected >Nombre</OPTION>				
+				</SELECT> 
+			</div>
+			<label class="col-sm-0 col-form-label align-self-center">Buscar:</label>
+			<div class="col-sm-4 align-self-center">
+				<input type="text" id="textBuscar" class="form-control ">
+			</div>	
+
+				<div class="col-sm-2 align-self-center">
+				<SELECT id="estado"  class="browser-default custom-select"> 	
+					  <option value="1">Activo</option>
+					  <option value="0">Inactivo</option>
+					  <option value="">Todos</option>
+					  
+				</SELECT> 
+			</div>
+
+			<div class="col-sm-0 align-self-center" id="buscar">
+				<a href="" class="btn grey"><i class="fas fa fa-search "></i></a>
+			</div>		
+		</div>
+		<ul id="resBusqueda"></ul>
+		<div id="lista"></div>
+		
+		
 	</div>
-	<div class="form-group row mt-3">
-        <div class="col-md-3">
-            <label class="align-self-center">Campo:</label>
-            <select id="campo" class="browser-default custom-select">
-                <option VALUE="tmo_nombre" selected>NOMBRE</option>	
-            </select>
-        </div>
-		<div class="col-md-3">
-            <label for="txtuser">Buscar:</label>
-            <input type="text" id="textBuscar" name="textBuscar" class="form-control text-uppercase">     
-        </div>
-		<div class="col-sm-2 align-self-center">
-            <label>Estado:</label>
-            <SELECT id="estado"  class="browser-default custom-select"> 
-                <OPTION VALUE="" selected >TODOS</OPTION>
-                <OPTION VALUE="1">ACTIVO</OPTION>
-                <OPTION VALUE="0">INACTIVO</OPTION>        
-            </SELECT> 
-        </div>
-		<div class="col-sm-0 align-self-center" id="buscar">
-			<a href="" class="btn grey"><i class="fas fa fa-search "></i></a>
-		</div>		
 	</div>
-	<div class="row mt-2">
-         <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    
-                    <div class='table-responsive-sm my-custom-scrollbar'>
-                        <table id='dt-select' class='table-sm table table-hover text-center' cellspacing='0' width='100%'>
-                            <thead class='cyan white-text'>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">NOMBRE</th>
-                                <th scope="col">ESTADO</th>     
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody  id="lista" >
-                            <!-- AQUI SE CARGA LA TABLA CON LOS REGISTROS -->
-                        </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>                
-        </div>
-    </div>
+		
 </div>
-
-<div class="cyan circulo">
-	<a href="tipoMonitoreoEditar.php?metodo=Guardar" class="circulo-mas"><i class="fa fa-plus" ></i></a>
-</div>	
-
+		<div class="position-fixed btn-group-lg" style="bottom:20px; right:80px; width:120px; height:80px;">
+			<a href="tipoMonitoreoEditar.php?metodo=Ingresar" class="cyan btn "  
+			style="  -webkit-border-radius: 50px;
+  					-moz-border-radius: 50px;
+					  border-radius: 50px;
+					  color:#fff;
+					  padding-top: 20px;
+					  width:70px; height:70px;
+					  ">
+			
+			<i class="fa fa-plus" ></i></a>
+		</div>	
 
 	<script type="text/javascript">		
 	
@@ -90,7 +103,16 @@
 			.then(produ => {				
 				
 				lista.innerHTML='';				
-				let result = "";					
+				let result = `
+				<table class="table table-sm table-striped w-auto">	
+				<thead class=" cyan">				
+					<tr>
+						<th>#</th>
+						<th>Nombre</th>			
+						<th>Estado</th>  
+						<th></th>                  
+					</tr>
+				<thead>`;					
 				est="";
 				for(let prod of produ){						
 					result +=

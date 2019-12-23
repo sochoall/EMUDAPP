@@ -3,23 +3,21 @@
  <?php
  session_start();
  if (isset($_SESSION['id']) && isset($_SESSION['rol'])) {
-	$id = $_SESSION['id'];
-	$rol = $_SESSION['rol'];               
-	$menu=$_SESSION['menu'];   
-	$institutoId=$_SESSION['institutoId'];
-	$nombreUser=$_SESSION['nombreUser'];
-
-
-	echo " <script> 
-	var IntitucionPrincipal=0;
-			window.onload = function()
-			{ 
-				IntitucionPrincipal=$institutoId;
-				document.getElementById('name').innerHTML='$nombreUser';
-				document.getElementById('rol').innerHTML ='ROL: $rol';
-				document.getElementById('btncerrar').style.display = 'block';
-			};                      
-			</script>" ;
+	 $id = $_SESSION['id'];
+	 $rol = $_SESSION['rol'];
+	 $menu=$_SESSION['menu'];
+	 echo " <script>
+				 window.onload = function() 
+				 {
+					 
+					 document.getElementById('rol').innerHTML ='ROL: $rol';
+					 document.getElementById('btncerrar').style.display = 'block';
+					 
+				 };
+				
+					
+			 </script>
+	 ";
  }
  else if(isset($_SESSION['roles']))  // ENTRA SOLO LA PRIMERA VEZ QUE SE ELIGE EL ROL
  {
@@ -31,22 +29,22 @@
 		$_SESSION['menu']=cargarMenu($_SESSION['id']); //CARGA EL MENU PARA LA SIGUIENTE ACTUALIZADA
 
 		$id = $_SESSION['id'];
-		$rol = $_SESSION['rol'];               
-		$menu=$_SESSION['menu'];   
-		$institutoId=$_SESSION['institutoId'];
-		$nombreUser=$_SESSION['nombreUser'];
-
-
-		echo " <script> 
-		var IntitucionPrincipal=0;
-				window.onload = function()
-				{ 
-					IntitucionPrincipal=$institutoId;
-					document.getElementById('name').innerHTML='$nombreUser';
-					document.getElementById('rol').innerHTML ='ROL: $rol';
-					document.getElementById('btncerrar').style.display = 'block';
-				};                      
-				</script>" ;
+		$rol = $_SESSION['rol'];
+		$menu=$_SESSION['menu'];
+  
+		echo " <script>
+					  
+					  window.onload = function() 
+					  {
+						
+						  document.getElementById('rol').innerHTML ='ROL: $rol';
+						  document.getElementById('btncerrar').style.display = 'block';
+						  
+					  };
+					 
+						 
+				  </script>
+		  ";
 	  }
 	  else{
 		header('Location: ./');

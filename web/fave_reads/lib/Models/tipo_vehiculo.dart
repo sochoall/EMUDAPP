@@ -27,14 +27,34 @@ class TipoVehiculo extends Serializable
         reg.estado=int.parse(query[i][2].toString());
         datos.add(reg.asMap()); 
       }
-      return datos;
-    }
-    else
-    {
-      return null;
-    }
     
+    }
+      return datos;
   }
+
+
+  Future<List> obtenertTipoVehiculo(String id) async {
+    final conexion = Conexion();
+    final String sql = "select * from public.te_tipo_vehiculo t, public.te_vehiculo v where v.fun_id=${id} and t.tve_id=v.tve_id";
+    final List datos=[];
+    final List<dynamic> query = await conexion.obtenerTabla(sql);
+
+    if(query != null && query.isNotEmpty)
+    {
+      for(int i=0; i<query.length;i++)
+      {
+        final reg = TipoVehiculo();
+        
+        reg.id=int.parse(query[i][0].toString());
+        reg.nombre=query[i][1].toString();
+        reg.estado=int.parse(query[i][2].toString());
+        datos.add(reg.asMap()); 
+      }
+    
+    }
+      return datos;
+  }
+
 
   Future<TipoVehiculo> obtenerDatoId(int id) async {
     final conexion = Conexion();

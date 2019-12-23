@@ -5,7 +5,6 @@ import 'package:fave_reads/Controller/opcion_controller.dart';
 import 'package:fave_reads/Controller/parada_controller.dart';
 import 'package:fave_reads/Controller/periodo_controller.dart';
 import 'package:fave_reads/Controller/recorrido_controller.dart';
-import 'package:fave_reads/Controller/ruta_vehiculo_controller.dart';
 import 'package:fave_reads/Controller/sentido_controller.dart';
 import 'package:fave_reads/Controller/tipo_institucion_controller.dart';
 import 'package:fave_reads/Controller/tipo_monitoreo_controller.dart';
@@ -14,6 +13,7 @@ import 'package:fave_reads/Controller/tipo_vehiculo_controller.dart';
 import 'package:fave_reads/Controller/usuario_controller.dart';
 import 'Controller/contadores_controller.dart';
 import 'Controller/estado_objetos_controller.dart';
+import 'Controller/estudianteRepresentante_controller.dart';
 import 'Controller/funcionario_controller.dart';
 import 'Controller/institucion_controller.dart';
 import 'Controller/objetos_perdidos_controller.dart';
@@ -58,9 +58,9 @@ class FaveReadsChannel extends ApplicationChannel {
     // See: https://aqueduct.io/docs/http/request_controller/
 
     ..route('/funcionario/[:id]').link(() => FuncionarioController())
-    ..route('/rutaVehiculo/[:id]').link(() => RutaVehiculoController())
-    ..route('/institucion/[:id]').link(() => InstitucionController())
 
+    ..route('/institucion/[:id]').link(() => InstitucionController())
+    ..route('/estudianteRepresentante/[:id]').link(() => EstudianteRepresentanteController())
     ..route('/tipoInstitucion/[:id]').link(() => TipoInstitucionController())
 
     ..route('/usuario/[:id]').link(() => UsuarioController())
@@ -89,7 +89,6 @@ class FaveReadsChannel extends ApplicationChannel {
     ..route('/sentido/[:id]').link(() => SentidoController())
     ..route('/tipoVehiculo/[:id]').link(() => TipoVehiculoController())
     ..route('/tipoParada/[:id]').link(() => TipoParadaController())
-    
     ..route('/tipoMonitoreo/[:id]').link(() => TipoMonitoreoController());
 
 
