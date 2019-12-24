@@ -66,7 +66,7 @@ class HomeScreenState extends State<HomeScreen> {
             },
           ),
         ],
-        backgroundColor: Color.fromRGBO(0, 172, 200, 1),
+       backgroundColor: Colors.lightBlue,
         //Text(nombre+Icons.play_arrow+ nombreRuta,
         title: Row(children: <Widget>[
           Text(

@@ -1,11 +1,11 @@
+import 'package:app_movil/representante/pantalla_inicial_rep.dart';
+import 'package:app_movil/transportista/pantalla_inicial.dart';
 import 'package:flutter/material.dart';
-import 'package:app_movil/provider.dart';
 import 'package:app_movil/bloc/provider.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:app_movil/bloc/login_bloc.dart';
 import 'package:app_movil/transportista/alerta.dart';
-import 'package:app_movil/transportista/pantalla_inicial.dart';
-import 'package:app_movil/representante/pantalla_inicial_rep.dart';
+import 'package:app_movil/provider.dart';
 
 void main() => runApp(MyApp()); //Inicio del Programa
 String rol;
@@ -20,9 +20,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         'login': (BuildContext context) => Login(), //Rutas establecidas
-        'home': (BuildContext context) => PagInicial(id_usuario, ""),
+        'home': (BuildContext context) => PantallaRuta(id_usuario, ""),
         'home2': (BuildContext context) => PagEleccion(id_usuario),
-        'homeRep': (BuildContext context) => PagInicialRep(id_usuario, rol),
+        'homeRep': (BuildContext context) => PantallaRutaRep(id_usuario, rol),
       },
       theme: ThemeData(primaryColor: Colors.lightBlue),
     ));
@@ -168,7 +168,6 @@ class Login extends StatelessWidget {
               ],
             ),
           ),
-          Text("Olvido la contraseña"),
           SizedBox(
             height: 100.0,
           )
@@ -178,7 +177,6 @@ class Login extends StatelessWidget {
   }
 
   Widget _crearCedula(LoginBloc bloc) {
-    //Campos para el ingreso de la cédula
     return StreamBuilder(
       stream: bloc.cedulaStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -201,13 +199,13 @@ class Login extends StatelessWidget {
   }
 
   Widget _crearPassword(LoginBloc bloc) {
-    //Campo para creacion de la contraseña
     return StreamBuilder(
       stream: bloc.passwordStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return Container(
           padding: EdgeInsets.symmetric(horizontal: 20.0),
           child: TextField(
+            keyboardType: TextInputType.number,
             obscureText: true,
             decoration: InputDecoration(
               icon: Icon(Icons.lock, color: Colors.cyan),
@@ -248,7 +246,6 @@ class Login extends StatelessWidget {
       String val = await serviciosLogin.consultar(bloc);
       val = val.replaceAll('"', "");
       id_usuario = val;
-
       if (id_usuario.compareTo("0") == 0)
         showToast(context);
       else {
