@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 class PagEleccion extends StatelessWidget {
   @override
   final String id_usuario; //Creacion de varibales que se vayan a usar
-
+  
   PagEleccion(this.id_usuario);
   Widget build(BuildContext contexto) {
     return Eleccion(id_usuario);
@@ -62,7 +62,7 @@ class HomeEleccionState extends State<Eleccion> {
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (BuildContext context) =>
-                      PantallaRuta(id_usuario, "")));
+                      PantallaRutaRep(id_usuario, "")));
             },
           ),
           ListTile(
@@ -86,24 +86,6 @@ class HomeEleccionState extends State<Eleccion> {
 
 }
 
-class PagInicial extends StatelessWidget {
-  @override
-  final String id_usuario; //Creacion de varibales que se vayan a usar
-  final String rol;
-  PagInicial(this.id_usuario, this.rol);
-
-  Widget build(BuildContext contexto) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      //initialRoute: '/',
-      home: PantallaRuta(id_usuario, rol),
-      theme: ThemeData(
-          primaryColor: Color.fromRGBO(0, 172, 200, 1), fontFamily: 'Raleway'),
-      routes: getApplicationRoutes("", "", "", ""),
-    );
-  }
-}
-
 class PantallaRuta extends StatefulWidget {
   @override
   final String id_usuario; //Creacion de varibales que se vayan a usar
@@ -119,37 +101,39 @@ class PantallaRutaEstado extends State<PantallaRuta> {
   PantallaRutaEstado(this.id_usuario, this.rol);
 
   Widget build(BuildContext contexto) {
-    return new Scaffold(
-        body: CustomScrollView(
-          slivers: <Widget>[
-            SliverAppBar(
-              floating: false,
-              pinned: true,
-              flexibleSpace: FlexibleSpaceBar(
-                background: Image.asset(
-                  'assets/emov.png',
-                  height: 100,
-                  width: 300,
-                ),
-                //centerTitle: true,
-                title: Row(children: <Widget>[
-                  Text(
-                    "RUTAS  ",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.black),
+    return  Scaffold(
+      
+          body: CustomScrollView(
+            slivers: <Widget>[
+              SliverAppBar(
+                floating: false,
+                pinned: true,
+                flexibleSpace: FlexibleSpaceBar(
+                  background: Image.asset(
+                    'assets/emov.png',
+                    height: 100,
+                    width: 300,
                   ),
-                  Icon(Icons.arrow_downward),
-                  Icon(Icons.arrow_upward)
-                ]),
+                  //centerTitle: true,
+                  title: Row(children: <Widget>[
+                    Text(
+                      "RUTAS  ",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.black),
+                    ),
+                    Icon(Icons.arrow_downward),
+                    Icon(Icons.arrow_upward)
+                  ]),
+                ),
               ),
-            ),
-            SliverFillRemaining(
-              child: ListaRutas(id_usuario),
-            ),
-          ],
-        ),
-        drawer: Drawer(
-          child: MenuLateral(id_usuario),
-        ));
+              SliverFillRemaining(
+                child: ListaRutas(id_usuario),
+              ),
+            ],
+          ),
+          drawer: Drawer(
+            child: MenuLateral(id_usuario),
+          )
+    );
   }
 }

@@ -1,11 +1,12 @@
+import 'package:app_movil/representante/pantalla_inicial_rep.dart';
+import 'package:app_movil/transportista/pantalla_inicial.dart';
 import 'package:flutter/material.dart';
 import 'package:app_movil/bloc/provider.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:app_movil/bloc/login_bloc.dart';
 import 'package:app_movil/transportista/alerta.dart';
 import 'package:app_movil/provider.dart';
-import 'package:app_movil/transportista/pantalla_inicial.dart';
-import 'package:app_movil/representante/pantalla_inicial_rep.dart';
+
 
 void main() => runApp(MyApp()); //Inicio del Programa
 String rol;
@@ -20,9 +21,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         'login': (BuildContext context) => Login(), //Rutas establecidas
-        'home': (BuildContext context) => PagInicial(id_usuario, ""),
+        'home': (BuildContext context) => PantallaRuta(id_usuario, ""),
         'home2': (BuildContext context) => PagEleccion(id_usuario),
-        'homeRep': (BuildContext context) => PagInicialRep(id_usuario, rol),
+        'homeRep': (BuildContext context) => PantallaRutaRep(id_usuario, rol),
       },
       theme: ThemeData(primaryColor: Colors.lightBlue),
     ));

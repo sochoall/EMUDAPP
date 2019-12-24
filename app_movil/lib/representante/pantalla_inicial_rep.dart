@@ -5,36 +5,17 @@ import 'package:app_movil/transportista/widgets/lista_rutas.dart';
 import 'package:app_movil/transportista/widgets/menu_lateral.dart';
 import 'package:flutter/material.dart';
 
-class PagInicialRep extends StatelessWidget {
+class PantallaRutaRep extends StatefulWidget {
   @override
    final String id_usuario; //Creacion de varibales que se vayan a usar
   final String rol;
 
-  PagInicialRep(this.id_usuario,this.rol);
-
-  Widget build(BuildContext contexto) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      //initialRoute: '/',
-      home: PantallaRuta(id_usuario,rol),
-      theme: ThemeData(
-          primaryColor: Color.fromRGBO(0, 172, 200, 1), fontFamily: 'Raleway'),
-      routes: getApplicationRoutes("", "","",""),
-    );
-  }
-}
-
-class PantallaRuta extends StatefulWidget {
-  @override
-   final String id_usuario; //Creacion de varibales que se vayan a usar
-  final String rol;
-
-  PantallaRuta(this.id_usuario,this.rol);
+  PantallaRutaRep(this.id_usuario,this.rol);
 
   PantallaRutaEstado createState() => PantallaRutaEstado(id_usuario,rol);
 }
 
-class PantallaRutaEstado extends State<PantallaRuta> {
+class PantallaRutaEstado extends State<PantallaRutaRep> {
   @override
    final String id_usuario; //Creacion de varibales que se vayan a usar
   final String rol;
