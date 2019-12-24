@@ -7,7 +7,6 @@ import 'package:app_movil/bloc/login_bloc.dart';
 import 'package:app_movil/transportista/alerta.dart';
 import 'package:app_movil/provider.dart';
 
-
 void main() => runApp(MyApp()); //Inicio del Programa
 String rol;
 String id_usuario;
@@ -169,7 +168,6 @@ class Login extends StatelessWidget {
               ],
             ),
           ),
-          Text("Olvido la contraseña"),
           SizedBox(
             height: 100.0,
           )
@@ -179,7 +177,6 @@ class Login extends StatelessWidget {
   }
 
   Widget _crearCedula(LoginBloc bloc) {
-    //Campos para el ingreso de la cédula
     return StreamBuilder(
       stream: bloc.cedulaStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -202,13 +199,13 @@ class Login extends StatelessWidget {
   }
 
   Widget _crearPassword(LoginBloc bloc) {
-    //Campo para creacion de la contraseña
     return StreamBuilder(
       stream: bloc.passwordStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return Container(
           padding: EdgeInsets.symmetric(horizontal: 20.0),
           child: TextField(
+            keyboardType: TextInputType.number,
             obscureText: true,
             decoration: InputDecoration(
               icon: Icon(Icons.lock, color: Colors.cyan),
@@ -242,18 +239,17 @@ class Login extends StatelessWidget {
       },
     );
   }
+
   _login(LoginBloc bloc, BuildContext context) {
-    
     checkValue() async {
       String val = await serviciosLogin.consultar(bloc);
       val = val.replaceAll('"', "");
       id_usuario = val;
-
       if (id_usuario.compareTo("0") == 0)
         showToast(context);
       else {
-        List<dynamic> listaRoles = await serviciosLogin.consultarRoles(id_usuario);
-
+        List<dynamic> listaRoles =
+            await serviciosLogin.consultarRoles(id_usuario);
         if (listaRoles.length == 1) {
           listaRoles.forEach((opt) {
             if (opt['nombre'].toString().compareTo("PADRE DE FAMILIA") == 0)

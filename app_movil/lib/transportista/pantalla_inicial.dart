@@ -1,34 +1,27 @@
 import 'package:app_movil/representante/pantalla_inicial_rep.dart';
-import 'package:app_movil/rutas/rutas.dart';
 import 'package:app_movil/transportista/widgets/lista_rutas.dart';
 import 'package:app_movil/transportista/widgets/menu_lateral.dart';
 import 'package:flutter/material.dart';
 
-
-
-
 class PagEleccion extends StatelessWidget {
   @override
-  final String id_usuario; //Creacion de varibales que se vayan a usar
-  
+  final String id_usuario;
   PagEleccion(this.id_usuario);
   Widget build(BuildContext contexto) {
     return Eleccion(id_usuario);
   }
-  
 }
 
 class Eleccion extends StatefulWidget 
 {
-  final String id_usuario; //Creacion de varibales que se vayan a usar
+  final String id_usuario; 
   Eleccion(this.id_usuario);
-
-  HomeEleccionState createState() => HomeEleccionState(id_usuario); //Paso de paramteros
+  HomeEleccionState createState() => HomeEleccionState(id_usuario);
 }
 
 class HomeEleccionState extends State<Eleccion> {
   @override
-  final String id_usuario; //Creacion de varibales que se vayan a usar
+  final String id_usuario; 
   HomeEleccionState(this.id_usuario);
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,7 +81,7 @@ class HomeEleccionState extends State<Eleccion> {
 
 class PantallaRuta extends StatefulWidget {
   @override
-  final String id_usuario; //Creacion de varibales que se vayan a usar
+  final String id_usuario; 
   final String rol;
   PantallaRuta(this.id_usuario, this.rol);
   PantallaRutaEstado createState() => PantallaRutaEstado(id_usuario, rol);
@@ -96,10 +89,9 @@ class PantallaRuta extends StatefulWidget {
 
 class PantallaRutaEstado extends State<PantallaRuta> {
   @override
-  final String id_usuario; //Creacion de varibales que se vayan a usar
+  final String id_usuario;
   final String rol;
   PantallaRutaEstado(this.id_usuario, this.rol);
-
   Widget build(BuildContext contexto) {
     return  Scaffold(
       
@@ -114,7 +106,6 @@ class PantallaRutaEstado extends State<PantallaRuta> {
                     height: 100,
                     width: 300,
                   ),
-                  //centerTitle: true,
                   title: Row(children: <Widget>[
                     Text(
                       "RUTAS  ",

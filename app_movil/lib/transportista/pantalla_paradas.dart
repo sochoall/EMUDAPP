@@ -4,7 +4,7 @@ import 'package:app_movil/transportista/tabs/rutas.dart';
 import 'package:app_movil/transportista/tabs/registro_estudiantes_page.dart';
 
 class PantallaParadas extends StatelessWidget {
-  final String nombreRuta; //Creacion de varibales que se vayan a usar
+  final String nombreRuta;
   final String idRecorrido;
   final String nombre;
   final String idUsuario;
@@ -18,18 +18,18 @@ class PantallaParadas extends StatelessWidget {
 
 class HomeScreen extends StatefulWidget {
   @override
-  final String nombreRuta; //Creacion de varibales que se vayan a usar
+  final String nombreRuta; 
   final String idRecorrido;
   final String nombre;
   final String idUsuario;
   HomeScreen(this.nombreRuta, this.idRecorrido, this.nombre, this.idUsuario);
   HomeScreenState createState() => HomeScreenState(
-      nombreRuta, idRecorrido, nombre, idUsuario); //Paso de paramteros
+      nombreRuta, idRecorrido, nombre, idUsuario); 
 }
 
 class HomeScreenState extends State<HomeScreen> {
   @override
-  final String nombreRuta; //Creacion de varibales que se vayan a usar
+  final String nombreRuta; 
   final String idRecorrido;
   final String nombre;
   final String idUsuario;
@@ -109,19 +109,6 @@ class HomeScreenState extends State<HomeScreen> {
         ),
         appBar: AppBar(
           backgroundColor: Colors.lightBlue,
-          actions: <Widget>[
-            PopupMenuButton<Choice>(
-              itemBuilder: (BuildContext context) {
-                return choices.map((Choice choice) {
-                  return PopupMenuItem<Choice>(
-                    value: choice,
-                    child: Text(choice.title),
-                  );
-                }).toList();
-              },
-            ),
-          ],
-          //backgroundColor: Color.fromRGBO(0, 172, 200, 1),
           title: Row(children: <Widget>[
             Text(
               sentido + " ",
@@ -134,12 +121,3 @@ class HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class Choice {
-  const Choice({this.title, this.icon});
-  final String title;
-  final IconData icon;
-}
-
-const List<Choice> choices = const <Choice>[
-  const Choice(title: 'SALIR', icon: Icons.exit_to_app),
-];
