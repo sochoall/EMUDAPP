@@ -1,31 +1,40 @@
-import 'package:app_movil/main.dart';
-import 'package:app_movil/transportista/widgets/lista_recorrido_parada.dart';
-import 'package:flutter/material.dart';
 import '../../provider.dart';
+import 'package:app_movil/main.dart';
+import 'package:flutter/material.dart';
+import 'package:app_movil/transportista/widgets/lista_recorrido_parada.dart';
 
-class ListaRutas extends StatelessWidget {
+class ListaRutas extends StatelessWidget 
+{
   @override
   final String id_usuario; 
   ListaRutas(this.id_usuario);
-  Widget build(BuildContext context) {
+
+  Widget build(BuildContext context) 
+  {
     return FutureBuilder(
-        future: listaProvider.cargarData1(id_usuario),
-        initialData: [],
-        builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
-          if (snapshot.hasData) {
-            return CustomScrollView(
-              slivers: datosSliverList(snapshot.data, context),
-            );
-          } else {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        });
+      future: listaProvider.cargarData1(id_usuario),
+      initialData: [],
+      builder: (context, AsyncSnapshot<List<dynamic>> snapshot) 
+      {
+        if (snapshot.hasData) 
+        {
+          return CustomScrollView(
+            slivers: datosSliverList(snapshot.data, context),
+          );
+        } 
+        else 
+        {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      }
+    );
   }
 }
 
-List<Widget> datosSliverList(List<dynamic> datos, BuildContext context) {
+List<Widget> datosSliverList(List<dynamic> datos, BuildContext context) 
+{
   final List<Widget> opciones = [];
   opciones
     ..add(SliverList(
@@ -42,7 +51,8 @@ List<Widget> datosSliverList(List<dynamic> datos, BuildContext context) {
   return opciones;
 }
 
-List<Widget> datosListTile(List<dynamic> datos, BuildContext context) {
+List<Widget> datosListTile(List<dynamic> datos, BuildContext context) 
+{
   final List<Widget> opciones = [];
   datos.forEach(
     (opt) {

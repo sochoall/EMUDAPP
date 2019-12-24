@@ -1,5 +1,6 @@
 import 'dart:async';
 import '../../provider.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:app_movil/transportista/tabs/mapa.dart'; 
 
@@ -56,14 +57,18 @@ class RutasEstado extends State<RutaParada>
   final String idRecorrido;
   RutasEstado(this.idRecorrido);
   List <int> hours = [], minutes = [], total = [];
-  static List<String> names = [], time = [];
+  static List<String> names = [], time = [], finalTime = [];
   
-
   @override
   void initState() 
   {
     super.initState();
-    new Timer.periodic(Duration(seconds: 1), (Timer t) => setState((){}));
+    new Timer.periodic(Duration(seconds: 1), 
+    (Timer)
+    {
+      if(mounted)
+        setState((){});
+    });
   }
   
   @override
@@ -75,7 +80,6 @@ class RutasEstado extends State<RutaParada>
         child: CircularProgressIndicator(),
       )
       :
-      names == null ? 
       Center(
         child: FutureBuilder<List<Post>>(
           future: listaParadasProvider.cargarData7(idRecorrido),
@@ -94,8 +98,6 @@ class RutasEstado extends State<RutaParada>
           }
         )
       )
-      :
-      buildScrollView()
     );
   }
 
@@ -144,7 +146,7 @@ class RutasEstado extends State<RutaParada>
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: names.isEmpty ? <Widget>[CircularProgressIndicator()] : <Widget>[
                             Text(names[index-1], style: index-1 == 0 ? TextStyle(color: Colors.red) : TextStyle(color: Colors.black)),
-                            Text(("${hours[index-1]}:${total[index-1]}:00") , style: index-1 == 0 ? TextStyle(color: Colors.red) : TextStyle(color: Colors.black)),
+                            Text(finalTime[index-1] , style: index-1 == 0 ? TextStyle(color: Colors.red) : TextStyle(color: Colors.black)),
                           ],
                         ),
                       ),
@@ -192,6 +194,7 @@ class RutasEstado extends State<RutaParada>
         hours.add(cont);
       	total.add(minutes[i]+total[i-1]);
       }
+      finalTime.add("${DateFormat('hh:mm:ss').format(DateTime.now().add(new Duration(hours: hours[i] ,minutes: total[i])))}");
     }
   }
 }

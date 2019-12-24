@@ -90,11 +90,10 @@ class _listadoState extends State<listado>
               Response response =await http.put(url, headers: headers, body: json);
               int statusCode = response.statusCode;
             }
-            mostrarSnackbar("Guardado con éxito.");
           } 
           catch (e) 
           {
-            mostrarSnackbar(e.toString());
+            print(e.toString());
           }
         },
         label: Text('Guardar'),
@@ -103,15 +102,5 @@ class _listadoState extends State<listado>
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
-  }
-
-  void mostrarSnackbar(String mensaje) 
-  {
-    final snackbar = SnackBar(
-      content: Text(mensaje),
-      duration: Duration(milliseconds: 9000),
-    );
-
-    scaffoldKey.currentState.showSnackBar(snackbar);
   }
 }

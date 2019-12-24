@@ -9,7 +9,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:app_movil/transportista/tabs/rutas.dart';
 
 Future<List<Post>> fetchPost(idR) async
-{
+{ 
   var response = await http.get("http://192.168.137.1:8888/parada/$idR");
 
   if(response.statusCode == 200)
@@ -94,7 +94,6 @@ class MyHomePageState extends State<MyHomePage>
         child: CircularProgressIndicator()
       )
       :
-      points == null ? 
       Center(
         child: FutureBuilder<List<Post>>(
           future: fetchPost(idR),
@@ -111,8 +110,6 @@ class MyHomePageState extends State<MyHomePage>
           }
         )
       )
-      :
-      buildMap()
     );
   }
   
@@ -130,17 +127,20 @@ class MyHomePageState extends State<MyHomePage>
   {
     _getCurrentPosition().listen((value)
     {
-      setState(() 
+      if(mounted)
       {
-        userLocation = value; 
-      });
+        setState(() 
+        {
+          userLocation = value;
+        });
+      }
     });
     return userLocation;
   }
 
   void getUserProximity()
   {
-    double xPos, yPos, xNeg, yNeg, rad = 0.000100;
+    double xPos, yPos, xNeg, yNeg, rad = 0.000300;
     
     if(points.isNotEmpty)
     {
@@ -196,10 +196,10 @@ class MyHomePageState extends State<MyHomePage>
 
     return FlutterMap(
       options: MapOptions(
-        center: LatLng(-2.901866, -79.006055),
+        center: LatLng(userLocation.latitude, userLocation.longitude),
         maxZoom: 19.0, 
         minZoom: 12,
-        zoom: 13,
+        zoom: 17,
       ),
       layers: [
         TileLayerOptions(

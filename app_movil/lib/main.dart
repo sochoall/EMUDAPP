@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:app_movil/provider.dart';
 import 'package:app_movil/bloc/provider.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:app_movil/bloc/login_bloc.dart';
 import 'package:app_movil/transportista/alerta.dart';
-import 'package:app_movil/provider.dart';
 import 'package:app_movil/transportista/pantalla_inicial.dart';
 import 'package:app_movil/representante/pantalla_inicial_rep.dart';
 
@@ -241,9 +241,10 @@ class Login extends StatelessWidget {
       },
     );
   }
-  _login(LoginBloc bloc, BuildContext context) {
-    
-    checkValue() async {
+  _login(LoginBloc bloc, BuildContext context) 
+  {
+    checkValue() async 
+    {
       String val = await serviciosLogin.consultar(bloc);
       val = val.replaceAll('"', "");
       id_usuario = val;
@@ -253,8 +254,10 @@ class Login extends StatelessWidget {
       else {
         List<dynamic> listaRoles = await serviciosLogin.consultarRoles(id_usuario);
 
-        if (listaRoles.length == 1) {
-          listaRoles.forEach((opt) {
+        if (listaRoles.length == 1) 
+        {
+          listaRoles.forEach((opt) 
+          {
             if (opt['nombre'].toString().compareTo("PADRE DE FAMILIA") == 0)
               Navigator.pushReplacementNamed(context, 'homeRep');
             else if (opt['nombre'].toString().compareTo("TRANSPORTISTA") == 0)
