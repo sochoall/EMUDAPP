@@ -109,13 +109,6 @@ class RutasEstado extends State<RutaParada>
           pinned: true,
           flexibleSpace: FlexibleSpaceBar(
             background: MyApp(idRecorrido),
-            title: Row(
-              //children: <Widget>[
-                //Text("",style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
-                //Icon(Icons.arrow_downward),
-                //Icon(Icons.arrow_upward)
-              //],
-            ),
           ),
         ),
         SliverFillRemaining(
