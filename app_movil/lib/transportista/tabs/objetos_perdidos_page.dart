@@ -1,40 +1,33 @@
 import 'package:app_movil/transportista/models/objetos_perdidos_model.dart';
-import 'package:app_movil/transportista/tabs/add_objeto_perdido_page.dart';
 import 'package:app_movil/transportista/tabs/edit_objeto_perdido_page.dart';
 import 'package:app_movil/transportista/widgets/estado_objeto_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_calendar/flutter_calendar.dart';
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
 import 'dart:async';
 import 'dart:convert';
-import 'consulta_objetos_perdidos_page.dart';
 import 'objetos_perdidos_seleccionar_fecha_page.dart';
 
 class objetosPerdidosPage extends StatefulWidget {
   @override
   final String idRecorrido;
   objetosPerdidosPage(this.idRecorrido);
-  _objetosPerdidosPageState createState() => _objetosPerdidosPageState(idRecorrido);
+  _objetosPerdidosPageState createState() =>
+      _objetosPerdidosPageState(idRecorrido);
 }
 
 class _objetosPerdidosPageState extends State<objetosPerdidosPage> {
-
   final String idRecorrido;
-  
   _objetosPerdidosPageState(this.idRecorrido);
-
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   List<estadoObjeto> estadoDeObjetos = List<estadoObjeto>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar( 
+      appBar: AppBar(
         title: Text("Objetos Perdidos"),
-        ),
+      ),
       key: scaffoldKey,
       body: _crearListado(context),
       floatingActionButton: _crearBoton(context),
@@ -43,20 +36,13 @@ class _objetosPerdidosPageState extends State<objetosPerdidosPage> {
 
   Future<void> _getEstadoObjeto() async {
     final response = await http.get("http://192.168.137.1:8888/estadoObjetos");
-
     var jsonData = json.decode(response.body);
-
     for (var object in jsonData) {
       estadoObjeto estadoObjetos = estadoObjeto();
-
       estadoObjetos.id = int.parse(object['id'].toString());
       estadoObjetos.nombre = object['nombre'].toString();
-
-      print(object['nombre'].toString() + "---------------------------");
       estadoDeObjetos.add(estadoObjetos);
     }
-
-    //print("ESTUDIANTES:---------->" + estudiantes.length.toString());
   }
 
   @override
@@ -64,14 +50,13 @@ class _objetosPerdidosPageState extends State<objetosPerdidosPage> {
     _getEstadoObjeto().then((result) {
       setState(() {});
     });
-
     super.initState();
   }
 
   Future<List<objetosPerdidoss>> _getObjetosPerdidos() async {
-    final response = await http.get("http://192.168.137.1:8888/objetosPerdidos/$idRecorrido");
+    final response = await http
+        .get("http://192.168.137.1:8888/objetosPerdidos/$idRecorrido");
     var jsonData = json.decode(response.body);
-    //final List<objetosPerdidoss> objetos = List();
     List<objetosPerdidoss> objetos = List<objetosPerdidoss>();
 
     for (var ob in jsonData) {
@@ -84,11 +69,8 @@ class _objetosPerdidosPageState extends State<objetosPerdidosPage> {
       }
       object.recId = int.parse(ob['recId'].toString());
       object.eobId = int.parse(ob['eobId'].toString());
-      // print(ob['descripcion'].toString());
       objetos.add(object);
     }
-
-    //print("ESTUDIANTES:---------->" + objects.length.toString());
     return objetos;
   }
 
@@ -124,18 +106,17 @@ class _objetosPerdidosPageState extends State<objetosPerdidosPage> {
 
   Widget _crearBoton(BuildContext context) {
     return FloatingActionButton(
-      child: Icon(Icons.calendar_today),
-      backgroundColor: Colors.cyan,
-      onPressed: () {
-         Navigator.of(context).push(MaterialPageRoute(
-              builder: (BuildContext contexto) => objetosPerdidosSeleccionarFechaPage(idRecorrido)));
-      }
-    );
+        child: Icon(Icons.calendar_today),
+        backgroundColor: Colors.cyan,
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext contexto) =>
+                  objetosPerdidosSeleccionarFechaPage(idRecorrido)));
+        });
   }
 
   Widget _crearItem(BuildContext context, objetosPerdidoss objeto) {
     var fechaEncontrado = objeto.fechaHora.split(" ");
-
     if (objeto.fechaDevolucion.toString().compareTo("") == 0) {
       //print("-------------ES NULO------------");
     }
@@ -148,34 +129,32 @@ class _objetosPerdidosPageState extends State<objetosPerdidosPage> {
         child: Column(
           children: <Widget>[
             ListTile(
-              title: Text(
-                "${objeto.descripcion}",
-                style: TextStyle(
-                  fontSize: 20.0,
+                title: Text(
+                  "${objeto.descripcion}",
+                  style: TextStyle(
+                    fontSize: 20.0,
+                  ),
                 ),
-              ),
-              subtitle: Text(
-                "Encontrado:  " +
-                    fechaEncontrado[0] +
-                    "\n" +
-                    "Estado:          " +
-                    _getNombreEstadObjeto(objeto.eobId) +
-                    "\n" +
-                    "Devuelto:       " +
-                    (fechaDevuelto[0].compareTo("") == 0
-                        ? ""
-                        : fechaDevuelto[0]),
-                style: TextStyle(
-                  //fontWeight: FontWeight.bold,
-                  fontSize: 15.0,
+                subtitle: Text(
+                  "Encontrado:  " +
+                      fechaEncontrado[0] +
+                      "\n" +
+                      "Estado:          " +
+                      _getNombreEstadObjeto(objeto.eobId) +
+                      "\n" +
+                      "Devuelto:       " +
+                      (fechaDevuelto[0].compareTo("") == 0
+                          ? ""
+                          : fechaDevuelto[0]),
+                  style: TextStyle(
+                    fontSize: 15.0,
+                  ),
                 ),
-              ),
-              onTap: () {
-                 Navigator.of(context).push(MaterialPageRoute(
-              builder: (BuildContext contexto) => editObjetosPerdidosPage(objeto,idRecorrido)));
-              } 
-            ),
-            //SizedBox(height: 1.0,)
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext contexto) =>
+                          editObjetosPerdidosPage(objeto, idRecorrido)));
+                }),
           ],
         ),
       ),
