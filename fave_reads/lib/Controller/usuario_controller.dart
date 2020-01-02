@@ -48,7 +48,6 @@ class UsuarioController extends ResourceController{
     final servicio = Usuario();
     String aux=await servicio.busquedaUsuario(correo,pss);
     return Response.ok(aux);
-
   }
   
 }

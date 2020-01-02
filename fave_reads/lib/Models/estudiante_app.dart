@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:fave_reads/Models/conexion.dart';
 import 'package:fave_reads/fave_reads.dart';
 
+
 class EstudianteApp extends Serializable
 {
   
@@ -12,9 +13,9 @@ class EstudianteApp extends Serializable
   String direccion;
   String correo;
   String insNombre;
+
  
-  Future<List> obtenerDatoId(int id) async 
-  {
+  Future<List> obtenerDatoId(int id) async {
     final conexion = Conexion();
     final String sql = "select e.est_id,e.est_cedula,e.est_nombre,e.est_apellido,e.est_direccion,e.est_correo,i.ins_nombre from public.te_usuario u,public.te_estudiante_representante re,public.te_estudiante e,public.te_institucion i where u.usu_id=$id and re.rep_id=u.rep_id  and e.est_id=re.est_id and i.ins_id=e.est_id and est_estado=1";
     final List datos=[];
@@ -42,11 +43,10 @@ class EstudianteApp extends Serializable
     {
       return null;
     }
+    
   }
-
   @override
-  Map<String, dynamic> asMap() => 
-  {
+  Map<String, dynamic> asMap() => {
     'id': id,
     'cedula': cedula,
     'nombre': nombre,
@@ -57,8 +57,7 @@ class EstudianteApp extends Serializable
   };
 
   @override
-  void readFromMap(Map<String, dynamic> object) 
-  {
+  void readFromMap(Map<String, dynamic> object) {
     id= int.parse(object['id'].toString());
     cedula= object['cedula'].toString();
     nombre= object['nombre'].toString();
@@ -67,4 +66,5 @@ class EstudianteApp extends Serializable
     correo=object['correo'].toString();
     insNombre=object['insNombre'].toString();
   }
+
 }
