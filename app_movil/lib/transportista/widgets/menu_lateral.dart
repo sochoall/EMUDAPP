@@ -1,6 +1,3 @@
-//Clase que permite crear el menu lateral
-//en cualquier ventana de la app segun se lo requiera
-
 import 'package:app_movil/transportista/tabs/objetos_perdidos_rutas.dart';
 import 'package:flutter/material.dart';
 import '../../provider.dart';

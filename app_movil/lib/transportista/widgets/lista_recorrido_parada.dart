@@ -2,7 +2,6 @@ import 'package:app_movil/main.dart';
 import 'package:app_movil/transportista/pantalla_paradas.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import '../../provider.dart';
 
 String idRuta = "";
@@ -11,8 +10,6 @@ class ListaRecorridoParada extends StatelessWidget {
   final String aux;
   final String id_usuario;
   ListaRecorridoParada(this.aux, this.id_usuario);
-  //Creacion de Lista de rutas
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -28,8 +25,6 @@ class ListaRecorridoParada extends StatelessWidget {
 
 List<Widget> _listItems(List<dynamic> data, BuildContext context) {
   final List<Widget> opciones = [];
-  //widgetTemp=Widget;
-
   if (data == null) {
     return [];
   }
@@ -45,7 +40,6 @@ List<Widget> _listItems(List<dynamic> data, BuildContext context) {
       int horaRecorridoF =
           int.parse(opt['rec_hora_inicio'].substring(0, 2)) + 2;
       int minRecorridoF = int.parse(opt['rec_hora_inicio'].substring(3, 5));
-
       if ((horaRecorridoI == hora && min >= minRecorridoI) ||
           (horaRecorridoF == hora && min < minRecorridoF) ||
           (horaRecorridoF > hora && horaRecorridoI < hora)) {
@@ -65,7 +59,6 @@ List<Widget> _listItems(List<dynamic> data, BuildContext context) {
         );
         opciones..add(widgetTemp);
       }
-      
     },
   );
   return opciones;

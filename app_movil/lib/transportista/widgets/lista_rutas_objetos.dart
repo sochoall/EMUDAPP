@@ -1,7 +1,5 @@
 import 'package:app_movil/main.dart';
-import 'package:app_movil/transportista/widgets/lista_recorrido_parada.dart';
 import 'package:flutter/material.dart';
-
 import '../../provider.dart';
 import 'lista_recorrido_objetos.dart';
 
