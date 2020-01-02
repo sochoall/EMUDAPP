@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:app_movil/transportista/tabs/mapa.dart';
 import 'package:app_movil/transportista/tabs/rutas.dart';
 import 'package:app_movil/transportista/tabs/registro_estudiantes_page.dart';
+import 'package:app_movil/transportista/tabs/mapa.dart';
+import 'package:app_movil/transportista/tabs/rutas.dart';
 
 class PantallaParadas extends StatelessWidget {
   final String nombreRuta;
@@ -57,13 +59,20 @@ class HomeScreenState extends State<HomeScreen> {
         actions: <Widget>[
           FlatButton(
             child: Text("SI") ,
-            onPressed: (){
+            onPressed: ()
+            {
+              MyHomePageState.ids = [];
+              MyHomePageState.points = [];
+              RutasEstado.names = [];
+              RutasEstado.time = [];
+              RutasEstado.finalTime = [];
               Navigator.pop(context,true);
             },
           ),
           FlatButton(
             child: Text("NO") ,
-            onPressed: (){
+            onPressed: ()
+            {
               Navigator.pop(context,false);
             },
           )
@@ -72,19 +81,21 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
   @override
-  Widget build(BuildContext contexto) {
-    if (nombreRuta.toUpperCase().compareTo("IDA") == 0) {
+  Widget build(BuildContext contexto) 
+  {
+    if (nombreRuta.toUpperCase().compareTo("IDA") == 0)
       sentido = "EMBARQUE";
-    } else {
+    else
       sentido = "DESEMBARQUE";
-    }
+
     return WillPopScope(
        onWillPop: _onBack,
           child: new Scaffold(
         body: callPage(index, sentido),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: index,
-          onTap: (value) {
+          onTap: (value) 
+          {
             index = value;
             setState(() {});
           },
@@ -120,4 +131,3 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-

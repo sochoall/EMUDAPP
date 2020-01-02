@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:fave_reads/Models/conexion.dart';
 import 'package:fave_reads/fave_reads.dart';
 
-
 class Parada extends Serializable
 {
   
@@ -43,10 +42,10 @@ class Parada extends Serializable
     {
       return null;
     }
-    
   }
 
-  Future<List> obtenerDatoId(int id) async {
+  Future<List> obtenerDatoId(int id) async 
+  {
     final conexion = Conexion();
     final String sql = "select p.par_id,p.par_nombre,p.par_orden,p.par_latitud,p.par_longitud,to_char(p.par_tiempo_promedio, 'HH24:MI'),p.par_estado,p.rec_id from public.te_parada p where p.par_estado=1 and p.rec_id=$id";
     final List datos=[];

@@ -13,21 +13,23 @@ import 'package:fave_reads/Controller/recorridosentido_controller.dart';
 import 'package:fave_reads/Controller/representante_app_controller.dart';
 import 'package:fave_reads/Controller/ruta_app_controller.dart';
 import 'package:fave_reads/Controller/sentido_controller.dart';
+import 'package:fave_reads/Controller/servicio_controller.dart';
 import 'package:fave_reads/Controller/tipo_institucion_controller.dart';
 import 'package:fave_reads/Controller/tipo_monitoreo_controller.dart';
 import 'package:fave_reads/Controller/tipo_parada_controller.dart';
 import 'package:fave_reads/Controller/tipo_vehiculo_controller.dart';
 import 'package:fave_reads/Controller/usuario_controller.dart';
-import 'Controller/estado_objetos_controller.dart';
-import 'Controller/funcionario_controller.dart';
-import 'Controller/institucion_controller.dart';
-import 'Controller/objetos_perdidos_controller.dart';
-import 'Controller/representante_controller.dart';
-import 'Controller/rol_controller.dart';
-import 'Controller/ruta_controller.dart';
-import 'Controller/tipo_servicio_controller.dart';
-import 'Controller/vehiculo_controller.dart';
-import 'Controller/listar_check_estudiante_controller.dart';
+import 'package:fave_reads/Controller/estado_objetos_controller.dart';
+import 'package:fave_reads/Controller/funcionario_controller.dart';
+import 'package:fave_reads/Controller/institucion_controller.dart';
+import 'package:fave_reads/Controller/objetos_perdidos_controller.dart';
+import 'package:fave_reads/Controller/representante_controller.dart';
+import 'package:fave_reads/Controller/rol_controller.dart';
+import 'package:fave_reads/Controller/ruta_controller.dart';
+import 'package:fave_reads/Controller/tipo_servicio_controller.dart';
+import 'package:fave_reads/Controller/vehiculo_controller.dart';
+import 'package:fave_reads/Controller/listar_check_estudiante_controller.dart';
+import 'package:fave_reads/Controller/monitoreo_estudiante_controller.dart';
 import 'fave_reads.dart';
 
 /// This type initializes an application.
@@ -66,8 +68,7 @@ class FaveReadsChannel extends ApplicationChannel {
       ..route('/opcion/[:id]').link(() => OpcionController())
       ..route('/rol/[:id]').link(() => RolController())
       ..route('/representante/[:id]').link(() => RepresentanteController())
-      ..route('/representanteApp/[:id]')
-          .link(() => RepresentanteAppController())
+      ..route('/representanteApp/[:id]').link(() => RepresentanteAppController())
       ..route('/check_estudiante/[:id]').link(() => CheckEstudianteController())
       ..route('/login/[:datos]').link(() => LoginController())
       ..route('/estudianteApp/[:id]').link(() => EstudianteAppController())
@@ -83,15 +84,14 @@ class FaveReadsChannel extends ApplicationChannel {
       ..route('/recorrido/[:id]').link(() => RecorridoController())
       ..route('/monitoreo/[:id]').link(() => MonitoreoController())
       ..route('/sentido/[:id]').link(() => SentidoController())
-      ..route('/recorridosentido/[:idrec]')
-          .link(() => RecorridoSentidoController())
-      ..route('/recorridosentidoestudiante/[:idrec]')
-          .link(() => RecorridoSentidoEstudianteController())
+      ..route('/recorridosentido/[:idrec]').link(() => RecorridoSentidoController())
+      ..route('/recorridosentidoestudiante/[:idrec]').link(() => RecorridoSentidoEstudianteController())
       ..route('/tipoVehiculo/[:id]').link(() => TipoVehiculoController())
       ..route('/tipoParada/[:id]').link(() => TipoParadaController())
       ..route('/tipoMonitoreo/[:id]').link(() => TipoMonitoreoController())
-      ..route('/listarCEstudiante/[:id]')
-          .link(() => ListarCheckEstudianteController());
+      ..route('/listarCEstudiante/[:id]').link(() => ListarCheckEstudianteController())
+      ..route('/servicio/[:id]').link(() => ServicioController())
+      ..route('/monEstudiante/[:id]').link(() => Monitoreo_Estudiante_Controller());
 
     return router;
   }

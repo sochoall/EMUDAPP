@@ -1,26 +1,25 @@
-import 'package:app_movil/transportista/tabs/objetos_perdidos_page.dart';
-import 'package:app_movil/transportista/tabs/rutas.dart';
-import 'package:app_movil/transportista/widgets/menu_lateral.dart';
 import 'package:flutter/material.dart';
-import 'package:app_movil/rutas/rutas.dart';
+import 'package:app_movil/representante/mapa_estudiantes.dart';
 
-class PantallaParadasEstudiante extends StatelessWidget {
+class PantallaParadasEstudiante extends StatelessWidget 
+{
   final String nombreRuta; //Creacion de varibales que se vayan a usar
   final String idRecorrido;
   final String nombre;
   final String idUsuario;
 
   PantallaParadasEstudiante(
-      this.nombreRuta, this.idRecorrido, this.nombre, this.idUsuario);
+    this.nombreRuta, this.idRecorrido, this.nombre, this.idUsuario);
 
   @override
-  Widget build(BuildContext contexto) {
-    //final appTitle = 'Form Validation Demo';
+  Widget build(BuildContext contexto) 
+  {
     return HomeScreen(nombreRuta, idRecorrido, nombre, idUsuario);
   }
 }
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatefulWidget 
+{
   @override
   final String nombreRuta; //Creacion de varibales que se vayan a usar
   final String idRecorrido;
@@ -31,7 +30,8 @@ class HomeScreen extends StatefulWidget {
       nombreRuta, idRecorrido, nombre, idUsuario); //Paso de paramteros
 }
 
-class HomeScreenState extends State<HomeScreen> {
+class HomeScreenState extends State<HomeScreen> 
+{
   @override
   final String nombreRuta; //Creacion de varibales que se vayan a usar
   final String idRecorrido;
@@ -42,22 +42,25 @@ class HomeScreenState extends State<HomeScreen> {
       this.nombreRuta, this.idRecorrido, this.nombre, this.idUsuario);
 
   @override
-  Widget build(BuildContext contexto) {
-    if (nombreRuta.toUpperCase().compareTo("IDA") == 0) {
+  Widget build(BuildContext contexto)
+  {
+    if (nombreRuta.toUpperCase().compareTo("IDA") == 0)
       sentido = "EMBARQUE";
-    } else {
+    else
       sentido = "DESEMBARQUE";
-    }
-    return new Scaffold(
-      body: Rutas(this.idRecorrido),
 
+    MyHomePageState.location = [];
+    MyHomePageState.points = [];
+    
+    return new Scaffold(
+      body: MyApp(this.idRecorrido),
       appBar: AppBar(
-        //title: Text(aux1),
         actions: <Widget>[
           PopupMenuButton<Choice>(
-            //onSelected: _select,
-            itemBuilder: (BuildContext context) {
-              return choices.map((Choice choice) {
+            itemBuilder: (BuildContext context) 
+            {
+              return choices.map((Choice choice) 
+              {
                 return PopupMenuItem<Choice>(
                   value: choice,
                   child: Text(choice.title),
@@ -67,28 +70,19 @@ class HomeScreenState extends State<HomeScreen> {
           ),
         ],
        backgroundColor: Colors.lightBlue,
-        //Text(nombre+Icons.play_arrow+ nombreRuta,
         title: Row(children: <Widget>[
           Text(
             sentido + " ",
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          //Icon(Icons.compare_arrows),
-          //Text(
-          //" "+nombreRuta,
-          //style: TextStyle(
-          //  fontWeight: FontWeight.bold),
-          //),
         ]),
       ),
-      //drawer: Drawer(
-      //child: MenuLateral(idUsuario),
-      //)
     );
   }
 }
 
-class Choice {
+class Choice 
+{
   const Choice({this.title, this.icon});
 
   final String title;

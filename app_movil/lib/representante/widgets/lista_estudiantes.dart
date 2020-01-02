@@ -53,13 +53,8 @@ List<Widget> datosListTile(List<dynamic> datos, BuildContext context) {
       final widgetTemp = ExpansionTile(
         title: Text(opt['nombre']+" "+opt['apellido'], style: TextStyle(
                               fontWeight: FontWeight.bold),),
-        //subtitle: Text(opt['descripcion']),
         
         leading: Icon(Icons.directions_bus),
-        //onTap: (){
-        //Navigator.of(context).push(
-        //MaterialPageRoute(builder: (BuildContext contexto) => PantallaParadas(opt['nombre'])));
-        //},
         trailing: Icon(Icons.keyboard_arrow_right, color: Colors.blue),
         children: <Widget>[
           Container(
