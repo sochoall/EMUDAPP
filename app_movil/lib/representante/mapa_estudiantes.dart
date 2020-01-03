@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:geolocator/geolocator.dart';
 import 'package:latlong/latlong.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_map/flutter_map.dart';
-import 'package:app_movil/transportista/tabs/rutas.dart';
 
 Future<List<Post>> fetchPost(idR) async
 { 
@@ -79,10 +79,19 @@ class MyHomePageState extends State<MyHomePage>
 {
   final String idR; 
   Future<Post> post;
+  Position userLocation;
   MyHomePageState(this.idR);
   static List<LatLng> points = [];
   static List<LatLng> location = [];
   bool flag=false, statusFlag=false;
+
+  @override
+  void initState() {
+    super.initState();
+    new Timer.periodic(Duration(seconds: 1), (Timer) {
+      if (mounted) setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) 
@@ -94,10 +103,7 @@ class MyHomePageState extends State<MyHomePage>
           builder: (context, snapshot)
           {
             if(snapshot.hasData)
-            {
-              flag == false && points.isEmpty ? snapshot.data.map((post) => buildStopMarkers(post.ser_latitud, post.ser_longitud, post.mon_latitud, post.mon_longitud)).toList() : getUserProximity();
-              flag = true;
-            }
+              snapshot.data.map((post) => buildStopMarkers(post.ser_latitud, post.ser_longitud, post.mon_latitud, post.mon_longitud)).toList(); /*: getUserProximity();*/
             else if (snapshot.hasError)
               return Text("No hay paradas cargadas");
             return points.isEmpty ? CircularProgressIndicator() : buildMap();
@@ -107,7 +113,7 @@ class MyHomePageState extends State<MyHomePage>
     );
   }
 
-  void getUserProximity()
+  /*void getUserProximity()
   {
     double xPos, yPos, xNeg, yNeg, rad = 0.000300;
     
@@ -118,7 +124,7 @@ class MyHomePageState extends State<MyHomePage>
       xNeg=points.first.latitude-rad;
       yNeg=points.first.longitude-rad;
 
-      /*if((userLocation.latitude<xPos && userLocation.longitude<yPos) && (userLocation.latitude>points.first.latitude && userLocation.longitude>points.first.longitude))
+      if((userLocation.latitude<xPos && userLocation.longitude<yPos) && (userLocation.latitude>points.first.latitude && userLocation.longitude>points.first.longitude))
         statusFlag=true;
       else if((userLocation.latitude>xNeg && userLocation.longitude<yPos) && (userLocation.latitude<points.first.latitude && userLocation.longitude>points.first.longitude))
         statusFlag=true;
@@ -127,7 +133,7 @@ class MyHomePageState extends State<MyHomePage>
       else if((userLocation.latitude<xPos && userLocation.longitude>yNeg) && (userLocation.latitude>points.first.latitude && userLocation.longitude<points.first.longitude)) 
         statusFlag=true;
       else
-        getFlagStatus();*/
+        getFlagStatus();
     }
   }
 
@@ -138,7 +144,7 @@ class MyHomePageState extends State<MyHomePage>
       RutasEstado.names.removeAt(0);
       statusFlag=false;
     }
-  }
+  }*/
 
   FlutterMap buildMap()
   {
@@ -150,8 +156,8 @@ class MyHomePageState extends State<MyHomePage>
         point: latlng,
         builder: (ctx) => Container(
           child: IconButton(
-            icon: Icon(Icons.location_on),
-            color: Colors.red,
+            icon: Icon(Icons.home),
+            color: Colors.blue,
             iconSize: 45.0,
             onPressed:()
             {
@@ -164,7 +170,7 @@ class MyHomePageState extends State<MyHomePage>
 
     return FlutterMap(
       options: MapOptions(
-        center: LatLng(points.first.latitude, points.first.longitude),
+        center: LatLng(location.last.latitude, location.last.longitude),
         maxZoom: 19.0, 
         minZoom: 12,
         zoom: 15,
@@ -186,12 +192,12 @@ class MyHomePageState extends State<MyHomePage>
       new Marker(
         width: 45.0,
         height: 45.0,
-        point: LatLng(location.first.latitude, location.first.longitude),
+        point: LatLng(location.last.latitude, location.last.longitude),
         builder: (context) => new Container(
           child: IconButton(
-            icon: Icon(Icons.my_location),
-            color: Colors.lightBlue,
-            iconSize: 35.0,
+            icon: Icon(Icons.airport_shuttle),
+            color: Colors.red,
+            iconSize: 45.0,
             onPressed: ()
             {
               

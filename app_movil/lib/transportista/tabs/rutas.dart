@@ -54,30 +54,33 @@ class RutasEstado extends State<RutaParada> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return new Scaffold(
-        body: names == null
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
-            : Center(
-                child: FutureBuilder<List<Post>>(
-                    future: listaParadasProvider.cargarData7(idRecorrido),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        flag == false && names.isEmpty
-                            ? snapshot.data
-                                .map((post) =>
-                                    buildLists(post.nombre, post.tEstimado))
-                                .toList()
-                            : flag;
-                        flag = true;
-                      } else if (snapshot.hasError)
-                        return Text("No hay paradas cargadas");
+      body: names == null ? 
+      Center(
+        child: CircularProgressIndicator(),
+      )
+      : 
+      Center(
+        child: FutureBuilder<List<Post>>(
+          future: listaParadasProvider.cargarData7(idRecorrido),
+          builder: (context, snapshot) 
+          {
+            if (snapshot.hasData) 
+            {
+              flag == false && names.isEmpty ? snapshot.data.map((post) => buildLists(post.nombre, post.tEstimado)).toList() : flag;
+              flag = true;
+            } 
+            else if (snapshot.hasError)
+              return Text("No hay paradas cargadas");
 
-                      buildTimeList();
-                      return buildScrollView();
-                    })));
+            buildTimeList();
+            return buildScrollView();
+          }
+        )
+      )
+    );
   }
 
   CustomScrollView buildScrollView() {
