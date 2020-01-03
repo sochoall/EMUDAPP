@@ -7,23 +7,23 @@ import '../../provider.dart';
 String idRuta = "";
 
 class ListaRecorridoEstudiante extends StatelessWidget {
-  final String aux;
+  final String id_estudiante;
   final String id_usuario;
-  ListaRecorridoEstudiante(this.aux, this.id_usuario);
+  ListaRecorridoEstudiante(this.id_estudiante, this.id_usuario);
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: listaRecorridoSentidoEstudiante.cargarData6(aux),
+        future: listaRecorridoSentidoEstudiante.cargarData6(id_estudiante),
         initialData: [],
         builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
           return Column(
-            children: _listItems(snapshot.data, context),
+            children: _listItems(snapshot.data, context,id_estudiante),
           );
         });
   }
 }
 
-List<Widget> _listItems(List<dynamic> data, BuildContext context) {
+List<Widget> _listItems(List<dynamic> data, BuildContext context,String id_estudiante) {
   final List<Widget> opciones = [];
   if (data == null) {
     return [];
@@ -59,7 +59,7 @@ List<Widget> _listItems(List<dynamic> data, BuildContext context) {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (BuildContext contexto) => PantallaParadasEstudiante(
                     opt['sen_nombre'].toString(),
-                    opt['rec_id'].toString(),
+                    id_estudiante,
                     opt['rut_nombre'].toString(),
                     id_usuario)));
           },
