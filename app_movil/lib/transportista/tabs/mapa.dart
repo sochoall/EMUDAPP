@@ -182,7 +182,7 @@ class MyHomePageState extends State<MyHomePage>
         point: latlng,
         builder: (ctx) => Container(
           child: IconButton(
-            icon: Icon(Icons.airport_shuttle),
+            icon: Icon(Icons.location_on),
             color: Colors.red,
             iconSize: 45.0,
             onPressed:()
@@ -221,7 +221,7 @@ class MyHomePageState extends State<MyHomePage>
         point: LatLng(userLocation.latitude, userLocation.longitude),
         builder: (context) => new Container(
           child: IconButton(
-            icon: Icon(Icons.my_location),
+            icon: Icon(Icons.airport_shuttle),
             color: Colors.lightBlue,
             iconSize: 35.0,
             onPressed: ()
