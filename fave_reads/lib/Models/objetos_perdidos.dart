@@ -170,7 +170,7 @@ class ObjetosPerdidos extends Serializable {
 final conexion = Conexion();
     print(fechaInicio);
     print(fechaFin);
-final String sql ="select * from public.te_objetos_perdidos where eob_id!=0 and ope_fecha_hora >= '$fechaInicio 00:00:00' and ope_fecha_devolucion <= '$fechaFin 00:00:00' and rec_id=$idrecorrido" ;
+final String sql ="select * from public.te_objetos_perdidos where eob_id!=0 and ope_fecha_hora >= '$fechaInicio 00:00:00' and ope_fecha_hora <= '$fechaFin 00:00:00' and rec_id=$idrecorrido" ;
 print(sql);
 //final String sql2 ="SELECT COUNT(correo) FROM public.te_usuario WHERE usu_correo=$correo and usu_password=$cod";
  final List datos = [];
