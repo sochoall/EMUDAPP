@@ -48,10 +48,7 @@ List<Widget> _listItems(List<dynamic> data, BuildContext context, idUsuario) {
           accountEmail: new Text(opt['correo'].replaceAll('*', '@')),
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage('assets/menu-img.png'), fit: BoxFit.cover)),
-          currentAccountPicture: new CircleAvatar(
-            backgroundImage: AssetImage('assets/cabecera_img.png'),
-          ),
+                  image: AssetImage('assets/menu.jpg'), fit: BoxFit.cover)),
         ));
     },
   );
