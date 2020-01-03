@@ -53,12 +53,12 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/menu-img.jpg
+    - assets/menu.jpg
     - assets/emov.png
     - assets/padre.jpg
     - assets/ruta.jpg
     - assets/transporte.png
-    - assets/cabecera_img.jpg
+    - assets/cabecera_usuario.jpg
     - assets/menu_opts.json
     - assets/error.png
   #  - images/a_dot_ham.jpeg
