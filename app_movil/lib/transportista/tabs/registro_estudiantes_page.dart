@@ -11,16 +11,19 @@ class listado extends StatefulWidget {
   _listadoState createState() => _listadoState(idParada);
 }
 
-class _listadoState extends State<listado> {
+class _listadoState extends State<listado> 
+{
   final idParada;
   _listadoState(this.idParada);
   final scaffoldKey = GlobalKey<ScaffoldState>();
   List<Estudiante> estudiantes = List<Estudiante>();
-  Future<void> _getEstudiantes() async {
-    final response =
-        await http.get("http://192.168.137.1:8888/listarCEstudiante/$idParada");
+
+  Future<void> _getEstudiantes() async 
+  {
+    final response = await http.get("http://192.168.137.1:8888/listarCEstudiante/$idParada");
     var jsonData = json.decode(response.body);
-    for (var object in jsonData) {
+    for (var object in jsonData) 
+    {
       Estudiante estudiante = Estudiante();
       estudiante.id = int.parse(object['id'].toString());
       estudiante.nombre = object['nombre'].toString();
@@ -30,15 +33,20 @@ class _listadoState extends State<listado> {
       estudiantes.add(estudiante);
     }
   }
+
   @override
-  void initState() {
+  void initState() 
+  {
     super.initState();
-    _getEstudiantes().then((result) {
+    _getEstudiantes().then((result) 
+    {
       setState(() {});
     });
   }
+  
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return Scaffold(
       key: scaffoldKey,
       body: Center(
