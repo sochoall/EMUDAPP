@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../provider.dart';
 
 String idUsuario1 = "";
-
 class MenuLateral extends StatelessWidget {
   final String idUsuario;
   MenuLateral(this.idUsuario);
@@ -45,7 +44,7 @@ List<Widget> _listItems(List<dynamic> data, BuildContext context, idUsuario) {
       opciones
         ..add(UserAccountsDrawerHeader(
           accountName: new Text(opt['nombre'] + " " + opt['apellido']),
-          accountEmail: new Text(opt['correo']),
+          accountEmail: new Text(opt['correo'].replaceAll('*', '@')),
           decoration: BoxDecoration(
               image: DecorationImage(
                   image: AssetImage('assets/menu.jpg'), fit: BoxFit.cover)),

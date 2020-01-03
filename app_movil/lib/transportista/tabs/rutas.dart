@@ -7,9 +7,7 @@ import 'package:app_movil/transportista/tabs/mapa.dart';
 class Post {
   String nombre;
   String tEstimado;
-
   Post({this.nombre, this.tEstimado});
-
   factory Post.fromJson(Map<String, dynamic> json) {
     return Post(nombre: json['nombre'], tEstimado: json['tiempoPromedio']);
   }
@@ -19,7 +17,6 @@ class Rutas extends StatelessWidget {
   @override
   final String idRecorrido;
   Rutas(this.idRecorrido);
-
   Widget build(BuildContext context) {
     return new MaterialApp(
       home: new RutaParada(idRecorrido),
@@ -31,7 +28,6 @@ class Rutas extends StatelessWidget {
 class RutaParada extends StatefulWidget {
   @override
   final String idRecorrido;
-
   RutaParada(this.idRecorrido);
   RutasEstado createState() => new RutasEstado(idRecorrido);
 }
@@ -44,7 +40,6 @@ class RutasEstado extends State<RutaParada> {
   RutasEstado(this.idRecorrido);
   List<int> hours = [], minutes = [], total = [];
   static List<String> names = [], time = [], finalTime = [];
-
   @override
   void initState() {
     super.initState();
@@ -52,7 +47,6 @@ class RutasEstado extends State<RutaParada> {
       if (mounted) setState(() {});
     });
   }
-
   @override
   Widget build(BuildContext context) 
   {
@@ -74,7 +68,6 @@ class RutasEstado extends State<RutaParada> {
             } 
             else if (snapshot.hasError)
               return Text("No hay paradas cargadas");
-
             buildTimeList();
             return buildScrollView();
           }
