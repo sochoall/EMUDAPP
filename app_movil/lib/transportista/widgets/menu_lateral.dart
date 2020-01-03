@@ -45,7 +45,7 @@ List<Widget> _listItems(List<dynamic> data, BuildContext context, idUsuario) {
       opciones
         ..add(UserAccountsDrawerHeader(
           accountName: new Text(opt['nombre'] + " " + opt['apellido']),
-          accountEmail: new Text(opt['correo'].replaceAll('*', '@')),
+          accountEmail: new Text(opt['correo']),
           decoration: BoxDecoration(
               image: DecorationImage(
                   image: AssetImage('assets/menu.jpg'), fit: BoxFit.cover)),

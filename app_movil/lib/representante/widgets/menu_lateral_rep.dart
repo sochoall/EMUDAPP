@@ -53,7 +53,7 @@ List<Widget> _listItems(List<dynamic> data, BuildContext context,idUsuario) {
         ..add(UserAccountsDrawerHeader(
           //Cabecera dentro el menu con nombre e imagen
           accountName: new Text(opt['nombre'] + " " + opt['apellido']),
-          accountEmail: new Text(opt['correo'].replaceAll('*', '@')),
+          accountEmail: new Text(opt['correo']),
           decoration: BoxDecoration(
               image: DecorationImage(
                   image: AssetImage('assets/menu.jpg'), fit: BoxFit.cover)),
