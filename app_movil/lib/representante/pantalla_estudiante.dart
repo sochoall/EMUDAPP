@@ -38,8 +38,7 @@ class HomeScreenState extends State<HomeScreen>
   final String nombre;
   final String idUsuario;
   String sentido = "";
-  HomeScreenState(
-      this.nombreRuta, this.idRecorrido, this.nombre, this.idUsuario);
+  HomeScreenState(this.nombreRuta, this.idRecorrido, this.nombre, this.idUsuario);
 
   @override
   Widget build(BuildContext contexto)

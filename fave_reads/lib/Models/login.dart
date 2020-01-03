@@ -7,7 +7,6 @@ class Login extends Serializable
   
   String usuario;
   String pss;
- 
 
   Future<int>busquedaUsuario(Login dato) async
   {
@@ -39,8 +38,6 @@ class Login extends Serializable
     }
   }
 
-   
-
   @override
   Map<String, dynamic> asMap() => {
     'usuario': usuario,
@@ -52,6 +49,4 @@ class Login extends Serializable
     usuario= object['usuario'].toString();
     pss= object['pss'].toString();
   }
-
-
 }

@@ -57,11 +57,13 @@ List<Widget> _listItems(List<dynamic> data, BuildContext context) {
           trailing: Icon(Icons.keyboard_arrow_right, color: Colors.blue),
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext contexto) => PantallaParadasEstudiante(
-                    opt['sen_nombre'].toString(),
-                    opt['rec_id'].toString(),
-                    opt['rut_nombre'].toString(),
-                    id_usuario)));
+              builder: (BuildContext contexto) => PantallaParadasEstudiante(
+                opt['sen_nombre'].toString(),
+                opt['rec_id'].toString(),
+                opt['rut_nombre'].toString(),
+                id_usuario)
+              )
+            );
           },
         );
         opciones..add(widgetTemp);
