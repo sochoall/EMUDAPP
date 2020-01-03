@@ -4,17 +4,17 @@ import 'package:app_movil/representante/mapa_estudiantes.dart';
 class PantallaParadasEstudiante extends StatelessWidget 
 {
   final String nombreRuta; //Creacion de varibales que se vayan a usar
-  final String idRecorrido;
+  final String id_estudiante;
   final String nombre;
   final String idUsuario;
 
   PantallaParadasEstudiante(
-    this.nombreRuta, this.idRecorrido, this.nombre, this.idUsuario);
+    this.nombreRuta, this.id_estudiante, this.nombre, this.idUsuario);
 
   @override
   Widget build(BuildContext contexto) 
   {
-    return HomeScreen(nombreRuta, idRecorrido, nombre, idUsuario);
+    return HomeScreen(nombreRuta, id_estudiante, nombre, idUsuario);
   }
 }
 
@@ -22,23 +22,24 @@ class HomeScreen extends StatefulWidget
 {
   @override
   final String nombreRuta; //Creacion de varibales que se vayan a usar
-  final String idRecorrido;
+  final String id_estudiante;
   final String nombre;
   final String idUsuario;
-  HomeScreen(this.nombreRuta, this.idRecorrido, this.nombre, this.idUsuario);
+  HomeScreen(this.nombreRuta, this.id_estudiante, this.nombre, this.idUsuario);
   HomeScreenState createState() => HomeScreenState(
-      nombreRuta, idRecorrido, nombre, idUsuario); //Paso de paramteros
+      nombreRuta, id_estudiante, nombre, idUsuario); //Paso de paramteros
 }
 
 class HomeScreenState extends State<HomeScreen> 
 {
   @override
   final String nombreRuta; //Creacion de varibales que se vayan a usar
-  final String idRecorrido;
+  final String id_estudiante;
   final String nombre;
   final String idUsuario;
   String sentido = "";
-  HomeScreenState(this.nombreRuta, this.idRecorrido, this.nombre, this.idUsuario);
+  HomeScreenState(
+      this.nombreRuta, this.id_estudiante, this.nombre, this.idUsuario);
 
   @override
   Widget build(BuildContext contexto)
@@ -52,7 +53,7 @@ class HomeScreenState extends State<HomeScreen>
     MyHomePageState.points = [];
     
     return new Scaffold(
-      body: MyApp(this.idRecorrido),
+      body: MyApp(this.id_estudiante),
       appBar: AppBar(
         actions: <Widget>[
           PopupMenuButton<Choice>(

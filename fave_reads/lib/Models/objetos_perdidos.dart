@@ -72,23 +72,62 @@ class ObjetosPerdidos extends Serializable {
     }
   }
 
-  Future<ObjetosPerdidos> obtenerDatoId(int id) async {
-    final conexion = Conexion();
-    final String sql =
-        "select * from public.te_objetos_perdidos where rut_id=$id";
-
+  Future<List> obtenerDatoId(int id) async {
+   final conexion = Conexion();
+    String sql =
+        "select * from public.te_objetos_perdidos where eob_id!=0 and rec_id=$id";
+    final List datos = [];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
-    if (query != null && query.isNotEmpty) {
-      final reg = ObjetosPerdidos();
-      reg.id = int.parse(query[0][0].toString());
-      reg.fechaHora = query[0][1].toString();
-      reg.descripcion = query[0][2].toString();
-      reg.fechaDevolucion = query[0][3].toString();
-      reg.recId = int.parse(query[0][4].toString());
-      reg.eobId = int.parse(query[0][5].toString());
-      reg.estId = int.parse(query[0][6].toString());
 
-      return reg;
+    if (query != null && query.isNotEmpty) {
+      for (int i = 0; i < query.length; i++) {
+        final reg = ObjetosPerdidos();
+
+        if (query[i][1] != null) {
+          reg.id = int.parse(query[i][0].toString());
+        } else {
+          reg.id = 1;
+        }
+
+        if (query[i][1] != null) {
+          reg.fechaHora = query[i][1].toString();
+        } else {
+          reg.fechaHora = "";
+        }
+
+        if (query[i][2] != null) {
+          reg.descripcion = query[i][2].toString();
+        } else {
+          reg.descripcion = "";
+        }
+
+        if (query[i][3] != null) {
+          reg.fechaDevolucion = query[i][3].toString();
+        } else {
+          reg.fechaDevolucion = "";
+        }
+
+        if (query[i][4] != null) {
+          reg.recId = int.parse(query[i][4].toString());
+        } else {
+          reg.recId = 0;
+        }
+
+        if (query[i][5] != null) {
+          reg.eobId = int.parse(query[i][5].toString());
+        } else {
+          reg.eobId = 0;
+        }
+
+        if (query[i][6] != null) {
+          reg.estId = int.parse(query[i][6].toString());
+        } else {
+          reg.estId = 0;
+        }
+
+        datos.add(reg.asMap());
+      }
+      return datos;
     } else {
       return null;
     }
@@ -99,12 +138,12 @@ class ObjetosPerdidos extends Serializable {
     String sql="";
     if (dato.fechaDevolucion.isEmpty) {
       sql =
-          "INSERT INTO public.te_objetos_perdidos(ope_id, ope_fecha_hora, ope_descripcion, rec_id, eob_id,est_id)"
-          " VALUES (${dato.id},'${dato.fechaHora}', '${dato.descripcion}',0,1,0)";
+          "INSERT INTO public.te_objetos_perdidos(ope_fecha_hora, ope_descripcion, rec_id, eob_id,est_id)"
+          " VALUES ('${dato.fechaHora}', '${dato.descripcion}','${dato.recId}','${dato.eobId}',null)";
     } else {
       sql =
-          "INSERT INTO public.te_objetos_perdidos(ope_id, ope_fecha_hora, ope_descripcion, ope_fecha_devolucion, rec_id, eob_id,est_id)"
-          " VALUES (${dato.id},'${dato.fechaHora}', '${dato.descripcion}','${dato.fechaDevolucion}',0,1,0)";
+          "INSERT INTO public.te_objetos_perdidos(ope_fecha_hora, ope_descripcion, ope_fecha_devolucion, rec_id, eob_id,est_id)"
+          " VALUES ('${dato.fechaHora}', '${dato.descripcion}','${dato.fechaDevolucion}','${dato.recId}','${dato.eobId}',null)";
     }
 
     print(sql);
@@ -114,8 +153,9 @@ class ObjetosPerdidos extends Serializable {
   Future<void> modificar(int id, ObjetosPerdidos dato) async {
     final conexion = Conexion();
     final String sql =
-        "UPDATE public.te_objetos_perdidos SET ope_fecha_hora='${dato.fechaHora}', ope_descripcion='${dato.descripcion}', ope_fecha_devolucion='${dato.fechaDevolucion}'"
+        "UPDATE public.te_objetos_perdidos SET ope_fecha_hora='${dato.fechaHora}', ope_descripcion='${dato.descripcion}', ope_fecha_devolucion='${dato.fechaDevolucion}' , eob_id='${dato.eobId}'"
         " WHERE ope_id=$id";
+        print(sql);
     await conexion.operaciones(sql);
   }
 
@@ -126,7 +166,72 @@ class ObjetosPerdidos extends Serializable {
     await conexion.operaciones(sql.toString());
   }
 
+ Future<List> busquedaO(String fechaInicio, String fechaFin, String idrecorrido)async{
+final conexion = Conexion();
+    print(fechaInicio);
+    print(fechaFin);
+final String sql ="select * from public.te_objetos_perdidos where eob_id!=0 and ope_fecha_hora >= '$fechaInicio 00:00:00' and ope_fecha_hora <= '$fechaFin 00:00:00' and rec_id=$idrecorrido" ;
+print(sql);
+//final String sql2 ="SELECT COUNT(correo) FROM public.te_usuario WHERE usu_correo=$correo and usu_password=$cod";
+ final List datos = [];
+    final List<dynamic> query = await conexion.obtenerTabla(sql);
+
+    if (query != null && query.isNotEmpty) {
+      for (int i = 0; i < query.length; i++) {
+        final reg = ObjetosPerdidos();
+
+        if (query[i][1] != null) {
+          reg.id = int.parse(query[i][0].toString());
+        } else {
+          reg.id = 1;
+        }
+
+        if (query[i][1] != null) {
+          reg.fechaHora = query[i][1].toString();
+        } else {
+          reg.fechaHora = "";
+        }
+
+        if (query[i][2] != null) {
+          reg.descripcion = query[i][2].toString();
+        } else {
+          reg.descripcion = "";
+        }
+
+        if (query[i][3] != null) {
+          reg.fechaDevolucion = query[i][3].toString();
+        } else {
+          reg.fechaDevolucion = "";
+        }
+
+        if (query[i][4] != null) {
+          reg.recId = int.parse(query[i][4].toString());
+        } else {
+          reg.recId = 0;
+        }
+
+        if (query[i][5] != null) {
+          reg.eobId = int.parse(query[i][5].toString());
+        } else {
+          reg.eobId = 0;
+        }
+
+        if (query[i][6] != null) {
+          reg.estId = int.parse(query[i][6].toString());
+        } else {
+          reg.estId = 0;
+        }
+
+        datos.add(reg.asMap());
+      }
+      return datos;
+    } else {
+      return null;
+    }
+ }
+
   @override
+
   Map<String, dynamic> asMap() => {
         'id': id,
         'fechaHora': fechaHora,
@@ -143,8 +248,8 @@ class ObjetosPerdidos extends Serializable {
     fechaHora = object['fechaHora'].toString();
     descripcion = object['descripcion'].toString();
     fechaDevolucion = object['fechaDevolucion'].toString();
-    recId = 0; //int.parse(object['recId'].toString());
-    eobId = 0; //int.parse(object['eobId'].toString());
+    recId = int.parse(object['recId'].toString());
+    eobId = int.parse(object['eobId'].toString());
     estId = 0; //int.parse(object['estId'].toString());
   }
 }

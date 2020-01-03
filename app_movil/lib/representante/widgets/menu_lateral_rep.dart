@@ -56,11 +56,11 @@ List<Widget> _listItems(List<dynamic> data, BuildContext context,idUsuario) {
           accountEmail: new Text(opt['correo'].replaceAll('*', '@')),
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage('assets/menu-img.jpg'), fit: BoxFit.cover)),
+                  image: AssetImage('assets/menu-img.png'), fit: BoxFit.cover)),
 
           currentAccountPicture: new CircleAvatar(
             //Se puede cargar una imagen circular
-            backgroundImage: AssetImage('assets/cabecera_img.jpg'),
+            backgroundImage: AssetImage('assets/cabecera_img.png'),
             //NetworkImage("https://cdn.mos.cms.futurecdn.net/hX4zXbRctPaYiaw2PgiEUU.jpg"),
           ),
         ));
