@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../provider.dart';
 
 String idRuta = "";
-
 class ListaRecorridoObjetoParada extends StatelessWidget {
   final String aux;
   final String id_usuario;
@@ -23,11 +22,9 @@ class ListaRecorridoObjetoParada extends StatelessWidget {
 
 List<Widget> _listItems(List<dynamic> data, BuildContext context) {
   final List<Widget> opciones = [];
-
   if (data == null) {
     return [];
   }
-
   data.forEach((opt) {
     final widgetTemp = ListTile(
       title: Text(opt['nombresen']),
