@@ -105,7 +105,7 @@ class MyHomePageState extends State<MyHomePage>
             if(snapshot.hasData)
               snapshot.data.map((post) => buildStopMarkers(post.ser_latitud, post.ser_longitud, post.mon_latitud, post.mon_longitud)).toList(); /*: getUserProximity();*/
             else if (snapshot.hasError)
-              return Text("No hay paradas cargadas");
+              return Text("No existen registros en este momento");
             return points.isEmpty ? CircularProgressIndicator() : buildMap();
           }
         )

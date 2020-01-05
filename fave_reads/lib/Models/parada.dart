@@ -47,7 +47,7 @@ class Parada extends Serializable
   Future<List> obtenerDatoId(int id) async 
   {
     final conexion = Conexion();
-    final String sql = "select p.par_id,p.par_nombre,p.par_orden,p.par_latitud,p.par_longitud,to_char(p.par_tiempo_promedio, 'HH24:MI'),p.par_estado,p.rec_id from public.te_parada p where p.par_estado=1 and p.rec_id=$id";
+    final String sql = "select p.par_id,p.par_nombre,p.par_orden,p.par_latitud,p.par_longitud,to_char(p.par_tiempo_promedio, 'HH24:MI'),p.par_estado,p.rec_id from public.te_parada p where p.par_estado=1 and p.rec_id=$id order by par_orden";
     final List datos=[];
     final List<dynamic> query = await conexion.obtenerTabla(sql);
 

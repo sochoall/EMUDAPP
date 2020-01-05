@@ -4,23 +4,27 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:app_movil/transportista/tabs/mapa.dart';
 
-class Post {
+class Post 
+{
   String nombre;
   String tEstimado;
 
   Post({this.nombre, this.tEstimado});
 
-  factory Post.fromJson(Map<String, dynamic> json) {
+  factory Post.fromJson(Map<String, dynamic> json) 
+  {
     return Post(nombre: json['nombre'], tEstimado: json['tiempoPromedio']);
   }
 }
 
-class Rutas extends StatelessWidget {
+class Rutas extends StatelessWidget 
+{
   @override
   final String idRecorrido;
   Rutas(this.idRecorrido);
 
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return new MaterialApp(
       home: new RutaParada(idRecorrido),
       debugShowCheckedModeBanner: false,
@@ -28,7 +32,8 @@ class Rutas extends StatelessWidget {
   }
 }
 
-class RutaParada extends StatefulWidget {
+class RutaParada extends StatefulWidget 
+{
   @override
   final String idRecorrido;
 
@@ -36,7 +41,8 @@ class RutaParada extends StatefulWidget {
   RutasEstado createState() => new RutasEstado(idRecorrido);
 }
 
-class RutasEstado extends State<RutaParada> {
+class RutasEstado extends State<RutaParada> 
+{
   Timer timer;
   bool flag = false;
   Future<Post> post;
@@ -48,7 +54,8 @@ class RutasEstado extends State<RutaParada> {
   @override
   void initState() {
     super.initState();
-    new Timer.periodic(Duration(seconds: 1), (Timer) {
+    new Timer.periodic(Duration(seconds: 1), (Timer) 
+    {
       if (mounted) setState(() {});
     });
   }
@@ -83,7 +90,8 @@ class RutasEstado extends State<RutaParada> {
     );
   }
 
-  CustomScrollView buildScrollView() {
+  CustomScrollView buildScrollView() 
+  {
     return new CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
@@ -101,52 +109,60 @@ class RutasEstado extends State<RutaParada> {
               SliverFixedExtentList(
                 itemExtent: 50.0,
                 delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) {
-                  return index / names.length == 0
-                      ? Container(
-                          color: Colors.lightBlue,
-                          height: 50,
-                          child: Center(
-                              child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text("Parada",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black)),
-                              Text("Tiempo Estimado",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black))
-                            ],
-                          )),
-                          padding: EdgeInsets.all(10.0),
+                  (BuildContext context, int index) 
+                  {
+                    return index / names.length == 0
+                    ? Container(
+                      color: Colors.lightBlue,
+                      height: 50,
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text("Parada",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black)),
+                            Text("Tiempo Estimado",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black
+                              )
+                            )
+                          ],
                         )
-                      : Container(
-                          height: 50,
-                          color: index - 1 == 0
-                              ? Colors.grey.withOpacity(0.2)
-                              : null,
-                          child: Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: names.isEmpty
-                                  ? <Widget>[CircularProgressIndicator()]
-                                  : <Widget>[
-                                      Text(names[index - 1],
-                                          style: index - 1 == 0
-                                              ? TextStyle(color: Colors.red)
-                                              : TextStyle(color: Colors.black)),
-                                      Text(finalTime[index - 1],
-                                          style: index - 1 == 0
-                                              ? TextStyle(color: Colors.red)
-                                              : TextStyle(color: Colors.black)),
-                                    ],
+                      ),
+                      padding: EdgeInsets.all(10.0),
+                    )
+                    : Container(
+                      height: 50,
+                      color: index - 1 == 0
+                      ? Colors.grey.withOpacity(0.2)
+                      : null,
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: names.isEmpty
+                          ? <Widget>[Text("Ha finalizado exitosamente el recorrido!",)]
+                          : <Widget>[
+                            Text(names[index - 1],
+                              style: index - 1 == 0
+                              ? TextStyle(color: Colors.red)
+                              : TextStyle(color: Colors.black)
                             ),
-                          ),
-                          padding: EdgeInsets.all(10.0),
-                        );
-                }, childCount: names.length + 1),
+                            Text(finalTime[index - 1],
+                              style: index - 1 == 0
+                              ? TextStyle(color: Colors.red)
+                              : TextStyle(color: Colors.black)
+                            ),
+                          ],
+                        ),
+                      ),
+                      padding: EdgeInsets.all(10.0),
+                    );
+                  }, 
+                  childCount: names.length + 1
+                ),
               )
             ],
           ),
@@ -155,7 +171,8 @@ class RutasEstado extends State<RutaParada> {
     );
   }
 
-  void buildLists(String name, String tiempo) {
+  void buildLists(String name, String tiempo) 
+  {
     List<String> timeValues = tiempo.split(":");
 
     names.add(name);
@@ -163,23 +180,29 @@ class RutasEstado extends State<RutaParada> {
     minutes.add(int.parse(timeValues[1]));
   }
 
-  void buildTimeList() {
+  void buildTimeList() 
+  {
     int cont = 0;
 
-    for (var i = 0; i < minutes.length; i++) {
-      if (i == 0) {
+    for (var i = 0; i < minutes.length; i++) 
+    {
+      if (i == 0) 
+      {
         hours.add(cont);
         total.add(minutes[i]);
-      } else if (minutes[i] + total[i - 1] >= 60) {
+      } 
+      else if (minutes[i] + total[i - 1] >= 60) 
+      {
         cont++;
         hours.add(cont);
         total.add((minutes[i] + total[i - 1]) - 60);
-      } else {
+      } 
+      else 
+      {
         hours.add(cont);
         total.add(minutes[i] + total[i - 1]);
       }
-      finalTime.add(
-          "${DateFormat('hh:mm:ss').format(DateTime.now().add(new Duration(hours: hours[i], minutes: total[i])))}");
+      finalTime.add("${DateFormat('hh:mm:ss').format(DateTime.now().add(new Duration(hours: hours[i], minutes: total[i])))}");
     }
   }
 }
